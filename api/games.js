@@ -28,10 +28,10 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-// PUT /api/games
+// POST /api/games
 // Adds a game
 // req.body: {game_name: [string - game name]}
-router.put("/", async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   try {
     const game = await db.one(
       "insert into games (game_name) values ($1) returning *",

@@ -49,14 +49,35 @@ router.get("/:id/events", async (req, res, next) => {
   }
 });
 
-// PUT /api/users
+// POST /api/users
 // Adds a user
 // req.body: {user_username: [string - username], user_fullname: [string - full name]}
-router.put("/", async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   try {
     const user = await db.one(
       "insert into users (user_username, user_fullname) values ($1, $2) returning *",
       [req.body.user_username, req.body.user_fullname]
+    );
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(400).json({ success: false, error });
+  }
+});
+
+// PUT /api/users/id
+// Updates a user
+// req.body: {user_username: [string - username], user_fullname: [string - full name]}
+router.put("/:id", async (req, res, next) => {
+  try {
+    const { user_username, user_fullname } = req.body;
+    const user = await db.one(
+      `
+      update users
+      set user_username = $2, user_fullname = $3
+      where user_id = $1
+      returning *;
+    `,
+      [req.params.id, user_username, user_fullname]
     );
     res.status(200).json(user);
   } catch (error) {

@@ -59,9 +59,9 @@ router.get("/:id/users", async (req, res, next) => {
   }
 });
 
-// PUT /api/events
+// POST /api/events
 // Add an event
-router.put("/", async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   try {
     const { event_date_time, game_id, host_id } = req.body;
     const event = await db.one(
