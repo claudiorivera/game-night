@@ -1,0 +1,26 @@
+{
+  "name": "game-night-server",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "build": "yarn --cwd client install && yarn --cwd client build",
+    "dev-server": "nodemon --ignore /client ./bin/www",
+    "dev-server-start": "DEBUG=game-night-server:* yarn run dev-server",
+    "client-start": "yarn --cwd client start",
+    "client-install": "yarn --cwd client",
+    "dev": "concurrently --names 'SERVER,CLIENT' -c 'bgBlue.bold,bgMagenta.bold' 'yarn run dev-server-start' 'yarn run client-start'"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
+    "express": "~4.16.1",
+    "morgan": "~1.9.1",
+    "pg-promise": "^10.5.6"
+  },
+  "devDependencies": {
+    "concurrently": "^5.2.0",
+    "nodemon": "^2.0.4"
+  }
+}
