@@ -28,6 +28,27 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
+// GET /api/users/id/events
+// Returns all events a given user id is attending
+router.get("/:id/events", async (req, res, next) => {
+  try {
+    const events = await db.any(
+      `
+      select users_events.event_id, events.event_date_time, games.game_id, games.game_name, users.user_id as host_id, users.user_username as host_username, users.user_fullname as host_fullname
+      from users_events
+      join events on users_events.event_id = events.event_id
+      join games on events.game_id = games.game_id
+      join users on events.host_id = users.user_id
+      where users_events.user_id = $1;
+  `,
+      [req.params.id]
+    );
+    res.status(200).json(events);
+  } catch (error) {
+    res.status(400).json({ success: false, error });
+  }
+});
+
 // PUT /api/users
 // Adds a user
 // req.body: {user_username: [string - username], user_fullname: [string - full name]}

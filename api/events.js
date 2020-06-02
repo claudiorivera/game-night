@@ -40,6 +40,25 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
+// GET /api/events/id/users
+// Returns a list of users attending an event by id
+router.get("/:id/users", async (req, res, next) => {
+  try {
+    const users = await db.any(
+      `
+      select users.user_id, users.user_username, users.user_fullname
+      from users
+      join users_events on users_events.user_id = users.user_id
+      where users_events.event_id = $1;
+    `,
+      [req.params.id]
+    );
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(400).json({ success: false, error });
+  }
+});
+
 // PUT /api/events
 // Add an event
 router.put("/", async (req, res, next) => {
@@ -80,6 +99,23 @@ router.put("/:id", async (req, res, next) => {
   } catch (error) {
     console.log(error);
 
+    res.status(400).json({ success: false, error });
+  }
+});
+
+// DELETE /api/events/id
+// Deletes an event by id
+router.delete("/:id", async (req, res, next) => {
+  try {
+    await db.none(
+      `
+      delete from events
+      where events.event_id = $1;
+    `,
+      [req.params.id]
+    );
+    res.status(200).json({ success: true });
+  } catch (error) {
     res.status(400).json({ success: false, error });
   }
 });
