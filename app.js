@@ -1,20 +1,25 @@
-require("dotenv").config({ path: "config/.env" });
+require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-
-const usersRouter = require("./api/users");
-const gamesRouter = require("./api/games");
-const eventsRouter = require("./api/events");
+const helmet = require("helmet");
+const compression = require("compression");
 
 const app = express();
 
+// Middleware
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(helmet());
+app.use(compression());
 
+// Route handlers
+const usersRouter = require("./routes/users");
+const gamesRouter = require("./routes/games");
+const eventsRouter = require("./routes/events");
 app.use("/api/users", usersRouter);
 app.use("/api/games", gamesRouter);
 app.use("/api/events", eventsRouter);

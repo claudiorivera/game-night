@@ -12,10 +12,12 @@
     "dev": "concurrently --names 'SERVER,CLIENT' -c 'bgBlue.bold,bgMagenta.bold' 'yarn run dev-server-start' 'yarn run client-start'"
   },
   "dependencies": {
+    "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
     "debug": "^4.1.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "helmet": "^3.22.0",
     "morgan": "^1.10.0",
     "pg-promise": "^10.5.6"
   },

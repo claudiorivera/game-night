@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 // Db init and connect
-const db = require("../config/db");
+const db = require("../lib/db");
 
 // GET /api/games
 // Returns all games
