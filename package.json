@@ -12,15 +12,19 @@
     "dev": "concurrently --names 'SERVER,CLIENT' -c 'bgBlue.bold,bgMagenta.bold' 'yarn run dev-server-start' 'yarn run client-start'"
   },
   "dependencies": {
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
+    "cookie-parser": "^1.4.5",
+    "debug": "^4.1.1",
     "dotenv": "^8.2.0",
-    "express": "~4.16.1",
-    "morgan": "~1.9.1",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
     "pg-promise": "^10.5.6"
   },
   "devDependencies": {
     "concurrently": "^5.2.0",
     "nodemon": "^2.0.4"
+  },
+  "engines": {
+    "node": "14.x",
+    "yarn": "1.x"
   }
 }
