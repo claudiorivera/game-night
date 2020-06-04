@@ -6,59 +6,67 @@ export const Register = () => {
   return (
     <Container>
       <Typography variant="h5">Register</Typography>
-      <TextField
-        required
-        id="name"
-        label="Name"
-        placeholder="Enter Name"
-        fullWidth
-        margin="normal"
-        InputLabelProps={{
-          shrink: true,
-        }}
-        variant="outlined"
-      />
-      <TextField
-        required
-        id="email"
-        label="Email"
-        placeholder="Enter email"
-        fullWidth
-        margin="normal"
-        InputLabelProps={{
-          shrink: true,
-        }}
-        variant="outlined"
-      />
-      <TextField
-        required
-        type="password"
-        id="password"
-        label="Password"
-        placeholder="Enter password"
-        fullWidth
-        margin="normal"
-        InputLabelProps={{
-          shrink: true,
-        }}
-        variant="outlined"
-      />
-      <TextField
-        required
-        type="password"
-        id="password2"
-        label="Confirm password"
-        placeholder="Confirm password"
-        fullWidth
-        margin="normal"
-        InputLabelProps={{
-          shrink: true,
-        }}
-        variant="outlined"
-      />
-      <Button fullWidth color="primary" variant="contained">
-        Register
-      </Button>
+      <form action="/api/users/register" method="post">
+        <TextField
+          name="name"
+          type="text"
+          required
+          id="name"
+          label="Name"
+          placeholder="Enter Name"
+          fullWidth
+          margin="normal"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="outlined"
+        />
+        <TextField
+          name="email"
+          type="email"
+          required
+          id="email"
+          label="Email"
+          placeholder="Enter email"
+          fullWidth
+          margin="normal"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="outlined"
+        />
+        <TextField
+          name="password"
+          required
+          type="password"
+          id="password"
+          label="Password"
+          placeholder="Enter password"
+          fullWidth
+          margin="normal"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="outlined"
+        />
+        <TextField
+          name="password_confirm"
+          required
+          type="password"
+          id="password_confirm"
+          label="Confirm password"
+          placeholder="Confirm password"
+          fullWidth
+          margin="normal"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="outlined"
+        />
+        <Button type="submit" fullWidth color="primary" variant="contained">
+          Register
+        </Button>
+      </form>
       <Typography variant="caption" display="block" gutterBottom>
         Already registered? <Link to="/login">Login here</Link>.
       </Typography>

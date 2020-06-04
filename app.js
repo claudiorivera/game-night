@@ -4,8 +4,19 @@ const path = require("path");
 const logger = require("morgan");
 const helmet = require("helmet");
 const compression = require("compression");
+const mongoose = require("mongoose");
 
 const app = express();
+
+// Db config and connect
+const db = mongoose.connect(
+  process.env.MONGODB_URI,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  },
+  () => console.log(`MongoDB connected`)
+);
 
 // Middleware
 app.use(logger("dev"));

@@ -5,9 +5,12 @@ const router = express.Router();
 // Login page
 router.get("/login", (req, res) => res.send("Login"));
 
-// GET /api/users/register
-// Registration page
-router.get("/register", (req, res) => res.send("Register"));
+// POST /api/users/register
+// Register a new user
+router.post("/register", (req, res) => {
+  console.log(req.body);
+  res.send("Post register");
+});
 
 // GET /api/users
 // Returns all users
