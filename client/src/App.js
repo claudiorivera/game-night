@@ -13,9 +13,9 @@ function App() {
       <MainAppBar />
       <Router>
         <Welcome path="/" />
-        <Dashboard path="dashboard" />
-        <Login path="login" />
-        <Register path="register" />
+        <Dashboard path="/dashboard" />
+        <Login path="/login" />
+        <Register path="/register" />
       </Router>
     </Provider>
   );

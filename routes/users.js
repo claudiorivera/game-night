@@ -1,10 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
+const bcrypt = require("bcryptjs");
 
-// GET /api/users/login
-// Login page
-router.get("/login", (req, res) => res.send("Login"));
+const User = require("../models/User");
 
 // POST /api/users/register
 // Register a new user
@@ -30,73 +29,41 @@ router.post(
         return true;
       }),
   ],
-  (req, res) => {
-    const { name, email } = req.body;
+  async (req, res) => {
+    const { name, email, password } = req.body;
     const errors = validationResult(req).array();
     if (errors.length > 0) {
       return res.status(400).json(errors);
     }
-    res.status(200).json({ name, email });
+
+    // User input validated
+    const user = await User.findOne({ email });
+    if (user) {
+      return res
+        .status(400)
+        .json([{ msg: "Email address already registered" }]);
+    } else {
+      const newUser = new User({
+        name,
+        email,
+        password,
+      });
+
+      // Hash the password
+      bcrypt.genSalt((error, salt) =>
+        bcrypt.hash(newUser.password, salt, async (error, hash) => {
+          if (error) throw error;
+          newUser.password = hash;
+          const user = await newUser.save();
+          res.status(200).json(user);
+        })
+      );
+    }
   }
 );
 
-// GET /api/users
-// Returns all users
-router.get("/", async (req, res, next) => {
-  try {
-    const users = [
-      { _id: 1, name: "Claudio Rivera", email: "me@claudiorivera.com" },
-      { _id: 2, name: "Heather Stoffels", email: "me@heatherstoffels.com" },
-    ];
-    res.status(200).json(users);
-  } catch (error) {
-    res.status(400).send({ success: false, error });
-  }
-});
-
-// GET /api/users/id
-// Returns user by id
-router.get("/:id", async (req, res, next) => {
-  try {
-    // const user = await db.one("SELECT * FROM users WHERE user_id = $1", [
-    //   req.params.id,
-    // ]);
-    res.status(200).json({ message: `GET /api/users/${req.params.id}` });
-  } catch (error) {
-    res.status(400).send({ success: false, error });
-  }
-});
-
-// GET /api/users/id/events
-// Returns all events a given user id is attending
-router.get("/:id/events", async (req, res, next) => {
-  try {
-    res.status(200).json({ message: `GET /api/users/${req.params.id}/events` });
-  } catch (error) {
-    res.status(400).json({ success: false, error });
-  }
-});
-
-// POST /api/users
-// Adds a user
-// req.body: {user_username: [string - username], user_fullname: [string - full name]}
-router.post("/", async (req, res, next) => {
-  try {
-    res.status(200).json({ message: "POST /api/users" });
-  } catch (error) {
-    res.status(400).json({ success: false, error });
-  }
-});
-
-// PUT /api/users/id
-// Updates a user
-// req.body: {user_username: [string - username], user_fullname: [string - full name]}
-router.put("/:id", async (req, res, next) => {
-  try {
-    res.status(200).json({ message: `PUT /api/users/${req.params.id}` });
-  } catch (error) {
-    res.status(400).json({ success: false, error });
-  }
-});
+// GET /api/users/login
+// Login page
+router.get("/login", (req, res) => res.send("Login"));
 
 module.exports = router;
