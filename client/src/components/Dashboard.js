@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography, Container, Button } from "@material-ui/core";
 
-export const Dashboard = () => {
+const Dashboard = () => {
   return (
     <Container>
       <Typography variant="h5">Hello, user.</Typography>
@@ -11,3 +11,5 @@ export const Dashboard = () => {
     </Container>
   );
 };
+
+export default Dashboard;

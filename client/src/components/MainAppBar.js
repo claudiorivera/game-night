@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const MainAppBar = () => {
+const MainAppBar = () => {
   const classes = useStyles();
 
   return (
@@ -34,3 +34,5 @@ export const MainAppBar = () => {
     </AppBar>
   );
 };
+
+export default MainAppBar;

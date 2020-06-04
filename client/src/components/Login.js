@@ -2,7 +2,7 @@ import React from "react";
 import { Typography, TextField, Container, Button } from "@material-ui/core";
 import { Link } from "@reach/router";
 
-export const Login = () => {
+const Login = () => {
   return (
     <Container>
       <Typography variant="h5">Log In</Typography>
@@ -43,3 +43,5 @@ export const Login = () => {
     </Container>
   );
 };
+
+export default Login;

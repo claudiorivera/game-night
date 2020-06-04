@@ -1,8 +1,10 @@
 import { put } from "redux-saga/effects";
 
+const axios = require("axios").default;
+
 export function* registerUser(action) {
   try {
-    const user = { _id: 3, name: "Oliver", email: "oliver@oliver.com" };
+    const user = yield axios.post("/api/users/register", action.user);
     yield put({ type: "REGISTER_USER_SUCCESSFUL", user });
   } catch (error) {
     yield put({ type: "REGISTER_USER_FAILED", error });

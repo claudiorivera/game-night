@@ -31,11 +31,12 @@ router.post(
       }),
   ],
   (req, res) => {
+    const { name, email } = req.body;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
+      return res.status(400).json({ success: false, errors: errors.array() });
     }
-    res.status(200).send("register passed");
+    res.status(200).send({ success: true, name, email });
   }
 );
 
