@@ -34,7 +34,7 @@ router.post(
     const { name, email } = req.body;
     const errors = validationResult(req).array();
     if (errors.length > 0) {
-      return res.status(422).json(errors);
+      return res.status(400).json(errors);
     }
     res.status(200).json({ name, email });
   }
