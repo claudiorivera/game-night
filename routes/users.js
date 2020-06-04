@@ -1,6 +1,14 @@
 const express = require("express");
 const router = express.Router();
 
+// GET /api/users/login
+// Login page
+router.get("/login", (req, res) => res.send("Login"));
+
+// GET /api/users/register
+// Registration page
+router.get("/register", (req, res) => res.send("Register"));
+
 // GET /api/users
 // Returns all users
 router.get("/", async (req, res, next) => {

@@ -12,12 +12,19 @@
     "dev": "concurrently --names 'SERVER,CLIENT' -c 'bgBlue.bold,bgMagenta.bold' 'yarn run dev-server-start' 'yarn run client-start'"
   },
   "dependencies": {
+    "@reach/router": "^1.3.3",
+    "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
+    "connect-flash": "^0.1.1",
     "debug": "^4.1.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "helmet": "^3.22.0",
-    "morgan": "^1.10.0"
+    "mongoose": "^5.9.17",
+    "morgan": "^1.10.0",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
     "concurrently": "^5.2.0",
