@@ -3,7 +3,7 @@ import { Typography, TextField, Container, Button } from "@material-ui/core";
 import { Link } from "@reach/router";
 import { connect } from "react-redux";
 
-const Register = () => {
+const Register = ({ dispatch }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,7 +11,13 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("submit");
+    const payload = {
+      name,
+      email,
+      password,
+      passwordConfirm,
+    };
+    dispatch({ type: "REGISTER_USER_REQUESTED", payload });
   };
   return (
     <Container>
@@ -66,10 +72,10 @@ const Register = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <TextField
-          name="password_confirm"
+          name="passwordConfirm"
           required
           type="password"
-          id="password_confirm"
+          id="passwordConfirm"
           label="Confirm password"
           placeholder="Confirm password"
           fullWidth

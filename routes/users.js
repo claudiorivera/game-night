@@ -24,7 +24,7 @@ router.post(
       .withMessage("Password must be at least 6 characters long")
       // https://express-validator.github.io/docs/custom-validators-sanitizers.html
       .custom((value, { req }) => {
-        if (value !== req.body.password_confirm) {
+        if (value !== req.body.passwordConfirm) {
           throw new Error("Password confirmation does not match password");
         }
         return true;
@@ -34,9 +34,9 @@ router.post(
     const { name, email } = req.body;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ success: false, errors: errors.array() });
+      return res.status(400).json({ errors: errors.array() });
     }
-    res.status(200).send({ success: true, name, email });
+    res.status(200).json({ name, email });
   }
 );
 
@@ -44,8 +44,11 @@ router.post(
 // Returns all users
 router.get("/", async (req, res, next) => {
   try {
-    // const users = await db.any("SELECT * FROM users");
-    res.status(200).json({ message: "GET /api/users" });
+    const users = [
+      { _id: 1, name: "Claudio Rivera", email: "me@claudiorivera.com" },
+      { _id: 2, name: "Heather Stoffels", email: "me@heatherstoffels.com" },
+    ];
+    res.status(200).json(users);
   } catch (error) {
     res.status(400).send({ success: false, error });
   }
