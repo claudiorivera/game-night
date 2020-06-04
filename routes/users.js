@@ -32,9 +32,9 @@ router.post(
   ],
   (req, res) => {
     const { name, email } = req.body;
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+    const errors = validationResult(req).array();
+    if (errors.length > 0) {
+      return res.status(422).json(errors);
     }
     res.status(200).json({ name, email });
   }

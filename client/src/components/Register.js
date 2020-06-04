@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Typography, TextField, Container, Button } from "@material-ui/core";
 import { Link } from "@reach/router";
 import { connect } from "react-redux";
+import { Error } from "../components";
 
 const Register = ({ dispatch }) => {
   const [name, setName] = useState("");
@@ -17,11 +18,15 @@ const Register = ({ dispatch }) => {
       password,
       passwordConfirm,
     };
-    dispatch({ type: "REGISTER_USER_REQUESTED", payload });
+    dispatch({
+      type: "REGISTER_USER_REQUESTED",
+      payload,
+    });
   };
   return (
     <Container>
       <Typography variant="h5">Register</Typography>
+      <Error />
       <form onSubmit={handleSubmit}>
         <TextField
           name="name"
@@ -87,7 +92,13 @@ const Register = ({ dispatch }) => {
           value={passwordConfirm}
           onChange={(e) => setPasswordConfirm(e.target.value)}
         />
-        <Button type="submit" fullWidth color="primary" variant="contained">
+        <Button
+          size="large"
+          type="submit"
+          fullWidth
+          color="primary"
+          variant="contained"
+        >
           Register
         </Button>
       </form>

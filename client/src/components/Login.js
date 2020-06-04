@@ -34,7 +34,7 @@ const Login = () => {
         variant="outlined"
       />
 
-      <Button fullWidth color="primary" variant="contained">
+      <Button size="large" fullWidth color="primary" variant="contained">
         Log In
       </Button>
       <Typography variant="caption" display="block" gutterBottom>

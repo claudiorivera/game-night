@@ -10,7 +10,8 @@ export function* registerUser(action) {
     );
     yield put({ type: "REGISTER_USER_SUCCESSFUL", payload: user });
   } catch (error) {
-    yield put({ type: "REGISTER_USER_FAILED", payload: error });
+    const { data } = error.response;
+    yield put({ type: "REGISTER_USER_FAILED", payload: data });
   }
 }
 
