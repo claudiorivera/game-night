@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import "fontsource-roboto";
 import { CssBaseline } from "@material-ui/core";
 import { Router } from "@reach/router";
-import { Register, Login, Dashboard } from "./components";
+import { Register, Login, Dashboard, Welcome } from "./components";
 import { MainAppBar } from "./components/MainAppBar";
 
 function App() {
@@ -11,6 +11,7 @@ function App() {
       <CssBaseline />
       <MainAppBar />
       <Router>
+        <Welcome path="/" />
         <Dashboard path="dashboard" />
         <Login path="login" />
         <Register path="register" />

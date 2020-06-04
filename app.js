@@ -15,7 +15,6 @@ app.use(helmet());
 app.use(compression());
 
 // Route handlers
-app.use("/", require("./routes"));
 app.use("/api/users", require("./routes/users"));
 app.use("/api/games", require("./routes/games"));
 app.use("/api/events", require("./routes/events"));
