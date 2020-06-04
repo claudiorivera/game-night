@@ -7,6 +7,7 @@ export const Login = () => {
     <Container>
       <Typography variant="h5">Log In</Typography>
       <TextField
+        name="email"
         required
         id="email"
         label="Email"
@@ -19,6 +20,7 @@ export const Login = () => {
         variant="outlined"
       />
       <TextField
+        name="password"
         required
         type="password"
         id="password"

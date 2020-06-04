@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const { check, validationResult } = require("express-validator");
 
 // GET /api/users/login
 // Login page
@@ -7,10 +8,36 @@ router.get("/login", (req, res) => res.send("Login"));
 
 // POST /api/users/register
 // Register a new user
-router.post("/register", (req, res) => {
-  console.log(req.body);
-  res.send("Post register");
-});
+router.post(
+  "/register",
+  [
+    check("name").isLength({ min: 1 }).withMessage("Name is required"),
+    check("email")
+      .exists()
+      .withMessage("Email is required")
+      .isEmail()
+      .withMessage("Please enter a valid email address"),
+    check("password")
+      .exists()
+      .withMessage("Password is required")
+      .isLength({ min: 6 })
+      .withMessage("Password must be at least 6 characters long")
+      // https://express-validator.github.io/docs/custom-validators-sanitizers.html
+      .custom((value, { req }) => {
+        if (value !== req.body.password_confirm) {
+          throw new Error("Password confirmation does not match password");
+        }
+        return true;
+      }),
+  ],
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+    res.status(200).send("register passed");
+  }
+);
 
 // GET /api/users
 // Returns all users
