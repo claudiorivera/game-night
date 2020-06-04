@@ -55,7 +55,14 @@ router.post(
           if (error) throw error;
           newUser.password = hash;
           const user = await newUser.save();
-          res.status(200).json(user);
+          res
+            .status(200)
+            .json({
+              id: user._id,
+              name: user.name,
+              email: user.email,
+              dateCreated: user.dateCreated,
+            });
         })
       );
     }

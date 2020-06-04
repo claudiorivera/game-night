@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Typography, TextField, Container, Button } from "@material-ui/core";
-import { Link } from "@reach/router";
+import { Link, navigate } from "@reach/router";
 import { connect } from "react-redux";
 import { Error } from "../components";
 
@@ -10,7 +10,7 @@ const Register = ({ dispatch }) => {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const payload = {
       name,
@@ -18,11 +18,13 @@ const Register = ({ dispatch }) => {
       password,
       passwordConfirm,
     };
-    dispatch({
+    await dispatch({
       type: "REGISTER_USER_REQUESTED",
       payload,
     });
+    await navigate("/login");
   };
+
   return (
     <Container>
       <Typography variant="h5">Register</Typography>
