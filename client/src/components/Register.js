@@ -12,17 +12,28 @@ const Register = ({ dispatch }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const payload = {
-      name,
-      email,
-      password,
-      passwordConfirm,
-    };
-    await dispatch({
-      type: "REGISTER_USER_REQUESTED",
-      payload,
-    });
-    await navigate("/login");
+    if (password === passwordConfirm) {
+      const payload = {
+        name,
+        email,
+        password,
+      };
+
+      try {
+        await dispatch({
+          type: "REGISTER_USER_REQUESTED",
+          payload,
+        });
+        navigate("/login");
+      } catch (error) {
+        dispatch({ type: "REGISTER_USER_FAILED", payload: error });
+      }
+    } else {
+      dispatch({
+        type: "REGISTER_USER_FAILED_PASSWORD_MISMATCH",
+        payload: { message: "Passwords don't match" },
+      });
+    }
   };
 
   return (

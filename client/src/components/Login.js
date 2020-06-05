@@ -1,11 +1,14 @@
 import React from "react";
 import { Typography, TextField, Container, Button } from "@material-ui/core";
 import { Link } from "@reach/router";
+import { connect } from "react-redux";
+import { Error } from "../components";
 
-const Login = () => {
+const Login = ({ errors }) => {
   return (
     <Container>
       <Typography variant="h5">Log In</Typography>
+      <Error />
       <TextField
         name="email"
         required
@@ -44,4 +47,6 @@ const Login = () => {
   );
 };
 
-export default Login;
+const mapStateToProps = (state) => ({ errors: state.errors });
+
+export default connect(mapStateToProps)(Login);

@@ -1,10 +1,10 @@
 import React from "react";
 import { Provider } from "react-redux";
-import "fontsource-roboto";
 import { CssBaseline } from "@material-ui/core";
 import { Router } from "@reach/router";
 import { Register, Login, Dashboard, Welcome, MainAppBar } from "./components";
 import store from "./store";
+import "fontsource-roboto";
 
 function App() {
   return (

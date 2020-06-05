@@ -21,7 +21,7 @@ const Error = ({ errors }) => {
         <AlertTitle>Error</AlertTitle>
         <ul>
           {errors.map((error, index) => (
-            <li key={index}>{error.msg}</li>
+            <li key={index}>{error.message}</li>
           ))}
         </ul>
       </Alert>

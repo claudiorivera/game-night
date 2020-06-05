@@ -4,6 +4,9 @@ const path = require("path");
 const logger = require("morgan");
 const helmet = require("helmet");
 const compression = require("compression");
+const passport = require("passport");
+const session = require("express-session");
+const User = require("./models/User");
 
 const app = express();
 
@@ -16,6 +19,21 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(helmet());
 app.use(compression());
+
+// Passport - https://chunkbytes.com/2019/02/user-authentication-with-passport-express/
+app.use(
+  session({
+    name: "session-id",
+    secret: process.env.SECRET,
+    saveUninitialized: false,
+    resave: false,
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // Route handlers
 app.use("/api/users", require("./routes/users"));

@@ -14,14 +14,3 @@ export function* registerUser(action) {
     yield put({ type: "REGISTER_USER_FAILED", payload: data });
   }
 }
-
-export function* getUsers(action) {
-  try {
-    const { data: users } = yield axios.get("/api/users");
-    yield put({ type: "GET_USERS_SUCCESSFUL", payload: users });
-  } catch (error) {
-    console.log(error);
-
-    yield put({ type: "GET_USERS_FAILED", payload: error });
-  }
-}
