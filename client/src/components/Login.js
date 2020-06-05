@@ -1,34 +1,19 @@
 import React, { useState } from "react";
 import { Typography, TextField, Container, Button } from "@material-ui/core";
 import { Link } from "@reach/router";
-import { connect } from "react-redux";
-import { Error } from "../components";
 
-const Login = ({ dispatch }) => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const payload = {
-      email,
-      password,
-    };
-
-    try {
-      await dispatch({
-        type: "LOGIN_USER_REQUESTED",
-        payload,
-      });
-    } catch (error) {
-      dispatch({ type: "LOGIN_USER_FAILED", payload: error });
-    }
+    console.log("submit");
   };
 
   return (
     <Container>
       <Typography variant="h5">Log In</Typography>
-      <Error />
       <form onSubmit={handleSubmit}>
         <TextField
           name="email"
@@ -79,4 +64,4 @@ const Login = ({ dispatch }) => {
   );
 };
 
-export default connect()(Login);
+export default Login;

@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { Typography, TextField, Container, Button } from "@material-ui/core";
 import { Link } from "@reach/router";
-import { connect } from "react-redux";
-import { Error } from "../components";
 
-const Register = ({ dispatch }) => {
+const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -12,33 +10,12 @@ const Register = ({ dispatch }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (password === passwordConfirm) {
-      const payload = {
-        name,
-        email,
-        password,
-      };
-
-      try {
-        await dispatch({
-          type: "REGISTER_USER_REQUESTED",
-          payload,
-        });
-      } catch (error) {
-        dispatch({ type: "REGISTER_USER_FAILED", payload: error });
-      }
-    } else {
-      dispatch({
-        type: "REGISTER_USER_FAILED",
-        payload: { message: "Passwords don't match" },
-      });
-    }
+    console.log("submit");
   };
 
   return (
     <Container>
       <Typography variant="h5">Register</Typography>
-      <Error />
       <form onSubmit={handleSubmit}>
         <TextField
           name="name"
@@ -121,4 +98,4 @@ const Register = ({ dispatch }) => {
   );
 };
 
-export default connect()(Register);
+export default Register;
