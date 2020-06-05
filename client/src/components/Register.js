@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Typography, TextField, Container, Button } from "@material-ui/core";
-import { Link, navigate } from "@reach/router";
+import { Link } from "@reach/router";
 import { connect } from "react-redux";
 import { Error } from "../components";
 
@@ -24,13 +24,12 @@ const Register = ({ dispatch }) => {
           type: "REGISTER_USER_REQUESTED",
           payload,
         });
-        navigate("/login");
       } catch (error) {
         dispatch({ type: "REGISTER_USER_FAILED", payload: error });
       }
     } else {
       dispatch({
-        type: "REGISTER_USER_FAILED_PASSWORD_MISMATCH",
+        type: "REGISTER_USER_FAILED",
         payload: { message: "Passwords don't match" },
       });
     }

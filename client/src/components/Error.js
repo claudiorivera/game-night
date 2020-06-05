@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { Alert, AlertTitle } from "@material-ui/lab";
@@ -12,25 +12,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Error = ({ errors }) => {
+const Error = ({ error }) => {
   const classes = useStyles();
 
-  return errors.length > 0 ? (
+  return error && error.message ? (
     <div className={classes.root}>
       <Alert severity="error">
         <AlertTitle>Error</AlertTitle>
-        <ul>
-          {errors.map((error, index) => (
-            <li key={index}>{error.message}</li>
-          ))}
-        </ul>
+        {error.message}
       </Alert>
     </div>
   ) : (
-    <div></div>
+    <Fragment></Fragment>
   );
 };
 
-const mapStateToProps = (state) => ({ errors: state.errors });
+const mapStateToProps = (state) => ({ error: state.error });
 
 export default connect(mapStateToProps)(Error);

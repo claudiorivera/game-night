@@ -1,16 +1,18 @@
 require("dotenv").config();
 const express = require("express");
-const path = require("path");
 const logger = require("morgan");
 const helmet = require("helmet");
 const compression = require("compression");
-const passport = require("passport");
 const session = require("express-session");
-const User = require("./models/User");
+const passport = require("passport");
+const path = require("path");
 
 const app = express();
 
-// Db connect
+// Models
+const User = require("./models/User");
+
+// Database
 require("./lib/db");
 
 // Middleware

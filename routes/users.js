@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
+
+// Model
 const User = require("../models/User");
 
 // https://chunkbytes.com/2019/02/user-authentication-with-passport-express/
@@ -14,7 +16,7 @@ router.post("/register", (req, res, next) => {
     password,
     (error, user) => {
       if (error) {
-        res.status(500).json(error);
+        res.status(400).json({ message: error.message });
       } else {
         passport.authenticate("local")(req, res, () => {
           User.findOne(
@@ -22,11 +24,8 @@ router.post("/register", (req, res, next) => {
               email,
             },
             (error, person) => {
-              res.status(200).json({
-                success: true,
-                status: "Registration Successful!",
-                user: req.user,
-              });
+              const user = req.user;
+              res.status(200).json(user);
             }
           );
         });
@@ -42,11 +41,8 @@ router.post("/login", passport.authenticate("local"), (req, res) => {
       email,
     },
     (err, person) => {
-      res.status(200).json({
-        success: true,
-        status: "You are successfully logged in!",
-        user: req.user,
-      });
+      const user = req.user;
+      res.status(200).json(user);
     }
   );
 });
