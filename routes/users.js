@@ -16,7 +16,7 @@ router.post("/register", (req, res, next) => {
     password,
     (error, user) => {
       if (error) {
-        res.status(400).json({ error: error.message });
+        res.status(400).json(error);
       } else {
         passport.authenticate("local")(req, res, () => {
           User.findOne(

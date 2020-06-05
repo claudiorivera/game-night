@@ -4,8 +4,8 @@ const axios = require("axios").default;
 
 // initialState
 const initialState = {
-  user: {},
-  error: {},
+  user: null,
+  error: null,
   isAuthenticated: false,
 };
 
@@ -21,6 +21,10 @@ export const GlobalProvider = ({ children }) => {
     dispatch({ type: "CREATE_ERROR_MESSAGE", payload: errorMessage });
   };
 
+  const clearError = () => {
+    dispatch({ type: "CLEAR_ERROR_MESSAGE" });
+  };
+
   const registerUser = async (name, email, password) => {
     try {
       const {
@@ -32,8 +36,7 @@ export const GlobalProvider = ({ children }) => {
       });
       dispatch({ type: "REGISTER_USER_SUCCESSFUL", payload: user });
     } catch (error) {
-      const { statusText: errorMessage } = error.response;
-      dispatch({ type: "REGISTER_USER_FAILED", payload: errorMessage });
+      dispatch({ type: "REGISTER_USER_FAILED", payload: error.response.data });
     }
   };
 
@@ -47,8 +50,7 @@ export const GlobalProvider = ({ children }) => {
       });
       dispatch({ type: "USER_LOGIN_SUCCESSFUL", payload: user });
     } catch (error) {
-      const { statusText: errorMessage } = error.response;
-      dispatch({ type: "USER_LOGIN_FAILED", payload: errorMessage });
+      dispatch({ type: "USER_LOGIN_FAILED", payload: error.response.data });
     }
   };
 
@@ -60,10 +62,9 @@ export const GlobalProvider = ({ children }) => {
         payload: isAuthenticated,
       });
     } catch (error) {
-      const { statusText: errorMessage } = error.response;
       dispatch({
         type: "CHECK_IS_AUTHENTICATED_FAILED",
-        payload: errorMessage,
+        payload: error.response.data,
       });
     }
   };
@@ -78,6 +79,7 @@ export const GlobalProvider = ({ children }) => {
         checkIsAuthenticated,
         registerUser,
         createError,
+        clearError,
       }}
     >
       {children}
