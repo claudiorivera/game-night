@@ -16,7 +16,7 @@ router.post("/register", (req, res, next) => {
     password,
     (error, user) => {
       if (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({ error: error.message });
       } else {
         passport.authenticate("local")(req, res, () => {
           User.findOne(
@@ -25,7 +25,7 @@ router.post("/register", (req, res, next) => {
             },
             (error, person) => {
               const user = req.user;
-              res.status(200).json(user);
+              res.status(200).json({ user });
             }
           );
         });
@@ -42,9 +42,21 @@ router.post("/login", passport.authenticate("local"), (req, res) => {
     },
     (err, person) => {
       const user = req.user;
-      res.status(200).json(user);
+      res.status(200).json({ user });
     }
   );
+});
+
+// https://stackoverflow.com/questions/36486397/passport-login-and-persisting-session
+const isAuthenticated = (req, res, next) => {
+  if (req.user) return next();
+  else
+    return res.status(401).json({
+      isAuthenticated: false,
+    });
+};
+router.get("/auth", isAuthenticated, (req, res) => {
+  res.status(200).json({ isAuthenticated: true });
 });
 
 router.get("/logout", (req, res, next) => {

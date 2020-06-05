@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { GlobalContext } from "../context";
 import { Typography, TextField, Container, Button } from "@material-ui/core";
 import { Link } from "@reach/router";
 
@@ -7,10 +8,15 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const { registerUser, createError } = useContext(GlobalContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("submit");
+    if (password === passwordConfirm) {
+      registerUser(name, email, password);
+    } else {
+      createError("Passwords don't match");
+    }
   };
 
   return (

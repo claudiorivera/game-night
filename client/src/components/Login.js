@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { GlobalContext } from "../context";
 import { Typography, TextField, Container, Button } from "@material-ui/core";
 import { Link } from "@reach/router";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { logInWithEmailAndPassword, checkIsAuthenticated } = useContext(
+    GlobalContext
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("submit");
+    logInWithEmailAndPassword(email, password);
   };
 
   return (
@@ -55,6 +59,17 @@ const Login = () => {
           variant="contained"
         >
           Log In
+        </Button>
+        <Button
+          size="large"
+          fullWidth
+          color="primary"
+          variant="contained"
+          onClick={() => {
+            checkIsAuthenticated();
+          }}
+        >
+          Check
         </Button>
       </form>
       <Typography variant="caption" display="block" gutterBottom>
