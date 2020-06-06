@@ -1,7 +1,14 @@
 import React from "react";
 import { CssBaseline } from "@material-ui/core";
 import { Router } from "@reach/router";
-import { Register, Login, Home, MainAppBar, AlertDialog } from "./components";
+import {
+  Register,
+  Login,
+  Home,
+  MainAppBar,
+  AlertDialog,
+  PrivateRoute,
+} from "./components";
 import "fontsource-roboto";
 import { GlobalProvider } from "./context";
 
@@ -12,7 +19,7 @@ function App() {
       <MainAppBar />
       <AlertDialog />
       <Router>
-        <Home path="home" />
+        <PrivateRoute as={Home} path="home" />
         <Login path="login" />
         <Register path="register" />
       </Router>
