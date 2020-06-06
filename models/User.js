@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const passportLocalMongoose = require("passport-local-mongoose");
 
-const UserSchema = new mongoose.Schema({
+const User = new Schema({
   name: {
     type: String,
     required: true,
@@ -9,17 +11,17 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  password: {
-    type: String,
-    required: true,
-    minlength: 6,
-  },
   dateCreated: {
     type: Date,
     default: Date.now,
   },
 });
 
-const User = mongoose.model("User", UserSchema);
+User.plugin(passportLocalMongoose, {
+  usernameField: "email",
+  errorMessages: {
+    UserExistsError: "A user with the given email is already registered",
+  },
+});
 
-module.exports = User;
+module.exports = mongoose.model("User", User);

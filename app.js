@@ -5,8 +5,12 @@ const helmet = require("helmet");
 const compression = require("compression");
 const session = require("express-session");
 const path = require("path");
+const passport = require("passport");
 
 const app = express();
+
+// Model
+const User = require("./models/User");
 
 // Database
 require("./lib/db");
@@ -18,19 +22,25 @@ app.use(express.urlencoded({ extended: false }));
 app.use(helmet());
 app.use(compression());
 
+// Session middleware
 app.use(
   session({
-    name: "session-id",
+    name: "user",
     secret: process.env.SECRET,
     saveUninitialized: false,
     resave: false,
   })
 );
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // Route handlers
-app.use("/api/users", require("./routes/users"));
-app.use("/api/games", require("./routes/games"));
-app.use("/api/events", require("./routes/events"));
+app.use("/api/users", require("./api/users"));
+app.use("/api/games", require("./api/games"));
+app.use("/api/events", require("./api/events"));
 
 // If we're in production, serve the client/build folder
 if (process.env.NODE_ENV === "production") {
