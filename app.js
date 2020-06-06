@@ -6,6 +6,7 @@ const compression = require("compression");
 const session = require("express-session");
 const path = require("path");
 const passport = require("passport");
+const MongoStore = require("connect-mongo")(session);
 
 const app = express();
 
@@ -13,7 +14,16 @@ const app = express();
 const User = require("./models/User");
 
 // Database
-require("./lib/db");
+const mongoose = require("mongoose");
+mongoose.connect(
+  process.env.MONGODB_URI,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+  },
+  () => console.log(`MongoDB connected`)
+);
 
 // Middleware
 app.use(logger("dev"));
@@ -29,6 +39,7 @@ app.use(
     secret: process.env.SECRET,
     saveUninitialized: false,
     resave: false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
   })
 );
 app.use(passport.initialize());

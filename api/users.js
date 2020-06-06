@@ -22,7 +22,9 @@ router.get("/auth", (req, res) => {
   if (req.isAuthenticated()) {
     return res.status(200).json(req.user);
   }
-  return res.status(400).json({ message: "Invalid email or password" });
+  return res
+    .status(400)
+    .json({ message: "User not authenticated. Please login." });
 });
 
 router.post("/login", passport.authenticate("local"), (req, res) => {
@@ -33,7 +35,7 @@ router.post("/login", passport.authenticate("local"), (req, res) => {
 
 router.get("/logout", (req, res) => {
   req.logout();
-  res.status(200).json({ message: "Logged out" });
+  res.status(200).json({ message: "Logged out." });
 });
 
 module.exports = router;
