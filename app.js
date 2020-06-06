@@ -22,7 +22,7 @@ mongoose.connect(
     useUnifiedTopology: true,
     useCreateIndex: true,
   },
-  () => console.log(`MongoDB connected`)
+  () => console.log("MongoDB connected")
 );
 
 // Middleware

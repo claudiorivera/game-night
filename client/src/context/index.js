@@ -61,6 +61,16 @@ export const GlobalProvider = ({ children }) => {
     }
   };
 
+  const getAuth = async () => {
+    try {
+      const { data: user } = await axios.get("/api/users/auth");
+      dispatch({ type: "GET_AUTH_SUCCESSFUL_WITH_USER", user });
+    } catch (error) {
+      const message = error.response.data;
+      dispatch({ type: "GET_AUTH_FAILED_WITH_MESSAGE", message });
+    }
+  };
+
   return (
     <GlobalContext.Provider
       value={{
@@ -71,6 +81,7 @@ export const GlobalProvider = ({ children }) => {
         registerUser,
         createAlertWithMessage,
         clearAlert,
+        getAuth,
       }}
     >
       {children}
