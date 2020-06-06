@@ -6,7 +6,7 @@ import { Link } from "@reach/router";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { logInUser, checkIsAuthenticated } = useContext(GlobalContext);
+  const { logInUser } = useContext(GlobalContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -57,17 +57,6 @@ const Login = () => {
           variant="contained"
         >
           Log In
-        </Button>
-        <Button
-          size="large"
-          fullWidth
-          color="primary"
-          variant="contained"
-          onClick={() => {
-            checkIsAuthenticated();
-          }}
-        >
-          Check
         </Button>
       </form>
       <Typography variant="caption" display="block" gutterBottom>

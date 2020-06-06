@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext, Fragment } from "react";
+import { GlobalContext } from "../context";
 import { AppBar, Toolbar, Typography, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "@reach/router";
@@ -17,19 +18,25 @@ const useStyles = makeStyles((theme) => ({
 
 const MainAppBar = () => {
   const classes = useStyles();
-
+  const { user } = useContext(GlobalContext);
   return (
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
           Game Night
         </Typography>
-        <Button component={Link} to="login" color="inherit">
-          Login
-        </Button>
-        <Button component={Link} to="register" color="inherit">
-          Register
-        </Button>
+        {user ? (
+          <div></div>
+        ) : (
+          <Fragment>
+            <Button component={Link} to="login" color="inherit">
+              Login
+            </Button>
+            <Button component={Link} to="register" color="inherit">
+              Register
+            </Button>
+          </Fragment>
+        )}
       </Toolbar>
     </AppBar>
   );

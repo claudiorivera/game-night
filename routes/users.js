@@ -40,7 +40,7 @@ router.post("/login", passport.authenticate("local"), (req, res) => {
     {
       email,
     },
-    (err, person) => {
+    (error, person) => {
       const user = req.user;
       res.status(200).json({ user });
     }
@@ -62,9 +62,9 @@ router.get("/auth", isAuthenticated, (req, res) => {
 router.get("/logout", (req, res, next) => {
   if (req.session) {
     req.logout();
-    req.session.destroy((err) => {
-      if (err) {
-        console.log(err);
+    req.session.destroy((error) => {
+      if (error) {
+        res.status(400).json(error);
       } else {
         res.clearCookie("session-id");
         res.json({
@@ -73,9 +73,9 @@ router.get("/logout", (req, res, next) => {
       }
     });
   } else {
-    var err = new Error("You are not logged in!");
-    err.status = 403;
-    next(err);
+    const error = new Error("You are not logged in!");
+    error.status = 403;
+    next(error);
   }
 });
 

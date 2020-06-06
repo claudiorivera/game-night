@@ -10,7 +10,7 @@ const Register = () => {
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const { registerUser, createError } = useContext(GlobalContext);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (password === passwordConfirm) {
       registerUser(name, email, password);
