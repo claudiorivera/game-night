@@ -1,13 +1,7 @@
 import React from "react";
 import { CssBaseline } from "@material-ui/core";
 import { Router } from "@reach/router";
-import {
-  Register,
-  Login,
-  Dashboard,
-  MainAppBar,
-  ErrorAlert,
-} from "./components";
+import { Register, Login, Home, MainAppBar, AlertDialog } from "./components";
 import "fontsource-roboto";
 import { GlobalProvider } from "./context";
 
@@ -16,11 +10,11 @@ function App() {
     <GlobalProvider>
       <CssBaseline />
       <MainAppBar />
-      <ErrorAlert />
+      <AlertDialog />
       <Router>
-        <Dashboard path="/dashboard" />
-        <Login path="/login" />
-        <Register path="/register" />
+        <Home path="home" />
+        <Login path="login" />
+        <Register path="register" />
       </Router>
     </GlobalProvider>
   );

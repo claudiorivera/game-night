@@ -1,32 +1,29 @@
 import React, { useContext, Fragment } from "react";
 import { GlobalContext } from "../context";
-import { AppBar, Toolbar, Typography, Button } from "@material-ui/core";
+import { AppBar, Toolbar, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "@reach/router";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
+const useStyles = makeStyles({
+  mb3: {
+    marginBottom: "3vh",
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-}));
+});
 
 const MainAppBar = () => {
   const classes = useStyles();
-  const { user } = useContext(GlobalContext);
+  const { user, logoutUser } = useContext(GlobalContext);
+
   return (
-    <AppBar position="static">
+    <AppBar position="static" className={classes.mb3}>
       <Toolbar>
-        <Typography variant="h6" className={classes.title}>
-          Game Night
-        </Typography>
+        <Button component={Link} to="home" color="inherit">
+          Home
+        </Button>
         {user ? (
-          <div></div>
+          <Button color="inherit" onClick={logoutUser}>
+            Logout
+          </Button>
         ) : (
           <Fragment>
             <Button component={Link} to="login" color="inherit">

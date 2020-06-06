@@ -12,19 +12,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DescriptionAlerts = () => {
+const AlertDialog = () => {
   const classes = useStyles();
-  const { error, clearError } = useContext(GlobalContext);
-  return error ? (
+  const { alert, clearAlert } = useContext(GlobalContext);
+  return alert ? (
     <div className={classes.root}>
       <Alert
         onClose={() => {
-          clearError();
+          clearAlert();
         }}
         severity="error"
       >
-        <AlertTitle>Error</AlertTitle>
-        {JSON.stringify(error)}
+        <AlertTitle>alert</AlertTitle>
+        {JSON.stringify(alert)}
       </Alert>
     </div>
   ) : (
@@ -32,4 +32,4 @@ const DescriptionAlerts = () => {
   );
 };
 
-export default DescriptionAlerts;
+export default AlertDialog;

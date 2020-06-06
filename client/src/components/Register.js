@@ -8,14 +8,14 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
-  const { registerUser, createError } = useContext(GlobalContext);
+  const { registerUser, createAlertWithMessage } = useContext(GlobalContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password === passwordConfirm) {
       registerUser(name, email, password);
     } else {
-      createError("Passwords don't match");
+      createAlertWithMessage("Passwords don't match");
     }
   };
 

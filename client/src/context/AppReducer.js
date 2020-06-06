@@ -1,26 +1,22 @@
-export const AppReducer = (state, { type, payload }) => {
+export const AppReducer = (state, { type, message, user }) => {
   switch (type) {
-    case "REGISTER_USER_FAILED":
-    case "USER_LOGIN_FAILED":
-    case "CHECK_IS_AUTHENTICATED_FAILED":
-      return { ...state, error: payload, isAuthenticated: false, user: null };
-    case "REGISTER_USER_SUCCESSFUL":
-    case "USER_LOGIN_SUCCESSFUL":
-      return { ...state, user: payload, isAuthenticated: true };
-    case "CHECK_IS_AUTHENTICATED_SUCCESSFUL":
+    case "REGISTER_USER_FAILED_WITH_MESSAGE":
+    case "LOGIN_FAILED_WITH_MESSAGE":
+    case "LOGOUT_FAILED_WITH_MESSAGE":
+      return { ...state, alert: message };
+    case "REGISTER_USER_SUCCESSFUL_WITH_USER":
+    case "LOGIN_SUCCESSFUL_WITH_USER":
+    case "LOGOUT_SUCCESSFUL_WITH_USER":
+      return { ...state, user };
+    case "CREATE_ALERT_WITH_MESSAGE":
       return {
         ...state,
-        isAuthenticated: payload,
+        alert: message,
       };
-    case "CREATE_ERROR_MESSAGE":
+    case "CLEAR_ALERT_DIALOG":
       return {
         ...state,
-        error: payload,
-      };
-    case "CLEAR_ERROR_MESSAGE":
-      return {
-        ...state,
-        error: null,
+        alert: null,
       };
     default:
       return state;

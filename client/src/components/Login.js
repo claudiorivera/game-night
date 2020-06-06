@@ -6,11 +6,11 @@ import { Link } from "@reach/router";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { logInUser } = useContext(GlobalContext);
+  const { loginUser } = useContext(GlobalContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    logInUser(email, password);
+    loginUser(email, password);
   };
 
   return (

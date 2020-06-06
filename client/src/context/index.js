@@ -5,8 +5,7 @@ const axios = require("axios").default;
 // initialState
 const initialState = {
   user: null,
-  error: null,
-  isAuthenticated: false,
+  alert: null,
 };
 
 // Create context
@@ -16,56 +15,49 @@ export const GlobalContext = createContext(initialState);
 export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
-  // Action creators here
-  const createError = (errorMessage) => {
-    dispatch({ type: "CREATE_ERROR_MESSAGE", payload: errorMessage });
+  // Action creators
+  const createAlertWithMessage = (message) => {
+    dispatch({ type: "CREATE_ALERT_WITH_MESSAGE", message });
   };
 
-  const clearError = () => {
-    dispatch({ type: "CLEAR_ERROR_MESSAGE" });
+  const clearAlert = () => {
+    dispatch({ type: "CLEAR_ALERT_DIALOG" });
   };
 
   const registerUser = async (name, email, password) => {
     try {
-      const {
-        data: { user },
-      } = await axios.post("/api/users/register", {
+      const { data: user } = await axios.post("/api/users/register", {
         name,
         email,
         password,
       });
-      dispatch({ type: "REGISTER_USER_SUCCESSFUL", payload: user });
+      dispatch({ type: "REGISTER_USER_SUCCESSFUL_WITH_USER", user });
     } catch (error) {
-      dispatch({ type: "REGISTER_USER_FAILED", payload: error.response.data });
+      const message = error.response.data;
+      dispatch({ type: "REGISTER_USER_FAILED_WITH_MESSAGE", message });
     }
   };
 
-  const logInUser = async (email, password) => {
+  const loginUser = async (email, password) => {
     try {
-      const {
-        data: { user },
-      } = await axios.post("/api/users/login", {
+      const { data: user } = await axios.post("/api/users/login", {
         email,
         password,
       });
-      dispatch({ type: "USER_LOGIN_SUCCESSFUL", payload: user });
+      dispatch({ type: "LOGIN_SUCCESSFUL_WITH_USER", user });
     } catch (error) {
-      dispatch({ type: "USER_LOGIN_FAILED", payload: error.response.data });
+      const message = error.response.data;
+      dispatch({ type: "LOGIN_FAILED_WITH_MESSAGE", message });
     }
   };
 
-  const checkIsAuthenticated = async () => {
+  const logoutUser = async () => {
     try {
-      const { isAuthenticated } = await axios.get("/api/users/auth");
-      dispatch({
-        type: "CHECK_IS_AUTHENTICATED_SUCCESSFUL",
-        payload: isAuthenticated,
-      });
+      const { data: user } = await axios.get("/api/users/logout");
+      dispatch({ type: "LOGOUT_SUCCESSFUL_WITH_USER", user });
     } catch (error) {
-      dispatch({
-        type: "CHECK_IS_AUTHENTICATED_FAILED",
-        payload: error.response.data,
-      });
+      const message = error.response.data;
+      dispatch({ type: "LOGOUT_FAILED_WITH_MESSAGE", message });
     }
   };
 
@@ -73,13 +65,12 @@ export const GlobalProvider = ({ children }) => {
     <GlobalContext.Provider
       value={{
         user: state.user,
-        error: state.error,
-        isAuthenticated: state.isAuthenticated,
-        logInUser,
-        checkIsAuthenticated,
+        alert: state.alert,
+        loginUser,
+        logoutUser,
         registerUser,
-        createError,
-        clearError,
+        createAlertWithMessage,
+        clearAlert,
       }}
     >
       {children}
