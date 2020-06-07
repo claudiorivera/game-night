@@ -4,6 +4,7 @@ import { Router } from "@reach/router";
 import {
   Register,
   Login,
+  UserProfile,
   Home,
   MainAppBar,
   AlertDialog,
@@ -20,6 +21,7 @@ function App() {
       <AlertDialog />
       <Router>
         <PrivateRoute as={Home} path="home" />
+        <PrivateRoute as={UserProfile} path="profile" />
         <Login path="login" />
         <Register path="register" />
       </Router>

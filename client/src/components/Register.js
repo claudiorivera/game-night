@@ -1,19 +1,23 @@
 import React, { useState, useContext } from "react";
 import { GlobalContext } from "../context";
 import { Typography, TextField, Container, Button } from "@material-ui/core";
-import { Link } from "@reach/router";
+import { Link, navigate } from "@reach/router";
 
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
-  const { registerUser, createAlertWithMessage } = useContext(GlobalContext);
+  const { registerUser, createAlertWithMessage, clearAlert } = useContext(
+    GlobalContext
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password === passwordConfirm) {
       registerUser(name, email, password);
+      clearAlert();
+      navigate("home");
     } else {
       createAlertWithMessage("Passwords don't match");
     }

@@ -50,8 +50,6 @@ passport.deserializeUser(User.deserializeUser());
 
 // Route handlers
 app.use("/api/users", require("./api/users"));
-app.use("/api/games", require("./api/games"));
-app.use("/api/events", require("./api/events"));
 
 // If we're in production, serve the client/build folder
 if (process.env.NODE_ENV === "production") {

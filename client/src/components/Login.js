@@ -1,16 +1,18 @@
 import React, { useState, useContext } from "react";
 import { GlobalContext } from "../context";
 import { Typography, TextField, Container, Button } from "@material-ui/core";
-import { Link } from "@reach/router";
+import { Link, navigate } from "@reach/router";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { loginUser } = useContext(GlobalContext);
+  const { loginUser, clearAlert } = useContext(GlobalContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     loginUser(email, password);
+    clearAlert();
+    navigate("/home");
   };
 
   return (

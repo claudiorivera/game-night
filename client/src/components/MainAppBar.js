@@ -21,9 +21,14 @@ const MainAppBar = () => {
           Home
         </Button>
         {user ? (
-          <Button color="inherit" onClick={logoutUser}>
-            Logout
-          </Button>
+          <Fragment>
+            <Button color="inherit" component={Link} to="profile">
+              My Profile
+            </Button>
+            <Button color="inherit" onClick={logoutUser}>
+              Logout
+            </Button>
+          </Fragment>
         ) : (
           <Fragment>
             <Button component={Link} to="login" color="inherit">

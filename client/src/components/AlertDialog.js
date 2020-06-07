@@ -21,9 +21,9 @@ const AlertDialog = () => {
         onClose={() => {
           clearAlert();
         }}
-        severity="error"
+        severity="warning"
       >
-        <AlertTitle>alert</AlertTitle>
+        <AlertTitle>Alert</AlertTitle>
         {JSON.stringify(alert)}
       </Alert>
     </div>

@@ -61,13 +61,17 @@ export const GlobalProvider = ({ children }) => {
     }
   };
 
-  const getAuth = async () => {
+  const deleteUserById = async (_id) => {
     try {
-      const { data: user } = await axios.get("/api/users/auth");
-      dispatch({ type: "GET_AUTH_SUCCESSFUL_WITH_USER", user });
+      const { data: user } = await axios.delete(`/api/users/${_id}`);
+      dispatch({ type: "DELETE_USER_BY_ID_SUCCESSFUL_WITH_USER", user });
+      dispatch({
+        type: "CREATE_ALERT_WITH_MESSAGE",
+        message: "User successfully deleted",
+      });
     } catch (error) {
       const message = error.response.data;
-      dispatch({ type: "GET_AUTH_FAILED_WITH_MESSAGE", message });
+      dispatch({ type: "DELETE_USER_BY_ID_FAILED_WITH_MESSAGE", message });
     }
   };
 
@@ -79,9 +83,9 @@ export const GlobalProvider = ({ children }) => {
         loginUser,
         logoutUser,
         registerUser,
+        deleteUserById,
         createAlertWithMessage,
         clearAlert,
-        getAuth,
       }}
     >
       {children}
