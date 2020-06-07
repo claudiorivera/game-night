@@ -12,6 +12,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
+    "fast-xml-parser": "^3.17.3",
     "fontsource-roboto": "^2.1.3",
     "moment": "^2.26.0",
     "react": "^16.13.1",
