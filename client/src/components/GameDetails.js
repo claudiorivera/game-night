@@ -9,7 +9,7 @@ const GameDetails = () => {
 
   const getGameDetails = async (id) => {
     const { data } = await axios.get(
-      `https://api.geekdo.com/xmlapi2/thing?id=${id}`
+      `https://api.geekdo.com/xmlapi2/thing?id=${id}&stats=1`
     );
 
     // https://github.com/NaturalIntelligence/fast-xml-parser
@@ -31,8 +31,9 @@ const GameDetails = () => {
         // first (and only) element which has a type of "primary"
         name: game.name.filter((el) => el.type === "primary")[0].value,
         // Ignore all properties, except for "boardgamedesigner"
-        author: game.link.filter((el) => el.type === "boardgamedesigner")[0]
-          .value,
+        authors: game.link
+          .filter((element) => element.type === "boardgamedesigner")
+          .map((designer) => designer.value),
         imageSrc: game.image,
         thumbnailSrc: game.thumbnail,
         description: game.description,
@@ -40,11 +41,16 @@ const GameDetails = () => {
         minPlayers: game.minplayers.value,
         maxPlayers: game.maxplayers.value,
         playingTime: game.playingtime.value,
-        minage: game.minage.value,
+        minAge: game.minage.value,
         categories: game.link
           .filter((element) => element.type === "boardgamecategory")
           .map((category) => category.value),
+        gameMechanics: game.link
+          .filter((element) => element.type === "boardgamemechanic")
+          .map((mechanic) => mechanic.value),
         bggId: game.id,
+        rating: game.statistics.average.value,
+        numOfRatings: game.statistics.usersrated.value,
       });
     }
   };
@@ -59,7 +65,15 @@ const GameDetails = () => {
       <Typography variant="h1">{gameDetails.name}</Typography>
       <img src={gameDetails.thumbnailSrc} alt={gameDetails.name} />
       <Typography variant="subtitle1">
-        Designed by: {gameDetails.author}
+        Designed by:{" "}
+        {gameDetails.authors &&
+          gameDetails.authors.map((author, index) => (
+            <span key={index}>{author}, </span>
+          ))}
+      </Typography>
+      <Typography variant="subtitle1">
+        Average BGG Rating: {gameDetails.rating} (from{" "}
+        {gameDetails.numOfRatings} users)
       </Typography>
       <Typography variant="subtitle1">
         Published: {gameDetails.yearPublished}
