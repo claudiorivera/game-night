@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, Fragment } from "react";
 import { GlobalContext } from "../context";
 import { makeStyles } from "@material-ui/core/styles";
 import { Alert, AlertTitle } from "@material-ui/lab";
@@ -28,7 +28,7 @@ const AlertDialog = () => {
       </Alert>
     </div>
   ) : (
-    <div></div>
+    <Fragment></Fragment>
   );
 };
 

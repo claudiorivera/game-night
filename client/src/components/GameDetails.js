@@ -1,4 +1,5 @@
-import React, { useEffect, useState, Fragment } from "react";
+import React, { useEffect, useState, Fragment, useContext } from "react";
+import { GlobalContext } from "../context";
 import { Typography, Chip, Button } from "@material-ui/core";
 
 const axios = require("axios").default;
@@ -6,6 +7,7 @@ const parser = require("fast-xml-parser");
 
 const GameDetails = () => {
   const [gameDetails, setGameDetails] = useState({});
+  const { addGame } = useContext(GlobalContext);
 
   const getGameDetails = async (id) => {
     const { data } = await axios.get(
@@ -57,13 +59,13 @@ const GameDetails = () => {
   };
 
   const handleAddGame = async () => {
-    const { data } = await axios.post("/api/games/add", { ...gameDetails });
-    console.log(JSON.stringify(data));
+    addGame({ ...gameDetails });
   };
 
   // Fetch game details on component render
   useEffect(() => {
-    getGameDetails(13);
+    // https://api.geekdo.com/xmlapi2/search?query=terraforming+mars&type=boardgame - example query to find bgg id
+    getGameDetails(167791);
   }, []);
 
   return (

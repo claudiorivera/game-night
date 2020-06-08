@@ -21,7 +21,7 @@ export const GlobalProvider = ({ children }) => {
   };
 
   const clearAlert = () => {
-    dispatch({ type: "CLEAR_ALERT_DIALOG" });
+    dispatch({ type: "CLEAR_ALERT" });
   };
 
   const registerUser = async (name, email, password) => {
@@ -77,10 +77,13 @@ export const GlobalProvider = ({ children }) => {
 
   const addGame = async (gameToAdd) => {
     try {
-      const { data: gameAdded } = await axios.post("/api/users/register", {
-        gameToAdd,
+      await axios.post("/api/games/add", {
+        ...gameToAdd,
       });
-      dispatch({ type: "ADD_GAME_SUCCESSFUL_WITH_GAME", gameAdded });
+      await dispatch({
+        type: "ADD_GAME_SUCCESSFUL_WITH_MESSAGE",
+        message: "Game successfully added",
+      });
     } catch (error) {
       const message = error.response.data;
       dispatch({ type: "ADD_GAME_FAILED_WITH_MESSAGE", message });
