@@ -1,11 +1,11 @@
 import React from "react";
 import { Container } from "@material-ui/core";
-import { GameDetails } from "../components";
+import { AddGame } from "../components";
 
 const Home = () => {
   return (
     <Container>
-      <GameDetails />
+      <AddGame />
     </Container>
   );
 };

@@ -5,7 +5,7 @@ import { Typography, Chip, Button } from "@material-ui/core";
 const axios = require("axios").default;
 const parser = require("fast-xml-parser");
 
-const GameDetails = () => {
+const AddGame = () => {
   const [gameDetails, setGameDetails] = useState({});
   const { addGame } = useContext(GlobalContext);
 
@@ -80,8 +80,8 @@ const GameDetails = () => {
           ))}
       </Typography>
       <Typography variant="subtitle1">
-        Average BGG Rating: {gameDetails.rating} (from{" "}
-        {gameDetails.numOfRatings} users)
+        Average BGG Rating: {gameDetails.rating} ({gameDetails.numOfRatings}{" "}
+        ratings)
       </Typography>
       <Typography variant="subtitle1">
         Published: {gameDetails.yearPublished}
@@ -105,4 +105,4 @@ const GameDetails = () => {
   );
 };
 
-export default GameDetails;
+export default AddGame;
