@@ -8,7 +8,7 @@ const User = require("../models/User");
 // Routes
 
 // POST /api/users/register
-// Params: req.body.email, req.body.name, req.body.password
+// Params: email, name, password
 // Returns user on success
 router.post("/register", (req, res) => {
   const { email, name, password } = req.body;
@@ -23,7 +23,7 @@ router.post("/register", (req, res) => {
 });
 
 // POST /api/users/login
-// Params: req.body.email, req.body.password
+// Params: email and password
 // Returns user on success
 router.post("/login", passport.authenticate("local"), (req, res) => {
   if (req.user) {
@@ -40,7 +40,7 @@ router.get("/logout", (req, res) => {
 });
 
 // DELETE /api/users/:id
-// Params: req.params.id
+// Params: user id
 // Returns null on success (for front-end user reducer)
 router.delete("/:id", async (req, res) => {
   if (req.user) {

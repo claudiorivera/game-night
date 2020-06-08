@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const passport = require("passport");
 
 // Model
 const Game = require("../models/Game");
@@ -7,72 +8,33 @@ const Game = require("../models/Game");
 // Routes
 
 // POST /api/games/add
-// Params: req.body.email, req.body.name, req.body.password
-// Returns user on success
+// Params: game object
+// Returns the added game object on success
 router.post("/add", (req, res) => {
-  const {
-    name,
-    imageSrc,
-    thumbnailSrc,
-    description,
-    authors,
-    categories,
-    gameMechanics,
-    bggId,
-    yearPublished,
-    minPlayers,
-    maxPlayers,
-    playingTime,
-    minAge,
-    rating,
-    numOfRatings,
-  } = req.body;
-
-  // console.log("req.body: ", {
-  //   name,
-  //   imageSrc,
-  //   thumbnailSrc,
-  //   description,
-  //   authors,
-  //   categories,
-  //   gameMechanics,
-  //   bggId,
-  //   yearPublished,
-  //   minPlayers,
-  //   maxPlayers,
-  //   playingTime,
-  //   minAge,
-  //   rating,
-  //   numOfRatings,
-  // });
-
-  const newGame = new Game({
-    name,
-    imageSrc,
-    thumbnailSrc,
-    description,
-    authors,
-    categories,
-    gameMechanics,
-    bggId,
-    yearPublished,
-    minPlayers,
-    maxPlayers,
-    playingTime,
-    minAge,
-    rating,
-    numOfRatings,
-  });
-  console.log("adding new game: ", newGame);
-
-  // newGame.save((error, gameAdded) => {
-  //   if (error) {
-  //     res.status(400).json(error);
-  //   } else {
-  //     res.status(201).json(gameAdded);
-  //   }
-  // });
-  res.status(200).json(newGame);
+  if (req.user && req.user.isAdmin) {
+    const addedGame = new Game(
+      ({
+        name,
+        imageSrc,
+        thumbnailSrc,
+        description,
+        authors,
+        categories,
+        gameMechanics,
+        bggId,
+        yearPublished,
+        minPlayers,
+        maxPlayers,
+        playingTime,
+        minAge,
+        rating,
+        numOfRatings,
+      } = req.body)
+    );
+    res.status(200).json({ message: "user is admin", addedGame });
+  } else {
+    res.status(400).json({ message: "no user or user not admin" });
+  }
 });
 
 module.exports = router;

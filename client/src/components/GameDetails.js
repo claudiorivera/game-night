@@ -58,12 +58,12 @@ const GameDetails = () => {
 
   const handleAddGame = async () => {
     const { data } = await axios.post("/api/games/add", { ...gameDetails });
-    console.log(data);
+    console.log(JSON.stringify(data));
   };
 
   // Fetch game details on component render
   useEffect(() => {
-    getGameDetails(120677);
+    getGameDetails(13);
   }, []);
 
   return (
