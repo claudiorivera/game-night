@@ -75,6 +75,18 @@ export const GlobalProvider = ({ children }) => {
     }
   };
 
+  const addGame = async (gameToAdd) => {
+    try {
+      const { data: gameAdded } = await axios.post("/api/users/register", {
+        gameToAdd,
+      });
+      dispatch({ type: "ADD_GAME_SUCCESSFUL_WITH_GAME", gameAdded });
+    } catch (error) {
+      const message = error.response.data;
+      dispatch({ type: "ADD_GAME_FAILED_WITH_MESSAGE", message });
+    }
+  };
+
   return (
     <GlobalContext.Provider
       value={{
@@ -86,6 +98,7 @@ export const GlobalProvider = ({ children }) => {
         deleteUserById,
         createAlertWithMessage,
         clearAlert,
+        addGame,
       }}
     >
       {children}

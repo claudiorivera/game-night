@@ -16,6 +16,7 @@ const UserProfile = () => {
     <Container>
       <Typography variant="h5">Name: {user.name}</Typography>
       <Typography variant="h5">Email: {user.email}</Typography>
+      <Typography variant="h5">Admin? {user.isAdmin ? "Yes" : "No"}</Typography>
       <Typography variant="h5">
         Date Created: {moment(user.dateCreated).format("MMMM Do, YYYY")}
       </Typography>

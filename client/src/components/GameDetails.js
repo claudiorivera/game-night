@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Fragment } from "react";
-import { Typography, Chip } from "@material-ui/core";
+import { Typography, Chip, Button } from "@material-ui/core";
 
 const axios = require("axios").default;
 const parser = require("fast-xml-parser");
@@ -23,17 +23,10 @@ const GameDetails = () => {
       const {
         items: { item: game },
       } = parser.parse(data, options);
-      console.dir(game);
 
       // Clean up the api data and set our component state
       setGameDetails({
-        // Ignore all of the alternate names and only return the value of the
-        // first (and only) element which has a type of "primary"
-        name: game.name.filter((el) => el.type === "primary")[0].value,
-        // Ignore all properties, except for "boardgamedesigner"
-        authors: game.link
-          .filter((element) => element.type === "boardgamedesigner")
-          .map((designer) => designer.value),
+        bggId: game.id,
         imageSrc: game.image,
         thumbnailSrc: game.thumbnail,
         description: game.description,
@@ -42,17 +35,30 @@ const GameDetails = () => {
         maxPlayers: game.maxplayers.value,
         playingTime: game.playingtime.value,
         minAge: game.minage.value,
+        rating: game.statistics.average.value,
+        numOfRatings: game.statistics.usersrated.value,
+        // Ignore all of the alternate names and only return the value of the
+        // first (and only) element which has a type of "primary"
+        name: game.name.filter((element) => element.type === "primary")[0]
+          .value,
+        // Get all the deeper nested "link" properties - There's probably a more efficient way to do this
+        // without having to parse the link array multiple times
+        authors: game.link
+          .filter((element) => element.type === "boardgamedesigner")
+          .map((designer) => designer.value),
         categories: game.link
           .filter((element) => element.type === "boardgamecategory")
           .map((category) => category.value),
         gameMechanics: game.link
           .filter((element) => element.type === "boardgamemechanic")
           .map((mechanic) => mechanic.value),
-        bggId: game.id,
-        rating: game.statistics.average.value,
-        numOfRatings: game.statistics.usersrated.value,
       });
     }
+  };
+
+  const handleAddGame = async () => {
+    const { data } = await axios.post("/api/games/add", { ...gameDetails });
+    console.log(data);
   };
 
   // Fetch game details on component render
@@ -90,6 +96,9 @@ const GameDetails = () => {
           <Chip key={index} label={category} />
         ))}
       <Typography variant="body1">{gameDetails.description}</Typography>
+      <Button variant="contained" color="primary" onClick={handleAddGame}>
+        Add Game
+      </Button>
     </Fragment>
   );
 };

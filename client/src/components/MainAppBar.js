@@ -15,7 +15,7 @@ const MainAppBar = () => {
   const { user, logoutUser } = useContext(GlobalContext);
 
   return (
-    <AppBar position="static" className={classes.mb3}>
+    <AppBar position="sticky" className={classes.mb3}>
       <Toolbar>
         <Button component={Link} to="home" color="inherit">
           Home
