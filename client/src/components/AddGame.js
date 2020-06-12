@@ -65,7 +65,7 @@ const AddGame = () => {
   // Fetch game details on component render
   useEffect(() => {
     // https://api.geekdo.com/xmlapi2/search?query=terraforming+mars&type=boardgame - example query to find bgg id
-    getGameDetails(167791);
+    getGameDetails(182028);
   }, []);
 
   return (

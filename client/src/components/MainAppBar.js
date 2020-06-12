@@ -20,6 +20,11 @@ const MainAppBar = () => {
         <Button component={Link} to="home" color="inherit">
           Home
         </Button>
+        {user && user.isAdmin && (
+          <Button color="inherit" component={Link} to="addgame">
+            Add Game
+          </Button>
+        )}
         {user ? (
           <Fragment>
             <Button color="inherit" component={Link} to="profile">

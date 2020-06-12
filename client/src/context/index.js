@@ -77,12 +77,12 @@ export const GlobalProvider = ({ children }) => {
 
   const addGame = async (gameToAdd) => {
     try {
-      await axios.post("/api/games/add", {
+      const addedGame = await axios.post("/api/games/add", {
         ...gameToAdd,
       });
       await dispatch({
-        type: "ADD_GAME_SUCCESSFUL_WITH_MESSAGE",
-        message: "Game successfully added",
+        type: "ADD_GAME_SUCCESSFUL_WITH_GAME",
+        addedGame,
       });
     } catch (error) {
       const message = error.response.data;
