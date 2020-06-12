@@ -54,7 +54,7 @@ app.use("/api/games", require("./api/games"));
 
 // If we're in production, serve the client/build folder
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "public", "build")));
+  app.use(express.static(path.join(__dirname, "build")));
 }
 
 module.exports = app;
