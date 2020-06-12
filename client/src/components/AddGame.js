@@ -47,6 +47,7 @@ const AddGame = () => {
         Add Game
       </Button>
       <hr />
+      {/* Display game details if we got any */}
       {gameDetails && <GameDetails game={gameDetails} />}
     </Fragment>
   );

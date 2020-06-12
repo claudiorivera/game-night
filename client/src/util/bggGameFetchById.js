@@ -5,6 +5,7 @@ const bggGameFetchById = async (bggId) => {
   let gameToReturn = null;
 
   const { data } = await axios.get(
+    // https://boardgamegeek.com/wiki/page/BGG_XML_API2
     `https://api.geekdo.com/xmlapi2/thing?id=${bggId}&stats=1`
   );
 
@@ -15,12 +16,13 @@ const bggGameFetchById = async (bggId) => {
     parseAttributeValue: true,
   };
 
-  if (parser.validate(data) === true) {
+  // Make sure we have parseable data
+  if (parser.validate(data) === true && data.items) {
     const {
       items: { item: game },
     } = parser.parse(data, options);
 
-    // Clean up the api data and set our component state
+    // Clean up the api data and set our new game object
     gameToReturn = {
       bggId: game.id,
       imageSrc: game.image,
@@ -33,9 +35,10 @@ const bggGameFetchById = async (bggId) => {
       minAge: game.minage.value,
       rating: game.statistics.average.value,
       numOfRatings: game.statistics.usersrated.value,
-      // Ignore all of the alternate names and only return the value of the
-      // first (and only) element which has a type of "primary"
-      name: game.name.filter((element) => element.type === "primary")[0].value,
+      // Ignore all alternate names, if there are multiple (ie. isArray)
+      name: Array.isArray(game.name)
+        ? game.name.filter((element) => element.type === "primary")[0].value
+        : game.name.value,
       // Get all the deeper nested "link" properties - There's probably a more efficient way to do this
       // without having to parse the link array multiple times
       authors: game.link
@@ -47,6 +50,10 @@ const bggGameFetchById = async (bggId) => {
       gameMechanics: game.link
         .filter((element) => element.type === "boardgamemechanic")
         .map((mechanic) => mechanic.value),
+    };
+  } else {
+    gameToReturn = {
+      name: "No game with that ID. Please try again.",
     };
   }
 
