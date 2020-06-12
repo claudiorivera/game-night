@@ -22,11 +22,11 @@ const MainAppBar = () => {
         </Button>
         {/* Show the Add Game link if the user is an admin */}
         {user && user.isAdmin && (
-          <Button color="inherit" component={Link} to="/games/add">
-            Add Game
+          <Button color="inherit" component={Link} to="/games">
+            Games
           </Button>
         )}
-        {/* Show the Profile and Log Out links if a user is logged in */}
+        {/* Show the Profile and Log Out links if a non-admin user is logged in */}
         {user ? (
           <Fragment>
             <Button color="inherit" component={Link} to="/profile">
@@ -39,7 +39,12 @@ const MainAppBar = () => {
         ) : (
           // Show the Login and Register links if a user is not logged in
           <Fragment>
-            <Button component={Link} to="/login" color="inherit">
+            <Button
+              className={classes.alignRight}
+              component={Link}
+              to="/login"
+              color="inherit"
+            >
               Login
             </Button>
             <Button component={Link} to="/register" color="inherit">

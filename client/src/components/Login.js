@@ -7,12 +7,13 @@ const Login = () => {
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { loginUser, clearAlert } = useContext(GlobalContext);
+  const [isFetching, setIsFetching] = useState(false);
+  const { loginUser } = useContext(GlobalContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsFetching(true);
     await loginUser(email, password);
-    clearAlert();
     history.push("/home");
   };
 
@@ -58,6 +59,7 @@ const Login = () => {
           fullWidth
           color="primary"
           variant="contained"
+          disabled={isFetching}
         >
           Log In
         </Button>

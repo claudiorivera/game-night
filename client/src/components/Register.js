@@ -9,15 +9,14 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
-  const { registerUser, createAlertWithMessage, clearAlert } = useContext(
-    GlobalContext
-  );
+  const [isFetching, setIsFetching] = useState(false);
+  const { registerUser, createAlertWithMessage } = useContext(GlobalContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password === passwordConfirm) {
+      setIsFetching(true);
       await registerUser(name, email, password);
-      clearAlert();
       history.push("/home");
     } else {
       createAlertWithMessage("Passwords don't match");
@@ -98,6 +97,7 @@ const Register = () => {
           fullWidth
           color="primary"
           variant="contained"
+          disabled={isFetching}
         >
           Register
         </Button>
