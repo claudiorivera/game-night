@@ -22,7 +22,7 @@ const MainAppBar = () => {
         </Button>
         {/* Show the Add Game link if the user is an admin */}
         {user && user.isAdmin && (
-          <Button color="inherit" component={Link} to="/addgame">
+          <Button color="inherit" component={Link} to="/games/add">
             Add Game
           </Button>
         )}

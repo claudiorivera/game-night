@@ -9,7 +9,7 @@ import {
   MainAppBar,
   AlertDialog,
   PrivateRoute,
-  AddGame,
+  GameList,
 } from "./components";
 import "fontsource-roboto";
 import { GlobalProvider } from "./context";
@@ -28,8 +28,8 @@ function App() {
           <PrivateRoute path="/profile">
             <UserProfile />
           </PrivateRoute>
-          <PrivateRoute path="/addgame">
-            <AddGame />
+          <PrivateRoute path="/games">
+            <GameList />
           </PrivateRoute>
           <Route path="/login">
             <Login />

@@ -1,11 +1,11 @@
 import React from "react";
 import { Container } from "@material-ui/core";
-import { GameList } from "../components";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
     <Container>
-      <GameList />
+      <Link to="/games">Go To Games List</Link>
     </Container>
   );
 };
