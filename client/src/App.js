@@ -1,7 +1,6 @@
 import React from "react";
 import { CssBaseline } from "@material-ui/core";
-import { Router } from "@reach/router";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import {
   Register,
   Login,
@@ -18,15 +17,27 @@ import { GlobalProvider } from "./context";
 function App() {
   return (
     <GlobalProvider>
-      <CssBaseline />
-      <MainAppBar />
-      <AlertDialog />
       <Router>
-        <PrivateRoute as={Home} path="home" />
-        <PrivateRoute as={UserProfile} path="profile" />
-        <PrivateRoute as={AddGame} path="addgame" />
-        <Login path="login" />
-        <Register path="register" />
+        <CssBaseline />
+        <MainAppBar />
+        <AlertDialog />
+        <Switch>
+          <PrivateRoute path="/home">
+            <Home />
+          </PrivateRoute>
+          <PrivateRoute path="/profile">
+            <UserProfile />
+          </PrivateRoute>
+          <PrivateRoute path="/addgame">
+            <AddGame />
+          </PrivateRoute>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/register">
+            <Register />
+          </Route>
+        </Switch>
       </Router>
     </GlobalProvider>
   );

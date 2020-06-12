@@ -1,15 +1,16 @@
 import React, { useContext } from "react";
 import { GlobalContext } from "../context";
 import { Container, Typography, Button } from "@material-ui/core";
-import { navigate } from "@reach/router";
+import { useHistory } from "react-router-dom";
 const moment = require("moment");
 // MongoDB date format: 2020-06-07T00:03:58.562Z
 
 const UserProfile = () => {
+  const history = useHistory();
   const { user, deleteUserById } = useContext(GlobalContext);
-  const handleDelete = () => {
-    deleteUserById(user._id);
-    navigate("/register");
+  const handleDelete = async () => {
+    await deleteUserById(user._id);
+    history.push("/register");
   };
 
   return (

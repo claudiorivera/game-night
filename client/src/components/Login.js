@@ -1,18 +1,19 @@
 import React, { useState, useContext } from "react";
 import { GlobalContext } from "../context";
 import { Typography, TextField, Container, Button } from "@material-ui/core";
-import { Link, navigate } from "@reach/router";
+import { Link, useHistory } from "react-router-dom";
 
 const Login = () => {
+  const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { loginUser, clearAlert } = useContext(GlobalContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    loginUser(email, password);
+    await loginUser(email, password);
     clearAlert();
-    navigate("/home");
+    history.push("/home");
   };
 
   return (

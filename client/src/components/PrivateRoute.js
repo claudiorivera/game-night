@@ -1,22 +1,27 @@
-import React, { Fragment, useContext } from "react";
+import React, { useContext } from "react";
 import { GlobalContext } from "../context";
-import { Login } from "../components";
+import { Route, Redirect } from "react-router-dom";
 
-// https://github.com/reach/router/issues/185#issuecomment-453544852
-const PrivateRoute = ({ as: Component, ...props }) => {
+// https://reacttraining.com/react-router/web/example/auth-workflow
+function PrivateRoute({ children, ...rest }) {
   const { user } = useContext(GlobalContext);
-
   return (
-    <Fragment>
-      {user ? (
-        <Component {...props} />
-      ) : (
-        <Fragment>
-          <Login />
-        </Fragment>
-      )}
-    </Fragment>
+    <Route
+      {...rest}
+      render={({ location }) =>
+        user ? (
+          children
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/login",
+              state: { from: location },
+            }}
+          />
+        )
+      }
+    />
   );
-};
+}
 
 export default PrivateRoute;

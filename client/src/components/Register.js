@@ -1,9 +1,10 @@
 import React, { useState, useContext } from "react";
 import { GlobalContext } from "../context";
 import { Typography, TextField, Container, Button } from "@material-ui/core";
-import { Link, navigate } from "@reach/router";
+import { Link, useHistory } from "react-router-dom";
 
 const Register = () => {
+  const history = useHistory();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -12,12 +13,12 @@ const Register = () => {
     GlobalContext
   );
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (password === passwordConfirm) {
-      registerUser(name, email, password);
+      await registerUser(name, email, password);
       clearAlert();
-      navigate("home");
+      history.push("/home");
     } else {
       createAlertWithMessage("Passwords don't match");
     }
