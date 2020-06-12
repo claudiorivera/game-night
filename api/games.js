@@ -9,7 +9,7 @@ const Game = require("../models/Game");
 // Returns all games on success
 router.get("/", async (req, res) => {
   try {
-    const games = await Game.find({});
+    const games = await Game.find({}).sort({ numOfRatings: "desc" });
     res.status(200).json(games);
   } catch (error) {
     res.status(400).json(error);
