@@ -1,6 +1,7 @@
 import React from "react";
 import { CssBaseline } from "@material-ui/core";
 import { Router } from "@reach/router";
+import { BrowserRouter } from "react-router-dom";
 import {
   Register,
   Login,
