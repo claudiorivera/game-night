@@ -1,3 +1,5 @@
+// Interfaces with the BoardGameGeek API2 and returns a custom object
+
 const axios = require("axios").default;
 const parser = require("fast-xml-parser");
 
@@ -17,7 +19,7 @@ const bggGameFetchById = async (bggId) => {
   };
 
   // Make sure we have parseable data
-  if (parser.validate(data) === true && data.items) {
+  if (parser.validate(data) === true) {
     const {
       items: { item: game },
     } = parser.parse(data, options);
@@ -53,7 +55,7 @@ const bggGameFetchById = async (bggId) => {
     };
   } else {
     gameToReturn = {
-      name: "No game with that ID. Please try again.",
+      name: "No game with that ID. Please try a different ID.",
     };
   }
 
