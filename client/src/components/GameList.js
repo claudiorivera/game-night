@@ -356,7 +356,7 @@ const GameList = () => {
     getGamesList();
   }, []);
 
-  return <div>Game List</div>;
+  return <div>Game List!</div>;
 };
 
 export default GameList;
