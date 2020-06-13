@@ -38,6 +38,8 @@ const bggIdFetchByQuery = async (query) => {
         });
       });
     }
+    // Sort by BGG ID ascending, since the lower IDs tend to be the best result
+    gamesList.sort((a, b) => a.bggId - b.bggId);
   } else {
     gamesList = [
       {
