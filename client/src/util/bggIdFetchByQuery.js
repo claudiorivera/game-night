@@ -6,7 +6,7 @@ const axios = require("axios").default;
 const parser = require("fast-xml-parser");
 
 const bggIdFetchByQuery = async (query) => {
-  let gamesList = null;
+  let gamesList = [];
 
   const { data } = await axios.get(
     // https://boardgamegeek.com/wiki/page/BGG_XML_API2
@@ -26,18 +26,18 @@ const bggIdFetchByQuery = async (query) => {
       items: { item: games },
     } = parser.parse(data, options);
 
-    // // Clean up the api data and set our new game object
-    gamesList = [];
-
-    games.forEach((game) => {
-      gamesList.push({
-        bggId: game.id,
-        // Ignore all alternate names, if there are multiple (ie. isArray)
-        name: Array.isArray(game.name)
-          ? game.name.filter((element) => element.type === "primary")[0].value
-          : game.name.value,
+    // Clean up the api data and set our new game object
+    if (games && games.length > 0) {
+      games.forEach((game) => {
+        gamesList.push({
+          bggId: game.id,
+          // Ignore all alternate names, if there are multiple (ie. isArray)
+          name: Array.isArray(game.name)
+            ? game.name.filter((element) => element.type === "primary")[0].value
+            : game.name.value,
+        });
       });
-    });
+    }
   } else {
     gamesList = [
       {

@@ -27,6 +27,10 @@ const AddGame = () => {
 
   const handleSearchByName = async (e) => {
     e.preventDefault();
+  };
+
+  const handleQueryInputChange = async (e) => {
+    setFormBggQueryInput(e.target.value);
     const results = await bggIdFetchByQuery(formBggQueryInput);
     setGameQueryResults(results);
   };
@@ -72,7 +76,7 @@ const AddGame = () => {
           }}
           variant="outlined"
           value={formBggQueryInput}
-          onChange={(e) => setFormBggQueryInput(e.target.value)}
+          onChange={handleQueryInputChange}
         />
         <Button
           type="submit"
