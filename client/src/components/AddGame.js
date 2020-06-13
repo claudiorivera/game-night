@@ -6,11 +6,24 @@ import {
   Container,
   CircularProgress,
 } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import { Alert, AlertTitle } from "@material-ui/lab";
+
 import { GameDetails } from "../components";
 import { bggFetchGameByQuery } from "../util/bggFetchGameByQuery";
 import { useHistory } from "react-router-dom";
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: "100%",
+    "& > * + *": {
+      marginTop: theme.spacing(2),
+    },
+  },
+}));
+
 const AddGame = () => {
+  const classes = useStyles();
   const history = useHistory();
   const [gameDetails, setGameDetails] = useState(null);
   const [query, setQuery] = useState("");
@@ -30,7 +43,7 @@ const AddGame = () => {
     if (game.bggId === 0) {
       setIsFetching(false);
       setGameDetails(null);
-      setAlert("No game found");
+      setAlert("No game found with that exact name. Please try again.");
       return;
     }
     setGameDetails(game);
@@ -44,7 +57,19 @@ const AddGame = () => {
 
   return (
     <Container>
-      {alert && <div>{alert}</div>}
+      {alert && (
+        <div className={classes.root}>
+          <Alert
+            onClose={() => {
+              setAlert(null);
+            }}
+            severity="warning"
+          >
+            <AlertTitle>Alert</AlertTitle>
+            {alert}
+          </Alert>
+        </div>
+      )}
       <form onSubmit={handleSearch}>
         <TextField
           name="query"

@@ -54,7 +54,6 @@ export const bggFetchGameById = async (id) => {
     };
   } else {
     gameToReturn = {
-      name: "No game with that ID. Please try again.",
       bggId: 0,
     };
   }

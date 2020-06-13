@@ -11,7 +11,7 @@ export const bggFetchGameByQuery = async (query) => {
     return gameToReturn;
   } else {
     return {
-      name: "No game found. Please try again.",
+      // Front end displays an alert when the bggId is zero
       bggId: 0,
     };
   }
