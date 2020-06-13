@@ -5,6 +5,8 @@ import {
   TextField,
   Container,
   CircularProgress,
+  List,
+  ListItem,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Alert, AlertTitle } from "@material-ui/lab";
@@ -27,6 +29,7 @@ const AddGame = () => {
   const history = useHistory();
   const [gameDetails, setGameDetails] = useState(null);
   const [query, setQuery] = useState("");
+  const [queryResults, setQueryResults] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   const [alert, setAlert] = useState(null);
   const { addGame } = useContext(GlobalContext);
@@ -47,6 +50,7 @@ const AddGame = () => {
       return;
     }
     setGameDetails(game);
+    setQueryResults([game]); // Temporary, while prototyping
     setIsFetching(false);
     setAlert(null);
   };
@@ -89,6 +93,17 @@ const AddGame = () => {
           Search
         </Button>
       </form>
+      {/* Search results begin */}
+      {queryResults.length > 0 && (
+        <List>
+          {queryResults.map((result) => (
+            <ListItem key={result.bggId}>{result.name}</ListItem>
+          ))}
+        </List>
+      )}
+
+      {/* Search results end */}
+
       {/* Display game details if we got any */}
       {isFetching && <CircularProgress />}
       {!isFetching && gameDetails && gameDetails.bggId !== 0 && (
