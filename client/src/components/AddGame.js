@@ -4,72 +4,43 @@ import {
   Button,
   TextField,
   Container,
-  List,
-  ListItem,
-  ListItemText,
+  CircularProgress,
 } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 import { GameDetails } from "../components";
-import bggGameFetchById from "../util/bggGameFetchById";
-import bggIdFetchByQuery from "../util/bggIdFetchByQuery";
+import { bggFetchGameByQuery } from "../util/bggFetchGameByQuery";
 import { useHistory } from "react-router-dom";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "100%",
-    backgroundColor: theme.palette.background.paper,
-    marginBottom: "1vh",
-  },
-  mb0: {
-    marginBottom: "0px",
-  },
-  listItem: {
-    paddingTop: "0px",
-    paddingBottom: "0px",
-    marginTop: "0px",
-    marginBottom: "0px",
-  },
-}));
 
 const AddGame = () => {
   const history = useHistory();
   const [gameDetails, setGameDetails] = useState(null);
-  const [gameQueryResults, setGameQueryResults] = useState([]);
-  const [formBggIdInput, setFormBggIdInput] = useState("");
-  const [formBggQueryInput, setFormBggQueryInput] = useState("");
+  const [query, setQuery] = useState("");
+  const [isFetching, setIsFetching] = useState(false);
   const { addGame } = useContext(GlobalContext);
-  const classes = useStyles();
-  const ListItemLink = (props) => <ListItem button component="a" {...props} />;
 
   const handleAddGame = async () => {
     await addGame({ ...gameDetails });
     history.push("/games");
   };
 
-  const handleSearchById = async (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault();
-    const fetchedGame = await bggGameFetchById(parseInt(formBggIdInput));
-    setGameDetails(fetchedGame);
+    setIsFetching(true);
+    const game = await bggFetchGameByQuery(query);
+    setGameDetails(game);
+    setIsFetching(false);
   };
 
-  const handleSearchByName = async (e) => {
-    e.preventDefault();
-  };
-
-  const handleQueryInputChange = async (e) => {
-    setFormBggQueryInput(e.target.value);
-    const results = await bggIdFetchByQuery(formBggQueryInput);
-    setGameQueryResults(results);
+  const handleQueryChange = async (e) => {
+    setQuery(e.target.value);
   };
 
   return (
     <Container>
-      <form onSubmit={handleSearchByName}>
+      <form onSubmit={handleSearch}>
         <TextField
-          className={classes.mb0}
-          name="bggQuery"
-          id="bggQuery"
-          label="Boardgame name"
+          name="query"
+          id="query"
+          label="Search for game to add"
           placeholder="Enter a boardgame name to search for"
           fullWidth
           margin="normal"
@@ -77,21 +48,13 @@ const AddGame = () => {
             shrink: true,
           }}
           variant="outlined"
-          value={formBggQueryInput}
-          onChange={handleQueryInputChange}
+          value={query}
+          onChange={handleQueryChange}
         />
-        {/* Start */}
-        <div className={classes.root}>
-          <List className={classes.listItem}>
-            <ListItemLink href="#">
-              <ListItemText primary="Result" />
-            </ListItemLink>
-          </List>
-        </div>
-        {/* End */}
       </form>
       {/* Display game details if we got any */}
-      {gameDetails && (
+      {isFetching && <CircularProgress />}
+      {gameDetails && !isFetching && (
         <Fragment>
           <GameDetails game={gameDetails} />
           <Button

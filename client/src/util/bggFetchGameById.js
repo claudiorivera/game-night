@@ -1,14 +1,13 @@
 // Interfaces with the BoardGameGeek API2 and returns a custom object
-
 const axios = require("axios").default;
 const parser = require("fast-xml-parser");
 
-const bggGameFetchById = async (bggId) => {
+export const bggFetchGameById = async (id) => {
   let gameToReturn = null;
 
   const { data } = await axios.get(
     // https://boardgamegeek.com/wiki/page/BGG_XML_API2
-    `https://api.geekdo.com/xmlapi2/thing?id=${bggId}&stats=1`
+    `https://api.geekdo.com/xmlapi2/thing?id=${id}&stats=1`
   );
 
   // https://github.com/NaturalIntelligence/fast-xml-parser
@@ -61,5 +60,3 @@ const bggGameFetchById = async (bggId) => {
 
   return gameToReturn;
 };
-
-module.exports = bggGameFetchById;
