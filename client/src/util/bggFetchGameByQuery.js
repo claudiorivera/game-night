@@ -12,6 +12,7 @@ export const bggFetchGameByQuery = async (query) => {
   } else {
     return {
       name: "No game found. Please try again.",
+      bggId: 0,
     };
   }
 };

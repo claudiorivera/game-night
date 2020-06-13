@@ -1,4 +1,5 @@
 import React from "react";
+import "fontsource-roboto";
 import { CssBaseline } from "@material-ui/core";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import {
@@ -12,7 +13,6 @@ import {
   GameList,
   AddGame,
 } from "./components";
-import "fontsource-roboto";
 import { GlobalProvider } from "./context";
 
 function App() {
@@ -26,14 +26,14 @@ function App() {
           <Route exact path="/">
             <Home />
           </Route>
-          <PrivateRoute path="/profile">
-            <UserProfile />
-          </PrivateRoute>
           <PrivateRoute exact path="/games">
             <GameList />
           </PrivateRoute>
           <PrivateRoute path="/games/add">
             <AddGame />
+          </PrivateRoute>
+          <PrivateRoute path="/profile">
+            <UserProfile />
           </PrivateRoute>
           <Route path="/login">
             <Login />

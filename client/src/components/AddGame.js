@@ -15,6 +15,7 @@ const AddGame = () => {
   const [gameDetails, setGameDetails] = useState(null);
   const [query, setQuery] = useState("");
   const [isFetching, setIsFetching] = useState(false);
+  const [alert, setAlert] = useState(null);
   const { addGame } = useContext(GlobalContext);
 
   const handleAddGame = async () => {
@@ -26,8 +27,15 @@ const AddGame = () => {
     e.preventDefault();
     setIsFetching(true);
     const game = await bggFetchGameByQuery(query);
+    if (game.bggId === 0) {
+      setIsFetching(false);
+      setGameDetails(null);
+      setAlert("No game found");
+      return;
+    }
     setGameDetails(game);
     setIsFetching(false);
+    setAlert(null);
   };
 
   const handleQueryChange = async (e) => {
@@ -36,6 +44,7 @@ const AddGame = () => {
 
   return (
     <Container>
+      {alert && <div>{alert}</div>}
       <form onSubmit={handleSearch}>
         <TextField
           name="query"
@@ -51,10 +60,13 @@ const AddGame = () => {
           value={query}
           onChange={handleQueryChange}
         />
+        <Button variant="contained" color="primary" fullWidth type="submit">
+          Search
+        </Button>
       </form>
       {/* Display game details if we got any */}
       {isFetching && <CircularProgress />}
-      {gameDetails && !isFetching && (
+      {!isFetching && gameDetails && gameDetails.bggId !== 0 && (
         <Fragment>
           <GameDetails game={gameDetails} />
           <Button
