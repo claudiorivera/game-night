@@ -25,8 +25,8 @@ const GameList = () => {
     <Fragment>
       <Link to={"/games/add"}>Add Game</Link>
       {gamesList.map((game) => (
-        <Fragment>
-          <GameDetails game={game} key={game._id} />
+        <Fragment key={game._id}>
+          <GameDetails game={game} />
           <Divider />
         </Fragment>
       ))}
