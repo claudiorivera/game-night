@@ -42,7 +42,9 @@ router.post("/add", (req, res) => {
     const addedGame = new Game(gameToAdd);
     addedGame.save((error) => {
       if (error) {
-        res.status(400).json(error);
+        res
+          .status(400)
+          .json(error.message || { message: "Something happen like error" });
       } else {
         res.status(200).json(addedGame);
       }

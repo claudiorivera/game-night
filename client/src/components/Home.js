@@ -1,8 +1,14 @@
-import React from "react";
-import { Container } from "@material-ui/core";
-
+import React, { useContext, Fragment } from "react";
+import { Container, Typography } from "@material-ui/core";
+import { GlobalContext } from "../context";
 const Home = () => {
-  return <Container>Welcome!</Container>;
+  const { user } = useContext(GlobalContext);
+
+  return (
+    <Container>
+      <Typography variant="h3">Hello, {user ? user.name : "there"}.</Typography>
+    </Container>
+  );
 };
 
 export default Home;

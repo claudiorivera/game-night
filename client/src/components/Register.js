@@ -17,7 +17,7 @@ const Register = () => {
     if (password === passwordConfirm) {
       setIsFetching(true);
       await registerUser(name, email, password);
-      history.push("/home");
+      history.push("/");
     } else {
       createAlertWithMessage("Passwords don't match");
     }

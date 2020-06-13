@@ -17,7 +17,7 @@ const MainAppBar = () => {
   return (
     <AppBar position="sticky" className={classes.mb3}>
       <Toolbar>
-        <Button component={Link} to="/home" color="inherit">
+        <Button component={Link} to="/" color="inherit">
           Home
         </Button>
         {/* Show the Add Game link if the user is an admin */}

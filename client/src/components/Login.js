@@ -14,7 +14,7 @@ const Login = () => {
     e.preventDefault();
     setIsFetching(true);
     await loginUser(email, password);
-    history.push("/home");
+    history.push("/");
   };
 
   return (

@@ -23,9 +23,9 @@ function App() {
         <MainAppBar />
         <AlertDialog />
         <Switch>
-          <PrivateRoute path="/home">
+          <Route exact path="/">
             <Home />
-          </PrivateRoute>
+          </Route>
           <PrivateRoute path="/profile">
             <UserProfile />
           </PrivateRoute>
