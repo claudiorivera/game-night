@@ -1,9 +1,9 @@
-import React, { Fragment } from "react";
-import { Typography, Chip } from "@material-ui/core";
+import React from "react";
+import { Typography, Chip, Container } from "@material-ui/core";
 
 const GameDetails = ({ game }) => {
   return (
-    <Fragment>
+    <Container>
       <Typography variant="h3">{game.name}</Typography>
       <img src={game.thumbnailSrc} alt={game.name} />
       <Typography variant="subtitle1">
@@ -31,8 +31,7 @@ const GameDetails = ({ game }) => {
           <Chip key={index} label={category} />
         ))}
       <Typography variant="body1">{game.description}</Typography>
-      <hr />
-    </Fragment>
+    </Container>
   );
 };
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { GameDetails } from "../components";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress, Divider } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
 const axios = require("axios").default;
@@ -25,7 +25,10 @@ const GameList = () => {
     <Fragment>
       <Link to={"/games/add"}>Add Game</Link>
       {gamesList.map((game) => (
-        <GameDetails game={game} key={game._id} />
+        <Fragment>
+          <GameDetails game={game} key={game._id} />
+          <Divider />
+        </Fragment>
       ))}
     </Fragment>
   );
