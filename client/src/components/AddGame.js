@@ -1,5 +1,8 @@
 import React, { useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import { GlobalContext } from "../context";
+import { GameDetails } from "../components";
+import { bggFetchGamesByQuery } from "../util/bggFetchGamesByQuery";
 import {
   Button,
   TextField,
@@ -12,12 +15,6 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
-
-import { GameDetails } from "../components";
-import { bggFetchGameByQuery } from "../util/bggFetchGameByQuery";
-import { bggFetchGamesByQuery } from "../util/bggFetchGamesByQuery";
-
-import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   alert: {
@@ -39,32 +36,17 @@ const useStyles = makeStyles((theme) => ({
 const AddGame = () => {
   const classes = useStyles();
   const history = useHistory();
-  const [gameDetails, setGameDetails] = useState(null);
   const [query, setQuery] = useState("");
   const [queryResults, setQueryResults] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   const [alert, setAlert] = useState(null);
   const { addGame } = useContext(GlobalContext);
 
-  const handleAddGame = async () => {
-    await addGame({ ...gameDetails });
-    history.push("/games");
-  };
-
   const handleSearch = async (e) => {
     e.preventDefault();
     setIsFetching(true);
-    const game = await bggFetchGameByQuery(query);
     const results = await bggFetchGamesByQuery(query); // results array coming back correctly
-
-    if (game.bggId === 0) {
-      setIsFetching(false);
-      setGameDetails(null);
-      setAlert("No game found with that exact name. Please try again.");
-      return;
-    }
-    setGameDetails(game);
-    setQueryResults([game]); // Temporary, while prototyping
+    setQueryResults(results);
     setIsFetching(false);
     setAlert(null);
   };
@@ -107,7 +89,7 @@ const AddGame = () => {
           Search
         </Button>
       </form>
-      {queryResults.length > 0 &&
+      {queryResults &&
         !isFetching &&
         queryResults.map((result) => (
           <ExpansionPanel key={result.bggId}>
@@ -118,13 +100,50 @@ const AddGame = () => {
               <Typography className={classes.heading}>{result.name}</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails className={classes.details}>
-              <GameDetails game={gameDetails} />
+              <GameDetails
+                game={{
+                  bggId: result.bggId,
+                  imageSrc: result.imageSrc,
+                  thumbnailSrc: result.thumbnailSrc,
+                  description: result.description,
+                  yearPublished: result.yearPublished,
+                  minPlayers: result.minPlayers,
+                  maxPlayers: result.maxPlayers,
+                  playingTime: result.playingTime,
+                  minAge: result.minAge,
+                  rating: result.rating,
+                  numOfRatings: result.numOfRatings,
+                  name: result.name,
+                  authors: result.authors,
+                  categories: result.categories,
+                  gameMechanics: result.gameMechanics,
+                }}
+              />
               <Button
                 fullWidth
                 size="large"
                 color="primary"
                 variant="contained"
-                onClick={handleAddGame}
+                onClick={async () => {
+                  await addGame({
+                    bggId: result.bggId,
+                    imageSrc: result.imageSrc,
+                    thumbnailSrc: result.thumbnailSrc,
+                    description: result.description,
+                    yearPublished: result.yearPublished,
+                    minPlayers: result.minPlayers,
+                    maxPlayers: result.maxPlayers,
+                    playingTime: result.playingTime,
+                    minAge: result.minAge,
+                    rating: result.rating,
+                    numOfRatings: result.numOfRatings,
+                    name: result.name,
+                    authors: result.authors,
+                    categories: result.categories,
+                    gameMechanics: result.gameMechanics,
+                  });
+                  history.push("/games");
+                }}
               >
                 Add This Game
               </Button>
