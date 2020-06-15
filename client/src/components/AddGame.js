@@ -15,6 +15,8 @@ import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
 
 import { GameDetails } from "../components";
 import { bggFetchGameByQuery } from "../util/bggFetchGameByQuery";
+import { bggFetchGamesByQuery } from "../util/bggFetchGamesByQuery";
+
 import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -53,6 +55,8 @@ const AddGame = () => {
     e.preventDefault();
     setIsFetching(true);
     const game = await bggFetchGameByQuery(query);
+    const results = await bggFetchGamesByQuery(query); // results array coming back correctly
+
     if (game.bggId === 0) {
       setIsFetching(false);
       setGameDetails(null);
