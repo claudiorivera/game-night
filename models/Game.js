@@ -37,6 +37,7 @@ const Game = new Schema({
   bggId: {
     type: Number,
     required: true,
+    unique: true,
   },
   yearPublished: {
     type: Number,
