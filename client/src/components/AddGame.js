@@ -93,7 +93,9 @@ const AddGame = () => {
               expandIcon={<ExpandMoreIcon />}
               aria-controls={`panel-${result.bggId}-content`}
             >
-              <Typography className={classes.heading}>{result.name}</Typography>
+              <Typography className={classes.heading}>
+                {result.name} ({result.yearPublished})
+              </Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails className={classes.details}>
               <GameDetails game={result} />
