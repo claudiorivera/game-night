@@ -1,30 +1,26 @@
-// Interfaces with the BoardGameGeek API2 and returns a custom object
+// Interfaces with the BoardGameGeek API2 and returns a custom game object
 const axios = require("axios").default;
 const parser = require("fast-xml-parser");
 
 export const bggFetchGameById = async (id) => {
-  let gameToReturn = null;
-
   const { data } = await axios.get(
     // https://boardgamegeek.com/wiki/page/BGG_XML_API2
     `https://api.geekdo.com/xmlapi2/thing?id=${id}&stats=1`
   );
 
   // https://github.com/NaturalIntelligence/fast-xml-parser
-  const options = {
-    attributeNamePrefix: "",
-    ignoreAttributes: false,
-    parseAttributeValue: true,
-  };
-
   // Make sure we have parseable data
   if (parser.validate(data) === true) {
     const {
       items: { item: game },
-    } = parser.parse(data, options);
+    } = parser.parse(data, {
+      attributeNamePrefix: "",
+      ignoreAttributes: false,
+      parseAttributeValue: true,
+    });
 
     // Clean up the api data and set our new game object
-    gameToReturn = {
+    return {
       bggId: game.id,
       imageSrc: game.image,
       thumbnailSrc: game.thumbnail,
@@ -53,10 +49,9 @@ export const bggFetchGameById = async (id) => {
         .map((mechanic) => mechanic.value),
     };
   } else {
-    gameToReturn = {
+    // Return an item with bggId of 0, so the front end doesn't get angry
+    return {
       bggId: 0,
     };
   }
-
-  return gameToReturn;
 };

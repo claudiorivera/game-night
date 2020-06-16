@@ -1,41 +1,33 @@
-// https://api.geekdo.com/xmlapi2/search?query=pandemic&type=boardgame
+// Interfaces with the BoardGameGeek API2 and returns a list of games from a query
+// by calling the bggFetchGameById function for each result
 import { bggFetchGameById } from "./bggFetchGameById";
-
-// Interfaces with the BoardGameGeek API2 and returns a list of names and BGG ids
 const axios = require("axios").default;
 const parser = require("fast-xml-parser");
 
 export const bggFetchGamesByQuery = async (query) => {
-  let gamesToReturn = [];
   const { data } = await axios.get(
     // https://boardgamegeek.com/wiki/page/BGG_XML_API2
     `https://api.geekdo.com/xmlapi2/search?query=${query}&type=boardgame`
   );
 
   // https://github.com/NaturalIntelligence/fast-xml-parser
-  const options = {
-    attributeNamePrefix: "",
-    ignoreAttributes: false,
-    parseAttributeValue: true,
-  };
-
   // Make sure we have parseable data
   if (parser.validate(data) === true) {
     const {
       items: { item: games },
-    } = parser.parse(data, options);
-    gamesToReturn = games.map(async (game) => {
-      const result = await bggFetchGameById(game.id);
-      console.log(result);
-
-      return result;
+    } = parser.parse(data, {
+      attributeNamePrefix: "",
+      ignoreAttributes: false,
+      parseAttributeValue: true,
     });
+
+    return games.map(async (game) => await bggFetchGameById(game.id));
   } else {
-    gamesToReturn = [
+    // Return an array of one item with bggId of 0, so the front end doesn't get angry
+    return [
       {
         bggId: 0,
       },
     ];
   }
-  return gamesToReturn;
 };

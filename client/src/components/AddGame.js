@@ -45,7 +45,7 @@ const AddGame = () => {
   const handleSearch = async (e) => {
     e.preventDefault();
     setIsFetching(true);
-    const results = await bggFetchGamesByQuery(query); // results array coming back correctly
+    const results = await bggFetchGamesByQuery(query);
     setQueryResults(results);
     setIsFetching(false);
     setAlert(null);
@@ -100,25 +100,7 @@ const AddGame = () => {
               <Typography className={classes.heading}>{result.name}</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails className={classes.details}>
-              <GameDetails
-                game={{
-                  bggId: result.bggId,
-                  imageSrc: result.imageSrc,
-                  thumbnailSrc: result.thumbnailSrc,
-                  description: result.description,
-                  yearPublished: result.yearPublished,
-                  minPlayers: result.minPlayers,
-                  maxPlayers: result.maxPlayers,
-                  playingTime: result.playingTime,
-                  minAge: result.minAge,
-                  rating: result.rating,
-                  numOfRatings: result.numOfRatings,
-                  name: result.name,
-                  authors: result.authors,
-                  categories: result.categories,
-                  gameMechanics: result.gameMechanics,
-                }}
-              />
+              <GameDetails game={result} />
               <Button
                 fullWidth
                 size="large"
