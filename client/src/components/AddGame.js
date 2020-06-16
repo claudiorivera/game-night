@@ -38,16 +38,13 @@ const AddGame = () => {
   const history = useHistory();
   const [query, setQuery] = useState("");
   const [queryResults, setQueryResults] = useState([]);
-  const [isFetching, setIsFetching] = useState(false);
   const [alert, setAlert] = useState(null);
   const { addGame } = useContext(GlobalContext);
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    setIsFetching(true);
     const results = await bggFetchGamesByQuery(query);
     setQueryResults(results);
-    setIsFetching(false);
     setAlert(null);
   };
 
@@ -90,7 +87,6 @@ const AddGame = () => {
         </Button>
       </form>
       {queryResults &&
-        !isFetching &&
         queryResults.map((result) => (
           <ExpansionPanel key={result.bggId}>
             <ExpansionPanelSummary

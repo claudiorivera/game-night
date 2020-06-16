@@ -21,7 +21,13 @@ export const bggFetchGamesByQuery = async (query) => {
       parseAttributeValue: true,
     });
 
-    return games.map(async (game) => await bggFetchGameById(game.id));
+    // Async calls can't be inside a .map() - https://flaviocopes.com/javascript-async-await-array-map/
+    const results = [];
+    for (const game of games) {
+      results.push(await bggFetchGameById(game.id));
+    }
+
+    return results;
   } else {
     // Return an array of one item with bggId of 0, so the front end doesn't get angry
     return [
