@@ -9,17 +9,19 @@ const Event = require("../models/Event");
 // Returns all events
 router.get("/", async (req, res) => {
   try {
-    const events = await Event.find({}).sort({ eventDate: "asc" });
+    const events = await Event.find({})
+      .populate("game host guests")
+      .sort({ eventDate: "asc" });
     res.status(200).json(events);
   } catch (error) {
     res.status(400).json(error);
   }
 });
 
-// PUT /api/events/add
+// POST /api/events/add
 // Params: host (req.user), eventDate, and game (_id)
 // Returns the added event
-router.put("/add", (req, res) => {
+router.post("/add", (req, res) => {
   const eventToAdd = {
     host: req.user,
     eventDate: req.body.eventDate,
@@ -37,6 +39,20 @@ router.put("/add", (req, res) => {
         res.status(200).json(addedEvent);
       }
     });
+  } else {
+    res.status(400).json({ message: "Unauthorized user" });
+  }
+});
+
+// PUT /api/events/id/join
+// Params: event id
+// Returns the event after successful join
+router.put("/:id/join", async (req, res) => {
+  if (req.user) {
+    const event = await Event.findOne({ _id: req.params.id });
+    event.guests.push(req.user);
+    await event.save();
+    res.status(200).json(event);
   } else {
     res.status(400).json({ message: "Unauthorized user" });
   }
