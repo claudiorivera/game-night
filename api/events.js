@@ -32,12 +32,11 @@ router.post("/add", (req, res) => {
     const addedEvent = new Event(eventToAdd);
     addedEvent.save((error) => {
       if (error) {
-        res
+        return res
           .status(400)
           .json(error.message || { message: "Something happen like error" });
-      } else {
-        res.status(200).json(addedEvent);
       }
+      res.status(200).json(addedEvent);
     });
   } else {
     res.status(400).json({ message: "Unauthorized user" });
@@ -51,8 +50,14 @@ router.put("/:id/join", async (req, res) => {
   if (req.user) {
     const event = await Event.findOne({ _id: req.params.id });
     event.guests.push(req.user);
-    await event.save();
-    res.status(200).json(event);
+    await event.save((error) => {
+      if (error) {
+        return res
+          .status(400)
+          .json(error.message || { message: "Something went wrong" });
+      }
+      res.status(200).json(event);
+    });
   } else {
     res.status(400).json({ message: "Unauthorized user" });
   }
