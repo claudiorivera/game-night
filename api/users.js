@@ -4,6 +4,7 @@ const passport = require("passport");
 
 // Model
 const User = require("../models/User");
+const Event = require("../models/Event");
 
 // Routes
 
@@ -20,6 +21,22 @@ router.post("/register", (req, res) => {
       res.status(200).json(user);
     });
   });
+});
+
+// GET /api/users/id/events
+// Params: User ID
+// Returns all events a given user is going to
+router.get("/:id/events", async (req, res) => {
+  try {
+    const events = await Event.find({
+      guests: {
+        _id: req.params.id,
+      },
+    }).populate("guests hosts game");
+    res.status(200).json(events);
+  } catch (error) {
+    res.status(400).json(error);
+  }
 });
 
 // POST /api/users/login
