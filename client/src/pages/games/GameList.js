@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { GameDetails } from "./";
 import {
-  CircularProgress,
   ExpansionPanelSummary,
   ExpansionPanelDetails,
   ExpansionPanel,
@@ -37,26 +36,26 @@ const GameList = () => {
     getGamesList();
   }, []);
 
-  return isFetching ? (
-    <CircularProgress />
-  ) : (
+  return (
     <Container>
+      <Typography variant="h3">Games List</Typography>
       <Link to={"/games/add"}>Add Game</Link>
-      {gamesList.map((game) => (
-        <ExpansionPanel key={game.bggId}>
-          <ExpansionPanelSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls={`panel-${game.bggId}-content`}
-          >
-            <Typography className={classes.heading}>
-              {game.name} ({game.yearPublished})
-            </Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails className={classes.details}>
-            <GameDetails game={game} />
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-      ))}
+      {!isFetching &&
+        gamesList.map((game) => (
+          <ExpansionPanel key={game.bggId}>
+            <ExpansionPanelSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls={`panel-${game.bggId}-content`}
+            >
+              <Typography className={classes.heading}>
+                {game.name} ({game.yearPublished})
+              </Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails className={classes.details}>
+              <GameDetails game={game} />
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+        ))}
     </Container>
   );
 };

@@ -7,6 +7,7 @@ import { Login } from "./pages/login";
 import { Home } from "./pages/home";
 import { UserProfile } from "./pages/profile";
 import { GameList, AddGame } from "./pages/games";
+import { EventList } from "./pages/events";
 import { GlobalProvider } from "./context";
 
 function App() {
@@ -22,6 +23,9 @@ function App() {
           </Route>
           <PrivateRoute exact path="/games">
             <GameList />
+          </PrivateRoute>
+          <PrivateRoute exact path="/events">
+            <EventList />
           </PrivateRoute>
           <PrivateRoute path="/games/add">
             <AddGame />
