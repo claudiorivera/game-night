@@ -15,6 +15,7 @@ const RegisterForm = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     if (password === passwordConfirm) {
+      setIsFetching(true);
       await registerUser(name, email, password);
       history.push("/");
     } else {

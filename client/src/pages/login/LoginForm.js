@@ -12,6 +12,7 @@ const LoginForm = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setIsFetching(true);
     await loginUser(email, password);
     history.push("/");
   };

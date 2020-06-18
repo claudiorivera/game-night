@@ -45,10 +45,7 @@ const MainAppBar = () => {
               to="/login"
               color="inherit"
             >
-              Login
-            </Button>
-            <Button component={Link} to="/register" color="inherit">
-              Register
+              Login/Register
             </Button>
           </Fragment>
         )}
