@@ -2,17 +2,11 @@ import React from "react";
 import "fontsource-roboto";
 import { CssBaseline } from "@material-ui/core";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import {
-  Register,
-  Login,
-  UserProfile,
-  Home,
-  MainAppBar,
-  AlertDialog,
-  PrivateRoute,
-  GameList,
-  AddGame,
-} from "./components";
+import { MainAppBar, AlertDialog, PrivateRoute } from "./components";
+import { Login } from "./pages/login";
+import { Home } from "./pages/home";
+import { UserProfile } from "./pages/profile";
+import { GameList, AddGame } from "./pages/games";
 import { GlobalProvider } from "./context";
 
 function App() {
@@ -37,9 +31,6 @@ function App() {
           </PrivateRoute>
           <Route path="/login">
             <Login />
-          </Route>
-          <Route path="/register">
-            <Register />
           </Route>
         </Switch>
       </Router>

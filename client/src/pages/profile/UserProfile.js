@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { GlobalContext } from "../context";
+import { GlobalContext } from "../../context";
 import { Container, Typography, Button } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 const moment = require("moment");

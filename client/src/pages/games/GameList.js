@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { GameDetails } from "../components";
+import { GameDetails } from "./";
 import {
   CircularProgress,
   ExpansionPanelSummary,

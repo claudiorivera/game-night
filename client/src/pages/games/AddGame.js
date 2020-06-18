@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
-import { GlobalContext } from "../context";
-import { GameDetails } from "../components";
-import { bggFetchGamesByQuery } from "../util/bggFetchGamesByQuery";
+import { GlobalContext } from "../../context";
+import { GameDetails } from "./";
+import { bggFetchGamesByQuery } from "../../util/bggFetchGamesByQuery";
 import {
   Button,
   TextField,
