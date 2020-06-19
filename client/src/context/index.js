@@ -15,15 +15,15 @@ export const GlobalContext = createContext(initialState);
 export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
-  // Action creators
+  // ALERTS
   const createAlertWithMessage = (message) => {
     dispatch({ type: "CREATE_ALERT_WITH_MESSAGE", message });
   };
-
   const clearAlert = () => {
     dispatch({ type: "CLEAR_ALERT" });
   };
 
+  // USERS
   const registerUser = async (name, email, password) => {
     try {
       const { data: user } = await axios.post("/api/users/register", {
@@ -37,7 +37,6 @@ export const GlobalProvider = ({ children }) => {
       dispatch({ type: "REGISTER_USER_FAILED_WITH_MESSAGE", message });
     }
   };
-
   const loginUser = async (email, password) => {
     try {
       const { data: user } = await axios.post("/api/users/login", {
@@ -50,7 +49,6 @@ export const GlobalProvider = ({ children }) => {
       dispatch({ type: "LOGIN_FAILED_WITH_MESSAGE", message });
     }
   };
-
   const logoutUser = async () => {
     try {
       const { data: user } = await axios.get("/api/users/logout");
@@ -60,7 +58,6 @@ export const GlobalProvider = ({ children }) => {
       dispatch({ type: "LOGOUT_FAILED_WITH_MESSAGE", message });
     }
   };
-
   const deleteUserById = async (_id) => {
     try {
       const { data: user } = await axios.delete(`/api/users/${_id}`);
@@ -75,6 +72,7 @@ export const GlobalProvider = ({ children }) => {
     }
   };
 
+  // GAMES
   const addGame = async (gameToAdd) => {
     try {
       const addedGame = await axios.post("/api/games/add", {
@@ -90,6 +88,20 @@ export const GlobalProvider = ({ children }) => {
     }
   };
 
+  // EVENTS
+  const joinEventById = async (id) => {
+    try {
+      const event = await axios.put(`/api/events/${id}/join`);
+      await dispatch({
+        type: "JOIN_EVENT_SUCCESSFUL_WITH_EVENT",
+        event,
+      });
+    } catch (error) {
+      const message = error.response.data;
+      dispatch({ type: "JOIN_EVENT_FAILED_WITH_MESSAGE", message });
+    }
+  };
+
   return (
     <GlobalContext.Provider
       value={{
@@ -102,6 +114,7 @@ export const GlobalProvider = ({ children }) => {
         createAlertWithMessage,
         clearAlert,
         addGame,
+        joinEventById,
       }}
     >
       {children}

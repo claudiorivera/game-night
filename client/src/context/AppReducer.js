@@ -1,10 +1,14 @@
-export const AppReducer = (state, { type, message, user, addedGame }) => {
+export const AppReducer = (
+  state,
+  { type, message, user, addedGame, event }
+) => {
   switch (type) {
     case "REGISTER_USER_FAILED_WITH_MESSAGE":
     case "LOGIN_FAILED_WITH_MESSAGE":
     case "LOGOUT_FAILED_WITH_MESSAGE":
     case "DELETE_USER_BY_ID_FAILED_WITH_MESSAGE":
     case "ADD_GAME_FAILED_WITH_MESSAGE":
+    case "JOIN_EVENT_FAILED_WITH_MESSAGE":
       return { ...state, alert: message };
     case "REGISTER_USER_SUCCESSFUL_WITH_USER":
     case "LOGIN_SUCCESSFUL_WITH_USER":
@@ -13,6 +17,8 @@ export const AppReducer = (state, { type, message, user, addedGame }) => {
       return { ...state, user };
     case "ADD_GAME_SUCCESSFUL_WITH_GAME":
       return { ...state, addedGame };
+    case "JOIN_EVENT_SUCCESSFUL_WITH_EVENT":
+      return { ...state, event };
     case "CREATE_ALERT_WITH_MESSAGE":
       return {
         ...state,
