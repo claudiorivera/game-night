@@ -14,7 +14,7 @@ export const bggFetchGamesByQuery = async (query) => {
   // Make sure we have parseable data
   if (parser.validate(data) === true) {
     const {
-      items: { item: games },
+      items: { item },
     } = parser.parse(data, {
       attributeNamePrefix: "",
       ignoreAttributes: false,
@@ -23,8 +23,12 @@ export const bggFetchGamesByQuery = async (query) => {
 
     // Async calls can't be inside a .map() - https://flaviocopes.com/javascript-async-await-array-map/
     const results = [];
-    for (const game of games) {
-      results.push(await bggFetchGameById(game.id));
+    if (Array.isArray(item)) {
+      for (const game of item) {
+        results.push(await bggFetchGameById(game.id));
+      }
+    } else {
+      results.push(await bggFetchGameById(item.id));
     }
 
     return results;

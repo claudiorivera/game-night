@@ -38,14 +38,13 @@ const AddGame = () => {
   const history = useHistory();
   const [query, setQuery] = useState("");
   const [queryResults, setQueryResults] = useState([]);
-  const [alert, setAlert] = useState(null);
-  const { addGame } = useContext(GlobalContext);
+  const { addGame, alert, clearAlert } = useContext(GlobalContext);
 
   const handleSearch = async (e) => {
     e.preventDefault();
     const results = await bggFetchGamesByQuery(query);
     setQueryResults(results);
-    setAlert(null);
+    clearAlert();
   };
 
   const handleQueryChange = async (e) => {
@@ -58,7 +57,7 @@ const AddGame = () => {
         <div className={classes.alert}>
           <Alert
             onClose={() => {
-              setAlert(null);
+              clearAlert();
             }}
             severity="warning"
           >
