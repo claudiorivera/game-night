@@ -93,8 +93,8 @@ export const GlobalProvider = ({ children }) => {
     try {
       const event = await axios.put(`/api/events/${id}/join`);
       await dispatch({
-        type: "JOIN_EVENT_SUCCESSFUL_WITH_EVENT",
-        event,
+        type: "JOIN_EVENT_SUCCESSFUL_WITH_MESSAGE",
+        message: `Successfully joined event: ${event.data._id}`,
       });
     } catch (error) {
       const message = error.response.data;

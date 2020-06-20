@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import {
   Card,
   CardActions,
@@ -7,16 +7,20 @@ import {
   Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { GlobalContext } from "../../context";
 const moment = require("moment");
 
 const useStyles = makeStyles({
   card: {
     margin: "10px",
     padding: "20px",
-    maxWidth: "500px",
+    width: "400px",
   },
 });
+
 const EventSummaryCard = ({ event }) => {
+  const { joinEventById } = useContext(GlobalContext);
+  const [disableJoinButton, setDisableJoinButton] = useState(false);
   const classes = useStyles();
   return (
     <Card className={classes.card}>
@@ -33,7 +37,16 @@ const EventSummaryCard = ({ event }) => {
         <Typography variant="h6">Guests: {event.guests.length}</Typography>
       </CardContent>
       <CardActions>
-        <Button fullWidth variant="contained" color="primary">
+        <Button
+          fullWidth
+          variant="contained"
+          color="primary"
+          disabled={disableJoinButton}
+          onClick={async () => {
+            await joinEventById(event._id);
+            setDisableJoinButton(true);
+          }}
+        >
           Join
         </Button>
       </CardActions>
