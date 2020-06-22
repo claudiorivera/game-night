@@ -6,6 +6,7 @@ const axios = require("axios").default;
 const initialState = {
   user: null,
   alert: null,
+  games: [],
 };
 
 // Create context
@@ -87,6 +88,18 @@ export const GlobalProvider = ({ children }) => {
       dispatch({ type: "ADD_GAME_FAILED_WITH_MESSAGE", message });
     }
   };
+  const getGamesList = async () => {
+    try {
+      const { data: games } = await axios.get("/api/games");
+      dispatch({
+        type: "GET_GAMES_LIST_SUCCESSFUL_WITH_GAMES",
+        games,
+      });
+    } catch (error) {
+      const message = error.response.data;
+      dispatch({ type: "GET_GAMES_LIST_FAILED_WITH_MESSAGE", message });
+    }
+  };
 
   // EVENTS
   const joinEventById = async (id) => {
@@ -107,6 +120,7 @@ export const GlobalProvider = ({ children }) => {
       value={{
         user: state.user,
         alert: state.alert,
+        games: state.games,
         loginUser,
         logoutUser,
         registerUser,
@@ -115,6 +129,7 @@ export const GlobalProvider = ({ children }) => {
         clearAlert,
         addGame,
         joinEventById,
+        getGamesList,
       }}
     >
       {children}
