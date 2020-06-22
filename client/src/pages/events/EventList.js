@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Container, Typography } from "@material-ui/core";
+import { Container } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { EventSummaryCard } from "./";
+import { Link } from "react-router-dom";
 
 const axios = require("axios").default;
 
@@ -29,7 +30,7 @@ const EventList = () => {
 
   return (
     <Container>
-      <Typography variant="h3">All Events</Typography>
+      <Link to={"/events/add"}>Add Event</Link>
       {!isFetching && (
         <Container className={classes.cards}>
           {events &&
