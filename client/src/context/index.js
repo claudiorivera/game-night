@@ -114,6 +114,18 @@ export const GlobalProvider = ({ children }) => {
       dispatch({ type: "JOIN_EVENT_FAILED_WITH_MESSAGE", message });
     }
   };
+  const addEvent = async (gameId, eventDateTime) => {
+    try {
+      const event = await axios.post(`/api/events/add`, {
+        gameId,
+        eventDateTime,
+      });
+      await dispatch({
+        type: "ADD_EVENT_SUCCESSFUL_WITH_MESSAGE",
+        message: `Successfully added event: ${event.data._id}`,
+      });
+    } catch (error) {}
+  };
 
   return (
     <GlobalContext.Provider
@@ -130,6 +142,7 @@ export const GlobalProvider = ({ children }) => {
         addGame,
         joinEventById,
         getGamesList,
+        addEvent,
       }}
     >
       {children}

@@ -36,8 +36,8 @@ router.get("/:id/guests", async (req, res) => {
 router.post("/add", (req, res) => {
   const eventToAdd = {
     host: req.user,
-    eventDate: req.body.eventDate,
-    game: req.body.game._id,
+    eventDate: req.body.eventDateTime,
+    game: req.body.gameId,
   };
 
   if (req.user) {

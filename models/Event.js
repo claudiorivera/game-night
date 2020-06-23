@@ -6,7 +6,7 @@ const Event = new Schema({
     type: Date,
     default: Date.now,
   },
-  eventDate: {
+  eventDateTime: {
     type: Date,
     required: true,
   },
@@ -23,7 +23,6 @@ const Event = new Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      unique: true,
     },
   ],
 });
