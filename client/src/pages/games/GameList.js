@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
+import { GlobalContext } from "../../context";
 import { GameDetails } from "./";
 import {
   ExpansionPanelSummary,
@@ -11,8 +12,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 
-const axios = require("axios").default;
-
 const useStyles = makeStyles((theme) => ({
   heading: {
     fontSize: theme.typography.pxToRem(15),
@@ -22,26 +21,22 @@ const useStyles = makeStyles((theme) => ({
 
 const GameList = () => {
   const classes = useStyles();
-  const [gamesList, setGamesList] = useState([]);
-  const [isFetching, setIsFetching] = useState(true);
+  const { getGamesList, games } = useContext(GlobalContext);
 
-  const getGamesList = async () => {
-    const { data: games } = await axios.get("/api/games");
-    setGamesList(games);
-    setIsFetching(false);
-  };
-
-  // Fetch game details on component render
   useEffect(() => {
-    getGamesList();
+    const fetchGames = async () => {
+      await getGamesList();
+    };
+    fetchGames();
+    //eslint-disable-next-line
   }, []);
 
   return (
     <Container>
       <Typography variant="h3">Games List</Typography>
       <Link to={"/games/add"}>Add Game</Link>
-      {!isFetching &&
-        gamesList.map((game) => (
+      {games &&
+        games.map((game) => (
           <ExpansionPanel key={game.bggId}>
             <ExpansionPanelSummary
               expandIcon={<ExpandMoreIcon />}

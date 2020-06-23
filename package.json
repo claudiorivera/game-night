@@ -9,7 +9,7 @@
     "dev-server-start": "DEBUG=game-night-server:* yarn run dev-server",
     "client-start": "yarn --cwd client start",
     "client-install": "yarn --cwd client",
-    "dev": "concurrently --names 'SERVER,CLIENT' -c 'bgBlue.bold,bgMagenta.bold' 'yarn run dev-server-start' 'yarn run client-start'"
+    "dev": "concurrently --kill-others --names 'SERVER,CLIENT,DEVTOOLS' -c 'bgBlue.bold,bgMagenta.bold,bgYellow.bold' 'yarn run dev-server-start' 'yarn run client-start' 'react-devtools'"
   },
   "dependencies": {
     "compression": "^1.7.4",
@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "concurrently": "^5.2.0",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "react-devtools": "^4.7.0"
   }
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import "react-devtools"; // Remove in production
 import ReactDOM from "react-dom";
 import App from "./App";
 

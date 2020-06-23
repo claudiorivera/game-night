@@ -6,7 +6,7 @@ const axios = require("axios").default;
 const initialState = {
   user: null,
   alert: null,
-  games: [],
+  games: null,
 };
 
 // Create context
