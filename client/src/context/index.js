@@ -106,8 +106,8 @@ export const GlobalProvider = ({ children }) => {
     try {
       const event = await axios.put(`/api/events/${id}/join`);
       await dispatch({
-        type: "JOIN_EVENT_SUCCESSFUL_WITH_MESSAGE",
-        message: `Successfully joined event: ${event.data._id}`,
+        type: "JOIN_EVENT_SUCCESSFUL_WITH_EVENT",
+        event,
       });
     } catch (error) {
       const message = error.response.data;
@@ -121,10 +121,13 @@ export const GlobalProvider = ({ children }) => {
         eventDateTime,
       });
       await dispatch({
-        type: "ADD_EVENT_SUCCESSFUL_WITH_MESSAGE",
-        message: `Successfully added event: ${event.data._id}`,
+        type: "ADD_EVENT_SUCCESSFUL_WITH_EVENT",
+        event,
       });
-    } catch (error) {}
+    } catch (error) {
+      const message = error.response.data;
+      dispatch({ type: "ADD_EVENT_FAILED_WITH_MESSAGE", message });
+    }
   };
 
   return (

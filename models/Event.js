@@ -7,7 +7,7 @@ const Event = new Schema({
     default: Date.now,
   },
   eventDateTime: {
-    type: Date,
+    type: String,
     required: true,
   },
   // https://vegibit.com/mongoose-relationships-tutorial/

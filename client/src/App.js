@@ -10,6 +10,8 @@ import { UserProfile } from "./pages/profile";
 import { GameList, AddGame } from "./pages/games";
 import { EventList, AddEvent } from "./pages/events";
 import { GlobalProvider } from "./context";
+import MomentUtils from "@date-io/moment";
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 
 const theme = createMuiTheme({
   palette: {
@@ -25,34 +27,36 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalProvider>
-        <Router>
-          <CssBaseline />
-          <MainAppBar />
-          <AlertDialog />
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <PrivateRoute exact path="/games">
-              <GameList />
-            </PrivateRoute>
-            <PrivateRoute exact path="/events">
-              <EventList />
-            </PrivateRoute>
-            <PrivateRoute path="/games/add">
-              <AddGame />
-            </PrivateRoute>
-            <PrivateRoute path="/events/add">
-              <AddEvent />
-            </PrivateRoute>
-            <PrivateRoute path="/profile">
-              <UserProfile />
-            </PrivateRoute>
-            <Route path="/login">
-              <Login />
-            </Route>
-          </Switch>
-        </Router>
+        <MuiPickersUtilsProvider utils={MomentUtils}>
+          <Router>
+            <CssBaseline />
+            <MainAppBar />
+            <AlertDialog />
+            <Switch>
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <PrivateRoute exact path="/games">
+                <GameList />
+              </PrivateRoute>
+              <PrivateRoute exact path="/events">
+                <EventList />
+              </PrivateRoute>
+              <PrivateRoute path="/games/add">
+                <AddGame />
+              </PrivateRoute>
+              <PrivateRoute path="/events/add">
+                <AddEvent />
+              </PrivateRoute>
+              <PrivateRoute path="/profile">
+                <UserProfile />
+              </PrivateRoute>
+              <Route path="/login">
+                <Login />
+              </Route>
+            </Switch>
+          </Router>
+        </MuiPickersUtilsProvider>
       </GlobalProvider>
     </ThemeProvider>
   );

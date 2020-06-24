@@ -6,14 +6,18 @@ import {
   FormControl,
   Select,
   MenuItem,
+  Button,
 } from "@material-ui/core";
-import { MuiPickersUtilsProvider, DateTimePicker } from "@material-ui/pickers";
-import MomentUtils from "@date-io/moment";
+import { makeStyles } from "@material-ui/core/styles";
+import { DateTimePicker } from "@material-ui/pickers";
+// import MomentUtils from "@date-io/moment";
+import { useHistory } from "react-router-dom";
 
 const AddEvent = () => {
   const { games, getGamesList, addEvent } = useContext(GlobalContext);
   const [eventDateTime, setEventDateTime] = useState(new Date());
-  const [eventGameId, setEventGameId] = useState(null);
+  const [gameId, setGameId] = useState("");
+  const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
     const fetchGames = async () => {
@@ -23,37 +27,64 @@ const AddEvent = () => {
     //eslint-disable-next-line
   }, []);
 
+  const useStyles = makeStyles({
+    margin: {
+      margin: "10px",
+    },
+  });
+
+  const classes = useStyles();
+  const history = useHistory();
+
   return (
-    <MuiPickersUtilsProvider utils={MomentUtils}>
-      <Container>
-        <Typography variant="h3">Add New Event</Typography>
-        <FormControl>
+    <Container>
+      <Typography variant="h3">Add New Event</Typography>
+      <form
+        onSubmit={async (e) => {
+          e.preventDefault();
+          setIsFetching(true);
+          await addEvent(gameId, eventDateTime);
+          history.push("/events");
+        }}
+      >
+        <FormControl className={classes.margin}>
           <DateTimePicker
-            label="Event Date/Time"
-            inputVariant="outlined"
-            minutesStep="15"
+            disablePast
+            id="datetime-picker"
+            minutesStep={15}
             value={eventDateTime}
             onChange={setEventDateTime}
           />
-          {games && (
-            <Select value={0} variant="outlined" label="Select a Game">
-              <MenuItem value={0}>Select a Game</MenuItem>
-              {games.map((game) => (
-                <MenuItem
-                  key={game._id}
-                  value={game._id}
-                  onChange={() => {
-                    setEventGameId(game._id);
-                  }}
-                >
-                  {game.name}
+        </FormControl>
+        {games && (
+          <FormControl className={classes.margin}>
+            <Select
+              id="game-select"
+              value={gameId}
+              onChange={(e) => {
+                setGameId(e.target.value);
+              }}
+            >
+              {games.map(({ _id, name }) => (
+                <MenuItem key={_id} value={_id}>
+                  {name}
                 </MenuItem>
               ))}
             </Select>
-          )}
-        </FormControl>
-      </Container>
-    </MuiPickersUtilsProvider>
+          </FormControl>
+        )}
+        <Button
+          size="large"
+          fullWidth
+          variant="contained"
+          color="primary"
+          type="submit"
+          disabled={isFetching}
+        >
+          Add Event
+        </Button>
+      </form>
+    </Container>
   );
 };
 

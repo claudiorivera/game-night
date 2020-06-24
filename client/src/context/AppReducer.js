@@ -9,9 +9,8 @@ export const AppReducer = (
     case "DELETE_USER_BY_ID_FAILED_WITH_MESSAGE":
     case "ADD_GAME_FAILED_WITH_MESSAGE":
     case "JOIN_EVENT_FAILED_WITH_MESSAGE":
-    case "JOIN_EVENT_SUCCESSFUL_WITH_MESSAGE":
     case "GET_GAMES_LIST_FAILED_WITH_MESSAGE":
-    case "ADD_EVENT_SUCCESSFUL_WITH_MESSAGE":
+    case "ADD_EVENT_FAILED_WITH_MESSAGE":
       return { ...state, alert: message };
     case "REGISTER_USER_SUCCESSFUL_WITH_USER":
     case "LOGIN_SUCCESSFUL_WITH_USER":
@@ -22,6 +21,9 @@ export const AppReducer = (
       return { ...state, addedGame };
     case "GET_GAMES_LIST_SUCCESSFUL_WITH_GAMES":
       return { ...state, games };
+    case "JOIN_EVENT_SUCCESSFUL_WITH_EVENT":
+    case "ADD_EVENT_SUCCESSFUL_WITH_EVENT":
+      return { ...state, event };
     case "CREATE_ALERT_WITH_MESSAGE":
       return {
         ...state,

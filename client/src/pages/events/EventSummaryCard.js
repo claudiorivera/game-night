@@ -29,7 +29,7 @@ const EventSummaryCard = ({ event }) => {
           {event.game.name}
         </Typography>
         <Typography variant="h4" gutterBottom>
-          {moment(event.eventDate).format("MMMM Do, YYYY")}
+          {moment(event.eventDateTime).format("MMMM Do, YYYY")}
         </Typography>
         <Typography variant="h6" color="textSecondary">
           Hosted by: {event.host.name}
