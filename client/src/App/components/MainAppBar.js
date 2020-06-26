@@ -1,5 +1,5 @@
 import React, { useContext, Fragment } from "react";
-import { GlobalContext } from "../context";
+import { GlobalContext } from "../../context";
 import { AppBar, Toolbar, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";

@@ -1,5 +1,5 @@
 import React, { useContext, Fragment } from "react";
-import { GlobalContext } from "../context";
+import { GlobalContext } from "../../context";
 import { makeStyles } from "@material-ui/core/styles";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import { Container } from "@material-ui/core";
