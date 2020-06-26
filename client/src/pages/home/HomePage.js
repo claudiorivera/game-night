@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Container, Typography } from "@material-ui/core";
 import { UserContext } from "../user/context";
 
-const Home = () => {
+const HomePage = () => {
   const { user } = useContext(UserContext);
 
   return (
@@ -19,4 +19,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;

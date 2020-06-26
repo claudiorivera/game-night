@@ -8,7 +8,7 @@ import MainAppBar from "./components/MainAppBar";
 import PrivateRoute from "./components/PrivateRoute";
 import LoginPage from "../pages/user/LoginPage";
 import ProfilePage from "../pages/user/ProfilePage";
-import { Home } from "../pages/home";
+import HomePage from "../pages/home/HomePage";
 import { GameList, AddGame } from "../pages/games";
 import { EventList, AddEvent } from "../pages/events";
 import { GlobalProvider } from "../context";
@@ -38,7 +38,7 @@ function App() {
               <AlertDialog />
               <Switch>
                 <Route exact path="/">
-                  <Home />
+                  <HomePage />
                 </Route>
                 <PrivateRoute exact path="/games">
                   <GameList />
