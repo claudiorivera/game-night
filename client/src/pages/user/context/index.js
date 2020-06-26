@@ -58,6 +58,8 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  UserContext.displayName = "User";
+
   return (
     <UserContext.Provider
       value={{

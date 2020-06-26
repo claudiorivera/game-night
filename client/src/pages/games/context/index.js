@@ -42,6 +42,8 @@ export const GamesProvider = ({ children }) => {
     }
   };
 
+  GamesContext.displayName = "Games";
+
   return (
     <GamesContext.Provider
       value={{

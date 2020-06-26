@@ -18,6 +18,8 @@ export const AppProvider = ({ children }) => {
     dispatch({ type: "CLEAR_ALERT" });
   };
 
+  AppContext.displayName = "App";
+
   return (
     <AppContext.Provider
       value={{

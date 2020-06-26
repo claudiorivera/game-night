@@ -50,6 +50,8 @@ export const EventsProvider = ({ children }) => {
     }
   };
 
+  EventsContext.displayName = "Events";
+
   return (
     <EventsContext.Provider
       value={{
