@@ -21,11 +21,11 @@ const useStyles = makeStyles((theme) => ({
 
 const GameList = () => {
   const classes = useStyles();
-  const { getGamesList, games } = useContext(GamesContext);
+  const { getAllGames, games } = useContext(GamesContext);
 
   useEffect(() => {
     const fetchGames = async () => {
-      await getGamesList();
+      await getAllGames();
     };
     fetchGames();
     //eslint-disable-next-line

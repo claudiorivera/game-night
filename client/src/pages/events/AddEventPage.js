@@ -14,15 +14,14 @@ import { DateTimePicker } from "@material-ui/pickers";
 import { useHistory } from "react-router-dom";
 
 const AddEvent = () => {
-  const { games, getGamesList } = useContext(GamesContext);
+  const { games, getAllGames } = useContext(GamesContext);
   const { addEvent } = useContext(EventsContext);
   const [eventDateTime, setEventDateTime] = useState(new Date());
   const [gameId, setGameId] = useState("");
-  const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
     const fetchGames = async () => {
-      await getGamesList();
+      await getAllGames();
     };
     fetchGames();
     //eslint-disable-next-line
@@ -43,7 +42,6 @@ const AddEvent = () => {
       <form
         onSubmit={async (e) => {
           e.preventDefault();
-          setIsFetching(true);
           await addEvent(gameId, eventDateTime);
           history.push("/events");
         }}
@@ -80,7 +78,6 @@ const AddEvent = () => {
           variant="contained"
           color="primary"
           type="submit"
-          disabled={isFetching}
         >
           Add Event
         </Button>

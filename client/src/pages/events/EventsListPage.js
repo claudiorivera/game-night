@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { Container } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import EventSummaryCard from "./components/EventSummaryCard";
 import { Link } from "react-router-dom";
-
-const axios = require("axios").default;
+import { EventsContext } from "./context";
 
 const useStyles = makeStyles({
   cards: {
@@ -15,28 +14,24 @@ const useStyles = makeStyles({
 
 const EventList = () => {
   const classes = useStyles();
-  const [events, setEvents] = useState([]);
-  const [isFetching, setIsFetching] = useState(false);
+  const { getAllEvents, events } = useContext(EventsContext);
 
   useEffect(() => {
     const fetchEvents = async () => {
-      setIsFetching(true);
-      const { data: events } = await axios.get("/api/events");
-      setEvents(events);
-      setIsFetching(false);
+      await getAllEvents();
     };
     fetchEvents();
+    //eslint-disable-next-line
   }, []);
 
   return (
     <Container>
       <Link to={"/events/add"}>Add Event</Link>
-      {!isFetching && (
+      {events && (
         <Container className={classes.cards}>
-          {events &&
-            events.map((event) => (
-              <EventSummaryCard key={event._id} event={event} />
-            ))}
+          {events.map((event) => (
+            <EventSummaryCard key={event._id} event={event} />
+          ))}
         </Container>
       )}
     </Container>

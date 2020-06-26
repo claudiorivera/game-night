@@ -22,7 +22,7 @@ export const GamesProvider = ({ children }) => {
       const addedGame = await axios.post("/api/games/add", {
         ...gameToAdd,
       });
-      await dispatch({
+      dispatch({
         type: "ADD_GAME_SUCCESSFUL_WITH_GAME",
         addedGame,
       });
@@ -30,7 +30,7 @@ export const GamesProvider = ({ children }) => {
       createAlertWithMessage(error.response.data);
     }
   };
-  const getGamesList = async () => {
+  const getAllGames = async () => {
     try {
       const { data: games } = await axios.get("/api/games");
       dispatch({
@@ -47,7 +47,7 @@ export const GamesProvider = ({ children }) => {
       value={{
         games: state.games,
         addGame,
-        getGamesList,
+        getAllGames,
       }}
     >
       {children}

@@ -19,7 +19,7 @@ export const EventsProvider = ({ children }) => {
   const joinEventById = async (id) => {
     try {
       const event = await axios.put(`/api/events/${id}/join`);
-      await dispatch({
+      dispatch({
         type: "JOIN_EVENT_SUCCESSFUL_WITH_EVENT",
         event,
       });
@@ -33,10 +33,18 @@ export const EventsProvider = ({ children }) => {
         gameId,
         eventDateTime,
       });
-      await dispatch({
+      dispatch({
         type: "ADD_EVENT_SUCCESSFUL_WITH_EVENT",
         event,
       });
+    } catch (error) {
+      createAlertWithMessage(error.response.data);
+    }
+  };
+  const getAllEvents = async () => {
+    try {
+      const { data: events } = await axios.get("/api/events");
+      dispatch({ type: "GET_ALL_EVENTS_SUCCESSFUL_WITH_EVENTS", events });
     } catch (error) {
       createAlertWithMessage(error.response.data);
     }
@@ -48,6 +56,7 @@ export const EventsProvider = ({ children }) => {
         events: state.events,
         addEvent,
         joinEventById,
+        getAllEvents,
       }}
     >
       {children}
