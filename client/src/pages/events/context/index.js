@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, useContext } from "react";
-import { events } from "./events";
+import { reducer } from "./reducer";
 import { AppContext } from "../../../App/context";
 const axios = require("axios").default;
 
@@ -13,7 +13,7 @@ export const EventsContext = createContext(initialState);
 
 // Global context provider
 export const EventsProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(events, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState);
   const { createAlertWithMessage } = useContext(AppContext);
 
   const joinEventById = async (id) => {

@@ -1,11 +1,13 @@
-import "fontsource-roboto";
 import React from "react";
+// Styling
+import "fontsource-roboto";
 import { CssBaseline } from "@material-ui/core";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+// App components
 import AlertDialog from "./components/AlertDialog";
 import MainAppBar from "./components/MainAppBar";
 import PrivateRoute from "./components/PrivateRoute";
+// Pages
 import LoginPage from "../pages/user/LoginPage";
 import ProfilePage from "../pages/user/ProfilePage";
 import HomePage from "../pages/home/HomePage";
@@ -13,10 +15,13 @@ import GamesListPage from "../pages/games/GamesListPage";
 import AddGamePage from "../pages/games/AddGamePage";
 import EventsListPage from "../pages/events/EventsListPage";
 import AddEventPage from "../pages/events/AddEventPage";
+// Providers
 import { AppProvider } from "./context";
 import { UserProvider } from "../pages/user/context";
 import { GamesProvider } from "../pages/games/context";
 import { EventsProvider } from "../pages/events/context";
+// Util
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import MomentUtils from "@date-io/moment";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 
