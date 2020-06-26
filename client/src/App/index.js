@@ -6,9 +6,9 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import AlertDialog from "./components/AlertDialog";
 import MainAppBar from "./components/MainAppBar";
 import PrivateRoute from "./components/PrivateRoute";
-import { Login } from "../pages/login";
+import LoginPage from "../pages/users/LoginPage";
+import ProfilePage from "../pages/users/ProfilePage";
 import { Home } from "../pages/home";
-import { UserProfile } from "../pages/profile";
 import { GameList, AddGame } from "../pages/games";
 import { EventList, AddEvent } from "../pages/events";
 import { GlobalProvider } from "../context";
@@ -53,10 +53,10 @@ function App() {
                   <AddEvent />
                 </PrivateRoute>
                 <PrivateRoute path="/profile">
-                  <UserProfile />
+                  <ProfilePage />
                 </PrivateRoute>
                 <Route path="/login">
-                  <Login />
+                  <LoginPage />
                 </Route>
               </Switch>
             </Router>

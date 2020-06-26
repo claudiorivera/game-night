@@ -1,5 +1,6 @@
 import React, { useState, Fragment } from "react";
-import { LoginForm, RegisterForm } from "./";
+import LoginForm from "./components/LoginForm";
+import RegisterForm from "./components/RegisterForm";
 import { Container, Typography, Link } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 

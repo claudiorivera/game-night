@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
-import { GlobalContext } from "../../context";
+import { UserContext } from "../../pages/users/context";
 import { Route, Redirect } from "react-router-dom";
 
 // https://reacttraining.com/react-router/web/example/auth-workflow
 function PrivateRoute({ children, ...rest }) {
-  const { user } = useContext(GlobalContext);
+  const { user } = useContext(UserContext);
   return (
     <Route
       {...rest}
