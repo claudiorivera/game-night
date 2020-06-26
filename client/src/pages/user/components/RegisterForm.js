@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { TextField, Button } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../context";
+import { AppContext } from "../../../App/context";
 
 const RegisterForm = () => {
   const history = useHistory();
@@ -10,7 +11,8 @@ const RegisterForm = () => {
   const [name, setName] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [isFetching, setIsFetching] = useState(false);
-  const { registerUser, createAlertWithMessage } = useContext(UserContext);
+  const { registerUser } = useContext(UserContext);
+  const { createAlertWithMessage } = useContext(AppContext);
 
   const handleRegister = async (e) => {
     e.preventDefault();

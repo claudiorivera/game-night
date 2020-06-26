@@ -1,5 +1,6 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useReducer, useContext } from "react";
 import { reducer } from "./reducer";
+import { AppContext } from "../../../App/context";
 const axios = require("axios").default;
 
 // initialState
@@ -13,6 +14,7 @@ export const UserContext = createContext(initialState);
 // Global context provider
 export const UserProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const { createAlertWithMessage } = useContext(AppContext);
 
   // USERS
   const registerUser = async (name, email, password) => {
@@ -24,8 +26,7 @@ export const UserProvider = ({ children }) => {
       });
       dispatch({ type: "REGISTER_USER_SUCCESSFUL_WITH_USER", user });
     } catch (error) {
-      const message = error.response.data;
-      dispatch({ type: "REGISTER_USER_FAILED_WITH_MESSAGE", message });
+      createAlertWithMessage(error.response.data);
     }
   };
   const loginUser = async (email, password) => {
@@ -36,8 +37,7 @@ export const UserProvider = ({ children }) => {
       });
       dispatch({ type: "LOGIN_SUCCESSFUL_WITH_USER", user });
     } catch (error) {
-      const message = error.response.data;
-      dispatch({ type: "LOGIN_FAILED_WITH_MESSAGE", message });
+      createAlertWithMessage(error.response.data);
     }
   };
   const logoutUser = async () => {
@@ -45,21 +45,16 @@ export const UserProvider = ({ children }) => {
       const { data: user } = await axios.get("/api/users/logout");
       dispatch({ type: "LOGOUT_SUCCESSFUL_WITH_USER", user });
     } catch (error) {
-      const message = error.response.data;
-      dispatch({ type: "LOGOUT_FAILED_WITH_MESSAGE", message });
+      createAlertWithMessage(error.response.data);
     }
   };
   const deleteUserById = async (_id) => {
     try {
       const { data: user } = await axios.delete(`/api/users/${_id}`);
       dispatch({ type: "DELETE_USER_BY_ID_SUCCESSFUL_WITH_USER", user });
-      dispatch({
-        type: "CREATE_ALERT_WITH_MESSAGE",
-        message: "User successfully deleted",
-      });
+      createAlertWithMessage("User successfully deleted");
     } catch (error) {
-      const message = error.response.data;
-      dispatch({ type: "DELETE_USER_BY_ID_FAILED_WITH_MESSAGE", message });
+      createAlertWithMessage(error.response.data);
     }
   };
 

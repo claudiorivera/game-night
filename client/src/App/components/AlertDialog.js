@@ -1,5 +1,5 @@
 import React, { useContext, Fragment } from "react";
-import { GlobalContext } from "../../context";
+import { AppContext } from "../context";
 import { makeStyles } from "@material-ui/core/styles";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import { Container } from "@material-ui/core";
@@ -15,8 +15,8 @@ const useStyles = makeStyles((theme) => ({
 
 const AlertDialog = () => {
   const classes = useStyles();
-  const { alert, clearAlert } = useContext(GlobalContext);
-  return alert ? (
+  const { message, clearAlert } = useContext(AppContext);
+  return message ? (
     <Container className={classes.root}>
       <Alert
         onClose={() => {
@@ -25,7 +25,7 @@ const AlertDialog = () => {
         severity="warning"
       >
         <AlertTitle>Alert</AlertTitle>
-        {JSON.stringify(alert)}
+        {JSON.stringify(message)}
       </Alert>
     </Container>
   ) : (
