@@ -6,13 +6,13 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import AlertDialog from "./components/AlertDialog";
 import MainAppBar from "./components/MainAppBar";
 import PrivateRoute from "./components/PrivateRoute";
-import LoginPage from "../pages/users/LoginPage";
-import ProfilePage from "../pages/users/ProfilePage";
+import LoginPage from "../pages/user/LoginPage";
+import ProfilePage from "../pages/user/ProfilePage";
 import { Home } from "../pages/home";
 import { GameList, AddGame } from "../pages/games";
 import { EventList, AddEvent } from "../pages/events";
 import { GlobalProvider } from "../context";
-import { UserProvider } from "../pages/users/context";
+import { UserProvider } from "../pages/user/context";
 import MomentUtils from "@date-io/moment";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 

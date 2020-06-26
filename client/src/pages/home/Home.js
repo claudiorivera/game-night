@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Container, Typography } from "@material-ui/core";
-import { UserContext } from "../users/context";
+import { UserContext } from "../user/context";
 
 const Home = () => {
   const { user } = useContext(UserContext);

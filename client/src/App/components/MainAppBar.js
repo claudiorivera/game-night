@@ -2,7 +2,7 @@ import React, { useContext, Fragment } from "react";
 import { AppBar, Toolbar, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
-import { UserContext } from "../../pages/users/context";
+import { UserContext } from "../../pages/user/context";
 
 const useStyles = makeStyles({
   mb3: {
