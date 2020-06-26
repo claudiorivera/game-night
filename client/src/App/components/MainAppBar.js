@@ -40,7 +40,7 @@ const MainAppBar = () => {
             </Button>
           </Fragment>
         ) : (
-          // Show the Login and Register links if a user is not logged in
+          // Show the Login/Register link if a user is not logged in
           <Fragment>
             <Button
               className={classes.alignRight}
