@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { GlobalContext } from "../../context";
+import { EventsContext } from "./context";
 const moment = require("moment");
 
 const useStyles = makeStyles({
@@ -19,7 +19,7 @@ const useStyles = makeStyles({
 });
 
 const EventSummaryCard = ({ event }) => {
-  const { joinEventById } = useContext(GlobalContext);
+  const { joinEventById } = useContext(EventsContext);
   const [disableJoinButton, setDisableJoinButton] = useState(false);
   const classes = useStyles();
   return (

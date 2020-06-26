@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { GlobalContext } from "../../context";
+import { GamesContext } from "../games/context";
+import { EventsContext } from "./context";
 import {
   Container,
   Typography,
@@ -14,7 +15,8 @@ import { DateTimePicker } from "@material-ui/pickers";
 import { useHistory } from "react-router-dom";
 
 const AddEvent = () => {
-  const { games, getGamesList, addEvent } = useContext(GlobalContext);
+  const { games, getGamesList } = useContext(GamesContext);
+  const { addEvent } = useContext(EventsContext);
   const [eventDateTime, setEventDateTime] = useState(new Date());
   const [gameId, setGameId] = useState("");
   const [isFetching, setIsFetching] = useState(false);

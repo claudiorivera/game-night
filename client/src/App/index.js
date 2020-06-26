@@ -15,6 +15,7 @@ import { EventList, AddEvent } from "../pages/events";
 import { AppProvider } from "./context";
 import { UserProvider } from "../pages/user/context";
 import { GamesProvider } from "../pages/games/context";
+import { EventsProvider } from "../pages/events/context";
 import MomentUtils from "@date-io/moment";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 
@@ -33,38 +34,40 @@ function App() {
     <AppProvider>
       <UserProvider>
         <GamesProvider>
-          <ThemeProvider theme={theme}>
-            <MuiPickersUtilsProvider utils={MomentUtils}>
-              <Router>
-                <CssBaseline />
-                <MainAppBar />
-                <AlertDialog />
-                <Switch>
-                  <Route exact path="/">
-                    <HomePage />
-                  </Route>
-                  <PrivateRoute exact path="/games">
-                    <GamesListPage />
-                  </PrivateRoute>
-                  <PrivateRoute exact path="/events">
-                    <EventList />
-                  </PrivateRoute>
-                  <PrivateRoute path="/games/add">
-                    <AddGamePage />
-                  </PrivateRoute>
-                  <PrivateRoute path="/events/add">
-                    <AddEvent />
-                  </PrivateRoute>
-                  <PrivateRoute path="/profile">
-                    <ProfilePage />
-                  </PrivateRoute>
-                  <Route path="/login">
-                    <LoginPage />
-                  </Route>
-                </Switch>
-              </Router>
-            </MuiPickersUtilsProvider>
-          </ThemeProvider>
+          <EventsProvider>
+            <ThemeProvider theme={theme}>
+              <MuiPickersUtilsProvider utils={MomentUtils}>
+                <Router>
+                  <CssBaseline />
+                  <MainAppBar />
+                  <AlertDialog />
+                  <Switch>
+                    <Route exact path="/">
+                      <HomePage />
+                    </Route>
+                    <PrivateRoute exact path="/games">
+                      <GamesListPage />
+                    </PrivateRoute>
+                    <PrivateRoute exact path="/events">
+                      <EventList />
+                    </PrivateRoute>
+                    <PrivateRoute path="/games/add">
+                      <AddGamePage />
+                    </PrivateRoute>
+                    <PrivateRoute path="/events/add">
+                      <AddEvent />
+                    </PrivateRoute>
+                    <PrivateRoute path="/profile">
+                      <ProfilePage />
+                    </PrivateRoute>
+                    <Route path="/login">
+                      <LoginPage />
+                    </Route>
+                  </Switch>
+                </Router>
+              </MuiPickersUtilsProvider>
+            </ThemeProvider>
+          </EventsProvider>
         </GamesProvider>
       </UserProvider>
     </AppProvider>
