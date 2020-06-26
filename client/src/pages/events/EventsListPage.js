@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { EventSummaryCard } from "./";
+import EventSummaryCard from "./components/EventSummaryCard";
 import { Link } from "react-router-dom";
 
 const axios = require("axios").default;

@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { EventsContext } from "./context";
+import { EventsContext } from "../context";
 const moment = require("moment");
 
 const useStyles = makeStyles({
