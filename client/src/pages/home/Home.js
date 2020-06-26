@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 import { Container, Typography } from "@material-ui/core";
-import { GlobalContext } from "../../context";
+import { UserContext } from "../users/context";
+
 const Home = () => {
-  const { user } = useContext(GlobalContext);
+  const { user } = useContext(UserContext);
 
   return (
     <Container>

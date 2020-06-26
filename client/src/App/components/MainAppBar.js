@@ -1,8 +1,9 @@
 import React, { useContext, Fragment } from "react";
-import { GlobalContext } from "../../context";
+// import { GlobalContext } from "../../context";
 import { AppBar, Toolbar, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../pages/users/context";
 
 const useStyles = makeStyles({
   mb3: {
@@ -12,7 +13,7 @@ const useStyles = makeStyles({
 
 const MainAppBar = () => {
   const classes = useStyles();
-  const { user, logoutUser } = useContext(GlobalContext);
+  const { user, logoutUser } = useContext(UserContext);
 
   return (
     <AppBar position="sticky" className={classes.mb3}>

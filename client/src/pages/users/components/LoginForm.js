@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { TextField, Button } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
-import { UserContext } from "../users/context";
+import { UserContext } from "../context";
 
 const LoginForm = () => {
   const history = useHistory();
