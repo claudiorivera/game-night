@@ -11,9 +11,9 @@ import ProfilePage from "../pages/user/ProfilePage";
 import HomePage from "../pages/home/HomePage";
 import { GameList, AddGame } from "../pages/games";
 import { EventList, AddEvent } from "../pages/events";
-import { GlobalProvider } from "../context";
 import { AppProvider } from "./context";
 import { UserProvider } from "../pages/user/context";
+import { GamesProvider } from "../pages/games/context";
 import MomentUtils from "@date-io/moment";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 
@@ -29,9 +29,9 @@ const theme = createMuiTheme({
 
 function App() {
   return (
-    <GlobalProvider>
-      <AppProvider>
-        <UserProvider>
+    <AppProvider>
+      <UserProvider>
+        <GamesProvider>
           <ThemeProvider theme={theme}>
             <MuiPickersUtilsProvider utils={MomentUtils}>
               <Router>
@@ -64,9 +64,9 @@ function App() {
               </Router>
             </MuiPickersUtilsProvider>
           </ThemeProvider>
-        </UserProvider>
-      </AppProvider>
-    </GlobalProvider>
+        </GamesProvider>
+      </UserProvider>
+    </AppProvider>
   );
 }
 

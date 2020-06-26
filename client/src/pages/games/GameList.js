@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { GlobalContext } from "../../context";
+import { GamesContext } from "./context";
 import { GameDetails } from "./";
 import {
   ExpansionPanelSummary,
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
 const GameList = () => {
   const classes = useStyles();
-  const { getGamesList, games } = useContext(GlobalContext);
+  const { getGamesList, games } = useContext(GamesContext);
 
   useEffect(() => {
     const fetchGames = async () => {

@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
-import { GlobalContext } from "../../context";
+import { GamesContext } from "./context";
+import { AppContext } from "../../App/context";
 import { GameDetails } from "./";
 import { bggFetchGamesByQuery } from "../../lib/bggFetchGamesByQuery";
 import {
@@ -13,7 +14,6 @@ import {
   Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { Alert, AlertTitle } from "@material-ui/lab";
 import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
@@ -38,7 +38,8 @@ const AddGame = () => {
   const history = useHistory();
   const [query, setQuery] = useState("");
   const [queryResults, setQueryResults] = useState([]);
-  const { addGame, alert, clearAlert } = useContext(GlobalContext);
+  const { addGame } = useContext(GamesContext);
+  const { clearAlert } = useContext(AppContext);
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -53,19 +54,6 @@ const AddGame = () => {
 
   return (
     <Container>
-      {alert && (
-        <div className={classes.alert}>
-          <Alert
-            onClose={() => {
-              clearAlert();
-            }}
-            severity="warning"
-          >
-            <AlertTitle>Alert</AlertTitle>
-            {alert}
-          </Alert>
-        </div>
-      )}
       <form onSubmit={handleSearch}>
         <TextField
           name="query"
