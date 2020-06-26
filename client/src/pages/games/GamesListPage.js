@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { GamesContext } from "./context";
-import { GameDetails } from "./";
+import GameDetails from "./components/GameDetails";
 import {
   ExpansionPanelSummary,
   ExpansionPanelDetails,
