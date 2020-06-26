@@ -28,10 +28,10 @@ const theme = createMuiTheme({
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalProvider>
-        <MuiPickersUtilsProvider utils={MomentUtils}>
-          <UserProvider>
+    <GlobalProvider>
+      <UserProvider>
+        <ThemeProvider theme={theme}>
+          <MuiPickersUtilsProvider utils={MomentUtils}>
             <Router>
               <CssBaseline />
               <MainAppBar />
@@ -60,10 +60,10 @@ function App() {
                 </Route>
               </Switch>
             </Router>
-          </UserProvider>
-        </MuiPickersUtilsProvider>
-      </GlobalProvider>
-    </ThemeProvider>
+          </MuiPickersUtilsProvider>
+        </ThemeProvider>
+      </UserProvider>
+    </GlobalProvider>
   );
 }
 
