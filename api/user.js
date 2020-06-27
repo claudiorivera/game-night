@@ -31,8 +31,7 @@ router.get("/:id/events", async (req, res) => {
       guests: {
         _id: req.params.id,
       },
-    }).populate("host game");
-    console.log(events);
+    }).populate("host game guests");
 
     res.status(200).json(events);
   } catch (error) {
@@ -72,12 +71,24 @@ router.get("/logout", (req, res) => {
 // DELETE /api/user/:id
 // Params: user id
 // Returns null on success (for front-end user reducer)
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", (req, res) => {
   if (req.user) {
-    User.findOneAndDelete({ _id: req.params.id }, (error) => {
+    User.findOneAndDelete({ _id: req.params.id }, (error, user) => {
       if (error) {
         res.status(400).json(error);
       } else {
+        // https://stackoverflow.com/a/44342416
+        Event.updateMany(
+          { guests: user._id },
+          { $pull: { guests: user._id } },
+          { multi: true },
+          (error) => {
+            if (error) {
+              console.log(error);
+              return res.status(400).json(null);
+            }
+          }
+        );
         res.status(200).json(null);
       }
     });
