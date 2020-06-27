@@ -61,7 +61,7 @@ router.post("/add", (req, res) => {
 router.put("/:id/join", async (req, res) => {
   if (req.user) {
     const event = await Event.findOne({ _id: req.params.id });
-    event.guests.push(req.user);
+    event.guests.addToSet(req.user);
     await event.save((error) => {
       if (error) {
         return res
