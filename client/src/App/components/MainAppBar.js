@@ -1,7 +1,7 @@
 import React, { useContext, Fragment } from "react";
 import { AppBar, Toolbar, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { UserContext } from "../../pages/user/context";
 
 const useStyles = makeStyles({
@@ -13,6 +13,7 @@ const useStyles = makeStyles({
 const MainAppBar = () => {
   const classes = useStyles();
   const { user, logoutUser } = useContext(UserContext);
+  const history = useHistory();
 
   return (
     <AppBar position="sticky" className={classes.mb3}>
@@ -35,7 +36,13 @@ const MainAppBar = () => {
             <Button color="inherit" component={Link} to="/profile">
               My Profile
             </Button>
-            <Button color="inherit" onClick={logoutUser}>
+            <Button
+              color="inherit"
+              onClick={() => {
+                logoutUser();
+                history.push("/login");
+              }}
+            >
               Logout
             </Button>
           </Fragment>

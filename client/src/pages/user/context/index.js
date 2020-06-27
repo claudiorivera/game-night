@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, useContext } from "react";
+import React, { createContext, useReducer, useContext, useEffect } from "react";
 import { reducer } from "./reducer";
 import { AppContext } from "../../../App/context";
 const axios = require("axios").default;
@@ -58,6 +58,20 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const authUser = async () => {
+    try {
+      const { data: user } = await axios.get("/api/user/auth");
+      dispatch({ type: "AUTH_USER_SUCCESSFUL_WITH_USER", user });
+    } catch (error) {
+      createAlertWithMessage(error.response.data);
+    }
+  };
+
+  useEffect(() => {
+    authUser();
+    //eslint-disable-next-line
+  }, []);
+
   UserContext.displayName = "User";
 
   return (
@@ -68,6 +82,7 @@ export const UserProvider = ({ children }) => {
         logoutUser,
         registerUser,
         deleteUserById,
+        authUser,
       }}
     >
       {children}

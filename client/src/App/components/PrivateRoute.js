@@ -4,12 +4,12 @@ import { Route, Redirect } from "react-router-dom";
 
 // https://reacttraining.com/react-router/web/example/auth-workflow
 function PrivateRoute({ children, ...rest }) {
-  const { user } = useContext(UserContext);
+  const { authUser } = useContext(UserContext);
   return (
     <Route
       {...rest}
       render={({ location }) =>
-        user ? (
+        authUser ? (
           children
         ) : (
           <Redirect
