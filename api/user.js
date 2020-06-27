@@ -18,7 +18,8 @@ router.post("/register", (req, res) => {
       return res.status(400).json(error.message);
     }
     passport.authenticate("local")(req, res, () => {
-      res.status(200).json(user);
+      const { isAdmin, _id, email, name, dateCreated } = user;
+      res.status(200).json({ isAdmin, _id, email, name, dateCreated });
     });
   });
 });
@@ -44,7 +45,8 @@ router.get("/:id/events", async (req, res) => {
 // Returns user on success
 router.post("/login", passport.authenticate("local"), (req, res) => {
   if (req.user) {
-    res.status(200).json(req.user);
+    const { isAdmin, _id, email, name, dateCreated } = req.user;
+    res.status(200).json({ isAdmin, _id, email, name, dateCreated });
   }
 });
 
