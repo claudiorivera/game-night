@@ -50,6 +50,17 @@ router.post("/login", passport.authenticate("local"), (req, res) => {
   }
 });
 
+// GET /api/user/auth
+// Returns user on success
+router.get("/auth", (req, res) => {
+  if (req.user) {
+    const { isAdmin, _id, email, name, dateCreated } = req.user;
+    res.status(200).json({ isAdmin, _id, email, name, dateCreated });
+  } else {
+    res.status(200).json(null);
+  }
+});
+
 // GET /api/user/logout
 // Params: none
 // Returns null on success (for front-end user reducer)
