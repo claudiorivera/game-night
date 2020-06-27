@@ -19,7 +19,7 @@ export const UserProvider = ({ children }) => {
   // USERS
   const registerUser = async (name, email, password) => {
     try {
-      const { data: user } = await axios.post("/api/users/register", {
+      const { data: user } = await axios.post("/api/user/register", {
         name,
         email,
         password,
@@ -31,7 +31,7 @@ export const UserProvider = ({ children }) => {
   };
   const loginUser = async (email, password) => {
     try {
-      const { data: user } = await axios.post("/api/users/login", {
+      const { data: user } = await axios.post("/api/user/login", {
         email,
         password,
       });
@@ -42,7 +42,7 @@ export const UserProvider = ({ children }) => {
   };
   const logoutUser = async () => {
     try {
-      const { data: user } = await axios.get("/api/users/logout");
+      const { data: user } = await axios.get("/api/user/logout");
       dispatch({ type: "LOGOUT_SUCCESSFUL_WITH_USER", user });
     } catch (error) {
       createAlertWithMessage(error.response.data);
@@ -50,7 +50,7 @@ export const UserProvider = ({ children }) => {
   };
   const deleteUserById = async (_id) => {
     try {
-      const { data: user } = await axios.delete(`/api/users/${_id}`);
+      const { data: user } = await axios.delete(`/api/user/${_id}`);
       dispatch({ type: "DELETE_USER_BY_ID_SUCCESSFUL_WITH_USER", user });
       createAlertWithMessage("User successfully deleted");
     } catch (error) {

@@ -51,7 +51,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // Route handlers
-app.use("/api/users", require("./api/users"));
+app.use("/api/user", require("./api/user"));
 app.use("/api/games", require("./api/games"));
 app.use("/api/events", require("./api/events"));
 

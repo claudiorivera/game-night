@@ -8,7 +8,7 @@ const Event = require("../models/Event");
 
 // Routes
 
-// POST /api/users/register
+// POST /api/user/register
 // Params: email, name, password
 // Returns user on success
 router.post("/register", (req, res) => {
@@ -23,7 +23,7 @@ router.post("/register", (req, res) => {
   });
 });
 
-// GET /api/users/id/events
+// GET /api/user/id/events
 // Params: User ID
 // Returns all events a given user is going to
 router.get("/:id/events", async (req, res) => {
@@ -39,7 +39,7 @@ router.get("/:id/events", async (req, res) => {
   }
 });
 
-// POST /api/users/login
+// POST /api/user/login
 // Params: email and password
 // Returns user on success
 router.post("/login", passport.authenticate("local"), (req, res) => {
@@ -48,7 +48,7 @@ router.post("/login", passport.authenticate("local"), (req, res) => {
   }
 });
 
-// GET /api/users/logout
+// GET /api/user/logout
 // Params: none
 // Returns null on success (for front-end user reducer)
 router.get("/logout", (req, res) => {
@@ -56,7 +56,7 @@ router.get("/logout", (req, res) => {
   res.status(200).json(null);
 });
 
-// DELETE /api/users/:id
+// DELETE /api/user/:id
 // Params: user id
 // Returns null on success (for front-end user reducer)
 router.delete("/:id", async (req, res) => {
