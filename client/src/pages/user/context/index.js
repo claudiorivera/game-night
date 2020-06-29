@@ -5,7 +5,7 @@ const axios = require("axios").default;
 
 // initialState
 const initialState = {
-  user: null,
+  user: JSON.parse(localStorage.getItem("game-night-user")) || null,
 };
 
 // Create context
@@ -25,6 +25,7 @@ export const UserProvider = ({ children }) => {
         password,
       });
       dispatch({ type: "REGISTER_USER_SUCCESSFUL_WITH_USER", user });
+      localStorage.setItem("game-night-user", JSON.stringify(user));
     } catch (error) {
       createAlertWithMessage(error.response.data);
     }
@@ -36,6 +37,7 @@ export const UserProvider = ({ children }) => {
         password,
       });
       dispatch({ type: "LOGIN_SUCCESSFUL_WITH_USER", user });
+      localStorage.setItem("game-night-user", JSON.stringify(user));
     } catch (error) {
       createAlertWithMessage(error.response.data);
     }
@@ -44,6 +46,7 @@ export const UserProvider = ({ children }) => {
     try {
       const { data: user } = await axios.get("/api/user/logout");
       dispatch({ type: "LOGOUT_SUCCESSFUL_WITH_USER", user });
+      localStorage.removeItem("game-night-user");
     } catch (error) {
       createAlertWithMessage(error.response.data);
     }
@@ -52,6 +55,7 @@ export const UserProvider = ({ children }) => {
     try {
       const { data: user } = await axios.delete(`/api/user/${_id}`);
       dispatch({ type: "DELETE_USER_BY_ID_SUCCESSFUL_WITH_USER", user });
+      localStorage.removeItem("game-night-user");
       createAlertWithMessage("User successfully deleted");
     } catch (error) {
       createAlertWithMessage(error.response.data);
@@ -62,6 +66,7 @@ export const UserProvider = ({ children }) => {
     try {
       const { data: user } = await axios.get("/api/user/auth");
       dispatch({ type: "AUTH_USER_SUCCESSFUL_WITH_USER", user });
+      localStorage.setItem("game-night-user", JSON.stringify(user));
     } catch (error) {
       createAlertWithMessage(error.response.data);
     }
