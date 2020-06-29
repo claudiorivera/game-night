@@ -3,6 +3,7 @@ const router = express.Router();
 
 // Model
 const Event = require("../models/Event");
+const User = require("../models/User");
 
 // GET /api/events
 // Params: none
@@ -61,7 +62,16 @@ router.post("/add", (req, res) => {
 router.put("/:id/join", async (req, res) => {
   if (req.user) {
     const event = await Event.findOne({ _id: req.params.id });
+    if (event.host.toString() === req.user._id.toString()) {
+      return res
+        .status(400)
+        .json({ message: "Can't join an event you're hosting" });
+    }
     event.guests.addToSet(req.user);
+    User.updateOne(
+      { _id: req.user._id },
+      { $addToSet: { events: event } }
+    ).exec();
     await event.save((error) => {
       if (error) {
         return res
