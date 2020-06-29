@@ -19,7 +19,7 @@ const useStyles = makeStyles({
   },
 });
 
-const EventSummaryCard = ({ event }) => {
+const EventSummaryCard = ({ event, isHosting }) => {
   const { joinEventById } = useContext(EventsContext);
   const [disableJoinButton, setDisableJoinButton] = useState(false);
   const classes = useStyles();
@@ -32,24 +32,28 @@ const EventSummaryCard = ({ event }) => {
         <Typography variant="h4" gutterBottom>
           {moment(event.eventDateTime).format("MMMM Do, YYYY")}
         </Typography>
-        <Typography variant="h6" color="textSecondary">
-          Hosted by: {event.host.name}
-        </Typography>
+        {!isHosting && (
+          <Typography variant="h6" color="textSecondary">
+            Hosted by: {event.host.name}
+          </Typography>
+        )}
         <Typography variant="h6">Guests: {event.guests.length}</Typography>
       </CardContent>
       <CardActions>
-        <Button
-          fullWidth
-          variant="contained"
-          color="primary"
-          disabled={disableJoinButton}
-          onClick={async () => {
-            await joinEventById(event._id);
-            setDisableJoinButton(true);
-          }}
-        >
-          Join
-        </Button>
+        {!isHosting && (
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            disabled={disableJoinButton}
+            onClick={async () => {
+              await joinEventById(event._id);
+              setDisableJoinButton(true);
+            }}
+          >
+            Join
+          </Button>
+        )}
       </CardActions>
     </Card>
   );

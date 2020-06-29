@@ -10,12 +10,12 @@ const useStyles = makeStyles({
   },
 });
 
-const EventsListContainer = ({ events }) => {
+const EventsListContainer = ({ events, isHosting }) => {
   const classes = useStyles();
   return (
     <Container className={classes.cards}>
       {events.map((event) => (
-        <EventSummaryCard key={event._id} event={event} />
+        <EventSummaryCard key={event._id} event={event} isHosting={isHosting} />
       ))}
     </Container>
   );

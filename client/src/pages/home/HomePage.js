@@ -22,7 +22,7 @@ const HomePage = () => {
       {user && user.events && user.eventsHosting && (
         <Fragment>
           <Typography variant="body1">Events You Are Hosting:</Typography>
-          <EventsListContainer events={user.eventsHosting} />
+          <EventsListContainer events={user.eventsHosting} isHosting />
           <Typography variant="body1">Events You Are Attending:</Typography>
           <EventsListContainer events={user.events} />
         </Fragment>
