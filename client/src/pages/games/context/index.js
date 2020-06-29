@@ -3,20 +3,16 @@ import { reducer } from "./reducer";
 import { AppContext } from "../../../App/context";
 const axios = require("axios").default;
 
-// initialState
 const initialState = {
   games: null,
 };
 
-// Create context
 export const GamesContext = createContext(initialState);
 
-// Global context provider
 export const GamesProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { createAlertWithMessage } = useContext(AppContext);
 
-  // GAMES
   const addGame = async (gameToAdd) => {
     try {
       const addedGame = await axios.post("/api/games/add", {

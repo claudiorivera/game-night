@@ -1,19 +1,10 @@
 import React, { useEffect, useContext } from "react";
 import { Container } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import EventSummaryCard from "./components/EventSummaryCard";
+import EventsListContainer from "./components/EventsListContainer";
 import { Link } from "react-router-dom";
 import { EventsContext } from "./context";
 
-const useStyles = makeStyles({
-  cards: {
-    display: "flex",
-    flexWrap: "wrap",
-  },
-});
-
 const EventList = () => {
-  const classes = useStyles();
   const { getAllEvents, events } = useContext(EventsContext);
 
   useEffect(() => {
@@ -27,13 +18,7 @@ const EventList = () => {
   return (
     <Container>
       <Link to={"/events/add"}>Add Event</Link>
-      {events && (
-        <Container className={classes.cards}>
-          {events.map((event) => (
-            <EventSummaryCard key={event._id} event={event} />
-          ))}
-        </Container>
-      )}
+      {events && <EventsListContainer events={events} />}
     </Container>
   );
 };

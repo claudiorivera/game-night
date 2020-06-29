@@ -3,15 +3,12 @@ import { reducer } from "./reducer";
 import { AppContext } from "../../../App/context";
 const axios = require("axios").default;
 
-// initialState
 const initialState = {
   events: null,
 };
 
-// Create context
 export const EventsContext = createContext(initialState);
 
-// Global context provider
 export const EventsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { createAlertWithMessage } = useContext(AppContext);

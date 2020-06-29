@@ -38,7 +38,7 @@ const AddEvent = () => {
 
   return (
     <Container>
-      <Typography variant="h3">Add New Event</Typography>
+      <Typography variant="h4">Add New Event</Typography>
       <form
         onSubmit={async (e) => {
           e.preventDefault();
