@@ -32,7 +32,6 @@ router.get("/:id/events", async (req, res) => {
         _id: req.params.id,
       },
     }).populate("host game guests");
-
     res.status(200).json(events);
   } catch (error) {
     res.status(400).json(error);
