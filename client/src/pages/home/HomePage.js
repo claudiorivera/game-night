@@ -4,11 +4,12 @@ import { UserContext } from "../user/context";
 import EventsListContainer from "../events/components/EventsListContainer";
 
 const HomePage = () => {
-  const { user, getUserEvents } = useContext(UserContext);
+  const { user, getUserEvents, getUserEventsHosting } = useContext(UserContext);
 
   useEffect(() => {
     if (user) {
       getUserEvents(user._id);
+      getUserEventsHosting(user._id);
     }
     //eslint-disable-next-line
   }, []);
@@ -18,8 +19,10 @@ const HomePage = () => {
       <Typography variant="h4">
         Hello, {user ? user.name : "there. Please log in or register"}.
       </Typography>
-      {user && user.events && (
+      {user && user.events && user.eventsHosting && (
         <Fragment>
+          <Typography variant="body1">Events You Are Hosting:</Typography>
+          <EventsListContainer events={user.eventsHosting} />
           <Typography variant="body1">Events You Are Attending:</Typography>
           <EventsListContainer events={user.events} />
         </Fragment>

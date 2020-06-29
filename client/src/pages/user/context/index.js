@@ -81,6 +81,20 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const getUserEventsHosting = async (userId) => {
+    try {
+      const { data: events } = await axios.get(
+        `/api/user/${userId}/events/hosting`
+      );
+      dispatch({
+        type: "GET_USER_EVENTS_HOSTING_SUCCESSFUL_WITH_EVENTS",
+        events,
+      });
+    } catch (error) {
+      createAlertWithMessage(error.response.data);
+    }
+  };
+
   useEffect(() => {
     authUser();
     //eslint-disable-next-line
@@ -98,6 +112,7 @@ export const UserProvider = ({ children }) => {
         deleteUserById,
         authUser,
         getUserEvents,
+        getUserEventsHosting,
       }}
     >
       {children}
