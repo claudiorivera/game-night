@@ -68,10 +68,15 @@ router.put("/:id/join", async (req, res) => {
         .json({ message: "Can't join an event you're hosting" });
     }
     event.guests.addToSet(req.user);
-    User.updateOne(
-      { _id: req.user._id },
-      { $addToSet: { events: event } }
-    ).exec();
+    try {
+      const user = await User.findById(req.user._id);
+      user.events.push(event);
+      await user.save((error) => {
+        if (error) return res.status(400).json(error);
+      });
+    } catch (error) {
+      return res.status(400).json(error);
+    }
     await event.save((error) => {
       if (error) {
         return res
