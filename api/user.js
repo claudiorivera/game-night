@@ -38,6 +38,22 @@ router.get("/:id/events", async (req, res) => {
   }
 });
 
+// GET /api/user/id/events/hosting
+// Params: User ID
+// Returns all events a given user is hosting
+router.get("/:id/events/hosting", async (req, res) => {
+  try {
+    const events = await Event.find({
+      host: {
+        _id: req.params.id,
+      },
+    }).populate("host game guests");
+    res.status(200).json(events);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+});
+
 // POST /api/user/login
 // Params: email and password
 // Returns user on success
