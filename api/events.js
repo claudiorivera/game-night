@@ -19,6 +19,20 @@ router.get("/", async (req, res) => {
   }
 });
 
+// GET /api/events/id
+// Params: Event ID
+// Returns event with given ID
+router.get("/:id", async (req, res) => {
+  try {
+    const event = await Event.findById(req.params.id).populate(
+      "guests host game"
+    );
+    res.status(200).json(event);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+});
+
 // GET /api/events/id/guests
 // Params: Event ID
 // Returns all guests going to a given event
