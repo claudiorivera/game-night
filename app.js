@@ -37,6 +37,9 @@ app.use(compression());
 app.use(
   session({
     name: "game-night-user-session",
+    cookie: {
+      sameSite: "strict",
+    },
     secret: process.env.SECRET,
     saveUninitialized: false,
     resave: false,
