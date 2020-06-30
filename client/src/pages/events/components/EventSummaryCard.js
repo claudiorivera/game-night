@@ -1,11 +1,15 @@
 import React, { useContext, useState } from "react";
 import {
   Card,
+  CardHeader,
+  CardMedia,
   CardActions,
   CardContent,
   Button,
   Typography,
+  IconButton,
 } from "@material-ui/core";
+import { Edit as EditIcon } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 import { EventsContext } from "../context";
 const moment = require("moment");
@@ -14,8 +18,12 @@ const useStyles = makeStyles({
   card: {
     margin: "10px",
     padding: "20px",
-    width: "400px",
+    width: "350px",
     flexDirection: "column",
+  },
+  media: {
+    height: 0,
+    paddingTop: "56.25%", // 16:9
   },
 });
 
@@ -25,19 +33,29 @@ const EventSummaryCard = ({ event, isHosting }) => {
   const classes = useStyles();
   return (
     <Card className={classes.card}>
+      <CardHeader
+        action={
+          isHosting ? (
+            <IconButton aria-label="settings">
+              <EditIcon />
+            </IconButton>
+          ) : null
+        }
+        title={moment(event.eventDateTime).format("MMMM Do, YYYY")}
+        subheader={event.game.name}
+      />
+      <CardMedia
+        className={classes.media}
+        image={event.game.imageSrc}
+        title={event.game.name}
+      />
       <CardContent>
-        <Typography variant="h5" color="textSecondary">
-          {event.game.name}
-        </Typography>
-        <Typography variant="h4" gutterBottom>
-          {moment(event.eventDateTime).format("MMMM Do, YYYY")}
-        </Typography>
         {!isHosting && (
-          <Typography variant="h6" color="textSecondary">
+          <Typography variant="body1" color="textSecondary">
             Hosted by: {event.host.name}
           </Typography>
         )}
-        <Typography variant="h6">Guests: {event.guests.length}</Typography>
+        <Typography variant="body2">Guests: {event.guests.length}</Typography>
       </CardContent>
       <CardActions>
         {!isHosting && (
