@@ -1,17 +1,12 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import {
   Card,
   CardHeader,
   CardMedia,
-  CardActions,
   CardContent,
-  Button,
   Typography,
-  IconButton,
 } from "@material-ui/core";
-import { Edit as EditIcon } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
-import { EventsContext } from "../context";
 const moment = require("moment");
 
 const useStyles = makeStyles({
@@ -28,19 +23,10 @@ const useStyles = makeStyles({
 });
 
 const EventSummaryCard = ({ event, isHosting }) => {
-  const { joinEventById } = useContext(EventsContext);
-  const [disableJoinButton, setDisableJoinButton] = useState(false);
   const classes = useStyles();
   return (
     <Card className={classes.card}>
       <CardHeader
-        // action={
-        //   isHosting ? (
-        //     <IconButton aria-label="settings">
-        //       <EditIcon />
-        //     </IconButton>
-        //   ) : null
-        // }
         title={moment(event.eventDateTime).format("MMMM Do, YYYY")}
         subheader={event.game.name}
       />
@@ -57,22 +43,6 @@ const EventSummaryCard = ({ event, isHosting }) => {
         )}
         <Typography variant="body2">Guests: {event.guests.length}</Typography>
       </CardContent>
-      {/* <CardActions>
-        {!isHosting && (
-          <Button
-            fullWidth
-            variant="contained"
-            color="primary"
-            disabled={disableJoinButton}
-            onClick={async () => {
-              await joinEventById(event._id);
-              setDisableJoinButton(true);
-            }}
-          >
-            Join
-          </Button>
-        )}
-      </CardActions> */}
     </Card>
   );
 };

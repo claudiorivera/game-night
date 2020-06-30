@@ -2,6 +2,7 @@ import React from "react";
 import EventSummaryCard from "./EventSummaryCard";
 import { Container } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   cards: {
@@ -15,7 +16,13 @@ const EventsListContainer = ({ events, isHosting }) => {
   return (
     <Container className={classes.cards}>
       {events.map((event) => (
-        <EventSummaryCard key={event._id} event={event} isHosting={isHosting} />
+        <Link
+          key={event._id}
+          to={`/events/${event._id}`}
+          style={{ textDecoration: "none" }}
+        >
+          <EventSummaryCard event={event} isHosting={isHosting} />
+        </Link>
       ))}
     </Container>
   );
