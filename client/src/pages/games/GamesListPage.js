@@ -46,7 +46,9 @@ const GameList = () => {
               </Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails className={classes.details}>
-              <GameDetails game={game} />
+              <Container>
+                <GameDetails game={game} />
+              </Container>
             </ExpansionPanelDetails>
           </ExpansionPanel>
         ))}

@@ -1,9 +1,9 @@
-import React from "react";
-import { Typography, Chip, Container } from "@material-ui/core";
+import React, { Fragment } from "react";
+import { Typography, Chip } from "@material-ui/core";
 
 const GameDetails = ({ game }) => {
   return (
-    <Container>
+    <Fragment>
       <img src={game.thumbnailSrc} alt={game.name} />
       <Typography variant="subtitle1">
         Authors:
@@ -28,7 +28,7 @@ const GameDetails = ({ game }) => {
       </Typography>
       <Typography variant="subtitle1">Ages: {game.minAge}+</Typography>
       <Typography variant="body1">{game.description}</Typography>
-    </Container>
+    </Fragment>
   );
 };
 
