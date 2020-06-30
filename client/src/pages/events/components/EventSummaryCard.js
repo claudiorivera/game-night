@@ -34,13 +34,13 @@ const EventSummaryCard = ({ event, isHosting }) => {
   return (
     <Card className={classes.card}>
       <CardHeader
-        action={
-          isHosting ? (
-            <IconButton aria-label="settings">
-              <EditIcon />
-            </IconButton>
-          ) : null
-        }
+        // action={
+        //   isHosting ? (
+        //     <IconButton aria-label="settings">
+        //       <EditIcon />
+        //     </IconButton>
+        //   ) : null
+        // }
         title={moment(event.eventDateTime).format("MMMM Do, YYYY")}
         subheader={event.game.name}
       />
@@ -57,7 +57,7 @@ const EventSummaryCard = ({ event, isHosting }) => {
         )}
         <Typography variant="body2">Guests: {event.guests.length}</Typography>
       </CardContent>
-      <CardActions>
+      {/* <CardActions>
         {!isHosting && (
           <Button
             fullWidth
@@ -72,7 +72,7 @@ const EventSummaryCard = ({ event, isHosting }) => {
             Join
           </Button>
         )}
-      </CardActions>
+      </CardActions> */}
     </Card>
   );
 };
