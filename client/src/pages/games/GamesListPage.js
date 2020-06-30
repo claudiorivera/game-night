@@ -33,7 +33,6 @@ const GameList = () => {
 
   return (
     <Container>
-      <Typography variant="h4">Games List</Typography>
       <Link to={"/games/add"}>Add Game</Link>
       {games &&
         games.map((game) => (
