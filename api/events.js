@@ -15,7 +15,9 @@ router.get("/", async (req, res) => {
       .sort({ eventDate: "asc" });
     res.status(200).json(events);
   } catch (error) {
-    res.status(400).json(error);
+    res
+      .status(400)
+      .json(error.message || { message: "Something went wrong :(" });
   }
 });
 
@@ -29,7 +31,31 @@ router.get("/:id", async (req, res) => {
     );
     res.status(200).json(event);
   } catch (error) {
-    res.status(400).json(error);
+    res
+      .status(400)
+      .json(error.message || { message: "Something went wrong :(" });
+  }
+});
+
+// DELETE /api/events/id
+// Params: Event ID
+// Returns success message
+router.delete("/:id", async (req, res) => {
+  try {
+    const event = await Event.findById(req.params.id);
+    await event.remove();
+    event.save((error) => {
+      if (error) {
+        return res
+          .status(400)
+          .json(error.message || { message: "Something went wrong :(" });
+      }
+      res.status(200).json({ message: "Delete event successful" });
+    });
+  } catch (error) {
+    res
+      .status(400)
+      .json(error.message || { message: "Something went wrong :(" });
   }
 });
 
@@ -41,7 +67,9 @@ router.get("/:id/guests", async (req, res) => {
     const event = await Event.findById(req.params.id);
     res.status(200).json(event.guests);
   } catch (error) {
-    res.status(400).json(error);
+    res
+      .status(400)
+      .json(error.message || { message: "Something went wrong :(" });
   }
 });
 
@@ -61,7 +89,7 @@ router.post("/add", (req, res) => {
       if (error) {
         return res
           .status(400)
-          .json(error.message || { message: "Something happen like error" });
+          .json(error.message || { message: "Something went wrong :(" });
       }
       res.status(200).json(addedEvent);
     });
@@ -121,10 +149,15 @@ router.put("/:id/leave", async (req, res) => {
       const user = await User.findById(req.user._id);
       user.events.pull(event);
       await user.save((error) => {
-        if (error) return res.status(400).json(error);
+        if (error)
+          return res
+            .status(400)
+            .json(error.message || { message: "Something went wrong :(" });
       });
     } catch (error) {
-      return res.status(400).json(error);
+      return res
+        .status(400)
+        .json(error.message || { message: "Something went wrong :(" });
     }
     await event.save((error) => {
       if (error) {
