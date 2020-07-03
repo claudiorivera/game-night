@@ -39,6 +39,7 @@ app.use(
     name: "game-night-user-session",
     cookie: {
       sameSite: "strict",
+      maxAge: 1000 * 60 * 60 * 2,
     },
     secret: process.env.SECRET,
     saveUninitialized: false,
