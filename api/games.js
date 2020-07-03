@@ -44,7 +44,7 @@ router.post("/add", (req, res) => {
       if (error) {
         res
           .status(400)
-          .json(error.message || { message: "Something happen like error" });
+          .json(error.message || { message: "Something went wrong :(" });
       } else {
         res.status(200).json(addedGame);
       }
