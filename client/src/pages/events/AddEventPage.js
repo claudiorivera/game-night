@@ -13,7 +13,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { DateTimePicker } from "@material-ui/pickers";
 import { useHistory } from "react-router-dom";
 
-const AddEvent = () => {
+const AddEventPage = () => {
   const { games, getAllGames } = useContext(GamesContext);
   const { addEvent } = useContext(EventsContext);
   const [eventDateTime, setEventDateTime] = useState(new Date());
@@ -86,4 +86,4 @@ const AddEvent = () => {
   );
 };
 
-export default AddEvent;
+export default AddEventPage;
