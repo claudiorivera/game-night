@@ -28,6 +28,7 @@ export const UserProvider = ({ children }) => {
       createAlertWithMessage(error.response.data);
     }
   };
+
   const loginUser = async (email, password) => {
     try {
       const { data: user } = await axios.post("/api/user/login", {
@@ -40,6 +41,7 @@ export const UserProvider = ({ children }) => {
       createAlertWithMessage(error.response.data);
     }
   };
+
   const logoutUser = async () => {
     try {
       const { data: user } = await axios.get("/api/user/logout");
@@ -50,6 +52,7 @@ export const UserProvider = ({ children }) => {
       createAlertWithMessage(error.response.data);
     }
   };
+
   const deleteUserById = async (_id) => {
     try {
       const { data: user } = await axios.delete(`/api/user/${_id}`);
