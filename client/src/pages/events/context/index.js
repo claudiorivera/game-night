@@ -13,6 +13,14 @@ export const EventsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { createAlertWithMessage } = useContext(AppContext);
 
+  const deleteEventById = async (id) => {
+    try {
+      const message = await axios.delete(`/api/events/${id}`);
+      createAlertWithMessage(message);
+    } catch (error) {
+      createAlertWithMessage(error.response.data);
+    }
+  };
   const joinEventById = async (id) => {
     try {
       const event = await axios.put(`/api/events/${id}/join`);
@@ -56,6 +64,7 @@ export const EventsProvider = ({ children }) => {
         addEvent,
         joinEventById,
         getAllEvents,
+        deleteEventById,
       }}
     >
       {children}
