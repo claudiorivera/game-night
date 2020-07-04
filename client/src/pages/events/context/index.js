@@ -13,6 +13,13 @@ export const EventsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { createAlertWithMessage } = useContext(AppContext);
 
+  const leaveEventById = async (id) => {
+    try {
+      await axios.put(`/api/events/${id}/leave`);
+    } catch (error) {
+      createAlertWithMessage(error.response.data);
+    }
+  };
   const deleteEventById = async (id) => {
     try {
       await axios.delete(`/api/events/${id}`);
@@ -64,6 +71,7 @@ export const EventsProvider = ({ children }) => {
         joinEventById,
         getAllEvents,
         deleteEventById,
+        leaveEventById,
       }}
     >
       {children}
