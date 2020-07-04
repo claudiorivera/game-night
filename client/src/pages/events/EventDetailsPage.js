@@ -33,7 +33,9 @@ const EventDetailsPage = () => {
   const history = useHistory();
   const [event, setEvent] = useState(null);
   const { user } = useContext(UserContext);
-  const { deleteEventById, leaveEventById } = useContext(EventsContext);
+  const { deleteEventById, leaveEventById, joinEventById } = useContext(
+    EventsContext
+  );
 
   useEffect(() => {
     const getEventById = async (id) => {
@@ -81,7 +83,14 @@ const EventDetailsPage = () => {
               </Button>
             ) : // Otherwise, as long as user isn't the host, show the Join button
             event.host._id !== user._id ? (
-              <Button>Join</Button>
+              <Button
+                onClick={async () => {
+                  await joinEventById(event._id);
+                  history.goBack();
+                }}
+              >
+                Join
+              </Button>
             ) : (
               // Otherwise, we're the host, so show the Edit button
               <Button>Edit</Button>
