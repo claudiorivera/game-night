@@ -43,7 +43,7 @@ const AddEvent = () => {
         onSubmit={async (e) => {
           e.preventDefault();
           await addEvent(gameId, eventDateTime);
-          history.push("/events");
+          history.goBack();
         }}
       >
         <FormControl className={classes.margin}>
