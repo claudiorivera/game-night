@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const User = require("./User");
 
 const Event = new Schema({
   dateCreated: {
@@ -25,6 +26,15 @@ const Event = new Schema({
       ref: "User",
     },
   ],
+});
+
+// https://stackoverflow.com/questions/39424531/mongoose-mongodb-remove-an-element-on-an-array
+Event.pre("remove", function (next) {
+  User.updateMany(
+    { events: this },
+    { $pull: { events: this._id } },
+    { multi: true }
+  ).exec(next);
 });
 
 module.exports = mongoose.model("Event", Event);
