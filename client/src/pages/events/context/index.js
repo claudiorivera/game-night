@@ -15,8 +15,7 @@ export const EventsProvider = ({ children }) => {
 
   const deleteEventById = async (id) => {
     try {
-      const message = await axios.delete(`/api/events/${id}`);
-      createAlertWithMessage(message);
+      await axios.delete(`/api/events/${id}`);
     } catch (error) {
       createAlertWithMessage(error.response.data);
     }

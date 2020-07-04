@@ -14,6 +14,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { ArrowBack as ArrowBackIcon } from "@material-ui/icons";
 import GameDetails from "../games/components/GameDetails";
 import { UserContext } from "../user/context";
+import { EventsContext } from "../events/context";
 
 const axios = require("axios").default;
 const moment = require("moment");
@@ -32,6 +33,7 @@ const EventDetailsPage = () => {
   const history = useHistory();
   const [event, setEvent] = useState(null);
   const { user } = useContext(UserContext);
+  const { deleteEventById } = useContext(EventsContext);
 
   useEffect(() => {
     const getEventById = async (id) => {
@@ -79,7 +81,14 @@ const EventDetailsPage = () => {
             )}
             {/* Show the Delete button to hosts and admins */}
             {(event.host._id === user._id || user.isAdmin) && (
-              <Button>Delete</Button>
+              <Button
+                onClick={async () => {
+                  await deleteEventById(event._id);
+                  history.goBack();
+                }}
+              >
+                Delete
+              </Button>
             )}
           </CardActions>
         </Card>
