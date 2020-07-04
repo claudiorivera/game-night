@@ -33,7 +33,7 @@ const EventDetailsPage = () => {
   const history = useHistory();
   const [event, setEvent] = useState(null);
   const { user } = useContext(UserContext);
-  const { deleteEventById } = useContext(EventsContext);
+  const { deleteEventById, leaveEventById } = useContext(EventsContext);
 
   useEffect(() => {
     const getEventById = async (id) => {
@@ -69,9 +69,16 @@ const EventDetailsPage = () => {
             <GameDetails game={event.game} />
           </CardContent>
           <CardActions>
-            {/* If user is already a guest, show the Unjoin button */}
+            {/* If user is already a guest, show the Leave button */}
             {event.guests.some((guest) => guest._id === user._id) ? (
-              <Button>Unjoin</Button>
+              <Button
+                onClick={async () => {
+                  await leaveEventById(event._id);
+                  history.goBack();
+                }}
+              >
+                Leave
+              </Button>
             ) : // Otherwise, as long as user isn't the host, show the Join button
             event.host._id !== user._id ? (
               <Button>Join</Button>
