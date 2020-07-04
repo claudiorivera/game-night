@@ -77,6 +77,10 @@ const EventDetailsPage = () => {
               // Otherwise, we're the host, so show the Edit button
               <Button>Edit</Button>
             )}
+            {/* Show the Delete button to hosts and admins */}
+            {(event.host._id === user._id || user.isAdmin) && (
+              <Button>Delete</Button>
+            )}
           </CardActions>
         </Card>
       )}
