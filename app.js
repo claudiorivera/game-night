@@ -62,7 +62,7 @@ app.use("/api/events", require("./api/events"));
 
 // If we're in production, serve the client/build folder
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "build")));
+  app.use(express.static(path.join(__dirname, "client", "build")));
 }
 
 module.exports = app;
