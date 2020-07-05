@@ -21,7 +21,9 @@ const AddEventPage = () => {
 
   useEffect(() => {
     const fetchGames = async () => {
-      await getAllGames();
+      if (!games) {
+        await getAllGames();
+      }
     };
     fetchGames();
     //eslint-disable-next-line
