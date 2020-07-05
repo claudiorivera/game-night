@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, useRouteMatch } from "react-router-dom";
 import {
   Container,
   Button,
@@ -31,6 +31,7 @@ const EventDetailsPage = () => {
   const classes = useStyles();
   const { eventId } = useParams();
   const history = useHistory();
+  const { url } = useRouteMatch();
   const [event, setEvent] = useState(null);
   const { user } = useContext(UserContext);
   const { deleteEventById, leaveEventById, joinEventById } = useContext(
@@ -93,7 +94,13 @@ const EventDetailsPage = () => {
               </Button>
             ) : (
               // Otherwise, we're the host, so show the Edit button
-              <Button>Edit</Button>
+              <Button
+                onClick={() => {
+                  history.push(`${url}/edit`);
+                }}
+              >
+                Edit
+              </Button>
             )}
             {/* Show the Delete button to hosts and admins */}
             {(event.host._id === user._id || user.isAdmin) && (
