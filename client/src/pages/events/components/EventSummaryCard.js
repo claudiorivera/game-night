@@ -27,7 +27,7 @@ const EventSummaryCard = ({ event, isHosting }) => {
   return (
     <Card className={classes.card}>
       <CardHeader
-        title={moment(event.eventDateTime).format("MMMM Do, YYYY")}
+        title={moment(event.eventDateTime).format("MMMM Do, YYYY [at] h:mma")}
         subheader={event.game.name}
       />
       <CardMedia
