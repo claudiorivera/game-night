@@ -63,8 +63,20 @@ export const EventsProvider = ({ children }) => {
 
   const getEventById = async (id) => {
     try {
-      const response = await axios.get(`/api/events/${id}`);
-      console.log(response);
+      const { data: event } = await axios.get(`/api/events/${id}`);
+      return event;
+    } catch (error) {
+      createAlertWithMessage(error.response.data);
+    }
+  };
+
+  const updateEvent = async (id, gameId, eventDateTime) => {
+    try {
+      await axios.put(`/api/events/${id}/edit`, {
+        gameId,
+        eventDateTime,
+      });
+      createAlertWithMessage("Update event successful!");
     } catch (error) {
       createAlertWithMessage(error.response.data);
     }
@@ -82,6 +94,7 @@ export const EventsProvider = ({ children }) => {
         deleteEventById,
         leaveEventById,
         getEventById,
+        updateEvent,
       }}
     >
       {children}
