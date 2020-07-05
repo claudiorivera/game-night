@@ -61,6 +61,15 @@ export const EventsProvider = ({ children }) => {
     }
   };
 
+  const getEventById = async (id) => {
+    try {
+      const response = await axios.get(`/api/events/${id}`);
+      console.log(response);
+    } catch (error) {
+      createAlertWithMessage(error.response.data);
+    }
+  };
+
   EventsContext.displayName = "Events";
 
   return (
@@ -72,6 +81,7 @@ export const EventsProvider = ({ children }) => {
         getAllEvents,
         deleteEventById,
         leaveEventById,
+        getEventById,
       }}
     >
       {children}
