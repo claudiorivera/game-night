@@ -68,7 +68,6 @@ router.get("/:id/guests", async (req, res) => {
 
 // POST /api/events/add
 // Params: host (req.user), eventDate, and game (_id)
-// Returns the added event
 router.post("/add", (req, res) => {
   const eventToAdd = {
     host: req.user,
@@ -84,7 +83,7 @@ router.post("/add", (req, res) => {
           .status(400)
           .json(error.message || { message: "Something went wrong :(" });
       }
-      res.status(200).json(addedEvent);
+      res.sendStatus(201);
     });
   } else {
     res.status(400).json({ message: "Unauthorized user" });

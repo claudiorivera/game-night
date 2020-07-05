@@ -16,6 +16,7 @@ export const EventsProvider = ({ children }) => {
   const leaveEventById = async (id) => {
     try {
       await axios.put(`/api/events/${id}/leave`);
+      createAlertWithMessage("Leave event successful!");
     } catch (error) {
       createAlertWithMessage(error.response.data);
     }
@@ -24,6 +25,7 @@ export const EventsProvider = ({ children }) => {
   const deleteEventById = async (id) => {
     try {
       await axios.delete(`/api/events/${id}`);
+      createAlertWithMessage("Delete event successful!");
     } catch (error) {
       createAlertWithMessage(error.response.data);
     }
@@ -31,11 +33,8 @@ export const EventsProvider = ({ children }) => {
 
   const joinEventById = async (id) => {
     try {
-      const event = await axios.put(`/api/events/${id}/join`);
-      dispatch({
-        type: "JOIN_EVENT_SUCCESSFUL_WITH_EVENT",
-        event,
-      });
+      await axios.put(`/api/events/${id}/join`);
+      createAlertWithMessage("Join event successful!");
     } catch (error) {
       createAlertWithMessage(error.response.data);
     }
@@ -43,14 +42,11 @@ export const EventsProvider = ({ children }) => {
 
   const addEvent = async (gameId, eventDateTime) => {
     try {
-      const event = await axios.post(`/api/events/add`, {
+      await axios.post(`/api/events/add`, {
         gameId,
         eventDateTime,
       });
-      dispatch({
-        type: "ADD_EVENT_SUCCESSFUL_WITH_EVENT",
-        event,
-      });
+      createAlertWithMessage("Add event successful!");
     } catch (error) {
       createAlertWithMessage(error.response.data);
     }
