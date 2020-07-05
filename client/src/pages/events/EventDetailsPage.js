@@ -55,7 +55,9 @@ const EventDetailsPage = () => {
       {event && (
         <Card className={classes.card}>
           <CardHeader
-            title={moment(event.eventDateTime).format("MMMM Do, YYYY")}
+            title={moment(event.eventDateTime).format(
+              "MMMM Do, YYYY [at] h:mma"
+            )}
             subheader={event.game.name}
           />
           <CardContent>
