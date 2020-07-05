@@ -20,6 +20,7 @@ export const EventsProvider = ({ children }) => {
       createAlertWithMessage(error.response.data);
     }
   };
+
   const deleteEventById = async (id) => {
     try {
       await axios.delete(`/api/events/${id}`);
@@ -27,6 +28,7 @@ export const EventsProvider = ({ children }) => {
       createAlertWithMessage(error.response.data);
     }
   };
+
   const joinEventById = async (id) => {
     try {
       const event = await axios.put(`/api/events/${id}/join`);
@@ -38,6 +40,7 @@ export const EventsProvider = ({ children }) => {
       createAlertWithMessage(error.response.data);
     }
   };
+
   const addEvent = async (gameId, eventDateTime) => {
     try {
       const event = await axios.post(`/api/events/add`, {
@@ -52,6 +55,7 @@ export const EventsProvider = ({ children }) => {
       createAlertWithMessage(error.response.data);
     }
   };
+
   const getAllEvents = async () => {
     try {
       const { data: events } = await axios.get("/api/events");
