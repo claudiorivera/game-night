@@ -16,6 +16,7 @@ import AddGamePage from "../pages/games/AddGamePage";
 import EventsListPage from "../pages/events/EventsListPage";
 import EventDetailsPage from "../pages/events/EventDetailsPage";
 import AddEventPage from "../pages/events/AddEventPage";
+import EditEventPage from "../pages/events/EditEventPage";
 // Providers
 import { AppProvider } from "./context";
 import { UserProvider } from "../pages/user/context";
@@ -60,6 +61,9 @@ function App() {
                     </PrivateRoute>
                     <PrivateRoute exact path="/events/add">
                       <AddEventPage />
+                    </PrivateRoute>
+                    <PrivateRoute path="/events/:eventId/edit">
+                      <EditEventPage />
                     </PrivateRoute>
                     <PrivateRoute path="/events/:eventId">
                       <EventDetailsPage />
