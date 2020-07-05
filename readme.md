@@ -18,7 +18,7 @@ Finally, I would like to add more confirmation dialogs. Right now, deleting prof
 
 # Config
 
-Add a `.env` file with a `DB_URI` value for a MongoDB connection string, as well as a SECRET for `express-session`. See `.sample-env`.
+Add a `.env` file with a `DB_URI` value for a MongoDB connection string, as well as a `SECRET` for `express-session`. See `.sample-env`.
 
 # Dev
 
