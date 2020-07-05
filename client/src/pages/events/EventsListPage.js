@@ -9,9 +9,7 @@ const EventList = () => {
 
   useEffect(() => {
     const fetchEvents = async () => {
-      if (!events) {
-        await getAllEvents();
-      }
+      await getAllEvents();
     };
     fetchEvents();
     //eslint-disable-next-line
