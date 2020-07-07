@@ -7,7 +7,7 @@ const HomePage = () => {
   const { user, getUserEvents, getUserEventsHosting } = useContext(UserContext);
 
   useEffect(() => {
-    if (user) {
+    if (user._id) {
       getUserEvents(user._id);
       getUserEventsHosting(user._id);
     }
