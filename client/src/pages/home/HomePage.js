@@ -17,9 +17,10 @@ const HomePage = () => {
   return (
     <Container>
       <Typography variant="h4">
-        Hello, {user ? user.name : "there. Please log in or register"}.
+        Hello,{" "}
+        {user && user._id ? user.name : "there. Please log in or register"}.
       </Typography>
-      {user && user.events && user.eventsHosting && (
+      {user && user._id && user.events && user.eventsHosting && (
         <Fragment>
           <Typography variant="body1" style={{ marginTop: "1.5rem" }}>
             Events You Are Hosting:
