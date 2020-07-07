@@ -55,7 +55,7 @@ const LoginForm = () => {
         type="submit"
         size="large"
         fullWidth
-        color="primary"
+        color="secondary"
         variant="contained"
         disabled={isFetching}
       >

@@ -30,7 +30,10 @@ import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#b71c1c",
+      main: "#2A9D8F",
+    },
+    secondary: {
+      main: "#E9C46A",
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,

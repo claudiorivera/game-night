@@ -29,7 +29,7 @@ const ProfilePage = () => {
           <Typography variant="h5">
             Date Created: {moment(user.dateCreated).format("MMMM Do, YYYY")}
           </Typography>
-          <Button variant="contained" color="primary" onClick={handleDelete}>
+          <Button variant="contained" color="secondary" onClick={handleDelete}>
             Delete My Profile
           </Button>
         </Fragment>

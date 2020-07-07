@@ -95,7 +95,7 @@ const RegisterForm = () => {
         size="large"
         type="submit"
         fullWidth
-        color="primary"
+        color="secondary"
         variant="contained"
         disabled={isFetching}
       >
