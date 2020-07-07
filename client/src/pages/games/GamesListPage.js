@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, Fragment } from "react";
 import { GamesContext } from "./context";
 import GameDetails from "./components/GameDetails";
 import {
@@ -7,21 +7,26 @@ import {
   ExpansionPanel,
   Typography,
   Container,
+  Button,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   heading: {
     fontSize: theme.typography.pxToRem(15),
     fontWeight: theme.typography.fontWeightRegular,
   },
+  mb: {
+    marginBottom: "1.5rem",
+  },
 }));
 
 const GameList = () => {
   const classes = useStyles();
   const { getAllGames, games } = useContext(GamesContext);
+  const history = useHistory();
 
   useEffect(() => {
     const fetchGames = async () => {
@@ -32,27 +37,41 @@ const GameList = () => {
   }, []);
 
   return (
-    <Container>
-      <Link to={"/games/add"}>Add Game</Link>
-      {games &&
-        games.map((game) => (
-          <ExpansionPanel key={game.bggId}>
-            <ExpansionPanelSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls={`panel-${game.bggId}-content`}
-            >
-              <Typography className={classes.heading}>
-                {game.name} ({game.yearPublished})
-              </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails className={classes.details}>
-              <Container>
-                <GameDetails game={game} />
-              </Container>
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
-        ))}
-    </Container>
+    <Fragment>
+      <Container className={classes.mb}>
+        <Button
+          fullWidth
+          color="secondary"
+          variant="contained"
+          size="large"
+          onClick={() => {
+            history.push("/games/add");
+          }}
+        >
+          Add Game
+        </Button>
+      </Container>
+      <Container>
+        {games &&
+          games.map((game) => (
+            <ExpansionPanel key={game.bggId}>
+              <ExpansionPanelSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls={`panel-${game.bggId}-content`}
+              >
+                <Typography className={classes.heading}>
+                  {game.name} ({game.yearPublished})
+                </Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails className={classes.details}>
+                <Container>
+                  <GameDetails game={game} />
+                </Container>
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+          ))}
+      </Container>
+    </Fragment>
   );
 };
 

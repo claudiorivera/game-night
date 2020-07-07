@@ -1,11 +1,20 @@
-import React, { useEffect, useContext } from "react";
-import { Container } from "@material-ui/core";
+import React, { useEffect, useContext, Fragment } from "react";
+import { Container, Button } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import EventsListContainer from "./components/EventsListContainer";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { EventsContext } from "./context";
+
+const useStyles = makeStyles((theme) => ({
+  mb: {
+    marginBottom: "1.5rem",
+  },
+}));
 
 const EventList = () => {
   const { getAllEvents, events } = useContext(EventsContext);
+  const classes = useStyles();
+  const history = useHistory();
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -16,10 +25,22 @@ const EventList = () => {
   }, []);
 
   return (
-    <Container>
-      <Link to={"/events/add"}>Add Event</Link>
-      {events && <EventsListContainer events={events} />}
-    </Container>
+    <Fragment>
+      <Container className={classes.mb}>
+        <Button
+          fullWidth
+          color="secondary"
+          variant="contained"
+          size="large"
+          onClick={() => {
+            history.push("/events/add");
+          }}
+        >
+          Add Event
+        </Button>
+      </Container>
+      <Container>{events && <EventsListContainer events={events} />}</Container>
+    </Fragment>
   );
 };
 

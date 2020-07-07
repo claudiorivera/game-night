@@ -18,23 +18,33 @@ const ProfilePage = () => {
   }, []);
 
   return (
-    <Container>
+    <Fragment>
       {user && (
         <Fragment>
-          <Typography variant="h5">Name: {user.name}</Typography>
-          <Typography variant="h5">Email: {user.email}</Typography>
-          <Typography variant="h5">
-            Admin? {user.isAdmin ? "Yes" : "No"}
-          </Typography>
-          <Typography variant="h5">
-            Date Created: {moment(user.dateCreated).format("MMMM Do, YYYY")}
-          </Typography>
-          <Button variant="contained" color="secondary" onClick={handleDelete}>
-            Delete My Profile
-          </Button>
+          <Container>
+            <Typography variant="h5">Name: {user.name}</Typography>
+            <Typography variant="h5">Email: {user.email}</Typography>
+            <Typography variant="h5">
+              Admin? {user.isAdmin ? "Yes" : "No"}
+            </Typography>
+            <Typography variant="h5">
+              Date Created: {moment(user.dateCreated).format("MMMM Do, YYYY")}
+            </Typography>
+          </Container>
+          <Container>
+            <Button
+              fullWidth
+              color="secondary"
+              variant="contained"
+              size="large"
+              onClick={handleDelete}
+            >
+              Delete My Profile
+            </Button>
+          </Container>
         </Fragment>
       )}
-    </Container>
+    </Fragment>
   );
 };
 
