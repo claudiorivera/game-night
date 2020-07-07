@@ -10,12 +10,6 @@ import { makeStyles } from "@material-ui/core/styles";
 const moment = require("moment");
 
 const useStyles = makeStyles({
-  card: {
-    margin: "10px",
-    padding: "20px",
-    width: "350px",
-    flexDirection: "column",
-  },
   media: {
     height: 0,
     paddingTop: "56.25%", // 16:9
@@ -25,7 +19,7 @@ const useStyles = makeStyles({
 const EventSummaryCard = ({ event, isHosting }) => {
   const classes = useStyles();
   return (
-    <Card className={classes.card}>
+    <Card>
       <CardHeader
         title={moment(event.eventDateTime).format("MMMM Do, YYYY [at] h:mma")}
         subheader={event.game.name}
