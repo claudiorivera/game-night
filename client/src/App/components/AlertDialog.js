@@ -2,7 +2,7 @@ import React, { useContext, Fragment } from "react";
 import { AppContext } from "../context";
 import { makeStyles } from "@material-ui/core/styles";
 import { Alert, AlertTitle } from "@material-ui/lab";
-import { Container } from "@material-ui/core";
+import { Container, Snackbar } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,15 +18,24 @@ const AlertDialog = () => {
   const { message, clearAlert } = useContext(AppContext);
   return message ? (
     <Container className={classes.root}>
-      <Alert
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open
+        autoHideDuration={5000}
         onClose={() => {
           clearAlert();
         }}
-        severity="warning"
       >
-        <AlertTitle>Alert</AlertTitle>
-        {JSON.stringify(message)}
-      </Alert>
+        <Alert
+          onClose={() => {
+            clearAlert();
+          }}
+          severity="warning"
+        >
+          <AlertTitle>Alert</AlertTitle>
+          {JSON.stringify(message)}
+        </Alert>
+      </Snackbar>
     </Container>
   ) : (
     <Fragment></Fragment>
