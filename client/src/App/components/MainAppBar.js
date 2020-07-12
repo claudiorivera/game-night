@@ -28,7 +28,7 @@ const MainAppBar = () => {
           </Button>
         )}
         {/* Show the Profile and Log Out links if a non-admin user is logged in */}
-        {user ? (
+        {user && user._id ? (
           <Fragment>
             <Button color="inherit" component={Link} to="/events">
               Events
