@@ -2,6 +2,7 @@ import React, { useContext, Fragment, useEffect } from "react";
 import { Container, Typography } from "@material-ui/core";
 import { UserContext } from "../user/context";
 import EventsListContainer from "../events/components/EventsListContainer";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   const { user, getUserEvents, getUserEventsHosting } = useContext(UserContext);
@@ -17,8 +18,13 @@ const HomePage = () => {
   return (
     <Container>
       <Typography variant="h4">
-        Hello,{" "}
-        {user && user._id ? user.name : "there. Please log in or register"}.
+        {user && user._id && `Hello, ${user.name}.`}
+        {!user && (
+          <Typography variant="h3">
+            Hello, there. Please <Link to="/login">login or register</Link> to
+            continue.
+          </Typography>
+        )}
       </Typography>
       {user && user._id && user.events && user.eventsHosting && (
         <Fragment>

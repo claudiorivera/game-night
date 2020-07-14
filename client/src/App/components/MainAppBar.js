@@ -1,63 +1,176 @@
-import React, { useContext, Fragment } from "react";
-import { AppBar, Toolbar, Button } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useContext, Fragment, useState } from "react";
+import {
+  AppBar,
+  Toolbar,
+  Button,
+  Typography,
+  useMediaQuery,
+  IconButton,
+  Menu,
+  MenuItem,
+} from "@material-ui/core";
+import { Menu as MenuIcon } from "@material-ui/icons";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Link, useHistory } from "react-router-dom";
 import { UserContext } from "../../pages/user/context";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   mb3: {
     marginBottom: "3vh",
   },
-});
+  title: {
+    flexGrow: 1,
+    textDecoration: "none",
+    color: "white",
+    fontWeight: 700,
+    fontSize: "1.5rem",
+  },
+}));
+
+const adminLinks = [
+  {
+    title: "Games",
+    url: "/games",
+  },
+];
+
+const userLinks = [
+  {
+    title: "Home",
+    url: "/",
+  },
+  {
+    title: "Events",
+    url: "/events",
+  },
+  {
+    title: "My Profile",
+    url: "/profile",
+  },
+  {
+    title: "Log Out",
+    url: "/logout",
+  },
+];
 
 const MainAppBar = () => {
-  const classes = useStyles();
-  const { user, logoutUser } = useContext(UserContext);
   const history = useHistory();
+  const theme = useTheme();
+  const styles = useStyles();
+  const { user } = useContext(UserContext);
+  // https://material-ui.com/components/app-bar/#app-bar-with-menu
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
-    <AppBar position="sticky" className={classes.mb3}>
+    <AppBar position="sticky" className={styles.mb3}>
       <Toolbar>
-        <Button component={Link} to="/" color="inherit">
-          Home
-        </Button>
-        {/* Show the Games List link if the user is an admin */}
-        {user && user.isAdmin && (
-          <Button color="inherit" component={Link} to="/games">
-            Games
-          </Button>
-        )}
-        {/* Show the Profile and Log Out links if a non-admin user is logged in */}
-        {user && user._id ? (
+        <Typography className={styles.title} component={Link} to="/">
+          Game Night
+        </Typography>
+        {/* Mobile menu */}
+        {isMobile && (
           <Fragment>
-            <Button color="inherit" component={Link} to="/events">
-              Events
-            </Button>
-            <Button color="inherit" component={Link} to="/profile">
-              My Profile
-            </Button>
-            <Button
+            <IconButton
+              edge="start"
               color="inherit"
-              onClick={() => {
-                logoutUser();
-                history.push("/login");
+              aria-label="menu"
+              onClick={handleMenu}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
               }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={open}
+              onClose={handleClose}
             >
-              Logout
-            </Button>
+              {user &&
+                user._id &&
+                userLinks.map(({ title, url }, index) => (
+                  <MenuItem
+                    key={index}
+                    onClick={() => {
+                      handleClose();
+                      history.push(url);
+                    }}
+                  >
+                    {title}
+                  </MenuItem>
+                ))}
+              {user &&
+                user.isAdmin &&
+                adminLinks.map(({ title, url }, index) => (
+                  <MenuItem
+                    key={index}
+                    onClick={() => {
+                      handleClose();
+                      history.push(url);
+                    }}
+                  >
+                    {title}
+                  </MenuItem>
+                ))}
+              {!user && (
+                <MenuItem
+                  onClick={() => {
+                    handleClose();
+                    history.push("/login");
+                  }}
+                >
+                  Login/Register
+                </MenuItem>
+              )}
+            </Menu>
           </Fragment>
-        ) : (
-          // Show the Login/Register link if a user is not logged in
-          <Fragment>
-            <Button
-              className={classes.alignRight}
-              component={Link}
-              to="/login"
-              color="inherit"
-            >
-              Login/Register
+        )}
+        {/* Desktop menu */}
+        {/* User links */}
+        {!isMobile &&
+          user &&
+          user._id &&
+          userLinks.map(({ title, url }, index) => (
+            <Button key={index} color="inherit" component={Link} to={url}>
+              {title}
             </Button>
-          </Fragment>
+          ))}
+        {/* Admin links */}
+        {!isMobile &&
+          user &&
+          user.isAdmin &&
+          adminLinks.map(({ title, url }, index) => (
+            <Button key={index} color="inherit" component={Link} to={url}>
+              {title}
+            </Button>
+          ))}
+        {/* Show the Login/Register button if there's no user */}
+        {!isMobile && !user && (
+          <Button
+            className={styles.alignRight}
+            component={Link}
+            to="/login"
+            color="inherit"
+          >
+            Login/Register
+          </Button>
         )}
       </Toolbar>
     </AppBar>
