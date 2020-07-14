@@ -19,7 +19,7 @@ export const UserProvider = ({ children }) => {
     try {
       const { data: user } = await axios.post("/api/user/register", {
         name,
-        email,
+        email: email.toLowerCase(),
         password,
       });
       dispatch({ type: "REGISTER_USER_SUCCESSFUL_WITH_USER", user });
@@ -32,7 +32,7 @@ export const UserProvider = ({ children }) => {
   const loginUser = async (email, password) => {
     try {
       const { data: user } = await axios.post("/api/user/login", {
-        email,
+        email: email.toLowerCase(),
         password,
       });
       dispatch({ type: "LOGIN_SUCCESSFUL_WITH_USER", user });
