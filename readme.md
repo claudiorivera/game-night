@@ -6,11 +6,9 @@ Uses the [BoardGameGeek API2](https://boardgamegeek.com/wiki/page/BGG_XML_API2) 
 
 # Future Improvements
 
-I would like to make the "add game" option available to anyone hosting an event. Currently, only admins can add games. The reason for this limitation is that some queries return too many results if they're not specific enough, and my parser chokes.
+I would like to make the "add game" option available to anyone hosting an event. Currently, only admins can add games. The reason for this limitation is that some queries return too many results if they're not specific enough, and my parser chokes. On that note, I'd like to implement an admin console for deleting users and granting admin rights.
 
-I would also like to improve a lot of the styling, particularly with regard to mobile responsiveness, including a better App Bar.
-
-Finally, I would like to add more confirmation dialogs. Right now, deleting profiles, events, and games is done immediately on click.
+I would also like to add more confirmation dialogs. Right now, deleting profiles, events, and games is done immediately on click.
 
 # Install
 
