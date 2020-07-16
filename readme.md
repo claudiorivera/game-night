@@ -2,7 +2,7 @@
 
 An application that lets you create and join board game nights.
 
-Uses the [BoardGameGeek API2](https://boardgamegeek.com/wiki/page/BGG_XML_API2) on the Admin side to pull game info. I also used [fast-xml-parser](https://www.npmjs.com/package/fast-xml-parser) to parse the XML into some custom JSON.
+Uses the [BoardGameGeek API2](https://boardgamegeek.com/wiki/page/BGG_XML_API2) on the Admin side to pull game info. I also used [fast-xml-parser](https://www.npmjs.com/package/fast-xml-parser) to [parse the XML](https://github.com/claudiorivera/game-night/tree/master/client/src/lib) into some custom JSON.
 
 # Future Improvements
 
