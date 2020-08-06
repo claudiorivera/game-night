@@ -21,3 +21,7 @@ Add a `.env` file with a `DB_URI` value for a MongoDB connection string, as well
 # Dev
 
 `yarn run dev`
+
+# Known Bugs
+
+The Board Game Geek API [has an issue](https://boardgamegeek.com/wiki/page/XML_API_Enhancements#) where the game descriptions output escaped character sequences instead of the characters.
