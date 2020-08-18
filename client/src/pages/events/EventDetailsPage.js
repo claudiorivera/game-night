@@ -15,6 +15,7 @@ import { ArrowBack as ArrowBackIcon } from "@material-ui/icons";
 import GameDetails from "../games/components/GameDetails";
 import { UserContext } from "../user/context";
 import { EventsContext } from "../events/context";
+import EventDeleteConfirmDialog from "./components/EventDeleteConfirmDialog";
 
 const axios = require("axios").default;
 const moment = require("moment");
@@ -37,6 +38,7 @@ const EventDetailsPage = () => {
   const { deleteEventById, leaveEventById, joinEventById } = useContext(
     EventsContext
   );
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const getEventById = async (id) => {
@@ -118,6 +120,7 @@ const EventDetailsPage = () => {
           </CardActions>
         </Card>
       )}
+      <EventDeleteConfirmDialog />
     </Container>
   );
 };
