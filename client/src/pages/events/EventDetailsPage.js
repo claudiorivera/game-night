@@ -9,13 +9,17 @@ import {
   CardActions,
   Typography,
   Chip,
+  Dialog,
+  DialogTitle,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { ArrowBack as ArrowBackIcon } from "@material-ui/icons";
 import GameDetails from "../games/components/GameDetails";
 import { UserContext } from "../user/context";
 import { EventsContext } from "../events/context";
-import EventDeleteConfirmDialog from "./components/EventDeleteConfirmDialog";
 
 const axios = require("axios").default;
 const moment = require("moment");
@@ -38,7 +42,6 @@ const EventDetailsPage = () => {
   const { deleteEventById, leaveEventById, joinEventById } = useContext(
     EventsContext
   );
-  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const getEventById = async (id) => {
@@ -47,6 +50,17 @@ const EventDetailsPage = () => {
     };
     getEventById(eventId);
   }, [eventId]);
+
+  // Delete confirm dialog
+  const [open, setOpen] = useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleDelete = async () => {
+    await deleteEventById(event._id);
+    history.goBack();
+  };
 
   return (
     <Container>
@@ -110,8 +124,7 @@ const EventDetailsPage = () => {
             {(event.host._id === user._id || user.isAdmin) && (
               <Button
                 onClick={async () => {
-                  await deleteEventById(event._id);
-                  history.goBack();
+                  setOpen(true);
                 }}
               >
                 Delete
@@ -120,7 +133,27 @@ const EventDetailsPage = () => {
           </CardActions>
         </Card>
       )}
-      <EventDeleteConfirmDialog />
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Delete Event?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure you want to delete this event?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleDelete} color="primary" autoFocus>
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Container>
   );
 };
