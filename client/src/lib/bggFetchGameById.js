@@ -30,8 +30,8 @@ export const bggFetchGameById = async (id) => {
       maxPlayers: game.maxplayers.value,
       playingTime: game.playingtime.value,
       minAge: game.minage.value,
-      rating: game.statistics.average.value,
-      numOfRatings: game.statistics.usersrated.value,
+      rating: game.statistics.ratings.average.value,
+      numOfRatings: game.statistics.ratings.usersrated.value,
       // Ignore all alternate names, if there are multiple (ie. isArray)
       name: Array.isArray(game.name)
         ? game.name.filter((element) => element.type === "primary")[0].value
