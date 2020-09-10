@@ -8,7 +8,7 @@ const HomePage = () => {
   const { user, getUserEvents, getUserEventsHosting } = useContext(UserContext);
 
   useEffect(() => {
-    if (user && user._id) {
+    if (user?._id) {
       getUserEvents(user._id);
       getUserEventsHosting(user._id);
     }
@@ -18,7 +18,7 @@ const HomePage = () => {
   return (
     <Container>
       <Typography variant="h4">
-        {user && user._id && `Hello, ${user.name}.`}
+        {user?._id && `Hello, ${user.name}.`}
         {!user && (
           <Typography variant="h3">
             Hello, there. Please <Link to="/login">login or register</Link> to
@@ -26,7 +26,7 @@ const HomePage = () => {
           </Typography>
         )}
       </Typography>
-      {user && user._id && user.events && user.eventsHosting && (
+      {user?._id && user.events && user.eventsHosting && (
         <Fragment>
           <Typography variant="body1" style={{ marginTop: "1.5rem" }}>
             Events You Are Hosting:

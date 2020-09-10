@@ -9,7 +9,7 @@ const PrivateRoute = ({ children, ...rest }) => {
     <Route
       {...rest}
       render={({ location }) =>
-        user && user._id ? (
+        user?._id ? (
           children
         ) : (
           <Redirect
