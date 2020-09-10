@@ -17,15 +17,13 @@ const HomePage = () => {
 
   return (
     <Container>
-      <Typography variant="h4">
-        {user?._id && `Hello, ${user.name}.`}
-        {!user && (
-          <Typography variant="h3">
-            Hello, there. Please <Link to="/login">login or register</Link> to
-            continue.
-          </Typography>
-        )}
-      </Typography>
+      {user?._id && `Hello, ${user.name}.`}
+      {!user && (
+        <Typography variant="h4">
+          Hello, there. Please <Link to="/login">login or register</Link> to
+          continue.
+        </Typography>
+      )}
       {user?._id && user.events && user.eventsHosting && (
         <Fragment>
           <Typography variant="body1" style={{ marginTop: "1.5rem" }}>
