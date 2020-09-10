@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EventList = () => {
+const EventsListPage = () => {
   const { getAllEvents, events } = useContext(EventsContext);
   const classes = useStyles();
   const history = useHistory();
@@ -39,9 +39,11 @@ const EventList = () => {
           Add Event
         </Button>
       </Container>
-      <Container>{events && <EventsListContainer events={events} />}</Container>
+      <Container>
+        {events ? <EventsListContainer events={events} /> : ""}
+      </Container>
     </Fragment>
   );
 };
 
-export default EventList;
+export default EventsListPage;
