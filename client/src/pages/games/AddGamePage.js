@@ -8,9 +8,9 @@ import {
   Button,
   TextField,
   Container,
-  ExpansionPanel,
-  ExpansionPanelSummary,
-  ExpansionPanelDetails,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
   Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -75,16 +75,16 @@ const AddGame = () => {
       </form>
       {queryResults &&
         queryResults.map((result) => (
-          <ExpansionPanel key={result.bggId}>
-            <ExpansionPanelSummary
+          <Accordion key={result.bggId}>
+            <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls={`panel-${result.bggId}-content`}
             >
               <Typography className={classes.heading}>
                 {result.name} ({result.yearPublished})
               </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails className={classes.details}>
+            </AccordionSummary>
+            <AccordionDetails className={classes.details}>
               <GameDetails game={result} />
               <Button
                 fullWidth
@@ -114,8 +114,8 @@ const AddGame = () => {
               >
                 Add This Game
               </Button>
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
+            </AccordionDetails>
+          </Accordion>
         ))}
     </Container>
   );

@@ -2,9 +2,9 @@ import React, { useContext, useEffect, Fragment } from "react";
 import { GamesContext } from "./context";
 import GameDetails from "./components/GameDetails";
 import {
-  ExpansionPanelSummary,
-  ExpansionPanelDetails,
-  ExpansionPanel,
+  AccordionSummary,
+  AccordionDetails,
+  Accordion,
   Typography,
   Container,
   Button,
@@ -54,21 +54,21 @@ const GameList = () => {
       <Container>
         {games &&
           games.map((game) => (
-            <ExpansionPanel key={game.bggId}>
-              <ExpansionPanelSummary
+            <Accordion key={game.bggId}>
+              <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls={`panel-${game.bggId}-content`}
               >
                 <Typography className={classes.heading}>
                   {game.name} ({game.yearPublished})
                 </Typography>
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails className={classes.details}>
+              </AccordionSummary>
+              <AccordionDetails className={classes.details}>
                 <Container>
                   <GameDetails game={game} />
                 </Container>
-              </ExpansionPanelDetails>
-            </ExpansionPanel>
+              </AccordionDetails>
+            </Accordion>
           ))}
       </Container>
     </Fragment>
