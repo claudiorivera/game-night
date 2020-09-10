@@ -47,7 +47,9 @@ router.get("/:id/events/hosting", async (req, res) => {
       host: {
         _id: req.params.id,
       },
-    }).populate("host game guests");
+    })
+      .populate("host game guests")
+      .sort({ eventDateTime: "asc" });
     res.status(200).json(events);
   } catch (error) {
     res.status(400).json(error);
