@@ -85,35 +85,37 @@ const AddGame = () => {
               </Typography>
             </AccordionSummary>
             <AccordionDetails className={classes.details}>
-              <GameDetails game={result} />
-              <Button
-                fullWidth
-                size="large"
-                color="primary"
-                variant="contained"
-                onClick={async () => {
-                  await addGame({
-                    bggId: result.bggId,
-                    imageSrc: result.imageSrc,
-                    thumbnailSrc: result.thumbnailSrc,
-                    description: result.description,
-                    yearPublished: result.yearPublished,
-                    minPlayers: result.minPlayers,
-                    maxPlayers: result.maxPlayers,
-                    playingTime: result.playingTime,
-                    minAge: result.minAge,
-                    rating: result.rating,
-                    numOfRatings: result.numOfRatings,
-                    name: result.name,
-                    authors: result.authors,
-                    categories: result.categories,
-                    gameMechanics: result.gameMechanics,
-                  });
-                  history.push("/games");
-                }}
-              >
-                Add This Game
-              </Button>
+              <Container>
+                <GameDetails game={result} />
+                <Button
+                  fullWidth
+                  size="large"
+                  color="primary"
+                  variant="contained"
+                  onClick={async () => {
+                    await addGame({
+                      bggId: result.bggId,
+                      imageSrc: result.imageSrc,
+                      thumbnailSrc: result.thumbnailSrc,
+                      description: result.description,
+                      yearPublished: result.yearPublished,
+                      minPlayers: result.minPlayers,
+                      maxPlayers: result.maxPlayers,
+                      playingTime: result.playingTime,
+                      minAge: result.minAge,
+                      rating: result.rating,
+                      numOfRatings: result.numOfRatings,
+                      name: result.name,
+                      authors: result.authors,
+                      categories: result.categories,
+                      gameMechanics: result.gameMechanics,
+                    });
+                    history.push("/games");
+                  }}
+                >
+                  Add This Game
+                </Button>
+              </Container>
             </AccordionDetails>
           </Accordion>
         ))}
