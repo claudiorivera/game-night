@@ -52,24 +52,25 @@ const GameList = () => {
         </Button>
       </Container>
       <Container>
-        {games &&
-          games.map((game) => (
-            <Accordion key={game.bggId}>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls={`panel-${game.bggId}-content`}
-              >
-                <Typography className={classes.heading}>
-                  {game.name} ({game.yearPublished})
-                </Typography>
-              </AccordionSummary>
-              <AccordionDetails className={classes.details}>
-                <Container>
-                  <GameDetails game={game} />
-                </Container>
-              </AccordionDetails>
-            </Accordion>
-          ))}
+        {games
+          ? games.map((game) => (
+              <Accordion key={game.bggId}>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls={`panel-${game.bggId}-content`}
+                >
+                  <Typography className={classes.heading}>
+                    {game.name} ({game.yearPublished})
+                  </Typography>
+                </AccordionSummary>
+                <AccordionDetails className={classes.details}>
+                  <Container>
+                    <GameDetails game={game} />
+                  </Container>
+                </AccordionDetails>
+              </Accordion>
+            ))
+          : ""}
       </Container>
     </Fragment>
   );
