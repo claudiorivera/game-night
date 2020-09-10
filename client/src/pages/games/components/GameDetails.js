@@ -4,7 +4,7 @@ import { Typography, Chip } from "@material-ui/core";
 const GameDetails = ({ game }) => {
   return (
     <Fragment>
-      <img src={game.thumbnailSrc} alt={game.name} />
+      <img src={game.imageSrc} alt={game.name} style={{ maxHeight: "20rem" }} />
       <Typography variant="subtitle1">
         Authors:
         {game.authors.map((author, index) => (
