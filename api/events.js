@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {
   try {
     const events = await Event.find({})
       .populate("game host guests")
-      .sort({ eventDate: "asc" });
+      .sort({ eventDateTime: "asc" });
     res.status(200).json(events);
   } catch (error) {
     res
