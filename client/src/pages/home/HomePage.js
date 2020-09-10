@@ -17,19 +17,23 @@ const HomePage = () => {
 
   return (
     <Container>
-      {user?._id && `Hello, ${user.name}.`}
       {!user && (
         <Typography variant="h4">
           Hello, there. Please <Link to="/login">login or register</Link> to
           continue.
         </Typography>
       )}
-      {user?._id && user.events && user.eventsHosting && (
+      {user?._id && `Hello, ${user.name}.`}
+      {user?._id && user.eventsHosting && (
         <Fragment>
           <Typography variant="body1" style={{ marginTop: "1.5rem" }}>
             Events You Are Hosting:
           </Typography>
           <EventsListContainer events={user.eventsHosting} isHosting />
+        </Fragment>
+      )}
+      {user?._id && user.events && (
+        <Fragment>
           <Typography variant="body1" style={{ marginTop: "1.5rem" }}>
             Events You Are Attending:
           </Typography>
