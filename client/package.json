@@ -4,7 +4,7 @@
   "private": true,
   "proxy": "http://localhost:5000",
   "dependencies": {
-    "@date-io/moment": "2.10.6",
+    "@date-io/moment": "1.x",
     "@material-ui/core": "^4.10.1",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.55",
@@ -12,7 +12,7 @@
     "axios": "0.20.0",
     "fast-xml-parser": "^3.17.3",
     "fontsource-roboto": "3.0.3",
-    "moment": "2.28.0",
+    "moment": "^2.29.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
