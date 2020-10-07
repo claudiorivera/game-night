@@ -1,10 +1,5 @@
-require("dotenv").config();
 const express = require("express");
-const logger = require("morgan");
-const helmet = require("helmet");
-const compression = require("compression");
 const session = require("express-session");
-const path = require("path");
 const passport = require("passport");
 const MongoStore = require("connect-mongo")(session);
 
@@ -27,11 +22,8 @@ mongoose.connect(
 );
 
 // Middleware
-app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(helmet());
-app.use(compression());
 
 // Session middleware
 app.use(
@@ -59,10 +51,5 @@ passport.deserializeUser(User.deserializeUser());
 app.use("/api/user", require("./api/user"));
 app.use("/api/games", require("./api/games"));
 app.use("/api/events", require("./api/events"));
-
-// If we're in production, serve the client/build folder
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "client", "build")));
-}
 
 module.exports = app;
