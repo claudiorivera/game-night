@@ -1,32 +1,44 @@
 {
-  "name": "game-night-server",
-  "version": "1.0.1",
+  "name": "game-night",
+  "version": "1.1.0",
   "private": true,
-  "scripts": {
-    "start": "node ./bin/www",
-    "build": "yarn --cwd client install && yarn --cwd client build",
-    "dev-server": "nodemon --ignore client ./bin/www",
-    "dev-server-start": "DEBUG=game-night-server:* yarn run dev-server",
-    "client-start": "yarn --cwd client start",
-    "client-install": "yarn --cwd client",
-    "dev": "concurrently --names 'SERVER,CLIENT' -c 'bgBlue.bold,bgMagenta.bold' 'yarn run dev-server-start' 'yarn run client-start'"
-  },
   "dependencies": {
-    "compression": "^1.7.4",
+    "@date-io/moment": "1.x",
+    "@material-ui/core": "^4.10.1",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.55",
+    "@material-ui/pickers": "^3.2.10",
+    "axios": "0.20.0",
     "connect-mongo": "^3.2.0",
-    "debug": "^4.1.1",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "express-session": "^1.17.1",
-    "helmet": "^3.22.0",
-    "mongoose": "^5.9.17",
-    "morgan": "^1.10.0",
+    "fast-xml-parser": "^3.17.3",
+    "fontsource-roboto": "3.0.3",
+    "moment": "^2.29.0",
+    "mongoose": "^5.10.8",
     "passport": "^0.4.1",
-    "passport-local": "^1.0.0",
-    "passport-local-mongoose": "^6.0.1"
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.3"
   },
-  "devDependencies": {
-    "concurrently": "^5.2.0",
-    "nodemon": "^2.0.4"
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

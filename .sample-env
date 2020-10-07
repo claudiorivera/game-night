@@ -1,3 +1,0 @@
-PORT='your server port here'
-MONGODB_URI='your MongoDB URI connection string here'
-SECRET='your very secret phrase here'
