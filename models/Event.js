@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
 const User = require("./User");
 
-const Event = new Schema({
+const Event = new mongoose.Schema({
   dateCreated: {
     type: Date,
     default: Date.now,
