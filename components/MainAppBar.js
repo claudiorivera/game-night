@@ -12,7 +12,7 @@ import {
 import { Menu as MenuIcon } from "@material-ui/icons";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Link, useHistory } from "react-router-dom";
-import { UserContext } from "../../pages/user/context";
+import { UserContext } from "../components/user/context";
 
 const useStyles = makeStyles((theme) => ({
   mb3: {
@@ -103,8 +103,7 @@ const MainAppBar = () => {
               open={open}
               onClose={handleClose}
             >
-              {user &&
-                user._id &&
+              {user?._id &&
                 userLinks.map(({ title, url }, index) => (
                   <MenuItem
                     key={index}
@@ -116,8 +115,7 @@ const MainAppBar = () => {
                     {title}
                   </MenuItem>
                 ))}
-              {user &&
-                user.isAdmin &&
+              {user?.isAdmin &&
                 adminLinks.map(({ title, url }, index) => (
                   <MenuItem
                     key={index}
@@ -145,8 +143,7 @@ const MainAppBar = () => {
         {/* Desktop menu */}
         {/* User links */}
         {!isMobile &&
-          user &&
-          user._id &&
+          user?._id &&
           userLinks.map(({ title, url }, index) => (
             <Button key={index} color="inherit" component={Link} to={url}>
               {title}
@@ -154,8 +151,7 @@ const MainAppBar = () => {
           ))}
         {/* Admin links */}
         {!isMobile &&
-          user &&
-          user.isAdmin &&
+          user?.isAdmin &&
           adminLinks.map(({ title, url }, index) => (
             <Button key={index} color="inherit" component={Link} to={url}>
               {title}

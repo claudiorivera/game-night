@@ -7,6 +7,8 @@ const handler = nextConnect();
 
 handler.use(middleware);
 
+// POST api/user/login
+// Returns user if successfully authenticated
 handler.post(passport.authenticate("local"), (req, res) => {
   res.json(extractUser(req));
 });

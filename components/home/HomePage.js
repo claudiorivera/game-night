@@ -24,7 +24,7 @@ const HomePage = () => {
         </Typography>
       )}
       {user?._id && `Hello, ${user.name}.`}
-      {user?._id && user.eventsHosting && (
+      {user?.eventsHosting && (
         <Fragment>
           <Typography variant="body1" style={{ marginTop: "1.5rem" }}>
             Events You Are Hosting:
@@ -32,7 +32,7 @@ const HomePage = () => {
           <EventsListContainer events={user.eventsHosting} isHosting />
         </Fragment>
       )}
-      {user?._id && user.events && (
+      {user?.events && (
         <Fragment>
           <Typography variant="body1" style={{ marginTop: "1.5rem" }}>
             Events You Are Attending:

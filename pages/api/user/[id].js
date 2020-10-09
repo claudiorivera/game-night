@@ -8,6 +8,8 @@ const handler = nextConnect();
 handler.use(middleware);
 
 handler
+  // GET api/user/id?events
+  // Returns events for user with given id
   .get(async (req, res) => {
     if ("events" in req.query) {
       if (req.query.events === "hosting") {
@@ -35,8 +37,12 @@ handler
           res.status(400).json(error);
         }
       }
+    } else {
+      res.status(400).json({ message: "Bad request" });
     }
   })
+  // DELETE api/user/id
+  // Deletes user with given id
   .delete(async (req, res) => {
     if (req.user) {
       User.findOneAndDelete({ _id: req.query.id }, (error, user) => {

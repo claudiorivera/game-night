@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { TextField, Button } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../context";
-import { AppContext } from "../../../App/context";
+import { AppContext } from "../../../context";
 
 const RegisterForm = () => {
   const history = useHistory();

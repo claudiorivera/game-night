@@ -1,6 +1,6 @@
 import React, { createContext, useReducer, useContext, useEffect } from "react";
 import { reducer } from "./reducer";
-import { AppContext } from "../../../App/context";
+import { AppContext } from "../../../context";
 const axios = require("axios").default;
 
 const initialState = {
@@ -77,7 +77,7 @@ export const UserProvider = ({ children }) => {
 
   const getUserEvents = async (userId) => {
     try {
-      const { data: events } = await axios.get(`/api/user/${userId}/events`);
+      const { data: events } = await axios.get(`/api/user/${userId}?events`);
       dispatch({ type: "GET_USER_EVENTS_SUCCESSFUL_WITH_EVENTS", events });
     } catch (error) {
       createAlertWithMessage(error.response.data);
@@ -87,7 +87,7 @@ export const UserProvider = ({ children }) => {
   const getUserEventsHosting = async (userId) => {
     try {
       const { data: events } = await axios.get(
-        `/api/user/${userId}/events/hosting`
+        `/api/user/${userId}?events="hosting"`
       );
       dispatch({
         type: "GET_USER_EVENTS_HOSTING_SUCCESSFUL_WITH_EVENTS",

@@ -8,7 +8,11 @@ const handler = nextConnect();
 handler.use(middleware);
 
 handler
+  // GET api/events/id
+  // Returns event with given id
   .get(async (req, res) => {
+    // GET api/events/id?guests
+    // Returns guests attending event with given id
     if ("guests" in req.query) {
       try {
         const event = await Event.findById(req.query.id);
@@ -31,6 +35,8 @@ handler
       }
     }
   })
+  // DELETE api/events/id
+  // Deletes event with given id
   .delete(async (req, res) => {
     try {
       const event = await Event.findById(req.query.id);
@@ -42,7 +48,11 @@ handler
         .json(error.message || { message: "Something went wrong :(" });
     }
   })
+  // PUT api/events/id
+  // Updates event with given id
   .put(async (req, res) => {
+    // PUT api/events/id?join
+    // Adds current user to event with given id
     if ("join" in req.query) {
       if (req.user) {
         const event = await Event.findById(req.query.id);
@@ -72,6 +82,8 @@ handler
       } else {
         res.status(400).json({ message: "Unauthorized user" });
       }
+      // PUT api/events/id?leave
+      // Removes current user from event with given id
     } else if ("leave" in req.query) {
       if (req.user) {
         const event = await Event.findById(req.query.id);

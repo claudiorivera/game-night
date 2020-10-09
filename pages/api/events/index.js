@@ -7,6 +7,8 @@ const handler = nextConnect();
 handler.use(middleware);
 
 handler
+  // GET api/events
+  // Returns all events
   .get(async (req, res) => {
     try {
       const events = await Event.find({})
@@ -19,6 +21,8 @@ handler
         .json(error.message || { message: "Something went wrong :(" });
     }
   })
+  // POST api/events
+  // Adds a new event and returns the event
   .post(async (req, res) => {
     const eventToAdd = {
       host: req.user,

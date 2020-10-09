@@ -1,6 +1,6 @@
 import React, { createContext, useReducer, useContext } from "react";
 import { reducer } from "./reducer";
-import { AppContext } from "../../../App/context";
+import { AppContext } from "../../../context";
 const axios = require("axios").default;
 
 const initialState = {

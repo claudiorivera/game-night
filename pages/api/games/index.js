@@ -7,6 +7,8 @@ const handler = nextConnect();
 handler.use(middleware);
 
 handler
+  // GET api/games
+  // Returns all games
   .get(async (req, res) => {
     try {
       const games = await Game.find({}).sort({ numOfRatings: "desc" });
@@ -15,6 +17,8 @@ handler
       res.status(400).json(error);
     }
   })
+  // POST api/games
+  // Adds game and returns the game
   .post(async (req, res) => {
     const gameToAdd = {
       name: req.body.name,

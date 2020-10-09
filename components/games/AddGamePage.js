@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { GamesContext } from "./context";
-import { AppContext } from "../../App/context";
+import { AppContext } from "../../context";
 import GameDetails from "./components/GameDetails";
-import { bggFetchGamesByQuery } from "../../lib/bggFetchGamesByQuery";
+import { bggFetchGamesByQuery } from "../../util/bggFetchGamesByQuery";
 import {
   Button,
   TextField,

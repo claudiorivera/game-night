@@ -7,6 +7,8 @@ const handler = nextConnect();
 
 handler.use(middleware);
 
+// POST api/user/register
+// Add a new user and returns the user
 handler.post(async (req, res) => {
   const { email, name, password } = req.body;
   User.register(new User({ email, name }), password, (error, user) => {

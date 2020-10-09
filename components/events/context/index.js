@@ -1,6 +1,6 @@
 import React, { createContext, useReducer, useContext } from "react";
 import { reducer } from "./reducer";
-import { AppContext } from "../../../App/context";
+import { AppContext } from "../../../context";
 const axios = require("axios").default;
 
 const initialState = {
@@ -15,7 +15,7 @@ export const EventsProvider = ({ children }) => {
 
   const leaveEventById = async (id) => {
     try {
-      await axios.put(`/api/events/${id}/leave`);
+      await axios.put(`/api/events/${id}?leave`);
       createAlertWithMessage("Leave event successful!");
     } catch (error) {
       createAlertWithMessage(error.response.data);
@@ -33,7 +33,7 @@ export const EventsProvider = ({ children }) => {
 
   const joinEventById = async (id) => {
     try {
-      await axios.put(`/api/events/${id}/join`);
+      await axios.put(`/api/events/${id}?join`);
       createAlertWithMessage("Join event successful!");
     } catch (error) {
       createAlertWithMessage(error.response.data);
