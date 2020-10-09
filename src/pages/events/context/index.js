@@ -42,7 +42,7 @@ export const EventsProvider = ({ children }) => {
 
   const addEvent = async (gameId, eventDateTime) => {
     try {
-      await axios.post(`/api/events/add`, {
+      await axios.post("/api/events", {
         gameId,
         eventDateTime,
       });

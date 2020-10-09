@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const Game = new mongoose.Schema({
+const GameSchema = new mongoose.Schema({
   dateCreated: {
     type: Date,
     default: Date.now,
@@ -68,4 +68,4 @@ const Game = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.models.Game || mongoose.model("Game", Game);
+module.exports = mongoose.models.Game || mongoose.model("Game", GameSchema);

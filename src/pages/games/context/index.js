@@ -15,7 +15,7 @@ export const GamesProvider = ({ children }) => {
 
   const addGame = async (gameToAdd) => {
     try {
-      await axios.post("/api/games/add", {
+      await axios.post("/api/games", {
         ...gameToAdd,
       });
       createAlertWithMessage("Add game successful!");

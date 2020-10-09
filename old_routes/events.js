@@ -1,57 +1,3 @@
-const express = require("express");
-const router = express.Router();
-
-// Model
-const Event = require("../models/Event");
-const User = require("../models/User");
-
-// GET /api/events
-// Params: none
-// Returns all events
-router.get("/", async (req, res) => {
-  try {
-    const events = await Event.find({})
-      .populate("game host guests")
-      .sort({ eventDateTime: "asc" });
-    res.status(200).json(events);
-  } catch (error) {
-    res
-      .status(400)
-      .json(error.message || { message: "Something went wrong :(" });
-  }
-});
-
-// GET /api/events/id
-// Params: Event ID
-// Returns event with given ID
-router.get("/:id", async (req, res) => {
-  try {
-    const event = await Event.findById(req.params.id).populate(
-      "guests host game"
-    );
-    res.status(200).json(event);
-  } catch (error) {
-    res
-      .status(400)
-      .json(error.message || { message: "Something went wrong :(" });
-  }
-});
-
-// DELETE /api/events/id
-// Params: Event ID
-// Returns success message
-router.delete("/:id", async (req, res) => {
-  try {
-    const event = await Event.findById(req.params.id);
-    event.remove();
-    res.status(200).json({ message: "Successfully deleted" });
-  } catch (error) {
-    res
-      .status(400)
-      .json(error.message || { message: "Something went wrong :(" });
-  }
-});
-
 // GET /api/events/id/guests
 // Params: Event ID
 // Returns all guests going to a given event
@@ -63,30 +9,6 @@ router.get("/:id/guests", async (req, res) => {
     res
       .status(400)
       .json(error.message || { message: "Something went wrong :(" });
-  }
-});
-
-// POST /api/events/add
-// Params: host (req.user), eventDate, and game (_id)
-router.post("/add", (req, res) => {
-  const eventToAdd = {
-    host: req.user,
-    eventDateTime: req.body.eventDateTime,
-    game: req.body.gameId,
-  };
-
-  if (req.user) {
-    const addedEvent = new Event(eventToAdd);
-    addedEvent.save((error) => {
-      if (error) {
-        return res
-          .status(400)
-          .json(error.message || { message: "Something went wrong :(" });
-      }
-      res.sendStatus(201);
-    });
-  } else {
-    res.status(400).json({ message: "Unauthorized user" });
   }
 });
 
@@ -178,5 +100,3 @@ router.put("/:id/leave", async (req, res) => {
     res.status(400).json({ message: "Unauthorized user" });
   }
 });
-
-module.exports = router;
