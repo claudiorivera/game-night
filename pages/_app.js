@@ -1,15 +1,19 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Head from "next/head";
-import { ThemeProvider } from "@material-ui/core/styles";
+import MomentUtils from "@date-io/moment";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import theme from "../styles/theme";
-import { AppProvider } from "../context";
-import { UserProvider } from "../components/user/context";
-import { GamesProvider } from "../components/games/context";
+import { ThemeProvider } from "@material-ui/core/styles";
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import Head from "next/head";
+import PropTypes from "prop-types";
+import React from "react";
+import AlertDialog from "../components/AlertDialog";
 import { EventsProvider } from "../components/events/context";
+import { GamesProvider } from "../components/games/context";
+import MainAppBar from "../components/MainAppBar";
+import { UserProvider } from "../components/user/context";
+import { AppProvider } from "../context";
+import theme from "../styles/theme";
 
-export default function MyApp(props) {
+const App = (props) => {
   const { Component, pageProps } = props;
 
   React.useEffect(() => {
@@ -34,9 +38,12 @@ export default function MyApp(props) {
           <UserProvider>
             <GamesProvider>
               <EventsProvider>
-                {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-                <CssBaseline />
-                <Component {...pageProps} />
+                <MuiPickersUtilsProvider utils={MomentUtils}>
+                  <CssBaseline />
+                  <MainAppBar />
+                  <AlertDialog />
+                  <Component {...pageProps} />
+                </MuiPickersUtilsProvider>
               </EventsProvider>
             </GamesProvider>
           </UserProvider>
@@ -44,9 +51,11 @@ export default function MyApp(props) {
       </ThemeProvider>
     </React.Fragment>
   );
-}
+};
 
-MyApp.propTypes = {
+App.propTypes = {
   Component: PropTypes.elementType.isRequired,
   pageProps: PropTypes.object.isRequired,
 };
+
+export default App;

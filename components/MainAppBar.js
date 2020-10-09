@@ -75,9 +75,11 @@ const MainAppBar = () => {
   return (
     <AppBar position="sticky" className={styles.mb3}>
       <Toolbar>
-        <Typography className={styles.title}>
-          <Link href="/">Game Night</Link>
-        </Typography>
+        <Link href="/" passHref>
+          <Typography className={styles.title} component={"a"}>
+            Game Night
+          </Typography>
+        </Link>
         {/* Mobile menu */}
         {isMobile && (
           <Fragment>

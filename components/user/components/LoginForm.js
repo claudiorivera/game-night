@@ -1,10 +1,10 @@
 import React, { useState, useContext } from "react";
 import { TextField, Button } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
 import { UserContext } from "../context";
+import { useRouter } from "next/router";
 
 const LoginForm = () => {
-  const history = useHistory();
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isFetching, setIsFetching] = useState(false);
@@ -14,7 +14,7 @@ const LoginForm = () => {
     e.preventDefault();
     setIsFetching(true);
     await loginUser(email, password);
-    history.push("/");
+    router.push("/");
   };
 
   return (

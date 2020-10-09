@@ -1,9 +1,10 @@
+// https://github.com/mui-org/material-ui/tree/master/examples/nextjs
 import React from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import { ServerStyleSheets } from "@material-ui/core/styles";
 import theme from "../styles/theme";
 
-export default class MyDocument extends Document {
+class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
@@ -69,3 +70,5 @@ MyDocument.getInitialProps = async (ctx) => {
     ],
   };
 };
+
+export default MyDocument;

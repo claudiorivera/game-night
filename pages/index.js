@@ -37,9 +37,6 @@ const Home = () => (
         <PrivateRoute path="/profile">
           <ProfilePage />
         </PrivateRoute>
-        <Route path="/login">
-          <LoginPage />
-        </Route>
         <Route path="/logout">
           <LogoutPage />
         </Route>
