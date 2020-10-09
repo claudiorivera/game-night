@@ -1,6 +1,7 @@
 import nextConnect from "next-connect";
 import middleware from "../../../middleware";
 import Event from "../../../models/Event";
+import User from "../../../models/User";
 
 const handler = nextConnect();
 
@@ -42,14 +43,80 @@ handler
     }
   })
   .put(async (req, res) => {
-    if (req.user) {
-      const event = await Event.findByIdAndUpdate(req.query.id, {
-        game: req.body.gameId,
-        eventDateTime: req.body.eventDateTime,
-      });
-      res.status(200).json(event);
+    if ("join" in req.query) {
+      if (req.user) {
+        const event = await Event.findById(req.query.id);
+        if (event.host.toString() === req.user._id.toString()) {
+          return res
+            .status(400)
+            .json({ message: "Can't join an event you're hosting" });
+        }
+        event.guests.addToSet(req.user);
+        try {
+          const user = await User.findById(req.user._id);
+          user.events.push(event);
+          await user.save((error) => {
+            if (error) return res.status(400).json(error);
+          });
+        } catch (error) {
+          return res.status(400).json(error);
+        }
+        await event.save((error) => {
+          if (error) {
+            return res
+              .status(400)
+              .json(error.message || { message: "Something went wrong" });
+          }
+          res.status(200).json(event);
+        });
+      } else {
+        res.status(400).json({ message: "Unauthorized user" });
+      }
+    } else if ("leave" in req.query) {
+      if (req.user) {
+        const event = await Event.findById(req.query.id);
+        if (event.host.toString() === req.user._id.toString()) {
+          return res.status(400).json({
+            message:
+              "Can't leave an event you're hosting. Delete the event instead.",
+          });
+        }
+        event.guests.pull(req.user);
+        try {
+          const user = await User.findById(req.user._id);
+          user.events.pull(event);
+          await user.save((error) => {
+            if (error)
+              return res
+                .status(400)
+                .json(error.message || { message: "Something went wrong :(" });
+          });
+        } catch (error) {
+          return res
+            .status(400)
+            .json(error.message || { message: "Something went wrong :(" });
+        }
+        await event.save((error) => {
+          if (error) {
+            return res
+              .status(400)
+              .json(error.message || { message: "Something went wrong" });
+          }
+          res.status(200).json(event);
+        });
+      } else {
+        res.status(400).json({ message: "Unauthorized user" });
+      }
     } else {
-      res.status(400).json({ message: "Unauthorized user" });
+      if (req.user) {
+        const event = await Event.findByIdAndUpdate(req.query.id, {
+          game: req.body.gameId,
+          eventDateTime: req.body.eventDateTime,
+        });
+        res.status(200).json(event);
+      } else {
+        res.status(400).json({ message: "Unauthorized user" });
+      }
     }
   });
 
