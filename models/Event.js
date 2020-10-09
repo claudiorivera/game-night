@@ -36,4 +36,4 @@ Event.pre("remove", function (next) {
   ).exec(next);
 });
 
-module.exports = mongoose.model("Event", Event);
+module.exports = mongoose.models.Event || mongoose.model("Event", Event);

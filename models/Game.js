@@ -68,4 +68,4 @@ const Game = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Game", Game);
+module.exports = mongoose.models.Game || mongoose.model("Game", Game);

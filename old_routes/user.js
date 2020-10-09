@@ -9,18 +9,18 @@ const Event = require("../models/Event");
 // POST /api/user/register
 // Params: email, name, password
 // Returns user on success
-router.post("/register", (req, res) => {
-  const { email, name, password } = req.body;
-  User.register(new User({ email, name }), password, (error, user) => {
-    if (error) {
-      return res.status(400).json(error.message);
-    }
-    passport.authenticate("local")(req, res, () => {
-      const { isAdmin, _id, email, name, dateCreated } = user;
-      res.status(200).json({ isAdmin, _id, email, name, dateCreated });
-    });
-  });
-});
+// router.post("/register", (req, res) => {
+//   const { email, name, password } = req.body;
+//   User.register(new User({ email, name }), password, (error, user) => {
+//     if (error) {
+//       return res.status(400).json(error.message);
+//     }
+//     passport.authenticate("local")(req, res, () => {
+//       const { isAdmin, _id, email, name, dateCreated } = user;
+//       res.status(200).json({ isAdmin, _id, email, name, dateCreated });
+//     });
+//   });
+// });
 
 // GET /api/user/id/events
 // Params: User ID
@@ -59,31 +59,31 @@ router.get("/:id/events/hosting", async (req, res) => {
 // POST /api/user/login
 // Params: email and password
 // Returns user on success
-router.post("/login", passport.authenticate("local"), (req, res) => {
-  if (req.user) {
-    const { isAdmin, _id, email, name, dateCreated } = req.user;
-    res.status(200).json({ isAdmin, _id, email, name, dateCreated });
-  }
-});
+// router.post("/login", passport.authenticate("local"), (req, res) => {
+//   if (req.user) {
+//     const { isAdmin, _id, email, name, dateCreated } = req.user;
+//     res.status(200).json({ isAdmin, _id, email, name, dateCreated });
+//   }
+// });
 
 // GET /api/user/auth
 // Returns user on success
-router.get("/auth", (req, res) => {
-  if (req.user) {
-    const { isAdmin, _id, email, name, dateCreated } = req.user;
-    res.status(200).json({ isAdmin, _id, email, name, dateCreated });
-  } else {
-    res.status(200).json(null);
-  }
-});
+// router.get("/auth", (req, res) => {
+//   if (req.user) {
+//     const { isAdmin, _id, email, name, dateCreated } = req.user;
+//     res.status(200).json({ isAdmin, _id, email, name, dateCreated });
+//   } else {
+//     res.status(200).json(null);
+//   }
+// });
 
 // GET /api/user/logout
 // Params: none
 // Returns null on success (for front-end user reducer)
-router.get("/logout", (req, res) => {
-  req.logout();
-  res.status(200).json(null);
-});
+// router.get("/logout", (req, res) => {
+//   req.logout();
+//   res.status(200).json(null);
+// });
 
 // DELETE /api/user/:id
 // Params: user id
