@@ -34,7 +34,7 @@ handler
             .status(400)
             .json(error.message || { message: "Something went wrong :(" });
         }
-        res.sendStatus(201);
+        res.status(201).json({ message: "Success" });
       });
     } else {
       res.status(400).json({ message: "Unauthorized user" });

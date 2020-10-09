@@ -1,17 +1,3 @@
-// GET /api/events/id/guests
-// Params: Event ID
-// Returns all guests going to a given event
-router.get("/:id/guests", async (req, res) => {
-  try {
-    const event = await Event.findById(req.params.id);
-    res.status(200).json(event.guests);
-  } catch (error) {
-    res
-      .status(400)
-      .json(error.message || { message: "Something went wrong :(" });
-  }
-});
-
 // PUT /api/events/id/edit
 // Params: eventDate, and game (_id)
 // Returns the edited event
