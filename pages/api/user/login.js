@@ -1,15 +1,14 @@
 import nextConnect from "next-connect";
 import middleware from "../../../middleware";
-import User from "../../../models/User";
+import { extractUser } from "../../../util/extractUser";
+import passport from "../../../util/passport";
 
 const handler = nextConnect();
 
 handler.use(middleware);
 
-handler.post(async (req, res) => {
-  const { user } = await User.authenticate()(req.body.email, req.body.password);
-  const { isAdmin, _id, email, name, dateCreated } = user;
-  res.status(200).json({ isAdmin, _id, email, name, dateCreated });
+handler.post(passport.authenticate("local"), (req, res) => {
+  res.json(extractUser(req));
 });
 
 export default handler;
