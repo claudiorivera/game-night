@@ -4,6 +4,10 @@ An application that lets you create and join board game nights.
 
 Uses the [BoardGameGeek API2](https://boardgamegeek.com/wiki/page/BGG_XML_API2) on the Admin side to pull game info. I also used [fast-xml-parser](https://www.npmjs.com/package/fast-xml-parser) to [parse the XML](https://github.com/claudiorivera/game-night/tree/master/client/src/lib) into some custom JSON.
 
+# Changes
+
+- New in this version is a refactoring to use Next.js and serverless API routes.
+
 # Future Improvements
 
 - Make the "add game" option available to anyone hosting an event. Currently, only admins can add games. The reason for this limitation is that some queries return too many results if they're not specific enough, and my parser chokes. On that note, I'd like to implement an admin console for deleting users and granting admin rights.
@@ -14,15 +18,15 @@ Uses the [BoardGameGeek API2](https://boardgamegeek.com/wiki/page/BGG_XML_API2) 
 
 # Install
 
-`yarn && yarn run client-install`
+`yarn`
 
 # Config
 
-Add a `.env` file with a `DB_URI` value for a MongoDB connection string, as well as a `SECRET` for `express-session`. See `.sample-env`.
+Add a `.env.local` file with a `MONGODB_URI` value for a MongoDB connection string, as well as a `SESSION_SECRET` for `express-session`. See `.sample-env`.
 
 # Dev
 
-`yarn run dev`
+`yarn dev`
 
 # Known Bugs
 
