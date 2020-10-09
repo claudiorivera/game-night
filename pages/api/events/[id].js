@@ -11,8 +11,6 @@ handler
     if ("guests" in req.query) {
       try {
         const event = await Event.findById(req.query.id);
-        if (!event)
-          return res.status(400).json({ message: "Couldn't find that event" });
         res.status(200).json(event.guests);
       } catch (error) {
         res
@@ -41,6 +39,17 @@ handler
       res
         .status(400)
         .json(error.message || { message: "Something went wrong :(" });
+    }
+  })
+  .put(async (req, res) => {
+    if (req.user) {
+      const event = await Event.findByIdAndUpdate(req.query.id, {
+        game: req.body.gameId,
+        eventDateTime: req.body.eventDateTime,
+      });
+      res.status(200).json(event);
+    } else {
+      res.status(400).json({ message: "Unauthorized user" });
     }
   });
 

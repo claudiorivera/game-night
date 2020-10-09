@@ -1,18 +1,3 @@
-// PUT /api/events/id/edit
-// Params: eventDate, and game (_id)
-// Returns the edited event
-router.put("/:id/edit", async (req, res) => {
-  if (req.user) {
-    const event = await Event.findByIdAndUpdate(req.params.id, {
-      game: req.body.gameId,
-      eventDateTime: req.body.eventDateTime,
-    });
-    res.status(200).json(event);
-  } else {
-    res.status(400).json({ message: "Unauthorized user" });
-  }
-});
-
 // PUT /api/events/id/join
 // Params: event id
 // Returns the event after successful join

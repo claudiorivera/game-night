@@ -72,7 +72,7 @@ export const EventsProvider = ({ children }) => {
 
   const updateEvent = async (id, gameId, eventDateTime) => {
     try {
-      await axios.put(`/api/events/${id}/edit`, {
+      await axios.put(`/api/events/${id}`, {
         gameId,
         eventDateTime,
       });
