@@ -1,33 +1,21 @@
-import Head from "next/head";
 import React from "react";
-import "fontsource-roboto";
 
-import PrivateRoute from "../components/PrivateRoute";
-// Pages
-import LoginPage from "../components/user/LoginPage";
-import LogoutPage from "../components/user/LogoutPage";
-import ProfilePage from "../components/user/ProfilePage";
+// import LoginPage from "../components/user/LoginPage";
+// import LogoutPage from "../components/user/LogoutPage";
+// import ProfilePage from "../components/user/ProfilePage";
 import HomePage from "../components/home/HomePage";
-import GamesListPage from "../components/games/GamesListPage";
-import AddGamePage from "../components/games/AddGamePage";
-import EventsListPage from "../components/events/EventsListPage";
-import EventDetailsPage from "../components/events/EventDetailsPage";
-import AddEventPage from "../components/events/AddEventPage";
-import EditEventPage from "../components/events/EditEventPage";
-
-// Util
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+// import GamesListPage from "../components/games/GamesListPage";
+// import AddGamePage from "../components/games/AddGamePage";
+// import EventsListPage from "../components/events/EventsListPage";
+// import EventDetailsPage from "../components/events/EventDetailsPage";
+// import AddEventPage from "../components/events/AddEventPage";
+// import EditEventPage from "../components/events/EditEventPage";
 
 const Home = () => (
   <div>
-    <Head>
-      <title>Game Night</title>
-    </Head>
-    <Router>
+    <HomePage />
+    {/* <Router>
       <Switch>
-        <Route exact path="/">
-          <HomePage />
-        </Route>
         <PrivateRoute exact path="/games">
           <GamesListPage />
         </PrivateRoute>
@@ -56,7 +44,8 @@ const Home = () => (
           <LogoutPage />
         </Route>
       </Switch>
-    </Router>
+    </Router> */}
   </div>
 );
+
 export default Home;

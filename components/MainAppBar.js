@@ -11,10 +11,11 @@ import {
 } from "@material-ui/core";
 import { Menu as MenuIcon } from "@material-ui/icons";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { Link, useHistory } from "react-router-dom";
 import { UserContext } from "../components/user/context";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   mb3: {
     marginBottom: "3vh",
   },
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 700,
     fontSize: "1.5rem",
   },
-}));
+});
 
 const adminLinks = [
   {
@@ -54,7 +55,7 @@ const userLinks = [
 ];
 
 const MainAppBar = () => {
-  const history = useHistory();
+  const router = useRouter();
   const theme = useTheme();
   const styles = useStyles();
   const { user } = useContext(UserContext);
@@ -74,8 +75,8 @@ const MainAppBar = () => {
   return (
     <AppBar position="sticky" className={styles.mb3}>
       <Toolbar>
-        <Typography className={styles.title} component={Link} to="/">
-          Game Night
+        <Typography className={styles.title}>
+          <Link href="/">Game Night</Link>
         </Typography>
         {/* Mobile menu */}
         {isMobile && (
@@ -109,7 +110,7 @@ const MainAppBar = () => {
                     key={index}
                     onClick={() => {
                       handleClose();
-                      history.push(url);
+                      router.push(url);
                     }}
                   >
                     {title}
@@ -121,7 +122,7 @@ const MainAppBar = () => {
                     key={index}
                     onClick={() => {
                       handleClose();
-                      history.push(url);
+                      router.push(url);
                     }}
                   >
                     {title}
@@ -131,7 +132,7 @@ const MainAppBar = () => {
                 <MenuItem
                   onClick={() => {
                     handleClose();
-                    history.push("/login");
+                    router.push("/login");
                   }}
                 >
                   Login/Register
@@ -145,28 +146,27 @@ const MainAppBar = () => {
         {!isMobile &&
           user?._id &&
           userLinks.map(({ title, url }, index) => (
-            <Button key={index} color="inherit" component={Link} to={url}>
-              {title}
-            </Button>
+            <Link href={url}>
+              <Button key={index} color="inherit">
+                {title}
+              </Button>
+            </Link>
           ))}
         {/* Admin links */}
         {!isMobile &&
           user?.isAdmin &&
           adminLinks.map(({ title, url }, index) => (
-            <Button key={index} color="inherit" component={Link} to={url}>
-              {title}
-            </Button>
+            <Link href={url}>
+              <Button key={index} color="inherit">
+                {title}
+              </Button>
+            </Link>
           ))}
         {/* Show the Login/Register button if there's no user */}
         {!isMobile && !user && (
-          <Button
-            className={styles.alignRight}
-            component={Link}
-            to="/login"
-            color="inherit"
-          >
-            Login/Register
-          </Button>
+          <Link href="/login">
+            <Button color="inherit">Login/Register</Button>
+          </Link>
         )}
       </Toolbar>
     </AppBar>
