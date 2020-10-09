@@ -148,20 +148,16 @@ const MainAppBar = () => {
         {!isMobile &&
           user?._id &&
           userLinks.map(({ title, url }, index) => (
-            <Link href={url}>
-              <Button key={index} color="inherit">
-                {title}
-              </Button>
+            <Link key={index} href={url}>
+              <Button color="inherit">{title}</Button>
             </Link>
           ))}
         {/* Admin links */}
         {!isMobile &&
           user?.isAdmin &&
           adminLinks.map(({ title, url }, index) => (
-            <Link href={url}>
-              <Button key={index} color="inherit">
-                {title}
-              </Button>
+            <Link key={index} href={url}>
+              <Button color="inherit">{title}</Button>
             </Link>
           ))}
         {/* Show the Login/Register button if there's no user */}

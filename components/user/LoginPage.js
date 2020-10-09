@@ -21,7 +21,7 @@ const Login = () => {
           <Typography variant="caption">
             Don't have an account?{" "}
             <Link
-              to="#"
+              href="#"
               onClick={() => setFormDisplay("register")}
               className={classes.textLink}
             >
@@ -37,7 +37,7 @@ const Login = () => {
           <Typography variant="caption">
             Already registered?{" "}
             <Link
-              to="#"
+              href="#"
               onClick={() => setFormDisplay("login")}
               className={classes.textLink}
             >

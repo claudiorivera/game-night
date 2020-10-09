@@ -1,17 +1,18 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { UserContext } from "../user/context";
-import { Redirect } from "react-router-dom";
 import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 const LogoutPage = () => {
+  const router = useRouter();
   const { logoutUser } = useContext(UserContext);
 
   useEffect(() => {
     logoutUser();
-    //eslint-disable-next-line
+    router.push("/login");
   }, []);
 
-  return <Redirect to="/login" />;
+  return null;
 };
 
 export default LogoutPage;

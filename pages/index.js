@@ -14,8 +14,7 @@ import HomePage from "../components/home/HomePage";
 const Home = () => (
   <div>
     <HomePage />
-    {/* <Router>
-      <Switch>
+    {/*
         <PrivateRoute exact path="/games">
           <GamesListPage />
         </PrivateRoute>
@@ -37,11 +36,7 @@ const Home = () => (
         <PrivateRoute path="/profile">
           <ProfilePage />
         </PrivateRoute>
-        <Route path="/logout">
-          <LogoutPage />
-        </Route>
-      </Switch>
-    </Router> */}
+       */}
   </div>
 );
 
