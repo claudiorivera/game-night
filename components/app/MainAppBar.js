@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 import { Menu as MenuIcon } from "@material-ui/icons";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { UserContext } from "../components/user/context";
+import { UserContext } from "../../components/user/context";
 import Link from "next/link";
 import { useRouter } from "next/router";
 

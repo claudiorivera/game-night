@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { UserContext } from "../components/user/context";
+import { UserContext } from "../../components/user/context";
 import { Route, Redirect } from "react-router-dom";
 
 // https://reacttraining.com/react-router/web/example/auth-workflow
