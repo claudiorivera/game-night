@@ -14,7 +14,9 @@ handler
       const games = await Game.find({}).sort({ numOfRatings: "desc" });
       res.status(200).json(games);
     } catch (error) {
-      res.status(400).json(error);
+      return res
+        .status(400)
+        .json({ message: error.message || "Games not found" });
     }
   })
   // POST api/games
@@ -43,7 +45,7 @@ handler
         if (error)
           return res
             .status(400)
-            .json(error.message || { message: "Something went wrong :(" });
+            .json({ message: error.message || "Unable to add game" });
         res.status(201).json(savedGame);
       });
     } else {

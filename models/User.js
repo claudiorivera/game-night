@@ -27,6 +27,7 @@ const User = new mongoose.Schema({
 });
 
 User.plugin(passportLocalMongoose, {
+  usernameUnique: false,
   usernameField: "email",
   errorMessages: {
     UserExistsError: "A user with the given email is already registered",

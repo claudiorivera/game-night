@@ -23,7 +23,9 @@ handler
             .sort({ eventDateTime: "asc" });
           res.status(200).json(events);
         } catch (error) {
-          res.status(400).json(error);
+          return res
+            .status(400)
+            .json({ message: error.message || "Events not found" });
         }
       } else {
         try {
@@ -34,7 +36,9 @@ handler
           }).populate("host game guests");
           res.status(200).json(events);
         } catch (error) {
-          res.status(400).json(error);
+          return res
+            .status(400)
+            .json({ message: error.message || "Events not found" });
         }
       }
     } else {
@@ -59,7 +63,7 @@ handler
             if (error) {
               return res
                 .status(400)
-                .json({ message: error.message || "Something went wrong." });
+                .json({ message: error.message || "Unable to delete user" });
             }
           }
         );

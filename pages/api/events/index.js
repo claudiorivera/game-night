@@ -33,7 +33,7 @@ handler
         if (error)
           return res
             .status(400)
-            .json(error.message || { message: "Something went wrong :(" });
+            .json(error.message || { message: "Unable to add event" });
         res.status(201).json(savedEvent);
       });
     } else {

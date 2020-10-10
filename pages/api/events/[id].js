@@ -18,9 +18,9 @@ handler
         const event = await Event.findById(req.query.id);
         res.status(200).json(event.guests);
       } catch (error) {
-        res
+        return res
           .status(400)
-          .json(error.message || { message: "Something went wrong :(" });
+          .json({ message: error.message || "Event not found" });
       }
     } else {
       try {
@@ -29,9 +29,9 @@ handler
         );
         res.status(200).json(event);
       } catch (error) {
-        res
+        return res
           .status(400)
-          .json(error.message || { message: "Something went wrong :(" });
+          .json({ message: error.message || "Event not found" });
       }
     }
   })
@@ -42,7 +42,9 @@ handler
     if (event) {
       event.remove((error, removedEvent) => {
         if (error)
-          return res.status(500).json({ message: "Unable to delete event" });
+          return res
+            .status(400)
+            .json({ message: error.message || "Unable to remove event" });
         res.status(200).json({ message: "Successfully deleted", removedEvent });
       });
     } else {
@@ -76,7 +78,7 @@ handler
             if (error) {
               return res
                 .status(400)
-                .json(error.message || { message: "Something went wrong" });
+                .json(error.message || { message: "Unable to join event" });
             }
             res.status(200).json(event);
           });
@@ -105,13 +107,13 @@ handler
             if (error)
               return res
                 .status(400)
-                .json(error.message || { message: "Something went wrong :(" });
+                .json({ message: error.message || "Unable to leave event" });
           });
           await event.save((error, savedEvent) => {
             if (error)
               return res
                 .status(400)
-                .json(error.message || { message: "Something went wrong" });
+                .json({ message: error.message || "Unable to leave event" });
 
             res.status(200).json(savedEvent);
           });
@@ -133,7 +135,7 @@ handler
             if (error)
               return res
                 .status(400)
-                .json({ message: error.message || "Unable to save" });
+                .json({ message: error.message || "Unable to save event" });
             res.status(200).json(updatedEvent);
           });
         });

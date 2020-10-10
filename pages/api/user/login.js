@@ -1,6 +1,5 @@
 import nextConnect from "next-connect";
 import middleware from "../../../middleware";
-import { extractUser } from "../../../util/extractUser";
 import passport from "../../../util/passport";
 
 const handler = nextConnect();
@@ -10,7 +9,8 @@ handler.use(middleware);
 // POST api/user/login
 // Returns user if successfully authenticated
 handler.post(passport.authenticate("local"), (req, res) => {
-  res.json(extractUser(req));
+  const { _id, name, email, isAdmin } = req.user;
+  res.status(200).json({ _id, name, email, isAdmin });
 });
 
 export default handler;
