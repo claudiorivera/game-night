@@ -1,12 +1,12 @@
-import React, { createContext, useReducer, useContext, useEffect } from "react";
+import React, { createContext, useContext, useEffect, useReducer } from "react";
+import { AppContext } from "../../app/context";
 import { reducer } from "./reducer";
-import { AppContext } from "../../../context";
 const axios = require("axios").default;
 
+// TODO: Use localStorage client side? Or handle that server-side?
+// https://medium.com/@akrush95/global-cached-state-in-react-using-hooks-context-and-local-storage-166eacf8ab46
+
 const initialState = {
-  // https://medium.com/@akrush95/global-cached-state-in-react-using-hooks-context-and-local-storage-166eacf8ab46
-  // Get the current user from localStorage, if there is one
-  // user: JSON.parse(localStorage.getItem("game-night-user")) || null,
   user: null,
 };
 
@@ -24,7 +24,6 @@ export const UserProvider = ({ children }) => {
         password,
       });
       dispatch({ type: "REGISTER_USER_SUCCESSFUL_WITH_USER", user });
-      // localStorage.setItem("game-night-user", JSON.stringify(user));
     } catch (error) {
       createAlertWithMessage(error.response.data);
     }
@@ -37,7 +36,6 @@ export const UserProvider = ({ children }) => {
         password,
       });
       dispatch({ type: "LOGIN_SUCCESSFUL_WITH_USER", user });
-      // localStorage.setItem("game-night-user", JSON.stringify(user));
     } catch (error) {
       createAlertWithMessage(error.response.data);
     }
@@ -47,8 +45,6 @@ export const UserProvider = ({ children }) => {
     try {
       const { data: user } = await axios.get("/api/user/logout");
       dispatch({ type: "LOGOUT_SUCCESSFUL_WITH_USER", user });
-      // Remove the user from localStorage when logging out
-      // localStorage.removeItem("game-night-user");
     } catch (error) {
       createAlertWithMessage(error.response.data);
     }
@@ -58,8 +54,6 @@ export const UserProvider = ({ children }) => {
     try {
       const { data: user } = await axios.delete(`/api/user/${_id}`);
       dispatch({ type: "DELETE_USER_BY_ID_SUCCESSFUL_WITH_USER", user });
-      // Remove the user from localStorage when deleting their profile
-      // localStorage.removeItem("game-night-user");
       createAlertWithMessage("User successfully deleted");
     } catch (error) {
       createAlertWithMessage(error.response.data);
@@ -70,7 +64,6 @@ export const UserProvider = ({ children }) => {
     try {
       const { data: user } = await axios.get("/api/user/auth");
       dispatch({ type: "AUTH_USER_SUCCESSFUL_WITH_USER", user });
-      // localStorage.setItem("game-night-user", JSON.stringify(user));
     } catch (error) {
       createAlertWithMessage(error.response.data);
     }
@@ -101,7 +94,6 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     authUser();
-    //eslint-disable-next-line
   }, []);
 
   UserContext.displayName = "User";

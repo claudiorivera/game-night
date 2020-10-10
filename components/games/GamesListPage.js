@@ -1,56 +1,53 @@
-import React, { useContext, useEffect, Fragment } from "react";
-import { GamesContext } from "./context";
-import GameDetails from "./components/GameDetails";
 import {
-  AccordionSummary,
-  AccordionDetails,
   Accordion,
-  Typography,
-  Container,
+  AccordionDetails,
+  AccordionSummary,
   Button,
+  Container,
+  Typography,
 } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { styled } from "@material-ui/core/styles";
 import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
-import { useHistory } from "react-router-dom";
+import { useRouter } from "next/router";
+import React, { Fragment, useContext, useEffect } from "react";
+import GameDetails from "./components/GameDetails";
+import { GamesContext } from "./context";
 
-const useStyles = makeStyles((theme) => ({
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-    fontWeight: theme.typography.fontWeightRegular,
-  },
-  mb: {
-    marginBottom: "1.5rem",
-  },
-}));
+// const Heading = styled(Typography)((theme) => ({
+//   fontSize: theme.typography.pxToRem(15),
+//   fontWeight: theme.typography.fontWeightRegular,
+// }));
+
+const ContainerWithMargin = styled(Container)({
+  marginBottom: "1.5rem",
+});
 
 const GameList = () => {
-  const classes = useStyles();
+  const router = useRouter();
   const { getAllGames, games } = useContext(GamesContext);
-  const history = useHistory();
 
   useEffect(() => {
     const fetchGames = async () => {
       await getAllGames();
     };
     fetchGames();
-    //eslint-disable-next-line
   }, []);
 
   return (
     <Fragment>
-      <Container className={classes.mb}>
+      <ContainerWithMargin>
         <Button
           fullWidth
           color="secondary"
           variant="contained"
           size="large"
           onClick={() => {
-            history.push("/games/add");
+            router.push("/games/add");
           }}
         >
           Add Game
         </Button>
-      </Container>
+      </ContainerWithMargin>
       <Container>
         {games
           ? games.map((game) => (
@@ -59,18 +56,18 @@ const GameList = () => {
                   expandIcon={<ExpandMoreIcon />}
                   aria-controls={`panel-${game.bggId}-content`}
                 >
-                  <Typography className={classes.heading}>
+                  <Typography variant="h6">
                     {game.name} ({game.yearPublished})
                   </Typography>
                 </AccordionSummary>
-                <AccordionDetails className={classes.details}>
+                <AccordionDetails>
                   <Container>
                     <GameDetails game={game} />
                   </Container>
                 </AccordionDetails>
               </Accordion>
             ))
-          : ""}
+          : "Loading..."}
       </Container>
     </Fragment>
   );

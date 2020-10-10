@@ -10,7 +10,7 @@ import { EventsProvider } from "../components/events/context";
 import { GamesProvider } from "../components/games/context";
 import MainAppBar from "../components/app/MainAppBar";
 import { UserProvider } from "../components/user/context";
-import { AppProvider } from "../context";
+import { AppProvider } from "../components/app/context";
 import theme from "../styles/theme";
 
 const App = (props) => {

@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { TextField, Button } from "@material-ui/core";
 import { UserContext } from "../context";
-import { AppContext } from "../../../context";
+import { AppContext } from "../../app/context";
 import { useRouter } from "next/router";
 
 const RegisterForm = () => {

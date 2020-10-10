@@ -10,22 +10,21 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import { Menu as MenuIcon } from "@material-ui/icons";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { styled, useTheme } from "@material-ui/core/styles";
 import { UserContext } from "../../components/user/context";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-const useStyles = makeStyles({
-  mb3: {
-    marginBottom: "3vh",
-  },
-  title: {
-    flexGrow: 1,
-    textDecoration: "none",
-    color: "white",
-    fontWeight: 700,
-    fontSize: "1.5rem",
-  },
+const Title = styled(Typography)({
+  flexGrow: 1,
+  textDecoration: "none",
+  color: "white",
+  fontWeight: 700,
+  fontSize: "1.5rem",
+});
+
+const AppBarWithMargin = styled(AppBar)({
+  marginBottom: "2rem",
 });
 
 const adminLinks = [
@@ -57,7 +56,6 @@ const userLinks = [
 const MainAppBar = () => {
   const router = useRouter();
   const theme = useTheme();
-  const styles = useStyles();
   const { user } = useContext(UserContext);
   // https://material-ui.com/components/app-bar/#app-bar-with-menu
   const [anchorEl, setAnchorEl] = useState(null);
@@ -73,12 +71,10 @@ const MainAppBar = () => {
   };
 
   return (
-    <AppBar position="sticky" className={styles.mb3}>
+    <AppBarWithMargin position="sticky">
       <Toolbar>
         <Link href="/" passHref>
-          <Typography className={styles.title} component={"a"}>
-            Game Night
-          </Typography>
+          <Title component={"a"}>Game Night</Title>
         </Link>
         {/* Mobile menu */}
         {isMobile && (
@@ -167,7 +163,7 @@ const MainAppBar = () => {
           </Link>
         )}
       </Toolbar>
-    </AppBar>
+    </AppBarWithMargin>
   );
 };
 

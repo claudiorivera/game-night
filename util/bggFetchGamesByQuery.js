@@ -4,6 +4,8 @@ import { bggFetchGameById } from "./bggFetchGameById";
 const axios = require("axios").default;
 const parser = require("fast-xml-parser");
 
+const API_CALL_LIMIT = 20;
+
 export const bggFetchGamesByQuery = async (query) => {
   const { data } = await axios.get(
     // https://boardgamegeek.com/wiki/page/BGG_XML_API2
@@ -24,7 +26,8 @@ export const bggFetchGamesByQuery = async (query) => {
     // Async calls can't be inside a .map() - https://flaviocopes.com/javascript-async-await-array-map/
     const results = [];
     if (Array.isArray(item)) {
-      for (const game of item) {
+      // Limit the number of calls to the BGG API, so it doesn't yell at us
+      for (const game of item.slice(0, API_CALL_LIMIT)) {
         results.push(await bggFetchGameById(game.id));
       }
     } else {

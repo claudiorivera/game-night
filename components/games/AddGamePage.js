@@ -1,41 +1,33 @@
-import React, { useState, useContext } from "react";
-import { useHistory } from "react-router-dom";
-import { GamesContext } from "./context";
-import { AppContext } from "../../context";
-import GameDetails from "./components/GameDetails";
-import { bggFetchGamesByQuery } from "../../util/bggFetchGamesByQuery";
 import {
-  Button,
-  TextField,
-  Container,
   Accordion,
-  AccordionSummary,
   AccordionDetails,
+  AccordionSummary,
+  Button,
+  Container,
+  TextField,
   Typography,
 } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { styled } from "@material-ui/core/styles";
 import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
+import { useRouter } from "next/router";
+import React, { useContext, useState } from "react";
+import { AppContext } from "../app/context";
+import { bggFetchGamesByQuery } from "../../util/bggFetchGamesByQuery";
+import GameDetails from "./components/GameDetails";
+import { GamesContext } from "./context";
 
-const useStyles = makeStyles((theme) => ({
-  alert: {
-    width: "100%",
-    "& > * + *": {
-      marginTop: theme.spacing(2),
-    },
-  },
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-    fontWeight: theme.typography.fontWeightRegular,
-  },
-  details: {
-    display: "flex",
-    flexDirection: "column",
-  },
-}));
+// const Heading = styled(Typography)((theme) => ({
+//   fontSize: theme.typography.pxToRem(15),
+//   fontWeight: theme.typography.fontWeightRegular,
+// }));
+
+const AccordionDetailsWithStyles = styled(AccordionDetails)({
+  display: "flex",
+  flexDirection: "column",
+});
 
 const AddGame = () => {
-  const classes = useStyles();
-  const history = useHistory();
+  const router = useRouter();
   const [query, setQuery] = useState("");
   const [queryResults, setQueryResults] = useState([]);
   const { addGame } = useContext(GamesContext);
@@ -80,11 +72,11 @@ const AddGame = () => {
               expandIcon={<ExpandMoreIcon />}
               aria-controls={`panel-${result.bggId}-content`}
             >
-              <Typography className={classes.heading}>
+              <Typography>
                 {result.name} ({result.yearPublished})
               </Typography>
             </AccordionSummary>
-            <AccordionDetails className={classes.details}>
+            <AccordionDetailsWithStyles>
               <Container>
                 <GameDetails game={result} />
                 <Button
@@ -110,13 +102,13 @@ const AddGame = () => {
                       categories: result.categories,
                       gameMechanics: result.gameMechanics,
                     });
-                    history.push("/games");
+                    router.push("/games");
                   }}
                 >
                   Add This Game
                 </Button>
               </Container>
-            </AccordionDetails>
+            </AccordionDetailsWithStyles>
           </Accordion>
         ))}
     </Container>

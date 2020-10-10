@@ -1,8 +1,8 @@
-import React, { useContext, Fragment, useEffect } from "react";
 import { Container, Typography } from "@material-ui/core";
-import { UserContext } from "../user/context";
-import EventsListContainer from "../events/components/EventsListContainer";
 import Link from "next/link";
+import React, { Fragment, useContext, useEffect } from "react";
+import EventsListContainer from "../events/components/EventsListContainer";
+import { UserContext } from "../user/context";
 
 const HomePage = () => {
   const { user, getUserEvents, getUserEventsHosting } = useContext(UserContext);
@@ -12,7 +12,6 @@ const HomePage = () => {
       getUserEvents(user._id);
       getUserEventsHosting(user._id);
     }
-    //eslint-disable-next-line
   }, []);
 
   return (

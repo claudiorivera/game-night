@@ -2,31 +2,24 @@ import React, { useState, Fragment } from "react";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
 import { Container, Typography, Link } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { styled } from "@material-ui/styles";
 
-const useStyles = makeStyles({
-  textLink: {
-    cursor: "pointer",
-  },
+const TextLink = styled(Link)({
+  cursor: "pointer",
 });
 
 const Login = () => {
-  const classes = useStyles();
   const [formDisplay, setFormDisplay] = useState("login");
   return (
     <Container>
       {formDisplay === "login" && (
         <Fragment>
           <LoginForm />
-          <Typography variant="caption">
+          <Typography variant="caption" align="center">
             Don't have an account?{" "}
-            <Link
-              href="#"
-              onClick={() => setFormDisplay("register")}
-              className={classes.textLink}
-            >
+            <TextLink onClick={() => setFormDisplay("register")}>
               Register here
-            </Link>
+            </TextLink>
             .
           </Typography>
         </Fragment>
@@ -34,15 +27,11 @@ const Login = () => {
       {formDisplay === "register" && (
         <Fragment>
           <RegisterForm />
-          <Typography variant="caption">
+          <Typography variant="caption" align="center">
             Already registered?{" "}
-            <Link
-              href="#"
-              onClick={() => setFormDisplay("login")}
-              className={classes.textLink}
-            >
+            <TextLink onClick={() => setFormDisplay("login")}>
               Login here
-            </Link>
+            </TextLink>
             .
           </Typography>
         </Fragment>
