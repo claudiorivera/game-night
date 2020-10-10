@@ -1,42 +1,37 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useParams, useHistory, useRouteMatch } from "react-router-dom";
 import {
-  Container,
   Button,
   Card,
-  CardHeader,
-  CardContent,
   CardActions,
-  Typography,
+  CardContent,
+  CardHeader,
   Chip,
+  Container,
   Dialog,
-  DialogTitle,
   DialogActions,
   DialogContent,
   DialogContentText,
+  DialogTitle,
+  Typography,
 } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { styled } from "@material-ui/core/styles";
 import { ArrowBack as ArrowBackIcon } from "@material-ui/icons";
+import { useRouter } from "next/router";
+import React, { useContext, useEffect, useState } from "react";
+import { EventsContext } from "../events/context";
 import GameDetails from "../games/components/GameDetails";
 import { UserContext } from "../user/context";
-import { EventsContext } from "../events/context";
 
 const axios = require("axios").default;
 const moment = require("moment");
 
-const useStyles = makeStyles({
-  card: {
-    margin: "10px",
-    padding: "20px",
-    flexDirection: "column",
-  },
+const StyledCard = styled(Card)({
+  margin: "10px",
+  padding: "20px",
+  flexDirection: "column",
 });
 
-const EventDetailsPage = () => {
-  const classes = useStyles();
-  const { eventId } = useParams();
-  const history = useHistory();
-  const { url } = useRouteMatch();
+const EventDetailsPage = ({ id }) => {
+  const router = useRouter();
   const [event, setEvent] = useState(null);
   const { user } = useContext(UserContext);
   const { deleteEventById, leaveEventById, joinEventById } = useContext(
@@ -44,12 +39,12 @@ const EventDetailsPage = () => {
   );
 
   useEffect(() => {
-    const getEventById = async (id) => {
-      const { data } = await axios.get(`/api/events/${id}`);
+    const getEventById = async (eventId) => {
+      const { data } = await axios.get(`/api/events/${eventId}`);
       setEvent(data);
     };
-    getEventById(eventId);
-  }, [eventId]);
+    getEventById(id);
+  }, []);
 
   // Delete confirm dialog
   const [open, setOpen] = useState(false);
@@ -59,17 +54,17 @@ const EventDetailsPage = () => {
 
   const handleDelete = async () => {
     await deleteEventById(event._id);
-    history.goBack();
+    router.back();
   };
 
   return (
     <Container>
-      <Button onClick={() => history.goBack()}>
+      <Button onClick={() => router.back()}>
         <ArrowBackIcon />
         Go Back
       </Button>
       {event && (
-        <Card className={classes.card}>
+        <StyledCard>
           <CardHeader
             title={moment(event.eventDateTime).format(
               "MMMM Do, YYYY [at] h:mma"
@@ -95,7 +90,7 @@ const EventDetailsPage = () => {
               <Button
                 onClick={async () => {
                   await leaveEventById(event._id);
-                  history.goBack();
+                  router.back();
                 }}
               >
                 Leave
@@ -105,7 +100,7 @@ const EventDetailsPage = () => {
               <Button
                 onClick={async () => {
                   await joinEventById(event._id);
-                  history.goBack();
+                  router.back();
                 }}
               >
                 Join
@@ -114,7 +109,7 @@ const EventDetailsPage = () => {
               // Otherwise, we're the host, so show the Edit button
               <Button
                 onClick={() => {
-                  history.push(`${url}/edit`);
+                  router.push(`${router.pathname}/edit`);
                 }}
               >
                 Edit
@@ -131,7 +126,7 @@ const EventDetailsPage = () => {
               </Button>
             )}
           </CardActions>
-        </Card>
+        </StyledCard>
       )}
       <Dialog
         open={open}

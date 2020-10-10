@@ -1,8 +1,2 @@
-- <PrivateRoute exact path="/events">
-- <EventsListPage />
-- <PrivateRoute exact path="/events/add">
-- <AddEventPage />
 - <PrivateRoute path="/events/:eventId/edit">
 - <EditEventPage />
-- <PrivateRoute path="/events/:eventId">
-- <EventDetailsPage />
