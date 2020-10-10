@@ -1,3 +1,4 @@
+import { Restaurant } from "@material-ui/icons";
 import nextConnect from "next-connect";
 import middleware from "../../../middleware";
 import Event from "../../../models/Event";
@@ -9,16 +10,14 @@ handler.use(middleware);
 handler
   // GET api/events
   // Returns all events
-  .get(async (req, res) => {
-    try {
-      const events = await Event.find({})
-        .populate("game host guests")
-        .sort({ eventDateTime: "asc" });
+  .get(async (_, res) => {
+    const events = await Event.find({})
+      .populate("game host guests")
+      .sort({ eventDateTime: "asc" });
+    if (events) {
       res.status(200).json(events);
-    } catch (error) {
-      res
-        .status(400)
-        .json(error.message || { message: "Something went wrong :(" });
+    } else {
+      res.status(400).json({ message: "Events not found" });
     }
   })
   // POST api/events

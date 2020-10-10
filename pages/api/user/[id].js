@@ -45,25 +45,25 @@ handler
   // Deletes user with given id
   .delete(async (req, res) => {
     if (req.user) {
-      User.findOneAndDelete({ _id: req.query.id }, (error, user) => {
-        if (error) {
-          res.status(400).json(error);
-        } else {
-          // https://stackoverflow.com/a/44342416
-          Event.updateMany(
-            { guests: user._id },
-            { $pull: { guests: user._id } },
-            { multi: true },
-            (error) => {
-              if (error) {
-                return res
-                  .status(400)
-                  .json({ message: error.message || "Something went wrong." });
-              }
+      await User.findById(req.query.id, (error, user) => {
+        if (error)
+          return res
+            .status(400)
+            .json({ message: error.message || "User not found" });
+        // https://stackoverflow.com/a/44342416
+        Event.updateMany(
+          { guests: user._id },
+          { $pull: { guests: user._id } },
+          { multi: true },
+          (error) => {
+            if (error) {
+              return res
+                .status(400)
+                .json({ message: error.message || "Something went wrong." });
             }
-          );
-          res.status(200).json(null);
-        }
+          }
+        );
+        res.status(200).json({ message: "Successfully deleted user" });
       });
     } else {
       res.status(400).json({ message: "No user" });
