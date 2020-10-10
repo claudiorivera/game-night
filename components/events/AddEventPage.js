@@ -1,19 +1,24 @@
+import {
+  Button,
+  Container,
+  FormControl,
+  MenuItem,
+  Select,
+  Typography,
+} from "@material-ui/core";
+import { styled } from "@material-ui/core/styles";
+import { DateTimePicker } from "@material-ui/pickers";
+import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 import { GamesContext } from "../games/context";
 import { EventsContext } from "./context";
-import {
-  Container,
-  Typography,
-  FormControl,
-  Select,
-  MenuItem,
-  Button,
-} from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import { DateTimePicker } from "@material-ui/pickers";
-import { useHistory } from "react-router-dom";
+
+const StyledFormControl = styled(FormControl)({
+  margin: "10px",
+});
 
 const AddEventPage = () => {
+  const router = useRouter();
   const { games, getAllGames } = useContext(GamesContext);
   const { addEvent } = useContext(EventsContext);
   const [eventDateTime, setEventDateTime] = useState(new Date());
@@ -26,17 +31,7 @@ const AddEventPage = () => {
       }
     };
     fetchGames();
-    //eslint-disable-next-line
   }, []);
-
-  const useStyles = makeStyles({
-    margin: {
-      margin: "10px",
-    },
-  });
-
-  const classes = useStyles();
-  const history = useHistory();
 
   return (
     <Container>
@@ -45,10 +40,10 @@ const AddEventPage = () => {
         onSubmit={async (e) => {
           e.preventDefault();
           await addEvent(gameId, eventDateTime);
-          history.goBack();
+          router.push("/events");
         }}
       >
-        <FormControl className={classes.margin}>
+        <StyledFormControl>
           <DateTimePicker
             disablePast
             id="datetime-picker"
@@ -56,9 +51,9 @@ const AddEventPage = () => {
             value={eventDateTime}
             onChange={setEventDateTime}
           />
-        </FormControl>
+        </StyledFormControl>
         {games && (
-          <FormControl className={classes.margin}>
+          <StyledFormControl>
             <Select
               id="game-select"
               value={gameId}
@@ -72,7 +67,7 @@ const AddEventPage = () => {
                 </MenuItem>
               ))}
             </Select>
-          </FormControl>
+          </StyledFormControl>
         )}
         <Button
           size="large"

@@ -4,7 +4,7 @@ import RegisterForm from "./components/RegisterForm";
 import { Container, Typography, Link } from "@material-ui/core";
 import { styled } from "@material-ui/styles";
 
-const TextLink = styled(Link)({
+const StyledLink = styled(Link)({
   cursor: "pointer",
 });
 
@@ -15,11 +15,11 @@ const Login = () => {
       {formDisplay === "login" && (
         <Fragment>
           <LoginForm />
-          <Typography variant="caption" align="center">
+          <Typography variant="caption">
             Don't have an account?{" "}
-            <TextLink onClick={() => setFormDisplay("register")}>
+            <StyledLink onClick={() => setFormDisplay("register")}>
               Register here
-            </TextLink>
+            </StyledLink>
             .
           </Typography>
         </Fragment>
@@ -27,11 +27,11 @@ const Login = () => {
       {formDisplay === "register" && (
         <Fragment>
           <RegisterForm />
-          <Typography variant="caption" align="center">
+          <Typography variant="caption">
             Already registered?{" "}
-            <TextLink onClick={() => setFormDisplay("login")}>
+            <StyledLink onClick={() => setFormDisplay("login")}>
               Login here
-            </TextLink>
+            </StyledLink>
             .
           </Typography>
         </Fragment>

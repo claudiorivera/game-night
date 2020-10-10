@@ -7,20 +7,24 @@ import {
 } from "@material-ui/core";
 import { styled } from "@material-ui/styles";
 import React from "react";
-const moment = require("moment");
+import moment from "moment";
 
-const CardMediaWithStyles = styled(CardMedia)({
+const StyledLink = styled("a")({
+  textDecoration: "none",
+});
+
+const StyledCardMedia = styled(CardMedia)({
   height: 0,
   paddingTop: "56.25%", // 16:9
 });
 
-const EventSummaryCard = ({ event, isHosting }) => (
+const EventCard = ({ event, isHosting }) => (
   <Card>
     <CardHeader
       title={moment(event.eventDateTime).format("MMMM Do, YYYY [at] h:mma")}
       subheader={event.game.name}
     />
-    <CardMediaWithStyles image={event.game.imageSrc} title={event.game.name} />
+    <StyledCardMedia image={event.game.imageSrc} title={event.game.name} />
     <CardContent>
       {!isHosting && (
         <Typography variant="body1" color="textSecondary">
@@ -31,5 +35,13 @@ const EventSummaryCard = ({ event, isHosting }) => (
     </CardContent>
   </Card>
 );
+
+const EventSummaryCard = React.forwardRef(({ href, ...otherProps }, ref) => {
+  return (
+    <StyledLink href={href} ref={ref}>
+      <EventCard {...otherProps} />
+    </StyledLink>
+  );
+});
 
 export default EventSummaryCard;

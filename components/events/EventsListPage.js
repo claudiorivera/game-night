@@ -5,7 +5,7 @@ import { EventsContext } from "./context";
 import { styled } from "@material-ui/styles";
 import { useRouter } from "next/router";
 
-const ContainerWithMargin = styled(Container)({
+const StyledContainer = styled(Container)({
   marginBottom: "1.5rem",
 });
 
@@ -22,7 +22,7 @@ const EventsListPage = () => {
 
   return (
     <Fragment>
-      <ContainerWithMargin>
+      <StyledContainer>
         <Button
           fullWidth
           color="secondary"
@@ -34,7 +34,7 @@ const EventsListPage = () => {
         >
           Add Event
         </Button>
-      </ContainerWithMargin>
+      </StyledContainer>
       <Container>
         {events ? <EventsListContainer events={events} /> : ""}
       </Container>

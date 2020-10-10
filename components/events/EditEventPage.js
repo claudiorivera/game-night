@@ -36,7 +36,6 @@ const EditEventPage = () => {
     };
     fetchGames();
     fetchEvent();
-    //eslint-disable-next-line
   }, []);
 
   const useStyles = makeStyles({

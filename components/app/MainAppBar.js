@@ -23,7 +23,7 @@ const Title = styled(Typography)({
   fontSize: "1.5rem",
 });
 
-const AppBarWithMargin = styled(AppBar)({
+const StyledAppBar = styled(AppBar)({
   marginBottom: "2rem",
 });
 
@@ -71,7 +71,7 @@ const MainAppBar = () => {
   };
 
   return (
-    <AppBarWithMargin position="sticky">
+    <StyledAppBar position="sticky">
       <Toolbar>
         <Link href="/" passHref>
           <Title component={"a"}>Game Night</Title>
@@ -163,7 +163,7 @@ const MainAppBar = () => {
           </Link>
         )}
       </Toolbar>
-    </AppBarWithMargin>
+    </StyledAppBar>
   );
 };
 

@@ -16,12 +16,7 @@ import { bggFetchGamesByQuery } from "../../util/bggFetchGamesByQuery";
 import GameDetails from "./components/GameDetails";
 import { GamesContext } from "./context";
 
-// const Heading = styled(Typography)((theme) => ({
-//   fontSize: theme.typography.pxToRem(15),
-//   fontWeight: theme.typography.fontWeightRegular,
-// }));
-
-const AccordionDetailsWithStyles = styled(AccordionDetails)({
+const StyledAccordionDetails = styled(AccordionDetails)({
   display: "flex",
   flexDirection: "column",
 });
@@ -76,7 +71,7 @@ const AddGame = () => {
                 {result.name} ({result.yearPublished})
               </Typography>
             </AccordionSummary>
-            <AccordionDetailsWithStyles>
+            <StyledAccordionDetails>
               <Container>
                 <GameDetails game={result} />
                 <Button
@@ -108,7 +103,7 @@ const AddGame = () => {
                   Add This Game
                 </Button>
               </Container>
-            </AccordionDetailsWithStyles>
+            </StyledAccordionDetails>
           </Accordion>
         ))}
     </Container>

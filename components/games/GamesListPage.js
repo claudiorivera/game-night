@@ -13,11 +13,6 @@ import React, { Fragment, useContext, useEffect } from "react";
 import GameDetails from "./components/GameDetails";
 import { GamesContext } from "./context";
 
-// const Heading = styled(Typography)((theme) => ({
-//   fontSize: theme.typography.pxToRem(15),
-//   fontWeight: theme.typography.fontWeightRegular,
-// }));
-
 const ContainerWithMargin = styled(Container)({
   marginBottom: "1.5rem",
 });
