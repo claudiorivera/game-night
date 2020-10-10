@@ -15,9 +15,9 @@ handler
       .populate("game host guests")
       .sort({ eventDateTime: "asc" });
     if (events) {
-      res.status(200).json(events);
+      res.json({ success: true, data: events });
     } else {
-      res.status(400).json({ message: "Events not found" });
+      res.status(400).json({ success: false, message: "Events not found" });
     }
   })
   // POST api/events
@@ -31,13 +31,14 @@ handler
       });
       event.save((error, savedEvent) => {
         if (error)
-          return res
-            .status(400)
-            .json(error.message || { message: "Unable to add event" });
-        res.status(201).json(savedEvent);
+          return res.status(400).json({
+            success: false,
+            message: error.message || "Unable to add event",
+          });
+        res.status(201).json({ success: true, data: savedEvent });
       });
     } else {
-      res.status(400).json({ message: "Unauthorized user" });
+      res.status(400).json({ success: false, message: "Unauthorized user" });
     }
   });
 

@@ -12,11 +12,11 @@ handler
   .get(async (req, res) => {
     try {
       const games = await Game.find({}).sort({ numOfRatings: "desc" });
-      res.status(200).json(games);
+      res.json({ success: true, data: games });
     } catch (error) {
       return res
         .status(400)
-        .json({ message: error.message || "Games not found" });
+        .json({ success: false, message: error.message || "Games not found" });
     }
   })
   // POST api/games
@@ -45,11 +45,14 @@ handler
         if (error)
           return res
             .status(400)
-            .json({ message: error.message || "Unable to add game" });
-        res.status(201).json(savedGame);
+            .json({
+              success: false,
+              message: error.message || "Unable to add game",
+            });
+        res.status(201).json({ success: true, data: savedGame });
       });
     } else {
-      res.status(400).json({ message: "Unauthorized user" });
+      res.status(400).json({ success: false, message: "Unauthorized user" });
     }
   });
 

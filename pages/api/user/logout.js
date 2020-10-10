@@ -9,7 +9,7 @@ handler.use(middleware);
 // Logs out current user and returns a null user
 handler.get(async (req, res) => {
   req.logout();
-  res.status(200).json({ message: "Successfully logged out" });
+  res.json({ success: true, message: "Successfully logged out" });
 });
 
 export default handler;

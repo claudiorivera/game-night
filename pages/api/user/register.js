@@ -19,9 +19,14 @@ handler.post(async (req, res, next) => {
       if (error)
         return res
           .status(400)
-          .json({ message: error.message || "Unable to log in" });
+          .json({
+            success: false,
+            message: error.message || "Unable to log in",
+          });
       const { _id, name, email, isAdmin } = user;
-      res.status(201).json({ _id, name, email, isAdmin });
+      res
+        .status(201)
+        .json({ success: true, data: { _id, name, email, isAdmin } });
     });
   });
 });

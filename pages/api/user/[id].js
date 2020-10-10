@@ -21,11 +21,14 @@ handler
           })
             .populate("host game guests")
             .sort({ eventDateTime: "asc" });
-          res.status(200).json(events);
+          res.json({ success: true, data: events });
         } catch (error) {
           return res
             .status(400)
-            .json({ message: error.message || "Events not found" });
+            .json({
+              success: false,
+              message: error.message || "Events not found",
+            });
         }
       } else {
         try {
@@ -34,15 +37,18 @@ handler
               _id: req.query.id,
             },
           }).populate("host game guests");
-          res.status(200).json(events);
+          res.json({ success: true, data: events });
         } catch (error) {
           return res
             .status(400)
-            .json({ message: error.message || "Events not found" });
+            .json({
+              success: false,
+              message: error.message || "Events not found",
+            });
         }
       }
     } else {
-      res.status(400).json({ message: "Bad request" });
+      res.status(400).json({ success: false, message: "Bad request" });
     }
   })
   // DELETE api/user/id
@@ -53,7 +59,10 @@ handler
         if (error)
           return res
             .status(400)
-            .json({ message: error.message || "User not found" });
+            .json({
+              success: false,
+              message: error.message || "User not found",
+            });
         // https://stackoverflow.com/a/44342416
         Event.updateMany(
           { guests: user._id },
@@ -63,14 +72,17 @@ handler
             if (error) {
               return res
                 .status(400)
-                .json({ message: error.message || "Unable to delete user" });
+                .json({
+                  success: false,
+                  message: error.message || "Unable to delete user",
+                });
             }
           }
         );
-        res.status(200).json({ message: "Successfully deleted user" });
+        res.json({ success: true, message: "Successfully deleted user" });
       });
     } else {
-      res.status(400).json({ message: "No user" });
+      res.status(400).json({ success: false, message: "No user" });
     }
   });
 

@@ -16,22 +16,24 @@ handler
     if ("guests" in req.query) {
       try {
         const event = await Event.findById(req.query.id);
-        res.status(200).json(event.guests);
+        res.json({ success: true, data: event.guests });
       } catch (error) {
-        return res
-          .status(400)
-          .json({ message: error.message || "Event not found" });
+        return res.status(400).json({
+          success: false,
+          message: error.message || "Event not found",
+        });
       }
     } else {
       try {
         const event = await Event.findById(req.query.id).populate(
           "guests host game"
         );
-        res.status(200).json(event);
+        res.json({ success: true, data: event });
       } catch (error) {
-        return res
-          .status(400)
-          .json({ message: error.message || "Event not found" });
+        return res.status(400).json({
+          success: false,
+          message: error.message || "Event not found",
+        });
       }
     }
   })
@@ -42,13 +44,20 @@ handler
     if (event) {
       event.remove((error, removedEvent) => {
         if (error)
-          return res
-            .status(400)
-            .json({ message: error.message || "Unable to remove event" });
-        res.status(200).json({ message: "Successfully deleted", removedEvent });
+          return res.status(400).json({
+            success: false,
+            message: error.message || "Unable to remove event",
+          });
+        res.json({
+          success: true,
+          message: "Successfully deleted",
+          data: removedEvent,
+        });
       });
     } else {
-      return res.status(400).json({ message: "Event not found" });
+      return res
+        .status(400)
+        .json({ success: false, message: "Event not found" });
     }
   })
   // PUT api/events/id
@@ -61,32 +70,37 @@ handler
         const event = await Event.findById(req.query.id);
         if (event) {
           if (event.host.toString() === req.user._id.toString()) {
-            return res
-              .status(400)
-              .json({ message: "Can't join an event you're hosting" });
+            return res.status(400).json({
+              success: false,
+              message: "Can't join an event you're hosting",
+            });
           }
           event.guests.addToSet(req.user);
           const user = await User.findById(req.user._id);
           user.events.push(event);
           await user.save((error) => {
             if (error)
-              return res
-                .status(400)
-                .json({ message: error.message || "Unable to join event" });
+              return res.status(400).json({
+                success: false,
+                message: error.message || "Unable to join event",
+              });
           });
           await event.save((error) => {
             if (error) {
-              return res
-                .status(400)
-                .json(error.message || { message: "Unable to join event" });
+              return res.status(400).json({
+                success: false,
+                message: error.message || "Unable to join event",
+              });
             }
-            res.status(200).json(event);
+            res.json({ success: true, data: event });
           });
         } else {
-          return res.status(400).json({ message: "Event not found" });
+          return res
+            .status(400)
+            .json({ success: false, message: "Event not found" });
         }
       } else {
-        res.status(400).json({ message: "Unauthorized user" });
+        res.status(400).json({ success: false, message: "Unauthorized user" });
       }
       // PUT api/events/id?leave
       // Removes current user from event with given id
@@ -96,6 +110,7 @@ handler
         if (event) {
           if (event.host.toString() === req.user._id.toString()) {
             return res.status(400).json({
+              success: false,
               message:
                 "Can't leave an event you're hosting. Delete the event instead.",
             });
@@ -105,42 +120,48 @@ handler
           user.events.pull(event);
           await user.save((error) => {
             if (error)
-              return res
-                .status(400)
-                .json({ message: error.message || "Unable to leave event" });
+              return res.status(400).json({
+                success: false,
+                message: error.message || "Unable to leave event",
+              });
           });
           await event.save((error, savedEvent) => {
             if (error)
-              return res
-                .status(400)
-                .json({ message: error.message || "Unable to leave event" });
+              return res.status(400).json({
+                success: false,
+                message: error.message || "Unable to leave event",
+              });
 
-            res.status(200).json(savedEvent);
+            res.json({ success: true, data: savedEvent });
           });
         } else {
-          return res.status(400).json({ message: "Event not found" });
+          return res
+            .status(400)
+            .json({ success: false, message: "Event not found" });
         }
       } else {
-        res.status(400).json({ message: "Unauthorized user" });
+        res.status(400).json({ success: false, message: "Unauthorized user" });
       }
     } else {
       if (req.user) {
         await Event.findById(req.query.id, (error, event) => {
           if (error)
-            return res
-              .status(400)
-              .json({ message: error.message || "Event not found" });
+            return res.status(400).json({
+              success: false,
+              message: error.message || "Event not found",
+            });
           event.set(req.body);
           event.save((error, updatedEvent) => {
             if (error)
-              return res
-                .status(400)
-                .json({ message: error.message || "Unable to save event" });
-            res.status(200).json(updatedEvent);
+              return res.status(400).json({
+                success: false,
+                message: error.message || "Unable to save event",
+              });
+            res.json({ success: true, data: updatedEvent });
           });
         });
       } else {
-        res.status(400).json({ message: "Unauthorized user" });
+        res.status(400).json({ success: false, message: "Unauthorized user" });
       }
     }
   });

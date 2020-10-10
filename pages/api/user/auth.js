@@ -10,9 +10,12 @@ handler.use(middleware);
 handler.get(async (req, res) => {
   if (req.user) {
     const { isAdmin, _id, email, name, dateCreated } = req.user;
-    res.status(200).json({ isAdmin, _id, email, name, dateCreated });
+    res.json({
+      success: true,
+      data: { isAdmin, _id, email, name, dateCreated },
+    });
   } else {
-    res.status(200).json({ message: "No user" });
+    res.json({ success: false, message: "No user" });
   }
 });
 
