@@ -20,33 +20,32 @@ handler
   // POST api/games
   // Adds game and returns the game
   .post(async (req, res) => {
-    const gameToAdd = {
-      name: req.body.name,
-      imageSrc: req.body.imageSrc,
-      thumbnailSrc: req.body.thumbnailSrc,
-      description: req.body.description,
-      authors: req.body.authors,
-      categories: req.body.categories,
-      gameMechanics: req.body.gameMechanics,
-      bggId: req.body.bggId,
-      yearPublished: req.body.yearPublished,
-      minPlayers: req.body.minPlayers,
-      maxPlayers: req.body.maxPlayers,
-      playingTime: req.body.playingTime,
-      minAge: req.body.minAge,
-      rating: req.body.rating,
-      numOfRatings: req.body.numOfRatings,
-    };
-
     if (req.user?.isAdmin) {
-      const addedGame = await Game.create(gameToAdd);
-      if (addedGame) {
-        res.status(200).json(addedGame);
-      } else {
-        res
-          .status(400)
-          .json(error.message || { message: "Something went wrong :(" });
-      }
+      const game = new Game({
+        name: req.body.name,
+        imageSrc: req.body.imageSrc,
+        thumbnailSrc: req.body.thumbnailSrc,
+        description: req.body.description,
+        authors: req.body.authors,
+        categories: req.body.categories,
+        gameMechanics: req.body.gameMechanics,
+        bggId: req.body.bggId,
+        yearPublished: req.body.yearPublished,
+        minPlayers: req.body.minPlayers,
+        maxPlayers: req.body.maxPlayers,
+        playingTime: req.body.playingTime,
+        minAge: req.body.minAge,
+        rating: req.body.rating,
+        numOfRatings: req.body.numOfRatings,
+      });
+
+      game.save((error, savedGame) => {
+        if (error)
+          return res
+            .status(400)
+            .json(error.message || { message: "Something went wrong :(" });
+        res.status(201).json(savedGame);
+      });
     } else {
       res.status(400).json({ message: "Unauthorized user" });
     }

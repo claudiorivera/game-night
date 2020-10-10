@@ -56,8 +56,9 @@ handler
             { multi: true },
             (error) => {
               if (error) {
-                console.log(error);
-                return res.status(400).json(null);
+                return res
+                  .status(400)
+                  .json({ message: error.message || "Something went wrong." });
               }
             }
           );

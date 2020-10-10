@@ -24,21 +24,18 @@ handler
   // POST api/events
   // Adds a new event and returns the event
   .post(async (req, res) => {
-    const eventToAdd = {
-      host: req.user,
-      eventDateTime: req.body.eventDateTime,
-      game: req.body.gameId,
-    };
-
     if (req.user) {
-      const addedEvent = new Event(eventToAdd);
-      addedEvent.save((error) => {
-        if (error) {
+      const event = new Event({
+        host: req.user,
+        eventDateTime: req.body.eventDateTime,
+        game: req.body.gameId,
+      });
+      event.save((error, savedEvent) => {
+        if (error)
           return res
             .status(400)
             .json(error.message || { message: "Something went wrong :(" });
-        }
-        res.status(201).json({ message: "Success" });
+        res.status(201).json(savedEvent);
       });
     } else {
       res.status(400).json({ message: "Unauthorized user" });
