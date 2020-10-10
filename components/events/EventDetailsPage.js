@@ -17,6 +17,7 @@ import { styled } from "@material-ui/core/styles";
 import { ArrowBack as ArrowBackIcon } from "@material-ui/icons";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
+import { AppContext } from "../app/context";
 import { EventsContext } from "../events/context";
 import GameDetails from "../games/components/GameDetails";
 import { UserContext } from "../user/context";
@@ -37,11 +38,16 @@ const EventDetailsPage = ({ id }) => {
   const { deleteEventById, leaveEventById, joinEventById } = useContext(
     EventsContext
   );
+  const { createAlertWithMessage } = useContext(AppContext);
 
   useEffect(() => {
     const getEventById = async (eventId) => {
-      const { data } = await axios.get(`/api/events/${eventId}`);
-      setEvent(data);
+      const response = await axios.get(`/api/events/${eventId}`);
+      if (response.data.success) {
+        setEvent(response.data.event);
+      } else {
+        createAlertWithMessage(response.data.message);
+      }
     };
     getEventById(id);
   }, []);

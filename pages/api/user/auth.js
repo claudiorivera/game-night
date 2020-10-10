@@ -12,7 +12,7 @@ handler.get(async (req, res) => {
     const { isAdmin, _id, email, name, dateCreated } = req.user;
     res.json({
       success: true,
-      data: { isAdmin, _id, email, name, dateCreated },
+      user: { isAdmin, _id, email, name, dateCreated },
     });
   } else {
     res.json({ success: false, message: "No user" });

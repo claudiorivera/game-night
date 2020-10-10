@@ -12,7 +12,7 @@ handler
   .get(async (req, res) => {
     try {
       const games = await Game.find({}).sort({ numOfRatings: "desc" });
-      res.json({ success: true, data: games });
+      res.json({ success: true, games });
     } catch (error) {
       return res
         .status(400)
@@ -43,13 +43,11 @@ handler
 
       game.save((error, savedGame) => {
         if (error)
-          return res
-            .status(400)
-            .json({
-              success: false,
-              message: error.message || "Unable to add game",
-            });
-        res.status(201).json({ success: true, data: savedGame });
+          return res.status(400).json({
+            success: false,
+            message: error.message || "Unable to add game",
+          });
+        res.status(201).json({ success: true, game: savedGame });
       });
     } else {
       res.status(400).json({ success: false, message: "Unauthorized user" });

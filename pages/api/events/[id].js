@@ -16,7 +16,7 @@ handler
     if ("guests" in req.query) {
       try {
         const event = await Event.findById(req.query.id);
-        res.json({ success: true, data: event.guests });
+        res.json({ success: true, guests: event.guests });
       } catch (error) {
         return res.status(400).json({
           success: false,
@@ -28,7 +28,7 @@ handler
         const event = await Event.findById(req.query.id).populate(
           "guests host game"
         );
-        res.json({ success: true, data: event });
+        res.json({ success: true, event });
       } catch (error) {
         return res.status(400).json({
           success: false,
@@ -51,7 +51,7 @@ handler
         res.json({
           success: true,
           message: "Successfully deleted",
-          data: removedEvent,
+          event: removedEvent,
         });
       });
     } else {
@@ -92,7 +92,7 @@ handler
                 message: error.message || "Unable to join event",
               });
             }
-            res.json({ success: true, data: event });
+            res.json({ success: true, event });
           });
         } else {
           return res
@@ -132,7 +132,7 @@ handler
                 message: error.message || "Unable to leave event",
               });
 
-            res.json({ success: true, data: savedEvent });
+            res.json({ success: true, event: savedEvent });
           });
         } else {
           return res
@@ -157,7 +157,7 @@ handler
                 success: false,
                 message: error.message || "Unable to save event",
               });
-            res.json({ success: true, data: updatedEvent });
+            res.json({ success: true, event: updatedEvent });
           });
         });
       } else {

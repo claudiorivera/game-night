@@ -21,14 +21,12 @@ handler
           })
             .populate("host game guests")
             .sort({ eventDateTime: "asc" });
-          res.json({ success: true, data: events });
+          res.json({ success: true, events });
         } catch (error) {
-          return res
-            .status(400)
-            .json({
-              success: false,
-              message: error.message || "Events not found",
-            });
+          return res.status(400).json({
+            success: false,
+            message: error.message || "Events not found",
+          });
         }
       } else {
         try {
@@ -37,14 +35,12 @@ handler
               _id: req.query.id,
             },
           }).populate("host game guests");
-          res.json({ success: true, data: events });
+          res.json({ success: true, events });
         } catch (error) {
-          return res
-            .status(400)
-            .json({
-              success: false,
-              message: error.message || "Events not found",
-            });
+          return res.status(400).json({
+            success: false,
+            message: error.message || "Events not found",
+          });
         }
       }
     } else {
@@ -57,12 +53,10 @@ handler
     if (req.user) {
       await User.findById(req.query.id, (error, user) => {
         if (error)
-          return res
-            .status(400)
-            .json({
-              success: false,
-              message: error.message || "User not found",
-            });
+          return res.status(400).json({
+            success: false,
+            message: error.message || "User not found",
+          });
         // https://stackoverflow.com/a/44342416
         Event.updateMany(
           { guests: user._id },
@@ -70,12 +64,10 @@ handler
           { multi: true },
           (error) => {
             if (error) {
-              return res
-                .status(400)
-                .json({
-                  success: false,
-                  message: error.message || "Unable to delete user",
-                });
+              return res.status(400).json({
+                success: false,
+                message: error.message || "Unable to delete user",
+              });
             }
           }
         );

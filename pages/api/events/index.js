@@ -15,7 +15,7 @@ handler
       .populate("game host guests")
       .sort({ eventDateTime: "asc" });
     if (events) {
-      res.json({ success: true, data: events });
+      res.json({ success: true, events });
     } else {
       res.status(400).json({ success: false, message: "Events not found" });
     }
@@ -35,7 +35,7 @@ handler
             success: false,
             message: error.message || "Unable to add event",
           });
-        res.status(201).json({ success: true, data: savedEvent });
+        res.status(201).json({ success: true, event: savedEvent });
       });
     } else {
       res.status(400).json({ success: false, message: "Unauthorized user" });

@@ -15,21 +15,25 @@ export const GamesProvider = ({ children }) => {
 
   const addGame = async (gameToAdd) => {
     try {
-      await axios.post("/api/games", {
+      const response = await axios.post("/api/games", {
         ...gameToAdd,
       });
-      createAlertWithMessage("Add game successful!");
+      createAlertWithMessage(response.data.message);
     } catch (error) {
       createAlertWithMessage(error.response.data);
     }
   };
   const getAllGames = async () => {
     try {
-      const { data: games } = await axios.get("/api/games");
-      dispatch({
-        type: "GET_GAMES_LIST_SUCCESSFUL_WITH_GAMES",
-        games,
-      });
+      const response = await axios.get("/api/games");
+      if (response.data.success) {
+        dispatch({
+          type: "GET_GAMES_LIST_SUCCESSFUL_WITH_GAMES",
+          games,
+        });
+      } else {
+        createAlertWithMessage(response.data.message);
+      }
     } catch (error) {
       createAlertWithMessage(error.response.data);
     }

@@ -10,7 +10,7 @@ handler.use(middleware);
 // Returns user if successfully authenticated
 handler.post(passport.authenticate("local"), (req, res) => {
   const { _id, name, email, isAdmin } = req.user;
-  res.json({ success: true, data: { _id, name, email, isAdmin } });
+  res.json({ success: true, user: { _id, name, email, isAdmin } });
 });
 
 export default handler;

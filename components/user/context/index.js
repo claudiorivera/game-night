@@ -3,9 +3,6 @@ import { AppContext } from "../../app/context";
 import { reducer } from "./reducer";
 const axios = require("axios").default;
 
-// TODO: Use localStorage client side? Or handle that server-side?
-// https://medium.com/@akrush95/global-cached-state-in-react-using-hooks-context-and-local-storage-166eacf8ab46
-
 const initialState = {
   user: null,
 };
@@ -18,24 +15,38 @@ export const UserProvider = ({ children }) => {
 
   const registerUser = async (name, email, password) => {
     try {
-      const { data: user } = await axios.post("/api/user/register", {
+      const response = await axios.post("/api/user/register", {
         name,
         email: email.toLowerCase(),
         password,
       });
-      dispatch({ type: "REGISTER_USER_SUCCESSFUL_WITH_USER", user });
+      if (response.data.success) {
+        dispatch({
+          type: "REGISTER_USER_SUCCESSFUL_WITH_USER",
+          user: response.data.user,
+        });
+      } else {
+        createAlertWithMessage(response.data.message);
+      }
     } catch (error) {
-      createAlertWithMessage(error.response.data);
+      createAlertWithMessage(error.response?.data);
     }
   };
 
   const loginUser = async (email, password) => {
     try {
-      const { data: user } = await axios.post("/api/user/login", {
+      const response = await axios.post("/api/user/login", {
         email: email.toLowerCase(),
         password,
       });
-      dispatch({ type: "LOGIN_SUCCESSFUL_WITH_USER", user });
+      if (response.data.success) {
+        dispatch({
+          type: "LOGIN_SUCCESSFUL_WITH_USER",
+          user: response.data.user,
+        });
+      } else {
+        createAlertWithMessage(response.data.message);
+      }
     } catch (error) {
       createAlertWithMessage(error.response.data);
     }
@@ -43,18 +54,26 @@ export const UserProvider = ({ children }) => {
 
   const logoutUser = async () => {
     try {
-      const { data: user } = await axios.get("/api/user/logout");
-      dispatch({ type: "LOGOUT_SUCCESSFUL_WITH_USER", user });
+      const response = await axios.get("/api/user/logout");
+      if (response.data.success) {
+        dispatch({ type: "LOGOUT_SUCCESSFUL" });
+      } else {
+        createAlertWithMessage(response.data.message);
+      }
     } catch (error) {
       createAlertWithMessage(error.response.data);
     }
   };
 
-  const deleteUserById = async (_id) => {
+  const deleteUserById = async (id) => {
     try {
-      const { data: user } = await axios.delete(`/api/user/${_id}`);
-      dispatch({ type: "DELETE_USER_BY_ID_SUCCESSFUL_WITH_USER", user });
-      createAlertWithMessage("User successfully deleted");
+      const response = await axios.delete(`/api/user/${id}`);
+      if (response.data.success) {
+        dispatch({ type: "DELETE_USER_BY_ID_SUCCESSFUL" });
+        createAlertWithMessage(response.data.message);
+      } else {
+        createAlertWithMessage(response.data.message);
+      }
     } catch (error) {
       createAlertWithMessage(error.response.data);
     }
@@ -62,31 +81,47 @@ export const UserProvider = ({ children }) => {
 
   const authUser = async () => {
     try {
-      const { data: user } = await axios.get("/api/user/auth");
-      dispatch({ type: "AUTH_USER_SUCCESSFUL_WITH_USER", user });
+      const response = await axios.get("/api/user/auth");
+      if (response.data.success) {
+        dispatch({
+          type: "AUTH_USER_SUCCESSFUL_WITH_USER",
+          user: response.data.user,
+        });
+      } else {
+        createAlertWithMessage(response.data.message);
+      }
     } catch (error) {
       createAlertWithMessage(error.response.data);
     }
   };
 
-  const getUserEvents = async (userId) => {
+  const getUserEvents = async (id) => {
     try {
-      const { data: events } = await axios.get(`/api/user/${userId}?events`);
-      dispatch({ type: "GET_USER_EVENTS_SUCCESSFUL_WITH_EVENTS", events });
+      const response = await axios.get(`/api/user/${id}?events`);
+      if (response.data.success) {
+        dispatch({
+          type: "GET_USER_EVENTS_SUCCESSFUL_WITH_EVENTS",
+          events: response.data.events,
+        });
+      } else {
+        createAlertWithMessage(response.data.message);
+      }
     } catch (error) {
       createAlertWithMessage(error.response.data);
     }
   };
 
-  const getUserEventsHosting = async (userId) => {
+  const getUserEventsHosting = async (id) => {
     try {
-      const { data: events } = await axios.get(
-        `/api/user/${userId}?events=hosting`
-      );
-      dispatch({
-        type: "GET_USER_EVENTS_HOSTING_SUCCESSFUL_WITH_EVENTS",
-        events,
-      });
+      const response = await axios.get(`/api/user/${id}?events=hosting`);
+      if (response.data.success) {
+        dispatch({
+          type: "GET_USER_EVENTS_HOSTING_SUCCESSFUL_WITH_EVENTS",
+          events: response.data.events,
+        });
+      } else {
+        createAlertWithMessage(response.data.message);
+      }
     } catch (error) {
       createAlertWithMessage(error.response.data);
     }
