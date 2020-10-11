@@ -1,2 +1,0 @@
-- <PrivateRoute path="/events/:eventId/edit">
-- <EditEventPage />
