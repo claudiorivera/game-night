@@ -22,9 +22,11 @@ handler.post(async (req, res, next) => {
           message: error.message || "Unable to log in",
         });
       const { _id, name, email, isAdmin } = user;
-      res
-        .status(201)
-        .json({ success: true, user: { _id, name, email, isAdmin } });
+      res.status(201).json({
+        success: true,
+        message: "Successfully registered",
+        user: { _id, name, email, isAdmin },
+      });
     });
   });
 });

@@ -9,10 +9,27 @@ handler.use(middleware);
 // Returns a user if logged in or null if onot
 handler.get(async (req, res) => {
   if (req.user) {
-    const { isAdmin, _id, email, name, dateCreated } = req.user;
+    const {
+      isAdmin,
+      _id,
+      email,
+      name,
+      events,
+      eventsHosting,
+      dateCreated,
+    } = req.user;
     res.json({
       success: true,
-      user: { isAdmin, _id, email, name, dateCreated },
+      message: "Successfully authed user",
+      user: {
+        isAdmin,
+        _id,
+        email,
+        name,
+        events,
+        eventsHosting,
+        dateCreated,
+      },
     });
   } else {
     res.json({ success: false, message: "No user" });

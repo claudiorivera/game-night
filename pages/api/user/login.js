@@ -9,8 +9,20 @@ handler.use(middleware);
 // POST api/user/login
 // Returns user if successfully authenticated
 handler.post(passport.authenticate("local"), (req, res) => {
-  const { _id, name, email, isAdmin } = req.user;
-  res.json({ success: true, user: { _id, name, email, isAdmin } });
+  const {
+    isAdmin,
+    _id,
+    email,
+    name,
+    events,
+    eventsHosting,
+    dateCreated,
+  } = req.user;
+  res.json({
+    success: true,
+    message: "Successfully logged in",
+    user: { isAdmin, _id, email, name, events, eventsHosting, dateCreated },
+  });
 });
 
 export default handler;

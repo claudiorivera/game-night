@@ -20,10 +20,15 @@ handler
             },
           })
             .populate("host game guests")
-            .sort({ eventDateTime: "asc" });
-          res.json({ success: true, events });
+            .sort({ eventDateTime: "asc" })
+            .lean();
+          res.json({
+            success: true,
+            message: "Successfully fetched user events",
+            events,
+          });
         } catch (error) {
-          return res.status(400).json({
+          res.status(400).json({
             success: false,
             message: error.message || "Events not found",
           });
@@ -34,8 +39,14 @@ handler
             guests: {
               _id: req.query.id,
             },
-          }).populate("host game guests");
-          res.json({ success: true, events });
+          })
+            .populate("host game guests")
+            .lean();
+          res.json({
+            success: true,
+            message: "Successfully fetched user events",
+            events,
+          });
         } catch (error) {
           return res.status(400).json({
             success: false,
@@ -51,28 +62,14 @@ handler
   // Deletes user with given id
   .delete(async (req, res) => {
     if (req.user) {
-      await User.findById(req.query.id, (error, user) => {
-        if (error)
-          return res.status(400).json({
-            success: false,
-            message: error.message || "User not found",
-          });
-        // https://stackoverflow.com/a/44342416
-        Event.updateMany(
-          { guests: user._id },
-          { $pull: { guests: user._id } },
-          { multi: true },
-          (error) => {
-            if (error) {
-              return res.status(400).json({
-                success: false,
-                message: error.message || "Unable to delete user",
-              });
-            }
-          }
-        );
-        res.json({ success: true, message: "Successfully deleted user" });
-      });
+      const user = await User.findById(req.query.id);
+      // https://stackoverflow.com/a/44342416
+      await Event.updateMany(
+        { guests: user._id },
+        { $pull: { guests: user._id } },
+        { multi: true }
+      );
+      res.json({ success: true, message: "Successfully deleted user" });
     } else {
       res.status(400).json({ success: false, message: "No user" });
     }
