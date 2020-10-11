@@ -15,7 +15,7 @@ export const EventsProvider = ({ children }) => {
 
   const leaveEventById = async (id) => {
     try {
-      const response = await axios.put(`/api/events/${id}?leave`);
+      const response = await axios.put(`/api/events/${id}?action=leave`);
       createAlertWithMessage(response.data.message);
     } catch (error) {
       createAlertWithMessage(error.response.data);
@@ -33,7 +33,7 @@ export const EventsProvider = ({ children }) => {
 
   const joinEventById = async (id) => {
     try {
-      const response = await axios.put(`/api/events/${id}?join`);
+      const response = await axios.put(`/api/events/${id}?action=join`);
       createAlertWithMessage(response.data.message);
     } catch (error) {
       createAlertWithMessage(error.response.data);
@@ -83,7 +83,7 @@ export const EventsProvider = ({ children }) => {
 
   const updateEvent = async (eventId, gameId, eventDateTime) => {
     try {
-      const response = await axios.put(`/api/events/${eventId}`, {
+      const response = await axios.put(`/api/events/${eventId}?action=edit`, {
         gameId,
         eventDateTime,
       });
