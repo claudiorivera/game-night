@@ -15,11 +15,11 @@ handler
     // Returns guests attending event with given id
     if ("guests" in req.query) {
       try {
-        const event = await Event.findById(req.query.id).lean();
+        const eventGuests = await Event.findById(req.query.id).lean();
         res.json({
           success: true,
           message: "Successfully fetched guests attending event",
-          guests: event.guests,
+          guests: eventGuests.guests,
         });
       } catch (error) {
         res.status(400).json({
@@ -49,8 +49,8 @@ handler
   // Deletes event with given id
   .delete(async (req, res) => {
     try {
-      const event = await Event.findById(req.query.id);
-      const removedEvent = await event.remove();
+      const eventToRemove = await Event.findById(req.query.id);
+      const removedEvent = await eventToRemove.remove();
       res.json({
         success: true,
         message: "Successfully deleted",
@@ -71,58 +71,76 @@ handler
         // PUT api/events/id?action=join
         // Adds current user to event with given id
         case "join":
-          const event = await Event.findById(req.query.id);
-          if (event.host.toString() === req.user._id.toString()) {
-            return res.status(400).json({
-              success: false,
-              message: "Can't join an event you're hosting",
-            });
+          try {
+            const eventToJoin = await Event.findById(req.query.id);
+            if (eventToJoin.host.toString() === req.user._id.toString()) {
+              return res.status(400).json({
+                success: false,
+                message: "Can't join an event you're hosting",
+              });
+            }
+            eventToJoin.guests.addToSet(req.user);
+            const userJoining = await User.findById(req.user._id);
+            userJoining.events.push(eventToJoin);
+            await userJoining.save();
+            await eventToJoin.save();
+          } catch (error) {
+            res
+              .status(400)
+              .json({ success: false, message: "Unable to join event" });
           }
-          event.guests.addToSet(req.user);
-          const user = await User.findById(req.user._id);
-          user.events.push(event);
-          await user.save();
-          await event.save();
           break;
         // PUT api/events/id?action=leave
         // Removes current user from event with given id
         case "leave":
-          const event = await Event.findById(req.query.id);
-          if (event.host.toString() === req.user._id.toString()) {
-            return res.status(400).json({
-              success: false,
-              message:
-                "Can't leave an event you're hosting. Delete the event instead.",
+          try {
+            const eventToLeave = await Event.findById(req.query.id);
+            if (eventToLeave.host.toString() === req.user._id.toString()) {
+              return res.status(400).json({
+                success: false,
+                message:
+                  "Can't leave an event you're hosting. Delete the event instead.",
+              });
+            }
+            eventToLeave.guests.pull(req.user);
+            const userLeaving = await User.findById(req.user._id);
+            userLeaving.events.pull(eventToLeave);
+            await userLeaving.save();
+            const savedEvent = await eventToLeave.save();
+            res.json({
+              success: true,
+              message: "Successfully left event",
+              event: savedEvent,
             });
+          } catch (error) {
+            res
+              .status(400)
+              .json({ success: false, message: "Unable to leave event" });
           }
-          event.guests.pull(req.user);
-          const user = await User.findById(req.user._id);
-          user.events.pull(event);
-          await user.save();
-          const savedEvent = await event.save();
-          res.json({
-            success: true,
-            message: "Successfully left event",
-            event: savedEvent,
-          });
           break;
         // PUT api/events/id?action=edit
         // Updates event with given id
         case "edit":
-          await Event.findById(req.query.id, (error, event) => {
-            if (error)
-              return res.status(400).json({
-                success: false,
-                message: error.message || "Event not found",
+          try {
+            await Event.findById(req.query.id, (error, eventToEdit) => {
+              if (error)
+                return res.status(400).json({
+                  success: false,
+                  message: error.message || "Event not found",
+                });
+              eventToEdit.set(req.body);
+              const updatedEvent = eventToEdit.save();
+              res.json({
+                success: true,
+                message: "Successfully updated event",
+                event: updatedEvent,
               });
-            event.set(req.body);
-            const updatedEvent = event.save();
-            res.json({
-              success: true,
-              message: "Successfully updated event",
-              event: updatedEvent,
             });
-          });
+          } catch (error) {
+            res
+              .status(400)
+              .json({ success: false, message: "Unable to edit event" });
+          }
           break;
         default:
           res
