@@ -62,7 +62,7 @@ const GameList = () => {
                 </AccordionDetails>
               </Accordion>
             ))
-          : "Loading..."}
+          : ""}
       </Container>
     </Fragment>
   );
