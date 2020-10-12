@@ -24,6 +24,12 @@ const User = new mongoose.Schema({
       ref: "Event",
     },
   ],
+  eventsHosting: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Event",
+    },
+  ],
 });
 
 User.plugin(passportLocalMongoose, {

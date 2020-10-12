@@ -1,7 +1,7 @@
-import { Restaurant } from "@material-ui/icons";
 import nextConnect from "next-connect";
 import middleware from "../../../middleware";
 import Event from "../../../models/Event";
+import User from "../../../models/User";
 
 const handler = nextConnect();
 
@@ -12,10 +12,7 @@ handler
   // Returns all events
   .get(async (_, res) => {
     try {
-      const events = await Event.find({})
-        .populate("game host guests")
-        .sort({ eventDateTime: "asc" })
-        .lean();
+      const events = await Event.find({}).sort({ eventDateTime: "asc" }).lean();
       res.json({
         success: true,
         message: "Successfully fetched all events",
@@ -35,7 +32,10 @@ handler
           eventDateTime: req.body.eventDateTime,
           game: req.body.gameId,
         });
+        const user = await User.findById(req.user._id).exec();
+        user.eventsHosting.push(event);
         const savedEvent = await event.save();
+        await user.save();
         res.status(201).json({
           success: true,
           message: "Successfully added event",

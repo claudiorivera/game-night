@@ -21,11 +21,27 @@ handler.post(async (req, res, next) => {
           success: false,
           message: error.message || "Unable to log in",
         });
-      const { _id, name, email, isAdmin } = user;
+      const {
+        _id,
+        email,
+        name,
+        events,
+        eventsHosting,
+        isAdmin,
+        dateCreated,
+      } = user;
       res.status(201).json({
         success: true,
         message: "Successfully registered",
-        user: { _id, name, email, isAdmin },
+        user: {
+          _id,
+          email,
+          name,
+          events,
+          eventsHosting,
+          isAdmin,
+          dateCreated,
+        },
       });
     });
   });

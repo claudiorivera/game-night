@@ -10,29 +10,29 @@ handler.use(middleware);
 handler.get(async (req, res) => {
   if (req.user) {
     const {
-      isAdmin,
       _id,
       email,
       name,
       events,
       eventsHosting,
+      isAdmin,
       dateCreated,
     } = req.user;
     res.json({
       success: true,
       message: "Successfully authed user",
       user: {
-        isAdmin,
         _id,
         email,
         name,
         events,
         eventsHosting,
+        isAdmin,
         dateCreated,
       },
     });
   } else {
-    res.json({ success: false, message: "No user" });
+    res.json({ success: false, message: "Unabled to auth user" });
   }
 });
 

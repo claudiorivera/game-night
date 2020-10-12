@@ -11,51 +11,44 @@ handler
   // GET api/user/id?events
   // Returns events for user with given id
   .get(async (req, res) => {
-    if ("events" in req.query) {
-      if (req.query.events === "hosting") {
+    switch (req.query.events) {
+      case "hosting":
         try {
-          const events = await Event.find({
-            host: {
-              _id: req.query.id,
-            },
-          })
-            .populate("host game guests")
-            .sort({ eventDateTime: "asc" })
-            .lean();
+          const user = await User.findById(req.query.id);
           res.json({
             success: true,
-            message: "Successfully fetched user events",
-            events,
+            message: "Successfully fetched events user hosting",
+            events: user.eventsHosting,
           });
         } catch (error) {
           res.status(400).json({
             success: false,
-            message: error.message || "Events not found",
+            message: error.message || "Hosting events not found",
           });
         }
-      } else {
+        return;
+      case "attending":
         try {
           const events = await Event.find({
             guests: {
               _id: req.query.id,
             },
-          })
-            .populate("host game guests")
-            .lean();
+          }).lean();
           res.json({
             success: true,
-            message: "Successfully fetched user events",
+            message: "Successfully fetched events user attending",
             events,
           });
         } catch (error) {
           return res.status(400).json({
             success: false,
-            message: error.message || "Events not found",
+            message: error.message || "Attending events not found",
           });
         }
-      }
-    } else {
-      res.status(400).json({ success: false, message: "Bad request" });
+        return;
+      default:
+        res.status(400).json({ success: false, message: "Bad request" });
+        return;
     }
   })
   // DELETE api/user/id

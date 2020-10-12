@@ -10,18 +10,26 @@ handler.use(middleware);
 // Returns user if successfully authenticated
 handler.post(passport.authenticate("local"), (req, res) => {
   const {
-    isAdmin,
     _id,
     email,
     name,
     events,
     eventsHosting,
+    isAdmin,
     dateCreated,
   } = req.user;
   res.json({
     success: true,
     message: "Successfully logged in",
-    user: { isAdmin, _id, email, name, events, eventsHosting, dateCreated },
+    user: {
+      _id,
+      email,
+      name,
+      events,
+      eventsHosting,
+      isAdmin,
+      dateCreated,
+    },
   });
 });
 

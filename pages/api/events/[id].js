@@ -15,11 +15,11 @@ handler
     // Returns guests attending event with given id
     if ("guests" in req.query) {
       try {
-        const eventGuests = await Event.findById(req.query.id).lean();
+        const event = await Event.findById(req.query.id).lean();
         res.json({
           success: true,
           message: "Successfully fetched guests attending event",
-          guests: eventGuests.guests,
+          guests: event.guests,
         });
       } catch (error) {
         res.status(400).json({
@@ -29,9 +29,7 @@ handler
       }
     } else {
       try {
-        const event = await Event.findById(req.query.id)
-          .populate("guests host game")
-          .lean();
+        const event = await Event.findById(req.query.id).lean();
         res.json({
           success: true,
           message: "Successfully fetched event",
@@ -84,12 +82,14 @@ handler
             userJoining.events.push(eventToJoin);
             await userJoining.save();
             await eventToJoin.save();
+            res.json({ success: true, message: "Successfully joined event!" });
           } catch (error) {
-            res
-              .status(400)
-              .json({ success: false, message: "Unable to join event" });
+            res.status(400).json({
+              success: false,
+              message: error.message || "Unable to join event",
+            });
           }
-          break;
+          return;
         // PUT api/events/id?action=leave
         // Removes current user from event with given id
         case "leave":
@@ -117,7 +117,7 @@ handler
               .status(400)
               .json({ success: false, message: "Unable to leave event" });
           }
-          break;
+          return;
         // PUT api/events/id?action=edit
         // Updates event with given id
         case "edit":
@@ -141,7 +141,7 @@ handler
               .status(400)
               .json({ success: false, message: "Unable to edit event" });
           }
-          break;
+          return;
         default:
           res
             .status(400)
