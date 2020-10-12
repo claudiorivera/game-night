@@ -29,11 +29,15 @@ handler.get(async (req, res) => {
   } else {
     try {
       const event = await Event.findById(req.query.id).lean();
-      res.json({
-        success: true,
-        message: "Successfully fetched event",
-        event,
-      });
+      if (event) {
+        res.json({
+          success: true,
+          message: "Successfully fetched event",
+          event,
+        });
+      } else {
+        throw new Error("No event found with that id");
+      }
     } catch (error) {
       res.status(400).json({
         success: false,
@@ -48,11 +52,10 @@ handler.get(async (req, res) => {
 handler.delete(async (req, res) => {
   try {
     const eventToRemove = await Event.findById(req.query.id);
-    const removedEvent = await eventToRemove.remove();
+    await eventToRemove.remove();
     res.json({
       success: true,
       message: "Successfully deleted event",
-      event: removedEvent,
     });
   } catch (error) {
     res.status(400).json({

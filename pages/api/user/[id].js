@@ -62,6 +62,7 @@ handler.delete(async (req, res) => {
       { $pull: { guests: user._id } },
       { multi: true }
     );
+    await user.remove();
     res.json({ success: true, message: "Successfully deleted user" });
   } else {
     res.status(400).json({ success: false, message: "No user" });

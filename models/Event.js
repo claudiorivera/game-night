@@ -30,12 +30,16 @@ const Event = new mongoose.Schema({
 });
 
 // https://stackoverflow.com/questions/39424531/mongoose-mongodb-remove-an-element-on-an-array
-Event.pre("remove", function (next) {
-  User.updateMany(
+Event.pre("remove", async function () {
+  await User.updateMany(
     { events: this },
     { $pull: { events: this._id } },
     { multi: true }
-  ).exec(next);
+  );
+  await User.updateOne(
+    { eventsHosting: this },
+    { $pull: { eventsHosting: this._id } }
+  );
 });
 
 module.exports = mongoose.models.Event || mongoose.model("Event", Event);
