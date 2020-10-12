@@ -9,10 +9,10 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import { ArrowBack as ArrowBackIcon } from "@material-ui/icons";
 import { DateTimePicker } from "@material-ui/pickers";
+import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
-import { EventsContext } from "../context/Events";
-import { GamesContext } from "../context/Games";
+import { EventsContext } from "../../../context/Events";
+import { GamesContext } from "../../../context/Games";
 
 const EditEventPage = () => {
   const { games, getAllGames } = useContext(GamesContext);
@@ -45,11 +45,11 @@ const EditEventPage = () => {
   });
 
   const classes = useStyles();
-  const history = useHistory();
+  const router = useRouter();
 
   return (
     <Container>
-      <Button onClick={() => history.goBack()}>
+      <Button onClick={() => router.back()}>
         <ArrowBackIcon />
         Go Back
       </Button>
@@ -59,7 +59,7 @@ const EditEventPage = () => {
           onSubmit={async (e) => {
             e.preventDefault();
             await updateEvent(eventId, gameId, eventDateTime);
-            history.goBack();
+            router.back();
           }}
         >
           <FormControl className={classes.margin}>

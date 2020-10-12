@@ -14,7 +14,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { Fragment, useContext, useState } from "react";
 import { UserContext } from "../context/User";
-import useUser from "../util/useUser";
+import useCurrentUser from "../util/useCurrentUser";
 
 const Title = styled(Typography)({
   flexGrow: 1,
@@ -53,7 +53,7 @@ const userLinks = [
 const MainAppBar = () => {
   const router = useRouter();
   const theme = useTheme();
-  const [user, { mutate }] = useUser();
+  const [user, { mutate }] = useCurrentUser();
 
   const { logoutUser } = useContext(UserContext);
 

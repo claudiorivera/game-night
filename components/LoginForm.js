@@ -2,7 +2,7 @@ import { Button, TextField } from "@material-ui/core";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/User";
-import useUser from "../util/useUser";
+import useCurrentUser from "../util/useCurrentUser";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -11,7 +11,7 @@ const LoginForm = () => {
   const [isFetching, setIsFetching] = useState(false);
   const { loginUser } = useContext(UserContext);
 
-  const [user] = useUser();
+  const [user] = useCurrentUser();
 
   useEffect(() => {
     if (user) router.push("/");

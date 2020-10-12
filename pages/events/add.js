@@ -10,8 +10,8 @@ import { styled } from "@material-ui/core/styles";
 import { DateTimePicker } from "@material-ui/pickers";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
-import { GamesContext } from "../context/Games";
-import { EventsContext } from "../context/Events";
+import { EventsContext } from "../../context/Events";
+import { GamesContext } from "../../context/Games";
 
 const StyledFormControl = styled(FormControl)({
   margin: "10px",

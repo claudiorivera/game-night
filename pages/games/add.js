@@ -11,10 +11,10 @@ import { styled } from "@material-ui/core/styles";
 import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
 import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
-import { AppContext } from "../app/context";
-import { bggFetchGamesByQuery } from "../util/bggFetchGamesByQuery";
-import GameDetails from "./GameDetails";
-import { GamesContext } from "../context/games/context";
+import GameDetails from "../../components/GameDetails";
+import { AlertContext } from "../../context/Alert";
+import { GamesContext } from "../../context/Games";
+import { bggFetchGamesByQuery } from "../../util/bggFetchGamesByQuery";
 
 const StyledAccordionDetails = styled(AccordionDetails)({
   display: "flex",
@@ -26,7 +26,7 @@ const AddGame = () => {
   const [query, setQuery] = useState("");
   const [queryResults, setQueryResults] = useState([]);
   const { addGame } = useContext(GamesContext);
-  const { clearAlert } = useContext(AppContext);
+  const { clearAlert } = useContext(AlertContext);
 
   const handleSearch = async (e) => {
     e.preventDefault();

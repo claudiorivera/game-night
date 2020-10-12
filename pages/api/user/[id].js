@@ -1,7 +1,7 @@
 import nextConnect from "next-connect";
 import middleware from "../../../middleware";
-import User from "../../../models/User";
 import Event from "../../../models/Event";
+import User from "../../../models/User";
 
 const handler = nextConnect();
 

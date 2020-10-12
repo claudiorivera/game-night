@@ -10,8 +10,8 @@ import { styled } from "@material-ui/core/styles";
 import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
 import { useRouter } from "next/router";
 import React, { Fragment, useContext, useEffect } from "react";
-import GameDetails from "./components/GameDetails";
-import { GamesContext } from "./context";
+import GameDetails from "../../components/GameDetails";
+import { GamesContext } from "../../context/Games";
 
 const ContainerWithMargin = styled(Container)({
   marginBottom: "1.5rem",

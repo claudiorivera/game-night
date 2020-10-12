@@ -1,6 +1,6 @@
 // Interfaces with the BoardGameGeek API2 and returns a custom game object
-const axios = require("axios").default;
-const parser = require("fast-xml-parser");
+import axios from "axios";
+import parser from "fast-xml-parser";
 
 export const bggFetchGameById = async (id) => {
   const { data } = await axios.get(

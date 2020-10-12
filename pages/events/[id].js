@@ -15,15 +15,14 @@ import {
 } from "@material-ui/core";
 import { styled } from "@material-ui/core/styles";
 import { ArrowBack as ArrowBackIcon } from "@material-ui/icons";
+import axios from "axios";
+import moment from "moment";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
-import { AlertContext } from "../app/context";
-import { EventsContext } from "../events/context";
-import GameDetails from "../games/components/GameDetails";
-import { UserContext } from "../user/context";
-
-const axios = require("axios").default;
-const moment = require("moment");
+import GameDetails from "../../components/GameDetails";
+import { AlertContext } from "../../context/Alert";
+import { EventsContext } from "../../context/Events";
+import { UserContext } from "../../context/User";
 
 const StyledCard = styled(Card)({
   margin: "10px",

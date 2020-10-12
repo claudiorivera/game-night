@@ -1,7 +1,7 @@
-import React, { createContext, useReducer, useContext } from "react";
-import { reducer } from "./reducer";
-import { AlertContext } from "../../app/context";
-const axios = require("axios").default;
+import axios from "axios";
+import React, { createContext, useContext, useReducer } from "react";
+import { AlertContext } from "../context/Alert";
+import { reducer } from "./EventsReducer";
 
 const initialState = {
   events: null,

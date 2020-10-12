@@ -1,6 +1,6 @@
+import axios from "axios";
 import React, { createContext, useContext } from "react";
 import { AlertContext } from "./Alert";
-const axios = require("axios").default;
 
 export const UserContext = createContext();
 

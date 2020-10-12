@@ -1,9 +1,9 @@
-import React, { useEffect, useContext, Fragment } from "react";
-import { Container, Button } from "@material-ui/core";
-import EventsListContainer from "./components/EventsListContainer";
-import { EventsContext } from "./context";
+import { Button, Container } from "@material-ui/core";
 import { styled } from "@material-ui/styles";
 import { useRouter } from "next/router";
+import React, { Fragment, useContext, useEffect } from "react";
+import EventsListContainer from "../../components/EventsListContainer";
+import { EventsContext } from "../../context/Events";
 
 const StyledContainer = styled(Container)({
   marginBottom: "1.5rem",

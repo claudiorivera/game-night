@@ -2,10 +2,10 @@ import { Container, Typography } from "@material-ui/core";
 import Link from "next/link";
 import React, { Fragment } from "react";
 import EventsListContainer from "../components/EventsListContainer";
-import useUser from "../util/useUser";
+import useCurrentUser from "../util/useCurrentUser";
 
 const HomePage = () => {
-  const [user] = useUser();
+  const [user] = useCurrentUser();
 
   return (
     <Container>

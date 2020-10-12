@@ -1,6 +1,5 @@
 import { Button, TextField } from "@material-ui/core";
-import { useRouter } from "next/router";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { AlertContext } from "../context/Alert";
 import { UserContext } from "../context/User";
 

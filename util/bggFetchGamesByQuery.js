@@ -1,8 +1,8 @@
 // Interfaces with the BoardGameGeek API2 and returns a list of games from a query
 // by calling the bggFetchGameById function for each result
+import axios from "axios";
+import parser from "fast-xml-parser";
 import { bggFetchGameById } from "./bggFetchGameById";
-const axios = require("axios").default;
-const parser = require("fast-xml-parser");
 
 const API_CALL_LIMIT = 20;
 

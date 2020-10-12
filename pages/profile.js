@@ -11,7 +11,7 @@ import {
 import moment from "moment";
 import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
-import { UserContext } from "./context";
+import { UserContext } from "../context/User";
 
 const ProfilePage = () => {
   const router = useRouter();
