@@ -11,13 +11,15 @@ const LoginForm = () => {
   const [isFetching, setIsFetching] = useState(false);
   const { loginUser } = useContext(UserContext);
 
-  const { data } = useRequest({
+  const {
+    data: { user },
+  } = useRequest({
     url: "/api/user/auth",
   });
 
   useEffect(() => {
-    if (data?.user) router.push("/");
-  }, [data]);
+    if (user?._id) router.push("/");
+  }, [user]);
 
   const handleLogin = async (e) => {
     e.preventDefault();

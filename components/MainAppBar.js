@@ -53,20 +53,11 @@ const userLinks = [
 const MainAppBar = () => {
   const router = useRouter();
   const theme = useTheme();
-  // const {
-  //   data: { user },
-  // } = useRequest({
-  //   url: "/api/user/auth",
-  // });
-  const user = {
-    _id: "5f84a965efe8f03df95ac6e8",
-    email: "me@claudiorivera.com",
-    name: "Claudio Rivera",
-    events: [],
-    eventsHosting: [],
-    isAdmin: true,
-    dateCreated: "2020-10-12T19:07:17.253Z",
-  };
+  const {
+    data: { user },
+  } = useRequest({
+    url: "/api/user/auth",
+  });
   const { logoutUser } = useContext(UserContext);
 
   // https://material-ui.com/components/app-bar/#app-bar-with-menu
