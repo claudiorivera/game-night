@@ -1,4 +1,4 @@
-import React, { useContext, Fragment, useState } from "react";
+import React, { Fragment, useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -11,9 +11,9 @@ import {
 } from "@material-ui/core";
 import { Menu as MenuIcon } from "@material-ui/icons";
 import { styled, useTheme } from "@material-ui/core/styles";
-import { UserContext } from "../../components/user/context";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import useRequest from "../../util/useRequest";
 
 const Title = styled(Typography)({
   flexGrow: 1,
@@ -56,7 +56,10 @@ const userLinks = [
 const MainAppBar = () => {
   const router = useRouter();
   const theme = useTheme();
-  const { user } = useContext(UserContext);
+  const { user } = useRequest({
+    url: "/api/user/auth",
+  });
+
   // https://material-ui.com/components/app-bar/#app-bar-with-menu
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
