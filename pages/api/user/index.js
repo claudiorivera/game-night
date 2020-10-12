@@ -19,7 +19,7 @@ handler.get(async (_, res) => {
     });
   } catch (error) {
     res
-      .status(400)
+      .status(500)
       .json({ success: false, message: error.message || "Users not found" });
   }
 });

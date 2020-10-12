@@ -20,7 +20,7 @@ handler.get(async (req, res) => {
     } = req.user;
     res.json({
       success: true,
-      message: "Successfully authed user",
+      message: "Successfully authenticated user",
       user: {
         _id,
         email,
@@ -32,7 +32,9 @@ handler.get(async (req, res) => {
       },
     });
   } else {
-    res.json({ success: false, message: "Unabled to auth user" });
+    res
+      .status(401)
+      .json({ success: false, message: "Unabled to authenticate user" });
   }
 });
 

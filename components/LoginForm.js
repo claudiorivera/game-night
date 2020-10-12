@@ -1,22 +1,28 @@
 import { Button, TextField } from "@material-ui/core";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { UserContext } from "../context/User";
+import useRequest from "../util/useRequest";
 
 const LoginForm = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isFetching, setIsFetching] = useState(false);
+  const { loginUser } = useContext(UserContext);
 
-  const loginUser = () => {
-    console.log("loginUser()");
-  };
+  const { data } = useRequest({
+    url: "/api/user/auth",
+  });
+
+  useEffect(() => {
+    if (data?.user) router.push("/");
+  }, [data]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setIsFetching(true);
     loginUser(email, password);
-    router.push("/");
   };
 
   return (

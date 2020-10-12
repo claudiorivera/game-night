@@ -12,7 +12,8 @@ import { styled, useTheme } from "@material-ui/core/styles";
 import { Menu as MenuIcon } from "@material-ui/icons";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useContext, useState } from "react";
+import { UserContext } from "../context/User";
 import useRequest from "../util/useRequest";
 
 const Title = styled(Typography)({
@@ -47,18 +48,26 @@ const userLinks = [
     title: "My Profile",
     url: "/profile",
   },
-  {
-    title: "Log Out",
-    url: "/logout",
-  },
 ];
 
 const MainAppBar = () => {
   const router = useRouter();
   const theme = useTheme();
-  const { user } = useRequest({
-    url: "/api/user/auth",
-  });
+  // const {
+  //   data: { user },
+  // } = useRequest({
+  //   url: "/api/user/auth",
+  // });
+  const user = {
+    _id: "5f84a965efe8f03df95ac6e8",
+    email: "me@claudiorivera.com",
+    name: "Claudio Rivera",
+    events: [],
+    eventsHosting: [],
+    isAdmin: true,
+    dateCreated: "2020-10-12T19:07:17.253Z",
+  };
+  const { logoutUser } = useContext(UserContext);
 
   // https://material-ui.com/components/app-bar/#app-bar-with-menu
   const [anchorEl, setAnchorEl] = useState(null);
@@ -105,8 +114,9 @@ const MainAppBar = () => {
               open={open}
               onClose={handleClose}
             >
-              {user?._id &&
-                userLinks.map(({ title, url }, index) => (
+              {user?._id && (
+                <Fragment>
+                  userLinks.map(({(title, url)}, index) => (
                   <MenuItem
                     key={index}
                     onClick={() => {
@@ -116,7 +126,18 @@ const MainAppBar = () => {
                   >
                     {title}
                   </MenuItem>
-                ))}
+                  ))
+                  <MenuItem
+                    onClick={() => {
+                      handleClose();
+                      logoutUser();
+                      router.push("/login");
+                    }}
+                  >
+                    Log Out
+                  </MenuItem>
+                </Fragment>
+              )}
               {user?.isAdmin &&
                 adminLinks.map(({ title, url }, index) => (
                   <MenuItem
@@ -144,13 +165,26 @@ const MainAppBar = () => {
         )}
         {/* Desktop menu */}
         {/* User links */}
-        {!isMobile &&
-          user?._id &&
-          userLinks.map(({ title, url }, index) => (
-            <Link key={index} href={url}>
-              <Button color="inherit">{title}</Button>
+        {!isMobile && user?._id && (
+          <Fragment>
+            {userLinks.map(({ title, url }, index) => (
+              <Link key={index} href={url}>
+                <Button color="inherit">{title}</Button>
+              </Link>
+            ))}
+            <Link href="#">
+              <Button
+                color="inherit"
+                onClick={() => {
+                  logoutUser();
+                  router.push("/login");
+                }}
+              >
+                Log Out
+              </Button>
             </Link>
-          ))}
+          </Fragment>
+        )}
         {/* Admin links */}
         {!isMobile &&
           user?.isAdmin &&

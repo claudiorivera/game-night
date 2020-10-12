@@ -17,7 +17,7 @@ handler.post(async (req, res, next) => {
     }
     req.logIn(user, (error) => {
       if (error)
-        return res.status(400).json({
+        return res.status(500).json({
           success: false,
           message: error.message || "Unable to log in",
         });

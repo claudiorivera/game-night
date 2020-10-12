@@ -7,21 +7,20 @@ const handler = nextConnect();
 
 handler.use(middleware);
 
-handler
-  // GET api/events
-  // Returns all events
-  .get(async (_, res) => {
-    try {
-      const events = await Event.find({}).sort({ eventDateTime: "asc" }).lean();
-      res.json({
-        success: true,
-        message: "Successfully fetched all events",
-        events,
-      });
-    } catch (error) {
-      res.status(400).json({ success: false, message: "Events not found" });
-    }
-  });
+// GET api/events
+// Returns all events
+handler.get(async (_, res) => {
+  try {
+    const events = await Event.find({}).sort({ eventDateTime: "asc" }).lean();
+    res.json({
+      success: true,
+      message: "Successfully fetched all events",
+      events,
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Events not found" });
+  }
+});
 
 // POST api/events
 // Adds a new event and returns the event
@@ -43,13 +42,13 @@ handler.post(async (req, res) => {
         event: savedEvent,
       });
     } catch (error) {
-      res.status(400).json({
+      res.status(500).json({
         success: false,
         message: error.message || "Unable to add event",
       });
     }
   } else {
-    res.status(400).json({ success: false, message: "Unauthorized user" });
+    res.status(500).json({ success: false, message: "Unauthorized user" });
   }
 });
 

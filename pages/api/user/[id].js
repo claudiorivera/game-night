@@ -20,7 +20,7 @@ handler.get(async (req, res) => {
           events: user.eventsHosting,
         });
       } catch (error) {
-        res.status(400).json({
+        res.status(500).json({
           success: false,
           message: error.message || "Hosting events not found",
         });
@@ -39,7 +39,7 @@ handler.get(async (req, res) => {
           events,
         });
       } catch (error) {
-        return res.status(400).json({
+        return res.status(500).json({
           success: false,
           message: error.message || "Attending events not found",
         });
@@ -65,7 +65,7 @@ handler.delete(async (req, res) => {
     await user.remove();
     res.json({ success: true, message: "Successfully deleted user" });
   } else {
-    res.status(400).json({ success: false, message: "No user" });
+    res.status(500).json({ success: false, message: "No user" });
   }
 });
 

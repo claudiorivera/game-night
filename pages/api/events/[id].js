@@ -39,7 +39,7 @@ handler.get(async (req, res) => {
         throw new Error("No event found with that id");
       }
     } catch (error) {
-      res.status(400).json({
+      res.status(500).json({
         success: false,
         message: error.message || "Unable to fetch event",
       });
@@ -58,7 +58,7 @@ handler.delete(async (req, res) => {
       message: "Successfully deleted event",
     });
   } catch (error) {
-    res.status(400).json({
+    res.status(500).json({
       success: false,
       message: error.message || "Unable to delete event",
     });
@@ -90,7 +90,7 @@ handler.put(async (req, res) => {
           await eventToJoin.save();
           res.json({ success: true, message: "Successfully joined event!" });
         } catch (error) {
-          res.status(400).json({
+          res.status(500).json({
             success: false,
             message: error.message || "Unable to join event",
           });
@@ -124,7 +124,7 @@ handler.put(async (req, res) => {
           });
         } catch (error) {
           res
-            .status(400)
+            .status(500)
             .json({ success: false, message: "Unable to leave event" });
         }
         return;
@@ -143,17 +143,17 @@ handler.put(async (req, res) => {
           });
         } catch (error) {
           res
-            .status(400)
+            .status(500)
             .json({ success: false, message: "Unable to edit event" });
         }
         return;
       default:
         res
-          .status(400)
+          .status(500)
           .json({ success: false, message: "Unable to edit event" });
     }
   } else {
-    res.status(400).json({ success: false, message: "Unauthorized user" });
+    res.status(401).json({ success: false, message: "Unauthorized user" });
   }
 });
 

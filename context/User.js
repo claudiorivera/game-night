@@ -15,7 +15,7 @@ export const UserProvider = ({ children }) => {
         password,
       });
       if (response.data.success) {
-        // TODO
+        console.log("registered successfully");
       } else {
         createAlertWithMessage(response.data.message);
       }
@@ -31,7 +31,7 @@ export const UserProvider = ({ children }) => {
         password,
       });
       if (response.data.success) {
-        // TODO
+        console.log("logged in successfully");
       } else {
         createAlertWithMessage(response.data.message);
       }
@@ -44,7 +44,7 @@ export const UserProvider = ({ children }) => {
     try {
       const response = await axios.get("/api/user/logout");
       if (response.data.success) {
-        // TODO
+        console.log("logged out successfully");
       } else {
         createAlertWithMessage(response.data.message);
       }

@@ -9,7 +9,7 @@ import AlertDialog from "../components/AlertDialog";
 // import { EventsProvider } from "../components/events/context";
 // import { GamesProvider } from "../components/games/context";
 import MainAppBar from "../components/MainAppBar";
-// import { UserProvider } from "../components/user/context";
+import { UserProvider } from "../context/User";
 import { AlertProvider } from "../context/Alert";
 import theme from "../styles/theme";
 
@@ -35,18 +35,18 @@ const App = (props) => {
       </Head>
       <ThemeProvider theme={theme}>
         <AlertProvider>
-          {/* <UserProvider> */}
-          {/* <GamesProvider> */}
-          {/* <EventsProvider> */}
-          <MuiPickersUtilsProvider utils={MomentUtils}>
-            <CssBaseline />
-            <MainAppBar />
-            <AlertDialog />
-            <Component {...pageProps} />
-          </MuiPickersUtilsProvider>
-          {/* </EventsProvider> */}
-          {/* </GamesProvider> */}
-          {/* </UserProvider> */}
+          <UserProvider>
+            {/* <GamesProvider> */}
+            {/* <EventsProvider> */}
+            <MuiPickersUtilsProvider utils={MomentUtils}>
+              <CssBaseline />
+              <MainAppBar />
+              <AlertDialog />
+              <Component {...pageProps} />
+            </MuiPickersUtilsProvider>
+            {/* </EventsProvider> */}
+            {/* </GamesProvider> */}
+          </UserProvider>
         </AlertProvider>
       </ThemeProvider>
     </React.Fragment>
