@@ -10,7 +10,7 @@ import AlertDialog from "../components/AlertDialog";
 // import { GamesProvider } from "../components/games/context";
 import MainAppBar from "../components/MainAppBar";
 // import { UserProvider } from "../components/user/context";
-import { AppProvider } from "../context/app";
+import { AlertProvider } from "../context/Alert";
 import theme from "../styles/theme";
 
 const App = (props) => {
@@ -34,7 +34,7 @@ const App = (props) => {
         />
       </Head>
       <ThemeProvider theme={theme}>
-        <AppProvider>
+        <AlertProvider>
           {/* <UserProvider> */}
           {/* <GamesProvider> */}
           {/* <EventsProvider> */}
@@ -47,7 +47,7 @@ const App = (props) => {
           {/* </EventsProvider> */}
           {/* </GamesProvider> */}
           {/* </UserProvider> */}
-        </AppProvider>
+        </AlertProvider>
       </ThemeProvider>
     </React.Fragment>
   );

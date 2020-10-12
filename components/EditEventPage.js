@@ -1,18 +1,18 @@
-import React, { useContext, useEffect, useState } from "react";
-import { GamesContext } from "../games/context";
-import { EventsContext } from "./context";
 import {
-  Container,
-  Typography,
-  FormControl,
-  Select,
-  MenuItem,
   Button,
+  Container,
+  FormControl,
+  MenuItem,
+  Select,
+  Typography,
 } from "@material-ui/core";
-import { ArrowBack as ArrowBackIcon } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
+import { ArrowBack as ArrowBackIcon } from "@material-ui/icons";
 import { DateTimePicker } from "@material-ui/pickers";
+import React, { useContext, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
+import { EventsContext } from "../context/Events";
+import { GamesContext } from "../context/Games";
 
 const EditEventPage = () => {
   const { games, getAllGames } = useContext(GamesContext);

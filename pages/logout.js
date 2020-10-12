@@ -1,6 +1,18 @@
-import React from "react";
-import LogoutPage from "../components/user/LogoutPage";
+import { useContext } from "react";
+import { UserContext } from "../user/context";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
-const logout = () => <LogoutPage />;
+const LogoutPage = () => {
+  const router = useRouter();
+  const { logoutUser } = useContext(UserContext);
 
-export default logout;
+  useEffect(() => {
+    logoutUser();
+    router.push("/login");
+  }, []);
+
+  return null;
+};
+
+export default LogoutPage;

@@ -1,26 +1,45 @@
+import React, { useEffect, useContext, Fragment } from "react";
+import { Container, Button } from "@material-ui/core";
+import EventsListContainer from "./components/EventsListContainer";
+import { EventsContext } from "./context";
+import { styled } from "@material-ui/styles";
 import { useRouter } from "next/router";
-import React, { useContext, useEffect } from "react";
-import { AppContext } from "../../components/app/context";
-import EventsListPage from "../../components/events/EventsListPage";
-import { UserContext } from "../../components/user/context";
 
-const games = () => {
+const StyledContainer = styled(Container)({
+  marginBottom: "1.5rem",
+});
+
+const EventsListPage = () => {
   const router = useRouter();
-  const { authUser, user } = useContext(UserContext);
-  const { createAlertWithMessage } = useContext(AppContext);
+  const { getAllEvents, events } = useContext(EventsContext);
 
   useEffect(() => {
-    authUser();
+    const fetchEvents = async () => {
+      await getAllEvents();
+    };
+    fetchEvents();
   }, []);
 
-  useEffect(() => {
-    if (!user) {
-      createAlertWithMessage("You must be logged in to view this page.");
-      router.push("/login");
-    }
-  }, [user]);
-
-  return <>{user?._id && <EventsListPage />}</>;
+  return (
+    <Fragment>
+      <StyledContainer>
+        <Button
+          fullWidth
+          color="secondary"
+          variant="contained"
+          size="large"
+          onClick={() => {
+            router.push("/events/add");
+          }}
+        >
+          Add Event
+        </Button>
+      </StyledContainer>
+      <Container>
+        {events ? <EventsListContainer events={events} /> : ""}
+      </Container>
+    </Fragment>
+  );
 };
 
-export default games;
+export default EventsListPage;

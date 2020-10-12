@@ -1,5 +1,5 @@
+import { Chip, Typography } from "@material-ui/core";
 import React, { Fragment } from "react";
-import { Typography, Chip } from "@material-ui/core";
 
 const GameDetails = ({ game }) => {
   return (

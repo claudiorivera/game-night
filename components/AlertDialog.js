@@ -1,8 +1,8 @@
-import React, { useContext, Fragment } from "react";
-import { AppContext } from "../context/app";
+import { Container, Snackbar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Alert, AlertTitle } from "@material-ui/lab";
-import { Container, Snackbar } from "@material-ui/core";
+import React, { Fragment, useContext } from "react";
+import { AlertContext } from "../context/Alert";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,13 +15,13 @@ const useStyles = makeStyles((theme) => ({
 
 const AlertDialog = () => {
   const classes = useStyles();
-  const { message, clearAlert } = useContext(AppContext);
+  const { message, clearAlert } = useContext(AlertContext);
   return message ? (
     <Container className={classes.root}>
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open
-        autoHideDuration={5000}
+        autoHideDuration={3000}
         onClose={() => {
           clearAlert();
         }}

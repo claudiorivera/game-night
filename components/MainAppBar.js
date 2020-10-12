@@ -1,18 +1,18 @@
-import React, { Fragment, useState } from "react";
 import {
   AppBar,
-  Toolbar,
   Button,
-  Typography,
-  useMediaQuery,
   IconButton,
   Menu,
   MenuItem,
+  Toolbar,
+  Typography,
+  useMediaQuery,
 } from "@material-ui/core";
-import { Menu as MenuIcon } from "@material-ui/icons";
 import { styled, useTheme } from "@material-ui/core/styles";
+import { Menu as MenuIcon } from "@material-ui/icons";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import React, { Fragment, useState } from "react";
 import useRequest from "../util/useRequest";
 
 const Title = styled(Typography)({

@@ -1,13 +1,13 @@
 import React, { createContext, useReducer } from "react";
-import { reducer } from "./reducer";
+import { reducer } from "./AlertReducer";
 
 const initialState = {
   message: null,
 };
 
-export const AppContext = createContext(initialState);
+export const AlertContext = createContext(initialState);
 
-export const AppProvider = ({ children }) => {
+export const AlertProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   // ALERTS
@@ -18,10 +18,10 @@ export const AppProvider = ({ children }) => {
     dispatch({ type: "CLEAR_ALERT" });
   };
 
-  AppContext.displayName = "App";
+  AlertContext.displayName = "Alert";
 
   return (
-    <AppContext.Provider
+    <AlertContext.Provider
       value={{
         message: state.message,
         createAlertWithMessage,
@@ -29,6 +29,6 @@ export const AppProvider = ({ children }) => {
       }}
     >
       {children}
-    </AppContext.Provider>
+    </AlertContext.Provider>
   );
 };

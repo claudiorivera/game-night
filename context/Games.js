@@ -1,6 +1,6 @@
 import React, { createContext, useReducer, useContext } from "react";
 import { reducer } from "./reducer";
-import { AppContext } from "../../app/context";
+import { AlertContext } from "../../app/context";
 const axios = require("axios").default;
 
 const initialState = {
@@ -11,7 +11,7 @@ export const GamesContext = createContext(initialState);
 
 export const GamesProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { createAlertWithMessage } = useContext(AppContext);
+  const { createAlertWithMessage } = useContext(AlertContext);
 
   const addGame = async (gameToAdd) => {
     try {

@@ -6,8 +6,8 @@ import {
   Typography,
 } from "@material-ui/core";
 import { styled } from "@material-ui/styles";
-import React from "react";
 import moment from "moment";
+import React from "react";
 
 const StyledLink = styled("a")({
   textDecoration: "none",

@@ -1,26 +1,71 @@
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Button,
+  Container,
+  Typography,
+} from "@material-ui/core";
+import { styled } from "@material-ui/core/styles";
+import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
 import { useRouter } from "next/router";
-import React, { useContext, useEffect } from "react";
-import { AppContext } from "../../components/app/context";
-import GamesListPage from "../../components/games/GamesListPage";
-import { UserContext } from "../../components/user/context";
+import React, { Fragment, useContext, useEffect } from "react";
+import GameDetails from "./components/GameDetails";
+import { GamesContext } from "./context";
 
-const games = () => {
+const ContainerWithMargin = styled(Container)({
+  marginBottom: "1.5rem",
+});
+
+const GameList = () => {
   const router = useRouter();
-  const { authUser, user } = useContext(UserContext);
-  const { createAlertWithMessage } = useContext(AppContext);
+  const { getAllGames, games } = useContext(GamesContext);
 
   useEffect(() => {
-    authUser();
+    const fetchGames = async () => {
+      await getAllGames();
+    };
+    fetchGames();
   }, []);
 
-  useEffect(() => {
-    if (!user) {
-      createAlertWithMessage("You must be logged in to view this page.");
-      router.push("/login");
-    }
-  }, [user]);
-
-  return <>{user?._id && <GamesListPage />}</>;
+  return (
+    <Fragment>
+      <ContainerWithMargin>
+        <Button
+          fullWidth
+          color="secondary"
+          variant="contained"
+          size="large"
+          onClick={() => {
+            router.push("/games/add");
+          }}
+        >
+          Add Game
+        </Button>
+      </ContainerWithMargin>
+      <Container>
+        {games
+          ? games.map((game) => (
+              <Accordion key={game.bggId}>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls={`panel-${game.bggId}-content`}
+                >
+                  <Typography variant="h6">
+                    {game.name} ({game.yearPublished})
+                  </Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Container>
+                    <GameDetails game={game} />
+                  </Container>
+                </AccordionDetails>
+              </Accordion>
+            ))
+          : ""}
+      </Container>
+    </Fragment>
+  );
 };
 
-export default games;
+export default GameList;

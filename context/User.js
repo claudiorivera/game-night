@@ -1,11 +1,11 @@
 import React, { createContext, useContext } from "react";
-import { AppContext } from "../app";
+import { AlertContext } from "./Alert";
 const axios = require("axios").default;
 
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const { createAlertWithMessage } = useContext(AppContext);
+  const { createAlertWithMessage } = useContext(AlertContext);
 
   const registerUser = async (name, email, password) => {
     try {
