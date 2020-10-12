@@ -2,14 +2,10 @@ import { Container, Typography } from "@material-ui/core";
 import Link from "next/link";
 import React, { Fragment } from "react";
 import EventsListContainer from "../components/EventsListContainer";
-import useRequest from "../util/useRequest";
+import useUser from "../util/useUser";
 
 const HomePage = () => {
-  const {
-    data: { user },
-  } = useRequest({
-    url: "/api/user/auth",
-  });
+  const [user] = useUser();
 
   return (
     <Container>

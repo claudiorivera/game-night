@@ -3,10 +3,8 @@ import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 import { AlertContext } from "../context/Alert";
 import { UserContext } from "../context/User";
-import useRequest from "../util/useRequest";
 
 const RegisterForm = () => {
-  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -14,16 +12,6 @@ const RegisterForm = () => {
   const [isFetching, setIsFetching] = useState(false);
   const { createAlertWithMessage } = useContext(AlertContext);
   const { registerUser } = useContext(UserContext);
-
-  const {
-    data: { user },
-  } = useRequest({
-    url: "/api/user/auth",
-  });
-
-  useEffect(() => {
-    if (user?._id) router.push("/");
-  }, [user]);
 
   const handleRegister = async (e) => {
     e.preventDefault();

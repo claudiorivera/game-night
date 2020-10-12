@@ -2,7 +2,7 @@ import { Button, TextField } from "@material-ui/core";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/User";
-import useRequest from "../util/useRequest";
+import useUser from "../util/useUser";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -11,14 +11,10 @@ const LoginForm = () => {
   const [isFetching, setIsFetching] = useState(false);
   const { loginUser } = useContext(UserContext);
 
-  const {
-    data: { user },
-  } = useRequest({
-    url: "/api/user/auth",
-  });
+  const [user] = useUser();
 
   useEffect(() => {
-    if (user?._id) router.push("/");
+    if (user) router.push("/");
   }, [user]);
 
   const handleLogin = async (e) => {

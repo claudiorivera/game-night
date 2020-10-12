@@ -14,7 +14,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { Fragment, useContext, useState } from "react";
 import { UserContext } from "../context/User";
-import useRequest from "../util/useRequest";
+import useUser from "../util/useUser";
 
 const Title = styled(Typography)({
   flexGrow: 1,
@@ -53,11 +53,8 @@ const userLinks = [
 const MainAppBar = () => {
   const router = useRouter();
   const theme = useTheme();
-  const {
-    data: { user },
-  } = useRequest({
-    url: "/api/user/auth",
-  });
+  const [user, { mutate }] = useUser();
+
   const { logoutUser } = useContext(UserContext);
 
   // https://material-ui.com/components/app-bar/#app-bar-with-menu
@@ -107,22 +104,22 @@ const MainAppBar = () => {
             >
               {user?._id && (
                 <Fragment>
-                  userLinks.map(({(title, url)}, index) => (
-                  <MenuItem
-                    key={index}
-                    onClick={() => {
-                      handleClose();
-                      router.push(url);
-                    }}
-                  >
-                    {title}
-                  </MenuItem>
-                  ))
+                  {userLinks.map(({ url, title }, index) => (
+                    <MenuItem
+                      key={index}
+                      onClick={() => {
+                        handleClose();
+                        router.push(url);
+                      }}
+                    >
+                      {title}
+                    </MenuItem>
+                  ))}
                   <MenuItem
                     onClick={() => {
                       handleClose();
                       logoutUser();
-                      router.push("/login");
+                      mutate(null);
                     }}
                   >
                     Log Out
@@ -163,17 +160,15 @@ const MainAppBar = () => {
                 <Button color="inherit">{title}</Button>
               </Link>
             ))}
-            <Link href="#">
-              <Button
-                color="inherit"
-                onClick={() => {
-                  logoutUser();
-                  router.push("/login");
-                }}
-              >
-                Log Out
-              </Button>
-            </Link>
+            <Button
+              color="inherit"
+              onClick={() => {
+                logoutUser();
+                mutate(null);
+              }}
+            >
+              Log Out
+            </Button>
           </Fragment>
         )}
         {/* Admin links */}
