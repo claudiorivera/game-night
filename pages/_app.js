@@ -6,10 +6,10 @@ import Head from "next/head";
 import PropTypes from "prop-types";
 import React from "react";
 import AlertDialog from "../components/app/AlertDialog";
-import { EventsProvider } from "../components/events/context";
-import { GamesProvider } from "../components/games/context";
+// import { EventsProvider } from "../components/events/context";
+// import { GamesProvider } from "../components/games/context";
 import MainAppBar from "../components/app/MainAppBar";
-import { UserProvider } from "../components/user/context";
+// import { UserProvider } from "../components/user/context";
 import { AppProvider } from "../components/app/context";
 import theme from "../styles/theme";
 
@@ -35,18 +35,18 @@ const App = (props) => {
       </Head>
       <ThemeProvider theme={theme}>
         <AppProvider>
-          <UserProvider>
-            <GamesProvider>
-              <EventsProvider>
-                <MuiPickersUtilsProvider utils={MomentUtils}>
-                  <CssBaseline />
-                  <MainAppBar />
-                  <AlertDialog />
-                  <Component {...pageProps} />
-                </MuiPickersUtilsProvider>
-              </EventsProvider>
-            </GamesProvider>
-          </UserProvider>
+          {/* <UserProvider> */}
+          {/* <GamesProvider> */}
+          {/* <EventsProvider> */}
+          <MuiPickersUtilsProvider utils={MomentUtils}>
+            <CssBaseline />
+            <MainAppBar />
+            <AlertDialog />
+            <Component {...pageProps} />
+          </MuiPickersUtilsProvider>
+          {/* </EventsProvider> */}
+          {/* </GamesProvider> */}
+          {/* </UserProvider> */}
         </AppProvider>
       </ThemeProvider>
     </React.Fragment>
