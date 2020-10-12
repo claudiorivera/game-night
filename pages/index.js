@@ -1,7 +1,7 @@
 import { Container, Typography } from "@material-ui/core";
 import Link from "next/link";
 import React from "react";
-import EventsListContainer from "../components/events/components/EventsListContainer";
+import EventsListContainer from "../components/EventsListContainer";
 import useRequest from "../util/useRequest";
 
 const HomePage = () => {

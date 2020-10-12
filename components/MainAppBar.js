@@ -13,7 +13,7 @@ import { Menu as MenuIcon } from "@material-ui/icons";
 import { styled, useTheme } from "@material-ui/core/styles";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import useRequest from "../../util/useRequest";
+import useRequest from "../util/useRequest";
 
 const Title = styled(Typography)({
   flexGrow: 1,

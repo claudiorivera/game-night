@@ -5,12 +5,12 @@ import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import Head from "next/head";
 import PropTypes from "prop-types";
 import React from "react";
-import AlertDialog from "../components/app/AlertDialog";
+import AlertDialog from "../components/AlertDialog";
 // import { EventsProvider } from "../components/events/context";
 // import { GamesProvider } from "../components/games/context";
-import MainAppBar from "../components/app/MainAppBar";
+import MainAppBar from "../components/MainAppBar";
 // import { UserProvider } from "../components/user/context";
-import { AppProvider } from "../components/app/context";
+import { AppProvider } from "../context/app";
 import theme from "../styles/theme";
 
 const App = (props) => {

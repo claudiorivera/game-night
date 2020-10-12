@@ -11,7 +11,7 @@ import { DateTimePicker } from "@material-ui/pickers";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 import { GamesContext } from "../games/context";
-import { EventsContext } from "./context";
+import { EventsContext } from "../context/events";
 
 const StyledFormControl = styled(FormControl)({
   margin: "10px",

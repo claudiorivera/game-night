@@ -1,6 +1,43 @@
-import React from "react";
-import LoginPage from "../components/user/LoginPage";
+import { Container, Link, Typography } from "@material-ui/core";
+import { styled } from "@material-ui/styles";
+import React, { Fragment, useState } from "react";
+import LoginForm from "../components/LoginForm";
+import RegisterForm from "../components/RegisterForm";
 
-const login = () => <LoginPage />;
+const StyledLink = styled(Link)({
+  cursor: "pointer",
+});
 
-export default login;
+const Login = () => {
+  const [formDisplay, setFormDisplay] = useState("login");
+  return (
+    <Container>
+      {formDisplay === "login" && (
+        <Fragment>
+          <LoginForm />
+          <Typography variant="caption">
+            Don't have an account?{" "}
+            <StyledLink onClick={() => setFormDisplay("register")}>
+              Register here
+            </StyledLink>
+            .
+          </Typography>
+        </Fragment>
+      )}
+      {formDisplay === "register" && (
+        <Fragment>
+          <RegisterForm />
+          <Typography variant="caption">
+            Already registered?{" "}
+            <StyledLink onClick={() => setFormDisplay("login")}>
+              Login here
+            </StyledLink>
+            .
+          </Typography>
+        </Fragment>
+      )}
+    </Container>
+  );
+};
+
+export default Login;

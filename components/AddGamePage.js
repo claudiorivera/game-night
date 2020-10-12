@@ -12,9 +12,9 @@ import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
 import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
 import { AppContext } from "../app/context";
-import { bggFetchGamesByQuery } from "../../util/bggFetchGamesByQuery";
-import GameDetails from "./components/GameDetails";
-import { GamesContext } from "./context";
+import { bggFetchGamesByQuery } from "../util/bggFetchGamesByQuery";
+import GameDetails from "./GameDetails";
+import { GamesContext } from "../context/games/context";
 
 const StyledAccordionDetails = styled(AccordionDetails)({
   display: "flex",
