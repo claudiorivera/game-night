@@ -26,15 +26,10 @@ export const UserProvider = ({ children }) => {
 
   const loginUser = async (email, password) => {
     try {
-      const response = await axios.post("/api/user/login", {
+      await axios.post("/api/user/login", {
         email: email.toLowerCase(),
         password,
       });
-      if (response.data.success) {
-        console.log("logged in successfully");
-      } else {
-        createAlertWithMessage(response.data.message);
-      }
     } catch (error) {
       createAlertWithMessage(error.response.data);
     }
@@ -42,12 +37,7 @@ export const UserProvider = ({ children }) => {
 
   const logoutUser = async () => {
     try {
-      const response = await axios.get("/api/user/logout");
-      if (response.data.success) {
-        console.log("logged out successfully");
-      } else {
-        createAlertWithMessage(response.data.message);
-      }
+      await axios.post("/api/user/auth");
     } catch (error) {
       createAlertWithMessage(error.response.data);
     }

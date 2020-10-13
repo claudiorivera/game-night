@@ -1,8 +1,5 @@
-import axios from "axios";
 import useSWR from "swr";
-
-export const fetcher = (url) =>
-  axios.get(url).then((response) => response.data);
+import fetcher from "./fetcher";
 
 const useCurrentUser = () => {
   const { data, mutate } = useSWR("/api/user/auth", fetcher);

@@ -19,8 +19,6 @@ handler.post(passport.authenticate("local"), (req, res) => {
     dateCreated,
   } = req.user;
   res.json({
-    success: true,
-    message: "Successfully logged in",
     user: {
       _id,
       email,

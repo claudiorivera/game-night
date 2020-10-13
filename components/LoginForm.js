@@ -1,8 +1,9 @@
 import { Button, TextField } from "@material-ui/core";
-import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/User";
-import useCurrentUser from "../util/useCurrentUser";
+import { useRouter } from "next/router";
+import useSWR from "swr";
+import fetcher from "../util/fetcher";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -11,16 +12,17 @@ const LoginForm = () => {
   const [isFetching, setIsFetching] = useState(false);
   const { loginUser } = useContext(UserContext);
 
-  const [user] = useCurrentUser();
+  const { data, mutate } = useSWR("/api/user/auth", fetcher);
 
   useEffect(() => {
-    if (user) router.push("/");
-  }, [user]);
+    if (data) router.push("/");
+  }, [data]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setIsFetching(true);
     loginUser(email, password);
+    mutate();
   };
 
   return (
@@ -72,3 +74,8 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
+
+export async function getStaticProps() {
+  const user = { name: "Dummy" };
+  return { props: { user } };
+}

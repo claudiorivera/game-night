@@ -13,8 +13,9 @@ import { Menu as MenuIcon } from "@material-ui/icons";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { Fragment, useContext, useState } from "react";
+import useSWR from "swr";
 import { UserContext } from "../context/User";
-import useCurrentUser from "../util/useCurrentUser";
+import fetcher from "../util/fetcher";
 
 const Title = styled(Typography)({
   flexGrow: 1,
@@ -29,10 +30,10 @@ const StyledAppBar = styled(AppBar)({
 });
 
 const adminLinks = [
-  {
-    title: "Games",
-    url: "/games",
-  },
+  // {
+  //   title: "Games",
+  //   url: "/games",
+  // },
 ];
 
 const userLinks = [
@@ -40,20 +41,20 @@ const userLinks = [
     title: "Home",
     url: "/",
   },
-  {
-    title: "Events",
-    url: "/events",
-  },
-  {
-    title: "My Profile",
-    url: "/profile",
-  },
+  // {
+  //   title: "Events",
+  //   url: "/events",
+  // },
+  // {
+  //   title: "My Profile",
+  //   url: "/profile",
+  // },
 ];
 
 const MainAppBar = () => {
   const router = useRouter();
   const theme = useTheme();
-  const [user, { mutate }] = useCurrentUser();
+  const { data, mutate } = useSWR("/api/user/auth", fetcher);
 
   const { logoutUser } = useContext(UserContext);
 
@@ -102,7 +103,7 @@ const MainAppBar = () => {
               open={open}
               onClose={handleClose}
             >
-              {user?._id && (
+              {data?.user?._id && (
                 <Fragment>
                   {userLinks.map(({ url, title }, index) => (
                     <MenuItem
@@ -119,14 +120,15 @@ const MainAppBar = () => {
                     onClick={() => {
                       handleClose();
                       logoutUser();
-                      mutate(null);
+                      mutate(null, false);
+                      router.push("/login");
                     }}
                   >
                     Log Out
                   </MenuItem>
                 </Fragment>
               )}
-              {user?.isAdmin &&
+              {data?.user?.isAdmin &&
                 adminLinks.map(({ title, url }, index) => (
                   <MenuItem
                     key={index}
@@ -138,7 +140,7 @@ const MainAppBar = () => {
                     {title}
                   </MenuItem>
                 ))}
-              {!user && (
+              {!data && (
                 <MenuItem
                   onClick={() => {
                     handleClose();
@@ -153,7 +155,7 @@ const MainAppBar = () => {
         )}
         {/* Desktop menu */}
         {/* User links */}
-        {!isMobile && user?._id && (
+        {!isMobile && data?.user?._id && (
           <Fragment>
             {userLinks.map(({ title, url }, index) => (
               <Link key={index} href={url}>
@@ -164,7 +166,8 @@ const MainAppBar = () => {
               color="inherit"
               onClick={() => {
                 logoutUser();
-                mutate(null);
+                mutate(null, false);
+                router.push("/login");
               }}
             >
               Log Out
@@ -173,14 +176,14 @@ const MainAppBar = () => {
         )}
         {/* Admin links */}
         {!isMobile &&
-          user?.isAdmin &&
+          data?.user?.isAdmin &&
           adminLinks.map(({ title, url }, index) => (
             <Link key={index} href={url}>
               <Button color="inherit">{title}</Button>
             </Link>
           ))}
         {/* Show the Login/Register button if there's no user */}
-        {!isMobile && !user && (
+        {!isMobile && !data && (
           <Link href="/login">
             <Button color="inherit">Login/Register</Button>
           </Link>
