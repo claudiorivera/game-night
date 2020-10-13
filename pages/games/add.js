@@ -9,11 +9,11 @@ import {
 } from "@material-ui/core";
 import { styled } from "@material-ui/core/styles";
 import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
+import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
 import GameDetails from "../../components/GameDetails";
 import { AlertContext } from "../../context/Alert";
-import { GamesContext } from "../../context/Games";
 import { bggFetchGamesByQuery } from "../../util/bggFetchGamesByQuery";
 
 const StyledAccordionDetails = styled(AccordionDetails)({
@@ -21,12 +21,11 @@ const StyledAccordionDetails = styled(AccordionDetails)({
   flexDirection: "column",
 });
 
-const AddGame = () => {
+const AddGamePage = () => {
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [queryResults, setQueryResults] = useState([]);
-  const { addGame } = useContext(GamesContext);
-  const { clearAlert } = useContext(AlertContext);
+  const { clearAlert, createAlertWithMessage } = useContext(AlertContext);
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -37,6 +36,15 @@ const AddGame = () => {
 
   const handleQueryChange = async (e) => {
     setQuery(e.target.value);
+  };
+
+  const addGame = async (gameToAdd) => {
+    try {
+      const response = await axios.post("/api/games", gameToAdd);
+      createAlertWithMessage(response.data.message);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -110,4 +118,4 @@ const AddGame = () => {
   );
 };
 
-export default AddGame;
+export default AddGamePage;

@@ -9,24 +9,17 @@ import {
 import { styled } from "@material-ui/core/styles";
 import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
 import { useRouter } from "next/router";
-import React, { Fragment, useContext, useEffect } from "react";
+import React, { Fragment } from "react";
 import GameDetails from "../../components/GameDetails";
-import { GamesContext } from "../../context/Games";
+import useGames from "../../util/useGames";
 
 const ContainerWithMargin = styled(Container)({
   marginBottom: "1.5rem",
 });
 
-const GameList = () => {
+const GamesListPage = () => {
   const router = useRouter();
-  const { getAllGames, games } = useContext(GamesContext);
-
-  useEffect(() => {
-    const fetchGames = async () => {
-      await getAllGames();
-    };
-    fetchGames();
-  }, []);
+  const [games] = useGames();
 
   return (
     <Fragment>
@@ -68,4 +61,4 @@ const GameList = () => {
   );
 };
 
-export default GameList;
+export default GamesListPage;

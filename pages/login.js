@@ -8,7 +8,7 @@ const StyledLink = styled(Link)({
   cursor: "pointer",
 });
 
-const Login = () => {
+const LoginPage = () => {
   const [formDisplay, setFormDisplay] = useState("login");
   return (
     <Container>
@@ -40,4 +40,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;

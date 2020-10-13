@@ -7,7 +7,6 @@ import PropTypes from "prop-types";
 import React from "react";
 import AlertDialog from "../components/AlertDialog";
 // import { EventsProvider } from "../components/events/context";
-// import { GamesProvider } from "../components/games/context";
 import MainAppBar from "../components/MainAppBar";
 import { UserProvider } from "../context/User";
 import { AlertProvider } from "../context/Alert";
@@ -36,7 +35,6 @@ const App = (props) => {
       <ThemeProvider theme={theme}>
         <AlertProvider>
           <UserProvider>
-            {/* <GamesProvider> */}
             {/* <EventsProvider> */}
             <MuiPickersUtilsProvider utils={MomentUtils}>
               <CssBaseline />
@@ -45,7 +43,6 @@ const App = (props) => {
               <Component {...pageProps} />
             </MuiPickersUtilsProvider>
             {/* </EventsProvider> */}
-            {/* </GamesProvider> */}
           </UserProvider>
         </AlertProvider>
       </ThemeProvider>

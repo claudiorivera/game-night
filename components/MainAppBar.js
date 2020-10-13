@@ -29,10 +29,10 @@ const StyledAppBar = styled(AppBar)({
 });
 
 const adminLinks = [
-  // {
-  //   title: "Games",
-  //   url: "/games",
-  // },
+  {
+    title: "Games",
+    url: "/games",
+  },
 ];
 
 const userLinks = [
@@ -40,14 +40,14 @@ const userLinks = [
     title: "Home",
     url: "/",
   },
-  // {
-  //   title: "Events",
-  //   url: "/events",
-  // },
-  // {
-  //   title: "My Profile",
-  //   url: "/profile",
-  // },
+  {
+    title: "Events",
+    url: "/events",
+  },
+  {
+    title: "My Profile",
+    url: "/profile",
+  },
 ];
 
 const MainAppBar = () => {

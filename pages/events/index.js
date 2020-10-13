@@ -1,9 +1,9 @@
 import { Button, Container } from "@material-ui/core";
 import { styled } from "@material-ui/styles";
 import { useRouter } from "next/router";
-import React, { Fragment, useContext, useEffect } from "react";
+import React, { Fragment } from "react";
 import EventsListContainer from "../../components/EventsListContainer";
-import { EventsContext } from "../../context/Events";
+import useEvents from "../../util/useEvents";
 
 const StyledContainer = styled(Container)({
   marginBottom: "1.5rem",
@@ -11,14 +11,7 @@ const StyledContainer = styled(Container)({
 
 const EventsListPage = () => {
   const router = useRouter();
-  const { getAllEvents, events } = useContext(EventsContext);
-
-  useEffect(() => {
-    const fetchEvents = async () => {
-      await getAllEvents();
-    };
-    fetchEvents();
-  }, []);
+  const [events] = useEvents();
 
   return (
     <Fragment>
