@@ -19,7 +19,11 @@ handler.get(async (_, res) => {
   } catch (error) {
     res
       .status(500)
-      .json({ success: false, message: error.message || "Games not found" });
+      .json({
+        success: false,
+        message: error.message || "Games not found",
+        games: null,
+      });
   }
 });
 
@@ -55,10 +59,13 @@ handler.post(async (req, res) => {
       res.status(500).json({
         success: false,
         message: error.message || "Unable to add game",
+        game: null,
       });
     }
   } else {
-    res.status(500).json({ success: false, message: "Unauthorized user" });
+    res
+      .status(500)
+      .json({ success: false, message: "Unauthorized user", game: null });
   }
 });
 

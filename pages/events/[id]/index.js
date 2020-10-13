@@ -15,14 +15,11 @@ import {
 } from "@material-ui/core";
 import { styled } from "@material-ui/core/styles";
 import { ArrowBack as ArrowBackIcon } from "@material-ui/icons";
-import axios from "axios";
 import moment from "moment";
 import { useRouter } from "next/router";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import GameDetails from "../../../components/GameDetails";
-import { AlertContext } from "../../../context/Alert";
-import { EventsContext } from "../../../context/Events";
-import { UserContext } from "../../../context/User";
+import useCurrentUser from "../../../util/useCurrentUser";
 
 const StyledCard = styled(Card)({
   margin: "10px",
@@ -32,10 +29,7 @@ const StyledCard = styled(Card)({
 
 const EventDetailsPage = ({ event }) => {
   const router = useRouter();
-  const { user } = useContext(UserContext);
-  const { deleteEventById, leaveEventById, joinEventById } = useContext(
-    EventsContext
-  );
+  const [user] = useCurrentUser();
 
   // Delete confirm dialog
   const [open, setOpen] = useState(false);
@@ -44,7 +38,8 @@ const EventDetailsPage = ({ event }) => {
   };
 
   const handleDelete = async () => {
-    await deleteEventById(event._id);
+    // await deleteEventById(event._id);
+    console.log("deleting");
     router.back();
   };
 
@@ -145,22 +140,3 @@ const EventDetailsPage = ({ event }) => {
 };
 
 export default EventDetailsPage;
-
-export const getStaticProps = async ({ params }) => {
-  const response = await axios.get(`/api/events/${params.id}`);
-  return {
-    props: {
-      event: response.data.event,
-    },
-  };
-};
-
-export const getStaticPaths = async () => {
-  const response = await axios.get("/api/events/");
-
-  const paths = response.data.events.map((event) => ({
-    params: { id: event._id },
-  }));
-
-  return { paths, fallback: false };
-};
