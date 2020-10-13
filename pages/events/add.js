@@ -8,10 +8,11 @@ import {
 } from "@material-ui/core";
 import { styled } from "@material-ui/core/styles";
 import { DateTimePicker } from "@material-ui/pickers";
+import axios from "axios";
 import { useRouter } from "next/router";
-import React, { useContext, useEffect, useState } from "react";
-import { EventsContext } from "../../context/Events";
-import { GamesContext } from "../../context/Games";
+import React, { useContext, useState } from "react";
+import useGames from "../../util/useGames";
+import { AlertContext } from "../../context/Alert";
 
 const StyledFormControl = styled(FormControl)({
   margin: "10px",
@@ -19,19 +20,22 @@ const StyledFormControl = styled(FormControl)({
 
 const AddEventPage = () => {
   const router = useRouter();
-  const { games, getAllGames } = useContext(GamesContext);
-  const { addEvent } = useContext(EventsContext);
+  const [games] = useGames();
   const [eventDateTime, setEventDateTime] = useState(new Date());
   const [gameId, setGameId] = useState("");
+  const { createAlertWithMessage } = useContext(AlertContext);
 
-  useEffect(() => {
-    const fetchGames = async () => {
-      if (!games) {
-        await getAllGames();
-      }
-    };
-    fetchGames();
-  }, []);
+  const addEvent = async (gameId, eventDateTime) => {
+    try {
+      const response = await axios.post("/api/events", {
+        gameId,
+        eventDateTime,
+      });
+      createAlertWithMessage(response.data.message);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <Container>

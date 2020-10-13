@@ -11,7 +11,10 @@ handler.use(middleware);
 // Returns all events
 handler.get(async (_, res) => {
   try {
-    const events = await Event.find({}).sort({ eventDateTime: "asc" }).lean();
+    const events = await Event.find({})
+      .sort({ eventDateTime: "asc" })
+      .populate("host game")
+      .lean();
     res.json({
       success: true,
       message: "Successfully fetched all events",

@@ -1,16 +1,10 @@
 import axios from "axios";
-import React, { createContext, useContext, useReducer } from "react";
+import React, { createContext, useContext } from "react";
 import { AlertContext } from "../context/Alert";
-import { reducer } from "./EventsReducer";
 
-const initialState = {
-  events: null,
-};
-
-export const EventsContext = createContext(initialState);
+export const EventsContext = createContext();
 
 export const EventsProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
   const { createAlertWithMessage } = useContext(AlertContext);
 
   const leaveEventById = async (id) => {
@@ -35,34 +29,6 @@ export const EventsProvider = ({ children }) => {
     try {
       const response = await axios.put(`/api/events/${id}?action=join`);
       createAlertWithMessage(response.data.message);
-    } catch (error) {
-      createAlertWithMessage(error.response.data);
-    }
-  };
-
-  const addEvent = async (gameId, eventDateTime) => {
-    try {
-      const response = await axios.post("/api/events", {
-        gameId,
-        eventDateTime,
-      });
-      createAlertWithMessage(response.data.message);
-    } catch (error) {
-      createAlertWithMessage(error.response.data);
-    }
-  };
-
-  const getAllEvents = async () => {
-    try {
-      const response = await axios.get("/api/events");
-      if (response.data.success) {
-        dispatch({
-          type: "GET_ALL_EVENTS_SUCCESSFUL_WITH_EVENTS",
-          events: response.data.events,
-        });
-      } else {
-        createAlertWithMessage(response.data.message);
-      }
     } catch (error) {
       createAlertWithMessage(error.response.data);
     }
@@ -98,8 +64,6 @@ export const EventsProvider = ({ children }) => {
   return (
     <EventsContext.Provider
       value={{
-        events: state.events,
-        addEvent,
         joinEventById,
         getAllEvents,
         deleteEventById,
