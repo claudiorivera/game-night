@@ -13,16 +13,19 @@ handler.get(async (req, res) => {
   switch (req.query.events) {
     case "hosting":
       try {
-        const user = await User.findById(req.query.id);
+        const events = await Event.find({ host: req.user._id })
+          .populate("host game guests")
+          .lean();
         res.json({
           success: true,
           message: "Successfully fetched events user hosting",
-          events: user.eventsHosting,
+          events,
         });
       } catch (error) {
         res.status(500).json({
           success: false,
           message: error.message || "Hosting events not found",
+          events: null,
         });
       }
       return;
@@ -32,7 +35,9 @@ handler.get(async (req, res) => {
           guests: {
             _id: req.query.id,
           },
-        }).lean();
+        })
+          .populate("host game guests")
+          .lean();
         res.json({
           success: true,
           message: "Successfully fetched events user attending",
@@ -42,11 +47,14 @@ handler.get(async (req, res) => {
         return res.status(500).json({
           success: false,
           message: error.message || "Attending events not found",
+          events: null,
         });
       }
       return;
     default:
-      res.status(400).json({ success: false, message: "Bad request" });
+      res
+        .status(400)
+        .json({ success: false, message: "Bad request", events: null });
       return;
   }
 });

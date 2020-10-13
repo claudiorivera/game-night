@@ -14,12 +14,12 @@ const Event = new mongoose.Schema({
   game: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Game",
-    require: true,
+    required: true,
   },
   host: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    require: true,
+    required: true,
   },
   guests: [
     {

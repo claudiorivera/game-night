@@ -30,26 +30,12 @@ const StyledCard = styled(Card)({
   flexDirection: "column",
 });
 
-const EventDetailsPage = ({ id }) => {
+const EventDetailsPage = ({ event }) => {
   const router = useRouter();
-  const [event, setEvent] = useState(null);
   const { user } = useContext(UserContext);
   const { deleteEventById, leaveEventById, joinEventById } = useContext(
     EventsContext
   );
-  const { createAlertWithMessage } = useContext(AlertContext);
-
-  useEffect(() => {
-    const getEventById = async (eventId) => {
-      const response = await axios.get(`/api/events/${eventId}`);
-      if (response.data.success) {
-        setEvent(response.data.event);
-      } else {
-        createAlertWithMessage(response.data.message);
-      }
-    };
-    getEventById(id);
-  }, []);
 
   // Delete confirm dialog
   const [open, setOpen] = useState(false);
@@ -159,3 +145,22 @@ const EventDetailsPage = ({ id }) => {
 };
 
 export default EventDetailsPage;
+
+export const getStaticProps = async ({ params }) => {
+  const response = await axios.get(`/api/events/${params.id}`);
+  return {
+    props: {
+      event: response.data.event,
+    },
+  };
+};
+
+export const getStaticPaths = async () => {
+  const response = await axios.get("/api/events/");
+
+  const paths = response.data.events.map((event) => ({
+    params: { id: event._id },
+  }));
+
+  return { paths, fallback: false };
+};

@@ -20,6 +20,7 @@ handler.post(async (req, res, next) => {
         return res.status(500).json({
           success: false,
           message: error.message || "Unable to log in",
+          user: null,
         });
       const {
         _id,

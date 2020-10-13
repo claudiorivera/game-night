@@ -11,7 +11,10 @@ handler.use(middleware);
 // Returns all users
 handler.get(async (_, res) => {
   try {
-    const users = await User.find({}).sort({ numOfRatings: "desc" }).lean();
+    const users = await User.find({})
+      .populate("events eventsHosting")
+      .sort({ numOfRatings: "desc" })
+      .lean();
     res.json({
       success: true,
       message: "Successfully fetched all users",
@@ -20,7 +23,11 @@ handler.get(async (_, res) => {
   } catch (error) {
     res
       .status(500)
-      .json({ success: false, message: error.message || "Users not found" });
+      .json({
+        success: false,
+        message: error.message || "Users not found",
+        users: null,
+      });
   }
 });
 

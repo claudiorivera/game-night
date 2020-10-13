@@ -14,7 +14,9 @@ handler.get(async (req, res) => {
   // Returns guests attending event with given id
   if ("guests" in req.query) {
     try {
-      const event = await Event.findById(req.query.id).lean();
+      const event = await Event.findById(req.query.id)
+        .populate("guests")
+        .lean();
       res.json({
         success: true,
         message: "Successfully fetched guests attending event",
@@ -24,24 +26,24 @@ handler.get(async (req, res) => {
       res.status(400).json({
         success: false,
         message: error.message || "Unable to fetch guests for event",
+        guests: null,
       });
     }
   } else {
     try {
-      const event = await Event.findById(req.query.id).lean();
-      if (event) {
-        res.json({
-          success: true,
-          message: "Successfully fetched event",
-          event,
-        });
-      } else {
-        throw new Error("No event found with that id");
-      }
+      const event = await Event.findById(req.query.id)
+        .populate("host game guests")
+        .lean();
+      res.json({
+        success: true,
+        message: "Successfully fetched event",
+        event,
+      });
     } catch (error) {
       res.status(500).json({
         success: false,
         message: error.message || "Unable to fetch event",
+        event: null,
       });
     }
   }
@@ -116,11 +118,10 @@ handler.put(async (req, res) => {
           userLeaving.events.pull(eventToLeave);
           // Save both
           await userLeaving.save();
-          const savedEvent = await eventToLeave.save();
+          await eventToLeave.save();
           res.json({
             success: true,
             message: "Successfully left event",
-            event: savedEvent,
           });
         } catch (error) {
           res
@@ -135,11 +136,10 @@ handler.put(async (req, res) => {
         try {
           const eventToEdit = await Event.findById(req.query.id);
           eventToEdit.set(req.body);
-          const updatedEvent = await eventToEdit.save();
+          await eventToEdit.save();
           res.json({
             success: true,
             message: "Successfully updated event",
-            event: updatedEvent,
           });
         } catch (error) {
           res

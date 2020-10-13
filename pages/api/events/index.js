@@ -12,8 +12,8 @@ handler.use(middleware);
 handler.get(async (_, res) => {
   try {
     const events = await Event.find({})
+      .populate("host game guests")
       .sort({ eventDateTime: "asc" })
-      .populate("host game")
       .lean();
     res.json({
       success: true,
@@ -21,7 +21,9 @@ handler.get(async (_, res) => {
       events,
     });
   } catch (error) {
-    res.status(500).json({ success: false, message: "Events not found" });
+    res
+      .status(500)
+      .json({ success: false, message: "Events not found", events: null });
   }
 });
 
@@ -37,12 +39,11 @@ handler.post(async (req, res) => {
       });
       const user = await User.findById(req.user._id).exec();
       user.eventsHosting.push(event);
-      const savedEvent = await event.save();
+      await event.save();
       await user.save();
       res.status(201).json({
         success: true,
         message: "Successfully added event",
-        event: savedEvent,
       });
     } catch (error) {
       res.status(500).json({

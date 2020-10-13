@@ -1,12 +1,15 @@
 import { CircularProgress, Container, Typography } from "@material-ui/core";
+import axios from "axios";
 import { useRouter } from "next/router";
 import React, { Fragment, useEffect } from "react";
 import EventsListContainer from "../components/EventsListContainer";
 import useCurrentUser from "../util/useCurrentUser";
+import useEvents from "../util/useEvents";
 
 const HomePage = () => {
   const router = useRouter();
   const [user] = useCurrentUser();
+  const [events] = useEvents();
 
   useEffect(() => {
     if (!user) router.push("/login");
@@ -20,20 +23,25 @@ const HomePage = () => {
         </Typography>
       )}
       {user?._id && `Hello, ${user.name}.`}
-      {user?.eventsHosting && (
+      {events && user?.eventsHosting.length > 0 && (
         <Fragment>
           <Typography variant="body1" style={{ marginTop: "1.5rem" }}>
             Events You Are Hosting:
           </Typography>
-          <EventsListContainer events={user.eventsHosting} isHosting />
+          <EventsListContainer
+            events={events.filter((event) => event.host._id === user._id)}
+            isHosting
+          />
         </Fragment>
       )}
-      {user?.events && (
+      {events && user?.events.length > 0 && (
         <Fragment>
           <Typography variant="body1" style={{ marginTop: "1.5rem" }}>
             Events You Are Attending:
           </Typography>
-          <EventsListContainer events={user.events} />
+          <EventsListContainer
+            events={events.filter((event) => event.host._id !== user._id)}
+          />
         </Fragment>
       )}
     </Container>
