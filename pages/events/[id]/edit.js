@@ -14,13 +14,21 @@ import React, { useContext, useEffect, useState } from "react";
 import { EventsContext } from "../../../context/Events";
 import { GamesContext } from "../../../context/Games";
 
+const useStyles = makeStyles({
+  margin: {
+    margin: "10px",
+  },
+});
+
 const EditEventPage = () => {
+  const router = useRouter();
+  const classes = useStyles();
   const { games, getAllGames } = useContext(GamesContext);
   const { getEventById, updateEvent } = useContext(EventsContext);
-  const { eventId } = useParams();
   const [eventDateTime, setEventDateTime] = useState(Date.now());
   const [gameId, setGameId] = useState("");
   const [event, setEvent] = useState(null);
+  const eventId = router.query;
 
   useEffect(() => {
     const fetchGames = async () => {
@@ -37,15 +45,6 @@ const EditEventPage = () => {
     fetchGames();
     fetchEvent();
   }, []);
-
-  const useStyles = makeStyles({
-    margin: {
-      margin: "10px",
-    },
-  });
-
-  const classes = useStyles();
-  const router = useRouter();
 
   return (
     <Container>

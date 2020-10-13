@@ -19,10 +19,10 @@ import axios from "axios";
 import moment from "moment";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
-import GameDetails from "../../components/GameDetails";
-import { AlertContext } from "../../context/Alert";
-import { EventsContext } from "../../context/Events";
-import { UserContext } from "../../context/User";
+import GameDetails from "../../../components/GameDetails";
+import { AlertContext } from "../../../context/Alert";
+import { EventsContext } from "../../../context/Events";
+import { UserContext } from "../../../context/User";
 
 const StyledCard = styled(Card)({
   margin: "10px",

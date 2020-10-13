@@ -1,9 +1,11 @@
 import { Button, TextField } from "@material-ui/core";
+import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
 import { AlertContext } from "../context/Alert";
 import { UserContext } from "../context/User";
 
 const RegisterForm = () => {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -17,6 +19,7 @@ const RegisterForm = () => {
     if (password === passwordConfirm) {
       setIsFetching(true);
       registerUser(name, email, password);
+      router.push("/");
     } else {
       createAlertWithMessage("Passwords don't match");
     }
