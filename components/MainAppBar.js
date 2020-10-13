@@ -13,9 +13,8 @@ import { Menu as MenuIcon } from "@material-ui/icons";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { Fragment, useContext, useState } from "react";
-import useSWR from "swr";
 import { UserContext } from "../context/User";
-import fetcher from "../util/fetcher";
+import useCurrentUser from "../util/useCurrentUser";
 
 const Title = styled(Typography)({
   flexGrow: 1,
@@ -54,7 +53,7 @@ const userLinks = [
 const MainAppBar = () => {
   const router = useRouter();
   const theme = useTheme();
-  const { data, mutate } = useSWR("/api/user/auth", fetcher);
+  const [user, { mutate }] = useCurrentUser();
 
   const { logoutUser } = useContext(UserContext);
 
@@ -103,7 +102,7 @@ const MainAppBar = () => {
               open={open}
               onClose={handleClose}
             >
-              {data?.user?._id && (
+              {user?._id && (
                 <Fragment>
                   {userLinks.map(({ url, title }, index) => (
                     <MenuItem
@@ -128,7 +127,7 @@ const MainAppBar = () => {
                   </MenuItem>
                 </Fragment>
               )}
-              {data?.user?.isAdmin &&
+              {user?.isAdmin &&
                 adminLinks.map(({ title, url }, index) => (
                   <MenuItem
                     key={index}
@@ -140,7 +139,7 @@ const MainAppBar = () => {
                     {title}
                   </MenuItem>
                 ))}
-              {!data && (
+              {!user && (
                 <MenuItem
                   onClick={() => {
                     handleClose();
@@ -155,7 +154,7 @@ const MainAppBar = () => {
         )}
         {/* Desktop menu */}
         {/* User links */}
-        {!isMobile && data?.user?._id && (
+        {!isMobile && user?._id && (
           <Fragment>
             {userLinks.map(({ title, url }, index) => (
               <Link key={index} href={url}>
@@ -176,14 +175,14 @@ const MainAppBar = () => {
         )}
         {/* Admin links */}
         {!isMobile &&
-          data?.user?.isAdmin &&
+          user?.isAdmin &&
           adminLinks.map(({ title, url }, index) => (
             <Link key={index} href={url}>
               <Button color="inherit">{title}</Button>
             </Link>
           ))}
         {/* Show the Login/Register button if there's no user */}
-        {!isMobile && !data && (
+        {!isMobile && !user && (
           <Link href="/login">
             <Button color="inherit">Login/Register</Button>
           </Link>

@@ -1,40 +1,39 @@
 import { CircularProgress, Container, Typography } from "@material-ui/core";
-import React, { Fragment, useEffect } from "react";
-import useSWR from "swr";
-import EventsListContainer from "../components/EventsListContainer";
-import fetcher from "../util/fetcher";
 import { useRouter } from "next/router";
+import React, { Fragment, useEffect } from "react";
+import EventsListContainer from "../components/EventsListContainer";
+import useCurrentUser from "../util/useCurrentUser";
 
 const HomePage = () => {
   const router = useRouter();
-  const { data } = useSWR("/api/user/auth", fetcher);
+  const [user] = useCurrentUser();
 
   useEffect(() => {
-    if (!data) router.push("/login");
+    if (!user) router.push("/login");
   }, []);
 
   return (
     <Container>
-      {!data && (
+      {!user && (
         <Typography align="center" component={"div"}>
           <CircularProgress size={300} thickness={5} />
         </Typography>
       )}
-      {data?.user?._id && `Hello, ${data.user.name}.`}
-      {data?.user?.eventsHosting && (
+      {user?._id && `Hello, ${user.name}.`}
+      {user?.eventsHosting && (
         <Fragment>
           <Typography variant="body1" style={{ marginTop: "1.5rem" }}>
             Events You Are Hosting:
           </Typography>
-          <EventsListContainer events={data.user.eventsHosting} isHosting />
+          <EventsListContainer events={user.eventsHosting} isHosting />
         </Fragment>
       )}
-      {data?.user?.events && (
+      {user?.events && (
         <Fragment>
           <Typography variant="body1" style={{ marginTop: "1.5rem" }}>
             Events You Are Attending:
           </Typography>
-          <EventsListContainer events={data.user.events} />
+          <EventsListContainer events={user.events} />
         </Fragment>
       )}
     </Container>
