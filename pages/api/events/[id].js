@@ -2,6 +2,7 @@ import nextConnect from "next-connect";
 import middleware from "../../../middleware";
 import Event from "../../../models/Event";
 import User from "../../../models/User";
+import Game from "../../../models/Game";
 
 const handler = nextConnect();
 
@@ -24,7 +25,6 @@ handler.get(async (req, res) => {
       res.status(400).json({
         success: false,
         message: error.message || "Unable to fetch guests for event",
-        eventGuests: null,
       });
     }
   } else {
@@ -39,7 +39,6 @@ handler.get(async (req, res) => {
       res.status(500).json({
         success: false,
         message: error.message || "Unable to fetch event",
-        event: null,
       });
     }
   }

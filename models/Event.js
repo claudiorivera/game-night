@@ -8,20 +8,24 @@ const EventSchema = new mongoose.Schema({
   },
   eventDateTime: {
     type: String,
+    required: true,
   },
   // https://vegibit.com/mongoose-relationships-tutorial/
   eventGame: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Game",
+    required: true,
   },
   eventHost: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
+    required: true,
   },
   eventGuests: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+      required: true,
     },
   ],
 });
@@ -42,7 +46,16 @@ EventSchema.pre("remove", async function () {
 EventSchema.pre("find", function () {
   this.populate("eventGuests", "name")
     .populate("eventHost", "name")
-    .populate("eventGame", "name")
+    .populate("eventGame")
+    .sort({
+      eventDateTime: "asc",
+    });
+});
+
+EventSchema.pre("findOne", function () {
+  this.populate("eventGuests", "name")
+    .populate("eventHost", "name")
+    .populate("eventGame")
     .sort({
       eventDateTime: "asc",
     });

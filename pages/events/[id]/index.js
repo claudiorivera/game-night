@@ -19,12 +19,12 @@ import { ArrowBack as ArrowBackIcon } from "@material-ui/icons";
 import axios from "axios";
 import moment from "moment";
 import { useRouter } from "next/router";
-import React, { useContext, useEffect, useState } from "react";
-import useSWR from "swr";
+import React, { useContext, useState } from "react";
 import GameDetails from "../../../components/GameDetails";
 import { AlertContext } from "../../../context/Alert";
-import fetcher from "../../../util/fetcher";
 import useCurrentUser from "../../../util/useCurrentUser";
+import useEvent from "../../../util/useEvent";
+import useEvents from "../../../util/useEvents";
 
 const StyledCard = styled(Card)({
   margin: "10px",
@@ -35,12 +35,9 @@ const StyledCard = styled(Card)({
 const EventDetailsPage = () => {
   const router = useRouter();
   const { user } = useCurrentUser();
-  const { data, error } = useSWR(`/api/events/${router.query.id}`, fetcher);
+  const { event } = useEvent(router.query.id);
+  const { eventsMutate } = useEvents();
   const { createAlertWithMessage } = useContext(AlertContext);
-
-  useEffect(() => {
-    if (!user) router.push("/login");
-  }, [user]);
 
   // Delete confirm dialog
   const [open, setOpen] = useState(false);
@@ -57,6 +54,7 @@ const EventDetailsPage = () => {
   const joinEventById = async (id) => {
     try {
       const response = await axios.put(`/api/events/${id}?action=join`);
+      eventsMutate();
       createAlertWithMessage(response.data.message);
     } catch (error) {
       console.error(error);
@@ -66,63 +64,62 @@ const EventDetailsPage = () => {
   const leaveEventById = async (id) => {
     try {
       const response = await axios.put(`/api/events/${id}?action=leave`);
+      eventsMutate();
       createAlertWithMessage(response.data.message);
     } catch (error) {
       console.error(error);
     }
   };
 
-  if (error) return <div>failed to load</div>;
-  if (!data)
+  if (!event)
     return (
       <Typography align="center" component={"div"}>
         <CircularProgress size={200} thickness={4} />
       </Typography>
     );
-
   return (
     <Container>
       <Button onClick={() => router.back()}>
         <ArrowBackIcon />
         Go Back
       </Button>
-      {data.event && (
+      {event && (
         <StyledCard>
           <CardHeader
-            title={moment(data.event.eventDateTime).format(
+            title={moment(event.eventDateTime).format(
               "MMMM Do, YYYY [at] h:mma"
             )}
-            subheader={data.event.eventGame.name}
+            subheader={event.eventGame.name}
           />
           <CardContent>
             <Typography variant="body1">
-              Hosted by: {data.event.eventHost.name}
+              Hosted by: {event.eventHost.name}
             </Typography>
             <Typography variant="subtitle1">
               Guests:
-              {data.event.eventGuests.map((guest, index) => (
+              {event.eventGuests.map((guest, index) => (
                 <Chip key={index} label={guest.name} />
               ))}
             </Typography>
             <Typography variant="body1">Game Info:</Typography>
-            <GameDetails game={data.event.eventGame} />
+            <GameDetails game={event.eventGame} />
           </CardContent>
           <CardActions>
             {/* If user is already a guest, show the Leave button */}
-            {data.event.eventGuests.some((guest) => guest._id === user._id) ? (
+            {event.eventGuests.some((guest) => guest._id === user._id) ? (
               <Button
                 onClick={async () => {
-                  await leaveEventById(data.event._id);
+                  await leaveEventById(event._id);
                   router.back();
                 }}
               >
                 Leave
               </Button>
             ) : // Otherwise, as long as user isn't the host, show the Join button
-            data.event.eventHost._id !== user._id ? (
+            event.eventHost._id !== user._id ? (
               <Button
                 onClick={async () => {
-                  await joinEventById(data.event._id);
+                  await joinEventById(event._id);
                   router.back();
                 }}
               >
@@ -139,7 +136,7 @@ const EventDetailsPage = () => {
               </Button>
             )}
             {/* Show the Delete button to hosts and admins */}
-            {(data.event.eventHost._id === user._id || user.isAdmin) && (
+            {(event.eventHost._id === user._id || user.isAdmin) && (
               <Button
                 onClick={async () => {
                   setOpen(true);

@@ -1,5 +1,6 @@
 import {
   Button,
+  CircularProgress,
   Container,
   Dialog,
   DialogActions,
@@ -19,10 +20,6 @@ const ProfilePage = () => {
   const { deleteUserById } = useContext(UserContext);
   const { user } = useCurrentUser();
 
-  useEffect(() => {
-    if (!user) router.push("/login");
-  }, [user]);
-
   const handleDelete = async () => {
     await deleteUserById(user._id);
     router.push("/register");
@@ -32,6 +29,13 @@ const ProfilePage = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  if (!user)
+    return (
+      <Typography align="center" component={"div"}>
+        <CircularProgress size={200} thickness={4} />
+      </Typography>
+    );
 
   return (
     <Container>

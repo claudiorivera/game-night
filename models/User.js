@@ -17,17 +17,20 @@ const UserSchema = new mongoose.Schema({
   isAdmin: {
     type: Boolean,
     default: false,
+    required: true,
   },
   eventsAttending: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Event",
+      required: true,
     },
   ],
   eventsHosting: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Event",
+      required: true,
     },
   ],
 });

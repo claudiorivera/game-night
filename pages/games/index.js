@@ -3,6 +3,7 @@ import {
   AccordionDetails,
   AccordionSummary,
   Button,
+  CircularProgress,
   Container,
   Typography,
 } from "@material-ui/core";
@@ -20,6 +21,13 @@ const ContainerWithMargin = styled(Container)({
 const GamesListPage = () => {
   const router = useRouter();
   const { games } = useGames();
+
+  if (!games)
+    return (
+      <Typography align="center" component={"div"}>
+        <CircularProgress size={200} thickness={4} />
+      </Typography>
+    );
 
   return (
     <Fragment>

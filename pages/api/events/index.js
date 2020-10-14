@@ -22,7 +22,6 @@ handler.get(async (_, res) => {
     res.status(500).json({
       success: false,
       message: error.message || "Error fetching all events",
-      events: null,
     });
   }
 });

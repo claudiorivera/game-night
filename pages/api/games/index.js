@@ -1,5 +1,7 @@
 import nextConnect from "next-connect";
 import middleware from "../../../middleware";
+import Event from "../../../models/Event";
+import User from "../../../models/User";
 import Game from "../../../models/Game";
 
 const handler = nextConnect();
@@ -20,7 +22,6 @@ handler.get(async (_, res) => {
     res.status(500).json({
       success: false,
       message: error.message || "Games not found",
-      games: null,
     });
   }
 });
@@ -57,13 +58,10 @@ handler.post(async (req, res) => {
       res.status(500).json({
         success: false,
         message: error.message || "Unable to add game",
-        game: null,
       });
     }
   } else {
-    res
-      .status(500)
-      .json({ success: false, message: "Unauthorized user", game: null });
+    res.status(500).json({ success: false, message: "Unauthorized user" });
   }
 });
 

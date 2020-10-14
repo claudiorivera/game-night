@@ -3,8 +3,12 @@ import fetcher from "./fetcher";
 
 const useCurrentUser = () => {
   const { data, error, mutate } = useSWR("/api/user/auth", fetcher);
-  const user = data?.user;
-  return { user, userError: error, userMutate: mutate };
+  return {
+    user: data?.user,
+    userError: error,
+    userLoading: !error && !data,
+    userMutate: mutate,
+  };
 };
 
 export default useCurrentUser;

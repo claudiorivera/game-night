@@ -1,6 +1,8 @@
 import nextConnect from "next-connect";
 import middleware from "../../../middleware";
+import Event from "../../../models/Event";
 import User from "../../../models/User";
+import Game from "../../../models/Game";
 
 const handler = nextConnect();
 
@@ -20,13 +22,12 @@ handler.post(async (req, res, next) => {
         return res.status(500).json({
           success: false,
           message: error.message || "Unable to log in",
-          user: null,
         });
       const {
         _id,
         email,
         name,
-        events,
+        eventsAttending,
         eventsHosting,
         isAdmin,
         dateCreated,
@@ -38,7 +39,7 @@ handler.post(async (req, res, next) => {
           _id,
           email,
           name,
-          events,
+          eventsAttending,
           eventsHosting,
           isAdmin,
           dateCreated,

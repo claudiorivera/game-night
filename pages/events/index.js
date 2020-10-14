@@ -6,9 +6,8 @@ import {
 } from "@material-ui/core";
 import { styled } from "@material-ui/styles";
 import { useRouter } from "next/router";
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
 import EventsListContainer from "../../components/EventsListContainer";
-import useCurrentUser from "../../util/useCurrentUser";
 import useEvents from "../../util/useEvents";
 
 const StyledContainer = styled(Container)({
@@ -18,11 +17,13 @@ const StyledContainer = styled(Container)({
 const EventsListPage = () => {
   const router = useRouter();
   const { events } = useEvents();
-  const { user } = useCurrentUser();
 
-  useEffect(() => {
-    if (!user) router.push("/login");
-  }, [user]);
+  if (!events)
+    return (
+      <Typography align="center" component={"div"}>
+        <CircularProgress size={200} thickness={4} />
+      </Typography>
+    );
 
   return (
     <Fragment>
@@ -40,13 +41,7 @@ const EventsListPage = () => {
         </Button>
       </StyledContainer>
       <Container>
-        {events ? (
-          <EventsListContainer events={events} />
-        ) : (
-          <Typography align="center" component={"div"}>
-            <CircularProgress size={200} thickness={4} />
-          </Typography>
-        )}
+        <EventsListContainer events={events} />
       </Container>
     </Fragment>
   );

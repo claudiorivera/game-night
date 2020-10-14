@@ -2,6 +2,7 @@ import nextConnect from "next-connect";
 import middleware from "../../../middleware";
 import Event from "../../../models/Event";
 import User from "../../../models/User";
+import Game from "../../../models/Game";
 
 const handler = nextConnect();
 
@@ -23,7 +24,6 @@ handler.get(async (req, res) => {
         res.status(500).json({
           success: false,
           message: error.message || "Hosting events not found",
-          events: null,
         });
       }
       return;
@@ -43,14 +43,11 @@ handler.get(async (req, res) => {
         return res.status(500).json({
           success: false,
           message: error.message || "Attending events not found",
-          events: null,
         });
       }
       return;
     default:
-      res
-        .status(400)
-        .json({ success: false, message: "Bad request", events: null });
+      res.status(400).json({ success: false, message: "Bad request" });
       return;
   }
 });

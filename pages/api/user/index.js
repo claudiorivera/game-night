@@ -1,6 +1,8 @@
 import nextConnect from "next-connect";
 import middleware from "../../../middleware";
+import Event from "../../../models/Event";
 import User from "../../../models/User";
+import Game from "../../../models/Game";
 
 const handler = nextConnect();
 
@@ -21,7 +23,6 @@ handler.get(async (_, res) => {
     res.status(500).json({
       success: false,
       message: error.message || "Users not found",
-      users: null,
     });
   }
 });

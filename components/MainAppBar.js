@@ -119,7 +119,7 @@ const MainAppBar = () => {
                     onClick={() => {
                       handleClose();
                       logoutUser();
-                      userMutate(null, false);
+                      userMutate(null);
                       router.push("/login");
                     }}
                   >

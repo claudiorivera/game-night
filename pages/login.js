@@ -10,6 +10,7 @@ const StyledLink = styled(Link)({
 
 const LoginPage = () => {
   const [formDisplay, setFormDisplay] = useState("login");
+
   return (
     <Container>
       {formDisplay === "login" && (
