@@ -10,19 +10,16 @@ import {
   Typography,
 } from "@material-ui/core";
 import moment from "moment";
-import { useRouter } from "next/router";
-import React, { useContext, useEffect, useState } from "react";
-import { UserContext } from "../context/User";
-import useCurrentUser from "../util/useCurrentUser";
+import React, { useState } from "react";
+import { useSession } from "next-auth/client";
 
 const ProfilePage = () => {
-  const router = useRouter();
-  const { deleteUserById } = useContext(UserContext);
-  const { user } = useCurrentUser();
-
-  const handleDelete = async () => {
-    await deleteUserById(user._id);
-    router.push("/register");
+  const [session] = useSession();
+  const deleteUserById = () => {
+    console.log("dummy deleteUserById");
+  };
+  const handleDelete = () => {
+    deleteUserById(session.user._id);
   };
 
   const [open, setOpen] = useState(false);
@@ -30,7 +27,7 @@ const ProfilePage = () => {
     setOpen(false);
   };
 
-  if (!user)
+  if (!session)
     return (
       <Typography align="center" component={"div"}>
         <CircularProgress size={200} thickness={4} />
@@ -39,11 +36,13 @@ const ProfilePage = () => {
 
   return (
     <Container>
-      <Typography variant="h5">Name: {user.name}</Typography>
-      <Typography variant="h5">Email: {user.email}</Typography>
-      <Typography variant="h5">Admin? {user.isAdmin ? "Yes" : "No"}</Typography>
+      <Typography variant="h5">Name: {session.user.name}</Typography>
+      <Typography variant="h5">Email: {session.user.email}</Typography>
       <Typography variant="h5">
-        Date Created: {moment(user.dateCreated).format("MMMM Do, YYYY")}
+        Admin? {session.user.isAdmin ? "Yes" : "No"}
+      </Typography>
+      <Typography variant="h5">
+        Date Created: {moment(session.user.dateCreated).format("MMMM Do, YYYY")}
       </Typography>
       <Button
         fullWidth

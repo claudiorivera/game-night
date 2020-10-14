@@ -3,6 +3,7 @@ import middleware from "../../../middleware";
 import Event from "../../../models/Event";
 import User from "../../../models/User";
 import Game from "../../../models/Game";
+import { getSession } from "next-auth/client";
 
 const handler = nextConnect();
 
@@ -46,41 +47,55 @@ handler.get(async (req, res) => {
 
 // DELETE api/events/id
 // Deletes event with given id
+// TODO: Validate that session user is the host or an admin
 handler.delete(async (req, res) => {
-  try {
-    const eventToRemove = await Event.findById(req.query.id);
-    await eventToRemove.deleteOne(); // https://mongoosejs.com/docs/deprecations.html
-    res.json({
-      success: true,
-      message: "Successfully deleted event",
-    });
-  } catch (error) {
-    res.status(500).json({
+  const session = await getSession({ req });
+  if (session) {
+    try {
+      const eventToRemove = await Event.findById(req.query.id);
+      await eventToRemove.deleteOne(); // https://mongoosejs.com/docs/deprecations.html
+      res.json({
+        success: true,
+        message: "Successfully deleted event",
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: error.message || "Unable to delete event",
+      });
+    }
+  } else {
+    res.status(401).json({
       success: false,
-      message: error.message || "Unable to delete event",
+      message: "Unauthorized DELETE /api/events/id",
     });
   }
+  res.end();
 });
 
 // Event update
 handler.put(async (req, res) => {
-  if (req.user) {
+  const session = await getSession({ req });
+
+  if (session) {
     switch (req.query.action) {
       // PUT api/events/id?action=join
       // Adds current user to event with given id
       case "join":
         try {
           const eventToJoin = await Event.findById(req.query.id);
-          if (eventToJoin.eventHost.toString() === req.user._id.toString()) {
+          if (
+            eventToJoin.eventHost.toString() === session.user._id.toString()
+          ) {
             return res.status(400).json({
               success: false,
               message: "Can't join an event you're hosting",
             });
           }
           // Add user to guests array in event
-          eventToJoin.eventGuests.addToSet(req.user);
+          eventToJoin.eventGuests.addToSet(session.user);
           // Add event to events array in user
-          const userJoining = await User.findById(req.user._id);
+          const userJoining = await User.findById(session.user._id);
           userJoining.eventsAttending.push(eventToJoin);
           // Save both
           await userJoining.save();
@@ -99,7 +114,9 @@ handler.put(async (req, res) => {
       case "leave":
         try {
           const eventToLeave = await Event.findById(req.query.id);
-          if (eventToLeave.eventHost.toString() === req.user._id.toString()) {
+          if (
+            eventToLeave.eventHost.toString() === session.user._id.toString()
+          ) {
             return res.status(400).json({
               success: false,
               message:
@@ -107,9 +124,9 @@ handler.put(async (req, res) => {
             });
           }
           // Remove user from guests array of event
-          eventToLeave.eventGuests.pull(req.user);
+          eventToLeave.eventGuests.pull(session.user);
           // Remove event from events array of user
-          const userLeaving = await User.findById(req.user._id);
+          const userLeaving = await User.findById(session.user._id);
           userLeaving.eventsAttending.pull(eventToLeave);
           // Save both
           await userLeaving.save();

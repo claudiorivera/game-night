@@ -2,13 +2,12 @@ import MomentUtils from "@date-io/moment";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import { Provider } from "next-auth/client";
 import Head from "next/head";
 import PropTypes from "prop-types";
 import React from "react";
 import AlertDialog from "../components/AlertDialog";
-// import { EventsProvider } from "../components/events/context";
 import MainAppBar from "../components/MainAppBar";
-import { UserProvider } from "../context/User";
 import { AlertProvider } from "../context/Alert";
 import theme from "../styles/theme";
 
@@ -34,16 +33,14 @@ const App = (props) => {
       </Head>
       <ThemeProvider theme={theme}>
         <AlertProvider>
-          <UserProvider>
-            {/* <EventsProvider> */}
+          <Provider session={pageProps.session}>
             <MuiPickersUtilsProvider utils={MomentUtils}>
               <CssBaseline />
               <MainAppBar />
               <AlertDialog />
               <Component {...pageProps} />
             </MuiPickersUtilsProvider>
-            {/* </EventsProvider> */}
-          </UserProvider>
+          </Provider>
         </AlertProvider>
       </ThemeProvider>
     </React.Fragment>

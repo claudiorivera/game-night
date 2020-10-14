@@ -3,6 +3,7 @@ import middleware from "../../../middleware";
 import Event from "../../../models/Event";
 import User from "../../../models/User";
 import Game from "../../../models/Game";
+import { getSession } from "next-auth/client";
 
 const handler = nextConnect();
 
@@ -29,14 +30,16 @@ handler.get(async (_, res) => {
 // POST api/events
 // Adds a new event and returns the event
 handler.post(async (req, res) => {
-  if (req.user) {
+  const session = await getSession({ req });
+
+  if (session) {
     try {
       const event = new Event({
-        eventHost: req.user,
+        eventHost: session.user,
         eventDateTime: req.body.eventDateTime,
         eventGame: req.body.gameId,
       });
-      const user = await User.findById(req.user._id);
+      const user = await User.findById(session.user._id);
       user.eventsHosting.push(event);
       await event.save();
       await user.save();

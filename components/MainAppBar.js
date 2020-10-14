@@ -12,9 +12,8 @@ import { styled, useTheme } from "@material-ui/core/styles";
 import { Menu as MenuIcon } from "@material-ui/icons";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { Fragment, useContext, useState } from "react";
-import { UserContext } from "../context/User";
-import useCurrentUser from "../util/useCurrentUser";
+import React, { Fragment, useState } from "react";
+import { useSession } from "next-auth/client";
 
 const Title = styled(Typography)({
   flexGrow: 1,
@@ -53,14 +52,16 @@ const userLinks = [
 const MainAppBar = () => {
   const router = useRouter();
   const theme = useTheme();
-  const { user, userMutate } = useCurrentUser();
-
-  const { logoutUser } = useContext(UserContext);
+  const [session] = useSession();
 
   // https://material-ui.com/components/app-bar/#app-bar-with-menu
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
+
+  const logoutUser = () => {
+    console.log("dummy logoutUser");
+  };
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -102,7 +103,7 @@ const MainAppBar = () => {
               open={open}
               onClose={handleClose}
             >
-              {user?._id && (
+              {session?.user?._id && (
                 <Fragment>
                   {userLinks.map(({ url, title }, index) => (
                     <MenuItem
@@ -119,15 +120,13 @@ const MainAppBar = () => {
                     onClick={() => {
                       handleClose();
                       logoutUser();
-                      userMutate(null);
-                      router.push("/login");
                     }}
                   >
                     Log Out
                   </MenuItem>
                 </Fragment>
               )}
-              {user?.isAdmin &&
+              {session?.user?.isAdmin &&
                 adminLinks.map(({ title, url }, index) => (
                   <MenuItem
                     key={index}
@@ -139,7 +138,7 @@ const MainAppBar = () => {
                     {title}
                   </MenuItem>
                 ))}
-              {!user && (
+              {!session && (
                 <MenuItem
                   onClick={() => {
                     handleClose();
@@ -154,7 +153,7 @@ const MainAppBar = () => {
         )}
         {/* Desktop menu */}
         {/* User links */}
-        {!isMobile && user?._id && (
+        {!isMobile && session?.user?._id && (
           <Fragment>
             {userLinks.map(({ title, url }, index) => (
               <Link key={index} href={url}>
@@ -165,8 +164,6 @@ const MainAppBar = () => {
               color="inherit"
               onClick={() => {
                 logoutUser();
-                userMutate(null, false);
-                router.push("/login");
               }}
             >
               Log Out
@@ -175,17 +172,18 @@ const MainAppBar = () => {
         )}
         {/* Admin links */}
         {!isMobile &&
-          user?.isAdmin &&
+          session?.user?.isAdmin &&
           adminLinks.map(({ title, url }, index) => (
             <Link key={index} href={url}>
               <Button color="inherit">{title}</Button>
             </Link>
           ))}
         {/* Show the Login/Register button if there's no user */}
-        {!isMobile && !user && (
-          <Link href="/login">
-            <Button color="inherit">Login/Register</Button>
-          </Link>
+        {!isMobile && !session && (
+          // <Link href="/login">
+          //   <Button color="inherit">Login/Register</Button>
+          // </Link>
+          <div>Login Link Goes Here?</div>
         )}
       </Toolbar>
     </StyledAppBar>

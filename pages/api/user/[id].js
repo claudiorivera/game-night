@@ -3,6 +3,7 @@ import middleware from "../../../middleware";
 import Event from "../../../models/Event";
 import User from "../../../models/User";
 import Game from "../../../models/Game";
+import { getSession } from "next-auth/client";
 
 const handler = nextConnect();
 
@@ -55,7 +56,9 @@ handler.get(async (req, res) => {
 // DELETE api/user/id
 // Deletes user with given id
 handler.delete(async (req, res) => {
-  if (req.user) {
+  const session = await getSession({ req });
+
+  if (session) {
     const user = await User.findById(req.query.id);
     // https://stackoverflow.com/a/44342416
     await Event.updateMany(
@@ -66,7 +69,7 @@ handler.delete(async (req, res) => {
     await user.deleteOne(); // https://mongoosejs.com/docs/deprecations.html
     res.json({ success: true, message: "Successfully deleted user" });
   } else {
-    res.status(500).json({ success: false, message: "No user" });
+    res.status(401).json({ success: false, message: "No user" });
   }
 });
 

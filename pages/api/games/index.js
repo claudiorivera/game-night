@@ -3,6 +3,7 @@ import middleware from "../../../middleware";
 import Event from "../../../models/Event";
 import User from "../../../models/User";
 import Game from "../../../models/Game";
+import { getSession } from "next-auth/client";
 
 const handler = nextConnect();
 
@@ -29,7 +30,9 @@ handler.get(async (_, res) => {
 // POST api/games
 // Adds game and returns the game
 handler.post(async (req, res) => {
-  if (req.user?.isAdmin) {
+  const session = await getSession({ req });
+
+  if (session?.user.isAdmin) {
     try {
       const game = new Game({
         name: req.body.name,
@@ -61,7 +64,7 @@ handler.post(async (req, res) => {
       });
     }
   } else {
-    res.status(500).json({ success: false, message: "Unauthorized user" });
+    res.status(401).json({ success: false, message: "Unauthorized user" });
   }
 });
 

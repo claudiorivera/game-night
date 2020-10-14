@@ -1,31 +1,24 @@
 import { Button, TextField } from "@material-ui/core";
-import { useRouter } from "next/router";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { AlertContext } from "../context/Alert";
-import { UserContext } from "../context/User";
-import useCurrentUser from "../util/useCurrentUser";
 
 const RegisterForm = () => {
-  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [isFetching, setIsFetching] = useState(false);
   const { createAlertWithMessage } = useContext(AlertContext);
-  const { registerUser } = useContext(UserContext);
-  const { user, userMutate } = useCurrentUser();
 
-  useEffect(() => {
-    if (user) router.push("/");
-  }, [user]);
+  const registerUser = () => {
+    console.log("dummy registerUser");
+  };
 
   const handleRegister = async (e) => {
     e.preventDefault();
     if (password === passwordConfirm) {
       setIsFetching(true);
       registerUser(name, email, password);
-      userMutate();
     } else {
       createAlertWithMessage("Passwords don't match");
     }

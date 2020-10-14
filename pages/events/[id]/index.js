@@ -22,7 +22,6 @@ import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
 import GameDetails from "../../../components/GameDetails";
 import { AlertContext } from "../../../context/Alert";
-import useCurrentUser from "../../../util/useCurrentUser";
 import useEvent from "../../../util/useEvent";
 import useEvents from "../../../util/useEvents";
 
@@ -34,7 +33,6 @@ const StyledCard = styled(Card)({
 
 const EventDetailsPage = () => {
   const router = useRouter();
-  const { user } = useCurrentUser();
   const { event } = useEvent(router.query.id);
   const { eventsMutate } = useEvents();
   const { createAlertWithMessage } = useContext(AlertContext);
@@ -77,6 +75,7 @@ const EventDetailsPage = () => {
         <CircularProgress size={200} thickness={4} />
       </Typography>
     );
+
   return (
     <Container>
       <Button onClick={() => router.back()}>
@@ -106,7 +105,9 @@ const EventDetailsPage = () => {
           </CardContent>
           <CardActions>
             {/* If user is already a guest, show the Leave button */}
-            {event.eventGuests.some((guest) => guest._id === user._id) ? (
+            {event.eventGuests.some(
+              (guest) => guest._id === session.user._id
+            ) ? (
               <Button
                 onClick={async () => {
                   await leaveEventById(event._id);
@@ -116,7 +117,7 @@ const EventDetailsPage = () => {
                 Leave
               </Button>
             ) : // Otherwise, as long as user isn't the host, show the Join button
-            event.eventHost._id !== user._id ? (
+            event.eventHost._id !== session.user._id ? (
               <Button
                 onClick={async () => {
                   await joinEventById(event._id);
@@ -136,7 +137,8 @@ const EventDetailsPage = () => {
               </Button>
             )}
             {/* Show the Delete button to hosts and admins */}
-            {(event.eventHost._id === user._id || user.isAdmin) && (
+            {(event.eventHost._id === session.user._id ||
+              session.user.isAdmin) && (
               <Button
                 onClick={async () => {
                   setOpen(true);
