@@ -6,7 +6,7 @@ Uses the [BoardGameGeek API2](https://boardgamegeek.com/wiki/page/BGG_XML_API2) 
 
 # Changes
 
-- New in this version is a refactoring to use Next.js and serverless API routes.
+- New in this version is a refactoring to use Next.js and serverless API routes, as well as Next Auth.
 
 # Future Improvements
 
@@ -22,7 +22,7 @@ Uses the [BoardGameGeek API2](https://boardgamegeek.com/wiki/page/BGG_XML_API2) 
 
 # Config
 
-Add a `.env.local` file with a `MONGODB_URI` value for a MongoDB connection string, as well as a `SESSION_SECRET` for `express-session`. See `.sample-env`.
+Add a `.env.local` file with a `MONGODB_URI` value for a MongoDB connection string, as well as a `SECRET`, and `auth0` secrets as shown in the `.sample-env.local`.
 
 # Dev
 

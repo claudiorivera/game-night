@@ -13,7 +13,7 @@ import { Menu as MenuIcon } from "@material-ui/icons";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { Fragment, useState } from "react";
-import { useSession } from "next-auth/client";
+import { useSession, signOut } from "next-auth/client";
 
 const Title = styled(Typography)({
   flexGrow: 1,
@@ -58,10 +58,6 @@ const MainAppBar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
-
-  const logoutUser = () => {
-    console.log("dummy logoutUser");
-  };
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -119,7 +115,7 @@ const MainAppBar = () => {
                   <MenuItem
                     onClick={() => {
                       handleClose();
-                      logoutUser();
+                      signOut();
                     }}
                   >
                     Log Out
@@ -142,7 +138,7 @@ const MainAppBar = () => {
                 <MenuItem
                   onClick={() => {
                     handleClose();
-                    router.push("/login");
+                    router.push("/api/auth/signin");
                   }}
                 >
                   Login/Register
@@ -163,7 +159,7 @@ const MainAppBar = () => {
             <Button
               color="inherit"
               onClick={() => {
-                logoutUser();
+                signOut();
               }}
             >
               Log Out
@@ -180,10 +176,9 @@ const MainAppBar = () => {
           ))}
         {/* Show the Login/Register button if there's no user */}
         {!isMobile && !session && (
-          // <Link href="/login">
-          //   <Button color="inherit">Login/Register</Button>
-          // </Link>
-          <div>Login Link Goes Here?</div>
+          <Link href="/api/auth/signin">
+            <Button color="inherit">Login/Register</Button>
+          </Link>
         )}
       </Toolbar>
     </StyledAppBar>
