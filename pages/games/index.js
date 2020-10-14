@@ -19,7 +19,7 @@ const ContainerWithMargin = styled(Container)({
 
 const GamesListPage = () => {
   const router = useRouter();
-  const [games] = useGames();
+  const { games } = useGames();
 
   return (
     <Fragment>

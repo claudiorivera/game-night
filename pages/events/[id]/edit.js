@@ -10,9 +10,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { ArrowBack as ArrowBackIcon } from "@material-ui/icons";
 import { DateTimePicker } from "@material-ui/pickers";
 import { useRouter } from "next/router";
-import React, { useContext, useEffect, useState } from "react";
-import { EventsContext } from "../../../context/Events";
-import { GamesContext } from "../../../context/Games";
+import React, { useState } from "react";
+import useGames from "../../../util/useGames";
 
 const useStyles = makeStyles({
   margin: {
@@ -23,28 +22,24 @@ const useStyles = makeStyles({
 const EditEventPage = () => {
   const router = useRouter();
   const classes = useStyles();
-  const { games, getAllGames } = useContext(GamesContext);
-  const { getEventById, updateEvent } = useContext(EventsContext);
+  const { games } = useGames();
   const [eventDateTime, setEventDateTime] = useState(Date.now());
   const [gameId, setGameId] = useState("");
   const [event, setEvent] = useState(null);
   const eventId = router.query;
 
   useEffect(() => {
-    const fetchGames = async () => {
-      if (!games) {
-        await getAllGames();
-      }
-    };
-    const fetchEvent = async () => {
-      const event = await getEventById(eventId);
-      setEventDateTime(event.eventDateTime);
-      setGameId(event.game._id);
-      setEvent(event);
-    };
-    fetchGames();
-    fetchEvent();
+    getEventById(eventId);
   }, []);
+
+  const getEventById = async (id) => {
+    const response = await axios.get(`/api/events/${id}`);
+    setEvent(response.data.event);
+  };
+
+  const updateEvent = () => {
+    console.log("updateEvent");
+  };
 
   return (
     <Container>
@@ -55,9 +50,9 @@ const EditEventPage = () => {
       <Typography variant="h4">Edit Event</Typography>
       {event && (
         <form
-          onSubmit={async (e) => {
+          onSubmit={(e) => {
             e.preventDefault();
-            await updateEvent(eventId, gameId, eventDateTime);
+            updateEvent(eventId, gameId, eventDateTime);
             router.back();
           }}
         >

@@ -11,7 +11,7 @@ const LoginForm = () => {
   const [isFetching, setIsFetching] = useState(false);
   const { loginUser } = useContext(UserContext);
 
-  const [user, { mutate }] = useCurrentUser();
+  const { user, userMutate } = useCurrentUser();
 
   useEffect(() => {
     if (user) router.push("/");
@@ -21,7 +21,7 @@ const LoginForm = () => {
     e.preventDefault();
     setIsFetching(true);
     loginUser(email, password);
-    mutate();
+    userMutate();
   };
 
   return (

@@ -20,7 +20,7 @@ const StyledFormControl = styled(FormControl)({
 
 const AddEventPage = () => {
   const router = useRouter();
-  const [games] = useGames();
+  const { games } = useGames();
   const [eventDateTime, setEventDateTime] = useState(new Date());
   const [gameId, setGameId] = useState("");
   const { createAlertWithMessage } = useContext(AlertContext);

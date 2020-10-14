@@ -2,9 +2,9 @@ import useSWR from "swr";
 import fetcher from "./fetcher";
 
 const useCurrentUser = () => {
-  const { data, mutate } = useSWR("/api/user/auth", fetcher);
+  const { data, error, mutate } = useSWR("/api/user/auth", fetcher);
   const user = data?.user;
-  return [user, { mutate }];
+  return { user, userError: error, userMutate: mutate };
 };
 
 export default useCurrentUser;

@@ -14,7 +14,11 @@ handler.get(async (req, res) => {
     case "hosting":
       try {
         const events = await Event.find({ host: req.user._id })
-          .populate("host game guests")
+          .populate([
+            { path: "host", model: "Event" },
+            { path: "game", model: "Event" },
+            { path: "guests", model: "Event" },
+          ])
           .lean();
         res.json({
           success: true,
@@ -36,7 +40,11 @@ handler.get(async (req, res) => {
             _id: req.query.id,
           },
         })
-          .populate("host game guests")
+          .populate([
+            { path: "host", model: "Event" },
+            { path: "game", model: "Event" },
+            { path: "guests", model: "Event" },
+          ])
           .lean();
         res.json({
           success: true,
@@ -70,7 +78,7 @@ handler.delete(async (req, res) => {
       { $pull: { guests: user._id } },
       { multi: true }
     );
-    await user.remove();
+    await user.deleteOne(); // https://mongoosejs.com/docs/deprecations.html
     res.json({ success: true, message: "Successfully deleted user" });
   } else {
     res.status(500).json({ success: false, message: "No user" });

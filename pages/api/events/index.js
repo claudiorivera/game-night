@@ -12,7 +12,11 @@ handler.use(middleware);
 handler.get(async (_, res) => {
   try {
     const events = await Event.find({})
-      .populate("host game guests")
+      .populate([
+        { path: "host", model: "Event" },
+        { path: "game", model: "Event" },
+        { path: "guests", model: "Event" },
+      ])
       .sort({ eventDateTime: "asc" })
       .lean();
     res.json({
@@ -21,9 +25,11 @@ handler.get(async (_, res) => {
       events,
     });
   } catch (error) {
-    res
-      .status(500)
-      .json({ success: false, message: "Events not found", events: null });
+    res.status(500).json({
+      success: false,
+      message: error.message || "Error fetching all events",
+      events: null,
+    });
   }
 });
 
@@ -37,7 +43,7 @@ handler.post(async (req, res) => {
         eventDateTime: req.body.eventDateTime,
         game: req.body.gameId,
       });
-      const user = await User.findById(req.user._id).exec();
+      const user = await User.findById(req.user._id);
       user.eventsHosting.push(event);
       await event.save();
       await user.save();

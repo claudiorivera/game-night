@@ -53,7 +53,7 @@ const userLinks = [
 const MainAppBar = () => {
   const router = useRouter();
   const theme = useTheme();
-  const [user, { mutate }] = useCurrentUser();
+  const { user, userMutate } = useCurrentUser();
 
   const { logoutUser } = useContext(UserContext);
 
@@ -119,7 +119,7 @@ const MainAppBar = () => {
                     onClick={() => {
                       handleClose();
                       logoutUser();
-                      mutate(null, false);
+                      userMutate(null, false);
                       router.push("/login");
                     }}
                   >
@@ -165,7 +165,7 @@ const MainAppBar = () => {
               color="inherit"
               onClick={() => {
                 logoutUser();
-                mutate(null, false);
+                userMutate(null, false);
                 router.push("/login");
               }}
             >

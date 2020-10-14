@@ -15,7 +15,7 @@ handler.get(async (req, res) => {
   if ("guests" in req.query) {
     try {
       const event = await Event.findById(req.query.id)
-        .populate("guests")
+        .populate([{ path: "guests", model: "Event" }])
         .lean();
       res.json({
         success: true,
@@ -32,7 +32,11 @@ handler.get(async (req, res) => {
   } else {
     try {
       const event = await Event.findById(req.query.id)
-        .populate("host game guests")
+        .populate([
+          { path: "host", model: "Event" },
+          { path: "game", model: "Event" },
+          { path: "guests", model: "Event" },
+        ])
         .lean();
       res.json({
         success: true,
@@ -54,7 +58,7 @@ handler.get(async (req, res) => {
 handler.delete(async (req, res) => {
   try {
     const eventToRemove = await Event.findById(req.query.id);
-    await eventToRemove.remove();
+    await eventToRemove.deleteOne(); // https://mongoosejs.com/docs/deprecations.html
     res.json({
       success: true,
       message: "Successfully deleted event",

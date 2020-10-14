@@ -1,7 +1,7 @@
-const mongoose = require("mongoose");
-const passportLocalMongoose = require("passport-local-mongoose");
+import mongoose from "mongoose";
+import passportLocalMongoose from "passport-local-mongoose";
 
-const User = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -32,7 +32,7 @@ const User = new mongoose.Schema({
   ],
 });
 
-User.plugin(passportLocalMongoose, {
+UserSchema.plugin(passportLocalMongoose, {
   usernameUnique: false,
   usernameField: "email",
   errorMessages: {
@@ -40,4 +40,5 @@ User.plugin(passportLocalMongoose, {
   },
 });
 
-module.exports = mongoose.models.User || mongoose.model("User", User);
+export default User =
+  mongoose.models.User || mongoose.model("User", UserSchema);

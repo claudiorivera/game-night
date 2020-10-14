@@ -9,18 +9,13 @@ export const UserProvider = ({ children }) => {
 
   const registerUser = async (name, email, password) => {
     try {
-      const response = await axios.post("/api/user/register", {
+      await axios.post("/api/user/register", {
         name,
         email: email.toLowerCase(),
         password,
       });
-      if (response.data.success) {
-        console.log("registered successfully");
-      } else {
-        createAlertWithMessage(response.data.message);
-      }
     } catch (error) {
-      createAlertWithMessage(error.response?.data);
+      createAlertWithMessage(error);
     }
   };
 

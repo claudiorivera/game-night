@@ -17,7 +17,7 @@ import useCurrentUser from "../util/useCurrentUser";
 const ProfilePage = () => {
   const router = useRouter();
   const { deleteUserById } = useContext(UserContext);
-  const [user] = useCurrentUser();
+  const { user } = useCurrentUser();
 
   useEffect(() => {
     if (!user) router.push("/login");

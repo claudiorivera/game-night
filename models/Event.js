@@ -1,25 +1,22 @@
-const mongoose = require("mongoose");
-const User = require("./User");
+import mongoose from "mongoose";
+import User from "./User";
 
-const Event = new mongoose.Schema({
+const EventSchema = new mongoose.Schema({
   dateCreated: {
     type: Date,
     default: Date.now,
   },
   eventDateTime: {
     type: String,
-    required: true,
   },
   // https://vegibit.com/mongoose-relationships-tutorial/
   game: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Game",
-    required: true,
   },
   host: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    required: true,
   },
   guests: [
     {
@@ -30,7 +27,7 @@ const Event = new mongoose.Schema({
 });
 
 // https://stackoverflow.com/questions/39424531/mongoose-mongodb-remove-an-element-on-an-array
-Event.pre("remove", async function () {
+EventSchema.pre("remove", async function () {
   await User.updateMany(
     { events: this },
     { $pull: { events: this._id } },
@@ -42,4 +39,5 @@ Event.pre("remove", async function () {
   );
 });
 
-module.exports = mongoose.models.Event || mongoose.model("Event", Event);
+export default Event =
+  mongoose.models.Event || mongoose.model("Event", EventSchema);

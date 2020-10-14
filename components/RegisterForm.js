@@ -14,7 +14,7 @@ const RegisterForm = () => {
   const [isFetching, setIsFetching] = useState(false);
   const { createAlertWithMessage } = useContext(AlertContext);
   const { registerUser } = useContext(UserContext);
-  const [user, { mutate }] = useCurrentUser();
+  const { user, userMutate } = useCurrentUser();
 
   useEffect(() => {
     if (user) router.push("/");
@@ -25,7 +25,7 @@ const RegisterForm = () => {
     if (password === passwordConfirm) {
       setIsFetching(true);
       registerUser(name, email, password);
-      mutate();
+      userMutate();
     } else {
       createAlertWithMessage("Passwords don't match");
     }

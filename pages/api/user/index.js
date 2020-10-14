@@ -12,7 +12,10 @@ handler.use(middleware);
 handler.get(async (_, res) => {
   try {
     const users = await User.find({})
-      .populate("events eventsHosting")
+      .populate([
+        { path: "events", model: "User" },
+        { path: "eventsHosting", model: "User" },
+      ])
       .sort({ numOfRatings: "desc" })
       .lean();
     res.json({
@@ -21,13 +24,11 @@ handler.get(async (_, res) => {
       users,
     });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: error.message || "Users not found",
-        users: null,
-      });
+    res.status(500).json({
+      success: false,
+      message: error.message || "Users not found",
+      users: null,
+    });
   }
 });
 
