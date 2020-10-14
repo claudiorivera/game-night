@@ -10,6 +10,7 @@ import {
 import { styled } from "@material-ui/core/styles";
 import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
 import axios from "axios";
+import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
 import GameDetails from "../../components/GameDetails";
@@ -22,10 +23,18 @@ const StyledAccordionDetails = styled(AccordionDetails)({
 });
 
 const AddGamePage = () => {
+  const [session] = useSession();
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [queryResults, setQueryResults] = useState([]);
   const { clearAlert, createAlertWithMessage } = useContext(AlertContext);
+
+  if (!session)
+    return (
+      <Link href="/api/auth/signin">
+        <Button color="inherit">Login/Register</Button>
+      </Link>
+    );
 
   const handleSearch = async (e) => {
     e.preventDefault();

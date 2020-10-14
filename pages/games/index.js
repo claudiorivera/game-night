@@ -3,30 +3,32 @@ import {
   AccordionDetails,
   AccordionSummary,
   Button,
-  CircularProgress,
   Container,
   Typography,
 } from "@material-ui/core";
 import { styled } from "@material-ui/core/styles";
 import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { Fragment } from "react";
 import GameDetails from "../../components/GameDetails";
 import useGames from "../../util/useGames";
+import { useSession } from "next-auth/client";
 
 const ContainerWithMargin = styled(Container)({
   marginBottom: "1.5rem",
 });
 
 const GamesListPage = () => {
+  const [session] = useSession();
   const router = useRouter();
   const { games } = useGames();
 
-  if (!games)
+  if (!session)
     return (
-      <Typography align="center" component={"div"}>
-        <CircularProgress size={200} thickness={4} />
-      </Typography>
+      <Link href="/api/auth/signin">
+        <Button color="inherit">Login/Register</Button>
+      </Link>
     );
 
   return (

@@ -32,7 +32,7 @@ handler.get(async (_, res) => {
 handler.post(async (req, res) => {
   const session = await getSession({ req });
 
-  if (session?.user.isAdmin) {
+  if (session) {
     try {
       const game = new Game({
         name: req.body.name,

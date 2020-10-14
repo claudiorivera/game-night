@@ -27,14 +27,13 @@ const StyledAppBar = styled(AppBar)({
   marginBottom: "2rem",
 });
 
-const adminLinks = [
+const adminLinks = [];
+
+const userLinks = [
   {
     title: "Games",
     url: "/games",
   },
-];
-
-const userLinks = [
   {
     title: "Home",
     url: "/",
@@ -149,7 +148,7 @@ const MainAppBar = () => {
         )}
         {/* Desktop menu */}
         {/* User links */}
-        {!isMobile && session?.user?._id && (
+        {!isMobile && (
           <Fragment>
             {userLinks.map(({ title, url }, index) => (
               <Link key={index} href={url}>
@@ -167,13 +166,14 @@ const MainAppBar = () => {
           </Fragment>
         )}
         {/* Admin links */}
-        {!isMobile &&
+        {/* TODO: Secure admin routes */}
+        {/* {!isMobile &&
           session?.user?.isAdmin &&
           adminLinks.map(({ title, url }, index) => (
             <Link key={index} href={url}>
               <Button color="inherit">{title}</Button>
             </Link>
-          ))}
+          ))} */}
         {/* Show the Login/Register button if there's no user */}
         {!isMobile && !session && (
           <Link href="/api/auth/signin">

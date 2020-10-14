@@ -54,7 +54,7 @@ handler.post(async (req, res) => {
       });
     }
   } else {
-    res.status(500).json({ success: false, message: "Unauthorized user" });
+    res.status(401).json({ success: false, message: "Unauthorized user" });
   }
 });
 
