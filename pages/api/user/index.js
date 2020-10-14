@@ -11,13 +11,7 @@ handler.use(middleware);
 // Returns all users
 handler.get(async (_, res) => {
   try {
-    const users = await User.find({})
-      .populate([
-        { path: "events", model: "User" },
-        { path: "eventsHosting", model: "User" },
-      ])
-      .sort({ numOfRatings: "desc" })
-      .lean();
+    const users = await User.find().lean();
     res.json({
       success: true,
       message: "Successfully fetched all users",

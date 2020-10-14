@@ -10,20 +10,18 @@ handler.use(middleware);
 // Returns all games
 handler.get(async (_, res) => {
   try {
-    const games = await Game.find({}).sort({ numOfRatings: "desc" }).lean();
+    const games = await Game.find().sort({ numOfRatings: "desc" }).lean();
     res.json({
       success: true,
       message: "Successfully fetched all games",
       games,
     });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: error.message || "Games not found",
-        games: null,
-      });
+    res.status(500).json({
+      success: false,
+      message: error.message || "Games not found",
+      games: null,
+    });
   }
 });
 

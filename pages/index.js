@@ -21,7 +21,7 @@ const HomePage = () => {
             Events You Are Hosting:
           </Typography>
           <EventsListContainer
-            events={events.filter((event) => event.host._id === user._id)}
+            events={events.filter((event) => event.eventHost._id === user._id)}
             isHosting
           />
         </Fragment>
@@ -32,7 +32,9 @@ const HomePage = () => {
             Events You Are Attending:
           </Typography>
           <EventsListContainer
-            events={events.filter((event) => event.guests.includes(user._id))}
+            events={events.filter((event) =>
+              event.eventGuests.includes(user._id)
+            )}
           />
         </Fragment>
       )}

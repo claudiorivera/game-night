@@ -10,15 +10,15 @@ const EventSchema = new mongoose.Schema({
     type: String,
   },
   // https://vegibit.com/mongoose-relationships-tutorial/
-  game: {
+  eventGame: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Game",
   },
-  host: {
+  eventHost: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
-  guests: [
+  eventGuests: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
@@ -29,8 +29,8 @@ const EventSchema = new mongoose.Schema({
 // https://stackoverflow.com/questions/39424531/mongoose-mongodb-remove-an-element-on-an-array
 EventSchema.pre("remove", async function () {
   await User.updateMany(
-    { events: this },
-    { $pull: { events: this._id } },
+    { eventsAttending: this },
+    { $pull: { eventsAttending: this._id } },
     { multi: true }
   );
   await User.updateOne(
@@ -39,5 +39,13 @@ EventSchema.pre("remove", async function () {
   );
 });
 
-export default Event =
-  mongoose.models.Event || mongoose.model("Event", EventSchema);
+EventSchema.pre("find", function () {
+  this.populate("eventGuests", "name")
+    .populate("eventHost", "name")
+    .populate("eventGame", "name")
+    .sort({
+      eventDateTime: "asc",
+    });
+});
+
+export default mongoose.models.Event || mongoose.model("Event", EventSchema);

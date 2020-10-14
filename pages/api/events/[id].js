@@ -14,30 +14,22 @@ handler.get(async (req, res) => {
   // Returns guests attending event with given id
   if ("guests" in req.query) {
     try {
-      const event = await Event.findById(req.query.id)
-        .populate([{ path: "guests", model: "Event" }])
-        .lean();
+      const event = await Event.findById(req.query.id).lean();
       res.json({
         success: true,
         message: "Successfully fetched guests attending event",
-        guests: event.guests,
+        eventGuests: event.eventGuests,
       });
     } catch (error) {
       res.status(400).json({
         success: false,
         message: error.message || "Unable to fetch guests for event",
-        guests: null,
+        eventGuests: null,
       });
     }
   } else {
     try {
-      const event = await Event.findById(req.query.id)
-        .populate([
-          { path: "host", model: "Event" },
-          { path: "game", model: "Event" },
-          { path: "guests", model: "Event" },
-        ])
-        .lean();
+      const event = await Event.findById(req.query.id).lean();
       res.json({
         success: true,
         message: "Successfully fetched event",
@@ -80,17 +72,17 @@ handler.put(async (req, res) => {
       case "join":
         try {
           const eventToJoin = await Event.findById(req.query.id);
-          if (eventToJoin.host.toString() === req.user._id.toString()) {
+          if (eventToJoin.eventHost.toString() === req.user._id.toString()) {
             return res.status(400).json({
               success: false,
               message: "Can't join an event you're hosting",
             });
           }
           // Add user to guests array in event
-          eventToJoin.guests.addToSet(req.user);
+          eventToJoin.eventGuests.addToSet(req.user);
           // Add event to events array in user
           const userJoining = await User.findById(req.user._id);
-          userJoining.events.push(eventToJoin);
+          userJoining.eventsAttending.push(eventToJoin);
           // Save both
           await userJoining.save();
           await eventToJoin.save();
@@ -108,7 +100,7 @@ handler.put(async (req, res) => {
       case "leave":
         try {
           const eventToLeave = await Event.findById(req.query.id);
-          if (eventToLeave.host.toString() === req.user._id.toString()) {
+          if (eventToLeave.eventHost.toString() === req.user._id.toString()) {
             return res.status(400).json({
               success: false,
               message:
@@ -116,10 +108,10 @@ handler.put(async (req, res) => {
             });
           }
           // Remove user from guests array of event
-          eventToLeave.guests.pull(req.user);
+          eventToLeave.eventGuests.pull(req.user);
           // Remove event from events array of user
           const userLeaving = await User.findById(req.user._id);
-          userLeaving.events.pull(eventToLeave);
+          userLeaving.eventsAttending.pull(eventToLeave);
           // Save both
           await userLeaving.save();
           await eventToLeave.save();

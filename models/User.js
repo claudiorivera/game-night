@@ -18,7 +18,7 @@ const UserSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  events: [
+  eventsAttending: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Event",
@@ -40,5 +40,4 @@ UserSchema.plugin(passportLocalMongoose, {
   },
 });
 
-export default User =
-  mongoose.models.User || mongoose.model("User", UserSchema);
+export default mongoose.models.User || mongoose.model("User", UserSchema);

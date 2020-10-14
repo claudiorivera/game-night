@@ -92,24 +92,24 @@ const EventDetailsPage = () => {
             title={moment(data.event.eventDateTime).format(
               "MMMM Do, YYYY [at] h:mma"
             )}
-            subheader={data.event.game.name}
+            subheader={data.event.eventGame.name}
           />
           <CardContent>
             <Typography variant="body1">
-              Hosted by: {data.event.host.name}
+              Hosted by: {data.event.eventHost.name}
             </Typography>
             <Typography variant="subtitle1">
               Guests:
-              {data.event.guests.map((guest, index) => (
+              {data.event.eventGuests.map((guest, index) => (
                 <Chip key={index} label={guest.name} />
               ))}
             </Typography>
             <Typography variant="body1">Game Info:</Typography>
-            <GameDetails game={data.event.game} />
+            <GameDetails game={data.event.eventGame} />
           </CardContent>
           <CardActions>
             {/* If user is already a guest, show the Leave button */}
-            {data.event.guests.some((guest) => guest._id === user._id) ? (
+            {data.event.eventGuests.some((guest) => guest._id === user._id) ? (
               <Button
                 onClick={async () => {
                   await leaveEventById(data.event._id);
@@ -119,7 +119,7 @@ const EventDetailsPage = () => {
                 Leave
               </Button>
             ) : // Otherwise, as long as user isn't the host, show the Join button
-            data.event.host._id !== user._id ? (
+            data.event.eventHost._id !== user._id ? (
               <Button
                 onClick={async () => {
                   await joinEventById(data.event._id);
@@ -139,7 +139,7 @@ const EventDetailsPage = () => {
               </Button>
             )}
             {/* Show the Delete button to hosts and admins */}
-            {(data.event.host._id === user._id || user.isAdmin) && (
+            {(data.event.eventHost._id === user._id || user.isAdmin) && (
               <Button
                 onClick={async () => {
                   setOpen(true);

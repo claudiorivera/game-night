@@ -25,16 +25,21 @@ const EventSummaryCard = ({ event, isHosting }) => (
       <Card>
         <CardHeader
           title={moment(event.eventDateTime).format("MMMM Do, YYYY [at] h:mma")}
-          subheader={event.game.name}
+          subheader={event.eventGame.name}
         />
-        <StyledCardMedia image={event.game.imageSrc} title={event.game.name} />
+        <StyledCardMedia
+          image={event.eventGame.imageSrc}
+          title={event.eventGame.name}
+        />
         <CardContent>
           {!isHosting && (
             <Typography variant="body1" color="textSecondary">
-              Hosted by: {event.host.name}
+              Hosted by: {event.eventHost.name}
             </Typography>
           )}
-          <Typography variant="body2">Guests: {event.guests.length}</Typography>
+          <Typography variant="body2">
+            Guests: {event.eventGuests.length}
+          </Typography>
         </CardContent>
       </Card>
     </StyledLink>

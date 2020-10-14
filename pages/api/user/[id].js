@@ -13,13 +13,7 @@ handler.get(async (req, res) => {
   switch (req.query.events) {
     case "hosting":
       try {
-        const events = await Event.find({ host: req.user._id })
-          .populate([
-            { path: "host", model: "Event" },
-            { path: "game", model: "Event" },
-            { path: "guests", model: "Event" },
-          ])
-          .lean();
+        const events = await Event.find({ eventHost: req.user._id }).lean();
         res.json({
           success: true,
           message: "Successfully fetched events user hosting",
@@ -36,16 +30,10 @@ handler.get(async (req, res) => {
     case "attending":
       try {
         const events = await Event.find({
-          guests: {
+          eventGuests: {
             _id: req.query.id,
           },
-        })
-          .populate([
-            { path: "host", model: "Event" },
-            { path: "game", model: "Event" },
-            { path: "guests", model: "Event" },
-          ])
-          .lean();
+        }).lean();
         res.json({
           success: true,
           message: "Successfully fetched events user attending",
@@ -74,8 +62,8 @@ handler.delete(async (req, res) => {
     const user = await User.findById(req.query.id);
     // https://stackoverflow.com/a/44342416
     await Event.updateMany(
-      { guests: user._id },
-      { $pull: { guests: user._id } },
+      { eventGuests: user._id },
+      { $pull: { eventGuests: user._id } },
       { multi: true }
     );
     await user.deleteOne(); // https://mongoosejs.com/docs/deprecations.html
