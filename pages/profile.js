@@ -1,5 +1,6 @@
-import { CircularProgress, Container, Typography } from "@material-ui/core";
+import { Button, Container, Typography } from "@material-ui/core";
 import { useSession } from "next-auth/client";
+import Link from "next/link";
 import React from "react";
 
 const ProfilePage = () => {
@@ -7,9 +8,22 @@ const ProfilePage = () => {
 
   if (!session)
     return (
-      <Typography align="center" component={"div"}>
-        <CircularProgress size={200} thickness={4} />
-      </Typography>
+      <Container>
+        <Typography variant="h3">
+          You must be logged in to access this page.
+        </Typography>
+        <Link href="/api/auth/signin">
+          <Button
+            type="submit"
+            size="large"
+            fullWidth
+            color="secondary"
+            variant="contained"
+          >
+            Login/Register
+          </Button>
+        </Link>
+      </Container>
     );
 
   return (

@@ -31,9 +31,22 @@ const AddGamePage = () => {
 
   if (!session)
     return (
-      <Link href="/api/auth/signin">
-        <Button color="inherit">Login/Register</Button>
-      </Link>
+      <Container>
+        <Typography variant="h3">
+          You must be logged in to access this page.
+        </Typography>
+        <Link href="/api/auth/signin">
+          <Button
+            type="submit"
+            size="large"
+            fullWidth
+            color="secondary"
+            variant="contained"
+          >
+            Login/Register
+          </Button>
+        </Link>
+      </Container>
     );
 
   const handleSearch = async (e) => {

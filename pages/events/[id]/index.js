@@ -24,6 +24,8 @@ import GameDetails from "../../../components/GameDetails";
 import { AlertContext } from "../../../context/Alert";
 import useEvent from "../../../util/useEvent";
 import useEvents from "../../../util/useEvents";
+import { useSession } from "next-auth/client";
+import Link from "next/link";
 
 const StyledCard = styled(Card)({
   margin: "10px",
@@ -36,6 +38,27 @@ const EventDetailsPage = () => {
   const { event } = useEvent(router.query.id);
   const { eventsMutate } = useEvents();
   const { createAlertWithMessage } = useContext(AlertContext);
+  const [session] = useSession();
+
+  if (!session)
+    return (
+      <Container>
+        <Typography variant="h3">
+          You must be logged in to access this page.
+        </Typography>
+        <Link href="/api/auth/signin">
+          <Button
+            type="submit"
+            size="large"
+            fullWidth
+            color="secondary"
+            variant="contained"
+          >
+            Login/Register
+          </Button>
+        </Link>
+      </Container>
+    );
 
   // Delete confirm dialog
   const [open, setOpen] = useState(false);

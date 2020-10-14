@@ -8,8 +8,21 @@ const options = {
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
     }),
   ],
-
-  database: process.env.MONGODB_URI,
+  // https://github.com/nextauthjs/next-auth/issues/366#issuecomment-651959649
+  database: process.env.MONGODB_URI + "?entityPrefix=nextauth_",
+  site: process.env.SITE || "http://localhost:3000",
+  session: {
+    jwt: true,
+  },
+  callbacks: {
+    async session(session, token) {
+      // expose user id
+      return Promise.resolve({
+        ...session,
+        user: { ...session.user, id: token.user.id },
+      });
+    },
+  },
 };
 
 export default (req, res) => NextAuth(req, res, options);

@@ -9,6 +9,7 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import { ArrowBack as ArrowBackIcon } from "@material-ui/icons";
 import { DateTimePicker } from "@material-ui/pickers";
+import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import useGames from "../../../util/useGames";
@@ -27,6 +28,27 @@ const EditEventPage = () => {
   const [gameId, setGameId] = useState("");
   const [event, setEvent] = useState(null);
   const eventId = router.query;
+  const [session] = useSession();
+
+  if (!session)
+    return (
+      <Container>
+        <Typography variant="h3">
+          You must be logged in to access this page.
+        </Typography>
+        <Link href="/api/auth/signin">
+          <Button
+            type="submit"
+            size="large"
+            fullWidth
+            color="secondary"
+            variant="contained"
+          >
+            Login/Register
+          </Button>
+        </Link>
+      </Container>
+    );
 
   useEffect(() => {
     getEventById(eventId);

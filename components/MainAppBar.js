@@ -98,7 +98,7 @@ const MainAppBar = () => {
               open={open}
               onClose={handleClose}
             >
-              {session?.user?._id && (
+              {session?.user.id && (
                 <Fragment>
                   {userLinks.map(({ url, title }, index) => (
                     <MenuItem
@@ -121,7 +121,7 @@ const MainAppBar = () => {
                   </MenuItem>
                 </Fragment>
               )}
-              {session?.user?.isAdmin &&
+              {/* {session?.user?.isAdmin &&
                 adminLinks.map(({ title, url }, index) => (
                   <MenuItem
                     key={index}
@@ -132,7 +132,7 @@ const MainAppBar = () => {
                   >
                     {title}
                   </MenuItem>
-                ))}
+                ))} */}
               {!session && (
                 <MenuItem
                   onClick={() => {
@@ -148,7 +148,7 @@ const MainAppBar = () => {
         )}
         {/* Desktop menu */}
         {/* User links */}
-        {!isMobile && (
+        {!isMobile && session && (
           <Fragment>
             {userLinks.map(({ title, url }, index) => (
               <Link key={index} href={url}>
