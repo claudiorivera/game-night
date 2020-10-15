@@ -8,21 +8,21 @@ import {
 } from "@material-ui/core";
 import { styled } from "@material-ui/core/styles";
 import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
-import Link from "next/link";
+import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { Fragment } from "react";
 import GameDetails from "../../components/GameDetails";
+import Game from "../../models/Game";
 import useGames from "../../util/useGames";
-import { useSession } from "next-auth/client";
 
 const ContainerWithMargin = styled(Container)({
   marginBottom: "1.5rem",
 });
 
-const GamesListPage = () => {
+const GamesListPage = ({ initialData }) => {
   const [session] = useSession();
   const router = useRouter();
-  const { games } = useGames();
+  const { games } = useGames({ initialData });
 
   if (!session)
     return (
@@ -86,3 +86,10 @@ const GamesListPage = () => {
 };
 
 export default GamesListPage;
+
+export const getServerSideProps = async () => {
+  const response = await Game.find().sort({ numOfRatings: "desc" }).lean();
+  return {
+    props: { initialData: response?.data?.games || null },
+  };
+};

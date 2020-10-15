@@ -1,8 +1,8 @@
 import useSWR from "swr";
 import fetcher from "./fetcher";
 
-const useGames = () => {
-  const { data, error, mutate } = useSWR("/api/games", fetcher);
+const useGames = (initialData) => {
+  const { data, error, mutate } = useSWR("/api/games", fetcher, initialData);
   return {
     games: data?.games,
     gamesError: error,
