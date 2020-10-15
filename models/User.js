@@ -47,4 +47,11 @@ UserSchema.pre("save", async function () {
   console.log("in pre save");
 });
 
+User.plugin(passportLocalMongoose, {
+  usernameField: "email",
+  errorMessages: {
+    UserExistsError: "A user with the given email is already registered",
+  },
+});
+
 export default mongoose.models.User || mongoose.model("User", UserSchema);
