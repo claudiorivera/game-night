@@ -3,26 +3,28 @@ import React from "react";
 // import EventsListContainer from "../components/EventsListContainer";
 // import useEvents from "../util/useEvents";
 import { useSession } from "next-auth/client";
-import Link from "next/link";
+import { useRouter } from "next/router";
 
 const HomePage = () => {
+  const router = useRouter();
   const [session] = useSession();
 
   if (!session)
     return (
       <Container>
-        <Typography variant="h3">Welcome. Please login or register.</Typography>
-        <Link href="/api/auth/signin">
-          <Button
-            type="submit"
-            size="large"
-            fullWidth
-            color="secondary"
-            variant="contained"
-          >
-            Login/Register
-          </Button>
-        </Link>
+        <Typography variant="h4">Welcome. Please login or register.</Typography>
+        <Button
+          type="submit"
+          size="large"
+          fullWidth
+          color="secondary"
+          variant="contained"
+          onClick={() => {
+            router.push("/auth/login");
+          }}
+        >
+          Login/Register
+        </Button>
       </Container>
     );
 

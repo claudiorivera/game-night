@@ -1,7 +1,6 @@
 import nextConnect from "next-connect";
 import middleware from "../../../middleware";
 import Event from "../../../models/Event";
-import User from "../../../models/User";
 import Game from "../../../models/Game";
 import { getSession } from "next-auth/client";
 
@@ -39,10 +38,7 @@ handler.post(async (req, res) => {
         eventDateTime: req.body.eventDateTime,
         eventGame: req.body.gameId,
       });
-      const user = await User.findById(session.user.id);
-      user.eventsHosting.push(event);
       await event.save();
-      await user.save();
       res.status(201).json({
         success: true,
         message: "Successfully added event",

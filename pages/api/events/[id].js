@@ -1,7 +1,6 @@
 import nextConnect from "next-connect";
 import middleware from "../../../middleware";
 import Event from "../../../models/Event";
-import User from "../../../models/User";
 import Game from "../../../models/Game";
 import { getSession } from "next-auth/client";
 
@@ -94,11 +93,7 @@ handler.put(async (req, res) => {
           }
           // Add user to guests array in event
           eventToJoin.eventGuests.addToSet(session.user);
-          // Add event to events array in user
-          const userJoining = await User.findById(session.user._id);
-          userJoining.eventsAttending.push(eventToJoin);
           // Save both
-          await userJoining.save();
           await eventToJoin.save();
           res.json({ success: true, message: "Successfully joined event!" });
         } catch (error) {
@@ -125,11 +120,6 @@ handler.put(async (req, res) => {
           }
           // Remove user from guests array of event
           eventToLeave.eventGuests.pull(session.user);
-          // Remove event from events array of user
-          const userLeaving = await User.findById(session.user._id);
-          userLeaving.eventsAttending.pull(eventToLeave);
-          // Save both
-          await userLeaving.save();
           await eventToLeave.save();
           res.json({
             success: true,

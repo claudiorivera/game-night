@@ -1,8 +1,10 @@
 import { IconButton, Menu, MenuItem } from "@material-ui/core";
 import { Menu as MenuIcon } from "@material-ui/icons";
+import { useRouter } from "next/router";
 import React, { Fragment, useState } from "react";
 
-const MobileMenu = ({ session, router, userLinks, adminLinks, signOut }) => {
+const MobileMenu = ({ session, userLinks, adminLinks, signOut }) => {
+  const router = useRouter();
   // https://material-ui.com/components/app-bar/#app-bar-with-menu
   const [anchorEl, setAnchorEl] = useState(null);
   const isMobileMenuOpen = Boolean(anchorEl);
@@ -76,7 +78,7 @@ const MobileMenu = ({ session, router, userLinks, adminLinks, signOut }) => {
           <MenuItem
             onClick={() => {
               handleClose();
-              router.push("/api/auth/signin");
+              router.push("/auth/login");
             }}
           >
             Login/Register

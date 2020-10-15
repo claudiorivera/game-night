@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import User from "./User";
 
 const EventSchema = new mongoose.Schema({
   dateCreated: {
@@ -18,29 +17,14 @@ const EventSchema = new mongoose.Schema({
   },
   eventHost: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
     required: true,
   },
   eventGuests: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
       required: true,
     },
   ],
-});
-
-// https://stackoverflow.com/questions/39424531/mongoose-mongodb-remove-an-element-on-an-array
-EventSchema.pre("remove", async function () {
-  await User.updateMany(
-    { eventsAttending: this },
-    { $pull: { eventsAttending: this._id } },
-    { multi: true }
-  );
-  await User.updateOne(
-    { eventsHosting: this },
-    { $pull: { eventsHosting: this._id } }
-  );
 });
 
 EventSchema.pre("find", function () {

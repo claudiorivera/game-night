@@ -1,7 +1,6 @@
 import nextConnect from "next-connect";
 import middleware from "../../../middleware";
 import Event from "../../../models/Event";
-import User from "../../../models/User";
 import Game from "../../../models/Game";
 import { getSession } from "next-auth/client";
 

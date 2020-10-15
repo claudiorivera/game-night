@@ -22,17 +22,18 @@ const EventsListPage = () => {
         <Typography variant="h3">
           You must be logged in to access this page.
         </Typography>
-        <Link href="/api/auth/signin">
-          <Button
-            type="submit"
-            size="large"
-            fullWidth
-            color="secondary"
-            variant="contained"
-          >
-            Login/Register
-          </Button>
-        </Link>
+        <Button
+          type="submit"
+          size="large"
+          fullWidth
+          color="secondary"
+          variant="contained"
+          onClick={() => {
+            router.push("/auth/user");
+          }}
+        >
+          Login/Register
+        </Button>
       </Container>
     );
 

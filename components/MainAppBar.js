@@ -60,16 +60,20 @@ const MainAppBar = () => {
         {isMobile && (
           <MobileMenu
             session={session}
-            router={router}
             userLinks={userLinks}
             adminLinks={adminLinks}
             signOut={signOut}
           />
         )}
         {!isMobile && !session && (
-          <Link href="/api/auth/signin">
-            <Button color="inherit">Login/Register</Button>
-          </Link>
+          <Button
+            color="inherit"
+            onClick={() => {
+              router.push("/auth/login");
+            }}
+          >
+            Login/Register
+          </Button>
         )}
         {/* User links */}
         {!isMobile && session && (

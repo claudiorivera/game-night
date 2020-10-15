@@ -1,7 +1,7 @@
 import { Button, Container, styled, Typography } from "@material-ui/core";
 import { useSession } from "next-auth/client";
-import Link from "next/link";
 import React from "react";
+import { useRouter } from "next/router";
 
 const Img = styled("img")({
   borderRadius: "50%",
@@ -11,6 +11,7 @@ const Img = styled("img")({
 });
 
 const ProfilePage = () => {
+  const router = useRouter();
   const [session] = useSession();
 
   if (!session)
@@ -19,17 +20,18 @@ const ProfilePage = () => {
         <Typography variant="h3">
           You must be logged in to access this page.
         </Typography>
-        <Link href="/api/auth/signin">
-          <Button
-            type="submit"
-            size="large"
-            fullWidth
-            color="secondary"
-            variant="contained"
-          >
-            Login/Register
-          </Button>
-        </Link>
+        <Button
+          type="submit"
+          size="large"
+          fullWidth
+          color="secondary"
+          variant="contained"
+          onClick={() => {
+            router.push("/auth/login");
+          }}
+        >
+          Login/Register
+        </Button>
       </Container>
     );
 
