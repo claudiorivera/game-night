@@ -9,18 +9,16 @@ const handler = nextConnect();
 
 handler.use(middleware);
 
-// TODO: Add authorization to this route or remove it all together
 // GET api/user
-// Returns all users
-handler.get(async (_, res) => {
+// Returns current user
+handler.get(async (req, res) => {
   const session = await getSession({ req });
   if (session) {
     try {
-      const users = await User.find().lean();
       res.json({
         success: true,
         message: "Successfully fetched all users",
-        users,
+        user: session.user,
       });
     } catch (error) {
       res.status(500).json({

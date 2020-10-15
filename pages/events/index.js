@@ -1,4 +1,4 @@
-import { Button, Container } from "@material-ui/core";
+import { Button, Container, Typography } from "@material-ui/core";
 import { styled } from "@material-ui/styles";
 import { useSession } from "next-auth/client";
 import Link from "next/link";

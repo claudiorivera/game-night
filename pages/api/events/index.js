@@ -33,27 +33,26 @@ handler.post(async (req, res) => {
   const session = await getSession({ req });
 
   if (session) {
-    res.status(201).json({ session });
-    // try {
-    //   const event = new Event({
-    //     eventHost: session.user,
-    //     eventDateTime: req.body.eventDateTime,
-    //     eventGame: req.body.gameId,
-    //   });
-    //   const user = await User.findById(session.user._id);
-    //   user.eventsHosting.push(event);
-    //   await event.save();
-    //   await user.save();
-    //   res.status(201).json({
-    //     success: true,
-    //     message: "Successfully added event",
-    //   });
-    // } catch (error) {
-    //   res.status(500).json({
-    //     success: false,
-    //     message: error.message || "Unable to add event",
-    //   });
-    // }
+    try {
+      const event = new Event({
+        eventHost: session.user.id,
+        eventDateTime: req.body.eventDateTime,
+        eventGame: req.body.gameId,
+      });
+      const user = await User.findById(session.user.id);
+      user.eventsHosting.push(event);
+      await event.save();
+      await user.save();
+      res.status(201).json({
+        success: true,
+        message: "Successfully added event",
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: error.message || "Unable to add event",
+      });
+    }
   } else {
     res.status(401).json({ success: false, message: "Unauthorized user" });
   }

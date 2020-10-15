@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema({
+  _id: {
+    type: mongoose.Schema.Types.ObjectId,
+  },
   name: {
     type: String,
     required: true,
@@ -9,9 +12,15 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  dateCreated: {
+  image: {
+    type: String,
+    required: true,
+  },
+  createdAt: {
     type: Date,
-    default: Date.now,
+  },
+  updatedAt: {
+    type: Date,
   },
   isAdmin: {
     type: Boolean,
@@ -32,6 +41,10 @@ const UserSchema = new mongoose.Schema({
       required: true,
     },
   ],
+});
+
+UserSchema.pre("save", async function () {
+  console.log("in pre save");
 });
 
 export default mongoose.models.User || mongoose.model("User", UserSchema);
