@@ -38,6 +38,17 @@ const options = {
       return Promise.resolve(session);
     },
   },
+  secret: process.env.SECRET,
+  session: {
+    jwt: true,
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+    updateAge: 24 * 60 * 60, // 24 hours
+  },
+  pages: {
+    signIn: "/auth/login",
+    error: "/auth/error", // Error code passed in query string as ?error=
+    verifyRequest: "/auth/verifyrequest", // (used for check email message)
+  },
 };
 
 export default (req, res) => NextAuth(req, res, options);
