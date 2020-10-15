@@ -22,7 +22,7 @@ const ContainerWithMargin = styled(Container)({
 const GamesListPage = ({ initialData }) => {
   const [session] = useSession();
   const router = useRouter();
-  const { games } = useGames({ initialData });
+  const { games } = useGames(initialData);
 
   if (!session)
     return (
@@ -87,9 +87,12 @@ const GamesListPage = ({ initialData }) => {
 
 export default GamesListPage;
 
-export const getServerSideProps = async () => {
-  const response = await Game.find().sort({ numOfRatings: "desc" }).lean();
+export const getServerSideProps = async ({ req, res }) => {
+  await middleware.apply(req, res);
+  const games = await Game.find().lean();
   return {
-    props: { initialData: response?.data?.games || null },
+    props: {
+      initialData: JSON.stringify(games) || null,
+    },
   };
 };

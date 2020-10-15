@@ -10,19 +10,19 @@ import { styled } from "@material-ui/core/styles";
 import { DateTimePicker } from "@material-ui/pickers";
 import axios from "axios";
 import { useSession } from "next-auth/client";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
 import { AlertContext } from "../../context/Alert";
+import Game from "../../models/Game";
 import useGames from "../../util/useGames";
 
 const StyledFormControl = styled(FormControl)({
   margin: "10px",
 });
 
-const AddEventPage = () => {
+const AddEventPage = ({ initialData }) => {
   const router = useRouter();
-  const { games } = useGames();
+  const { games } = useGames(initialData);
   const [eventDateTime, setEventDateTime] = useState(new Date());
   const [gameId, setGameId] = useState("");
   const { createAlertWithMessage } = useContext(AlertContext);
@@ -113,3 +113,13 @@ const AddEventPage = () => {
 };
 
 export default AddEventPage;
+
+export const getServerSideProps = async ({ req, res }) => {
+  await middleware.apply(req, res);
+  const games = await Game.find().lean();
+  return {
+    props: {
+      initialData: JSON.stringify(games) || null,
+    },
+  };
+};

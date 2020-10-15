@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Game from "./Game";
 
 const EventSchema = new mongoose.Schema({
   dateCreated: {
@@ -16,8 +17,17 @@ const EventSchema = new mongoose.Schema({
     required: true,
   },
   eventHost: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
+    id: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    image: {
+      type: String,
+    },
   },
   eventGuests: [
     {

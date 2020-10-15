@@ -18,14 +18,14 @@ import { styled } from "@material-ui/core/styles";
 import { ArrowBack as ArrowBackIcon } from "@material-ui/icons";
 import axios from "axios";
 import moment from "moment";
+import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
 import GameDetails from "../../../components/GameDetails";
 import { AlertContext } from "../../../context/Alert";
+import middleware from "../../../middleware";
+import Event from "../../../models/Event";
 import useEvent from "../../../util/useEvent";
-import useEvents from "../../../util/useEvents";
-import { useSession } from "next-auth/client";
-import Link from "next/link";
 
 const StyledCard = styled(Card)({
   margin: "10px",
@@ -33,10 +33,9 @@ const StyledCard = styled(Card)({
   flexDirection: "column",
 });
 
-const EventDetailsPage = () => {
+const EventDetailsPage = ({ initialData }) => {
   const router = useRouter();
-  const { event } = useEvent(router.query.id);
-  const { eventsMutate } = useEvents();
+  const { event } = useEvent(router.query.id, initialData);
   const { createAlertWithMessage } = useContext(AlertContext);
   const [session] = useSession();
 
@@ -76,7 +75,6 @@ const EventDetailsPage = () => {
   const joinEventById = async (id) => {
     try {
       const response = await axios.put(`/api/events/${id}?action=join`);
-      eventsMutate();
       createAlertWithMessage(response.data.message);
     } catch (error) {
       console.error(error);
@@ -86,7 +84,6 @@ const EventDetailsPage = () => {
   const leaveEventById = async (id) => {
     try {
       const response = await axios.put(`/api/events/${id}?action=leave`);
-      eventsMutate();
       createAlertWithMessage(response.data.message);
     } catch (error) {
       console.error(error);
@@ -200,3 +197,13 @@ const EventDetailsPage = () => {
 };
 
 export default EventDetailsPage;
+
+export const getServerSideProps = async ({ params, req, res }) => {
+  await middleware.apply(req, res);
+  const event = await Event.findById(params.id);
+  return {
+    props: {
+      initialData: JSON.stringify(event) || null,
+    },
+  };
+};

@@ -33,7 +33,11 @@ handler.post(async (req, res) => {
   if (session) {
     try {
       const event = new Event({
-        eventHost: session.user.id,
+        eventHost: {
+          id: session.user.id,
+          name: session.user.name,
+          image: session.user.image,
+        },
         eventDateTime: req.body.eventDateTime,
         eventGame: req.body.gameId,
       });
