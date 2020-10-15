@@ -1,18 +1,17 @@
 import { IconButton, Menu, MenuItem } from "@material-ui/core";
 import { Menu as MenuIcon } from "@material-ui/icons";
+import React, { Fragment, useState } from "react";
 
-import React, { Fragment } from "react";
-
-const MobileMenu = ({
-  session,
-  router,
-  userLinks,
-  adminLinks,
-  handleMenuOpen,
-  handleMenuClose,
-  anchorEl,
-  isMobileMenuOpen,
-}) => {
+const MobileMenu = ({ session, router, userLinks, adminLinks, signOut }) => {
+  // https://material-ui.com/components/app-bar/#app-bar-with-menu
+  const [anchorEl, setAnchorEl] = useState(null);
+  const isMobileMenuOpen = Boolean(anchorEl);
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
   return (
     <Fragment>
       <IconButton
@@ -39,7 +38,7 @@ const MobileMenu = ({
         onClose={handleMenuClose}
       >
         {session?.user.id && (
-          <Fragment>
+          <div>
             {userLinks.map(({ url, title }, index) => (
               <MenuItem
                 key={index}
@@ -59,7 +58,7 @@ const MobileMenu = ({
             >
               Log Out
             </MenuItem>
-          </Fragment>
+          </div>
         )}
         {/* TODO: Protect admin link routes */}
         {adminLinks.map(({ title, url }, index) => (

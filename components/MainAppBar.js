@@ -9,7 +9,7 @@ import { styled, useTheme } from "@material-ui/core/styles";
 import { signOut, useSession } from "next-auth/client";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import MobileMenu from "./MobileMenu";
 
 const Title = styled(Typography)({
@@ -49,17 +49,7 @@ const MainAppBar = () => {
   const router = useRouter();
   const theme = useTheme();
   const [session] = useSession();
-
-  // https://material-ui.com/components/app-bar/#app-bar-with-menu
-  const [anchorEl, setAnchorEl] = useState(null);
   const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
-  const isMobileMenuOpen = Boolean(anchorEl);
-  const handleMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
 
   return (
     <StyledAppBar position="sticky">
@@ -67,21 +57,20 @@ const MainAppBar = () => {
         <Link href="/" passHref>
           <Title component={"a"}>Game Night</Title>
         </Link>
-        {/* Mobile menu */}
         {isMobile && (
           <MobileMenu
             session={session}
             router={router}
             userLinks={userLinks}
             adminLinks={adminLinks}
-            isMobileMenuOpen={isMobileMenuOpen}
-            anchorEl={anchorEl}
-            setAnchorEl={setAnchorEl}
-            handleMenuOpen={handleMenuOpen}
-            handleMenuClose={handleMenuClose}
+            signOut={signOut}
           />
         )}
-        {/* Desktop menu */}
+        {!isMobile && !session && (
+          <Link href="/api/auth/signin">
+            <Button color="inherit">Login/Register</Button>
+          </Link>
+        )}
         {/* User links */}
         {!isMobile && session && (
           <Fragment>
@@ -108,12 +97,6 @@ const MainAppBar = () => {
               <Button color="inherit">{title}</Button>
             </Link>
           ))}
-        {/* Show the Login/Register button if there's no user */}
-        {!isMobile && !session && (
-          <Link href="/api/auth/signin">
-            <Button color="inherit">Login/Register</Button>
-          </Link>
-        )}
       </Toolbar>
     </StyledAppBar>
   );
