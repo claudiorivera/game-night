@@ -6,7 +6,7 @@ const EventsListContainer = ({ events, isHosting }) => {
   return (
     <Grid container spacing={2}>
       {events.map((event) => (
-        <Grid item key={event._id} xs={12} sm={6} md={4} lg={3}>
+        <Grid item key={event.id} xs={12} sm={6} md={4} lg={3}>
           <EventSummaryCard event={event} isHosting={isHosting} />
         </Grid>
       ))}
