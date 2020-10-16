@@ -22,6 +22,10 @@ const StyledAccordionDetails = styled(AccordionDetails)({
   flexDirection: "column",
 });
 
+const StyledButton = styled(Button)({
+  margin: "1rem 0",
+});
+
 const AddGamePage = () => {
   const [session] = useSession();
   const router = useRouter();
@@ -90,6 +94,11 @@ const AddGamePage = () => {
         <Button variant="contained" color="primary" fullWidth type="submit">
           Search
         </Button>
+        <Typography variant="caption">
+          Note: This search uses the BoardGameGeek API, which requires a
+          separate call to query IDs and a call for each result. Please be
+          patient with it, as I find ways to improve this experience.
+        </Typography>
       </form>
       {queryResults &&
         queryResults.map((result) => (
@@ -104,11 +113,10 @@ const AddGamePage = () => {
             </AccordionSummary>
             <StyledAccordionDetails>
               <Container>
-                <GameDetails game={result} />
-                <Button
+                <StyledButton
                   fullWidth
                   size="large"
-                  color="primary"
+                  color="secondary"
                   variant="contained"
                   onClick={async () => {
                     await addGame({
@@ -132,7 +140,8 @@ const AddGamePage = () => {
                   }}
                 >
                   Add This Game
-                </Button>
+                </StyledButton>
+                <GameDetails game={result} />
               </Container>
             </StyledAccordionDetails>
           </Accordion>
