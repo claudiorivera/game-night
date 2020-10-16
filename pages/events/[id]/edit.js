@@ -16,21 +16,17 @@ import React, { useState } from "react";
 import middleware from "../../../middleware";
 import Event from "../../../models/Event";
 import Game from "../../../models/Game";
-import useEvent from "../../../util/useEvent";
-import useGames from "../../../util/useGames";
 
 const StyledFormControl = styled(FormControl)({
   margin: "1rem",
 });
 
-const EditEventPage = ({ initialEventData, initialGamesData }) => {
+const EditEventPage = ({ event, games }) => {
   const [session] = useSession();
   const router = useRouter();
   const eventId = router.query.id;
-  const { event, eventMutate } = useEvent(eventId, initialEventData);
-  const { games } = useGames(initialGamesData);
   const [eventDateTime, setEventDateTime] = useState(event.eventDateTime);
-  const [gameId, setGameId] = useState("");
+  const [gameId, setGameId] = useState(event.eventGame._id);
 
   if (!session)
     return (
@@ -58,7 +54,7 @@ const EditEventPage = ({ initialEventData, initialGamesData }) => {
       gameId,
       eventDateTime,
     });
-    eventMutate();
+    router.back();
   };
 
   return (
@@ -127,8 +123,8 @@ export const getServerSideProps = async ({ req, res, params }) => {
   const games = await Game.find().lean();
   return {
     props: {
-      initialEventData: JSON.parse(JSON.stringify(event)) || null,
-      initialGamesData: JSON.parse(JSON.stringify(games)) || null,
+      event: JSON.parse(JSON.stringify(event)) || null,
+      games: JSON.parse(JSON.stringify(games)) || null,
     },
   };
 };
