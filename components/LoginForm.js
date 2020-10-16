@@ -9,16 +9,16 @@ const LoginForm = ({ providers }) => {
         Please login using one of the following options:
       </Typography>
       {providers &&
-        Object.values(providers).map((provider, index) => (
+        { ...providers }.map((provider) => (
           <Button
-            key={index}
+            key={provider.id}
             type="submit"
             size="large"
             fullWidth
             color="secondary"
             variant="contained"
             onClick={() => {
-              signIn(provider.id, { callbackUrl: "http://localhost:3000/" });
+              signIn(provider.id, { callbackUrl: process.env.BASE_URL });
             }}
           >
             {provider.name}
