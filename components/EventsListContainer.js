@@ -1,5 +1,4 @@
 import { Grid } from "@material-ui/core";
-import Link from "next/link";
 import React from "react";
 import EventSummaryCard from "./EventSummaryCard";
 
