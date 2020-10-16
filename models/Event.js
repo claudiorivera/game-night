@@ -23,7 +23,6 @@ const EventSchema = new mongoose.Schema({
     },
     name: {
       type: String,
-      required: true,
     },
     image: {
       type: String,
@@ -31,8 +30,16 @@ const EventSchema = new mongoose.Schema({
   },
   eventGuests: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
+      id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+      },
+      name: {
+        type: String,
+      },
+      image: {
+        type: String,
+      },
     },
   ],
 });
