@@ -5,7 +5,6 @@ import {
   CardContent,
   CardHeader,
   Chip,
-  CircularProgress,
   Container,
   Dialog,
   DialogActions,
@@ -34,10 +33,11 @@ const StyledCard = styled(Card)({
 });
 
 const EventDetailsPage = ({ initialData }) => {
+  const [session] = useSession();
   const router = useRouter();
   const { event } = useEvent(router.query.id, initialData);
   const { createAlertWithMessage } = useContext(AlertContext);
-  const [session] = useSession();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   if (!session)
     return (
@@ -61,11 +61,9 @@ const EventDetailsPage = ({ initialData }) => {
     );
 
   // Delete confirm dialog
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const handleClose = () => {
     setIsDialogOpen(false);
   };
-
   const handleDelete = async () => {
     await deleteEventById(event._id);
     router.back();
@@ -73,8 +71,8 @@ const EventDetailsPage = ({ initialData }) => {
 
   const deleteEventById = async (id) => {
     try {
-      await axios.delete(`/api/events/${id}`);
-      createAlertWithMessage("Delete event successful!");
+      const response = await axios.delete(`/api/events/${id}`);
+      createAlertWithMessage(response.data.message);
     } catch (error) {
       console.error(error);
     }
@@ -98,20 +96,13 @@ const EventDetailsPage = ({ initialData }) => {
     }
   };
 
-  if (!event)
-    return (
-      <Typography align="center" component={"div"}>
-        <CircularProgress size={200} thickness={4} />
-      </Typography>
-    );
-
   return (
     <Container>
       <Button onClick={() => router.back()}>
         <ArrowBackIcon />
         Go Back
       </Button>
-      {event && (
+      {event ? (
         <StyledCard>
           <CardHeader
             title={moment(event.eventDateTime).format(
@@ -130,7 +121,7 @@ const EventDetailsPage = ({ initialData }) => {
               ))}
             </Typography>
             <Typography variant="body1">Game Info:</Typography>
-            <GameDetails game={event.eventGame} />
+            <GameDetails gameId={event.eventGame._id} />
           </CardContent>
           <CardActions>
             {/* If user is already a guest, show the Leave button */}
@@ -167,7 +158,7 @@ const EventDetailsPage = ({ initialData }) => {
             {event.eventHost.id === session.user.id && (
               <Button
                 onClick={async () => {
-                  setIsDialogOpen(open);
+                  setIsDialogOpen(true);
                 }}
               >
                 Delete
@@ -175,6 +166,8 @@ const EventDetailsPage = ({ initialData }) => {
             )}
           </CardActions>
         </StyledCard>
+      ) : (
+        ""
       )}
       <Dialog
         open={isDialogOpen}
@@ -208,7 +201,7 @@ export const getServerSideProps = async ({ req, res, params }) => {
   const event = await Event.findById(params.id).lean();
   return {
     props: {
-      initialEventData: JSON.stringify(event) || null,
+      initialEventData: JSON.parse(JSON.stringify(event)) || null,
     },
   };
 };

@@ -1,8 +1,11 @@
-import { Chip, Typography } from "@material-ui/core";
+import { Chip, CircularProgress, Typography } from "@material-ui/core";
 import React, { Fragment } from "react";
+import useGame from "../util/useGame";
 
-const GameDetails = ({ game }) => {
-  return (
+const GameDetails = ({ gameId }) => {
+  const { game } = useGame(gameId);
+
+  return game ? (
     <Fragment>
       <img src={game.imageSrc} alt={game.name} style={{ maxHeight: "20rem" }} />
       <Typography variant="subtitle1">
@@ -29,6 +32,8 @@ const GameDetails = ({ game }) => {
       <Typography variant="subtitle1">Ages: {game.minAge}+</Typography>
       <Typography variant="body1">{game.description}</Typography>
     </Fragment>
+  ) : (
+    <CircularProgress size={200} thickness={4} />
   );
 };
 
