@@ -61,15 +61,23 @@ const EventDetailsPage = ({ initialData }) => {
     );
 
   // Delete confirm dialog
-  // const [open, setOpen] = useState(false);
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const handleClose = () => {
+    setIsDialogOpen(false);
+  };
 
   const handleDelete = async () => {
-    // await deleteEventById(event._id);
-    console.log("deleting");
+    await deleteEventById(event._id);
     router.back();
+  };
+
+  const deleteEventById = async (id) => {
+    try {
+      await axios.delete(`/api/events/${id}`);
+      createAlertWithMessage("Delete event successful!");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const joinEventById = async (id) => {
@@ -126,9 +134,7 @@ const EventDetailsPage = ({ initialData }) => {
           </CardContent>
           <CardActions>
             {/* If user is already a guest, show the Leave button */}
-            {event.eventGuests.some(
-              (guest) => guest._id === session.user._id
-            ) ? (
+            {event.eventGuests.some((guest) => guest.id === session.user.id) ? (
               <Button
                 onClick={async () => {
                   await leaveEventById(event._id);
@@ -138,7 +144,7 @@ const EventDetailsPage = ({ initialData }) => {
                 Leave
               </Button>
             ) : // Otherwise, as long as user isn't the host, show the Join button
-            event.eventHost._id !== session.user._id ? (
+            event.eventHost.id !== session.user.id ? (
               <Button
                 onClick={async () => {
                   await joinEventById(event._id);
@@ -158,12 +164,10 @@ const EventDetailsPage = ({ initialData }) => {
               </Button>
             )}
             {/* Show the Delete button to hosts and admins */}
-            {(event.eventHost._id === session.user._id ||
-              session.user.isAdmin) && (
+            {event.eventHost.id === session.user.id && (
               <Button
                 onClick={async () => {
-                  // setOpen(true);
-                  console.log("delete button clicked");
+                  setIsDialogOpen(open);
                 }}
               >
                 Delete
@@ -172,8 +176,8 @@ const EventDetailsPage = ({ initialData }) => {
           </CardActions>
         </StyledCard>
       )}
-      {/* <Dialog
-        open={open}
+      <Dialog
+        open={isDialogOpen}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
@@ -192,7 +196,7 @@ const EventDetailsPage = ({ initialData }) => {
             Yes
           </Button>
         </DialogActions>
-      </Dialog> */}
+      </Dialog>
     </Container>
   );
 };

@@ -1,11 +1,14 @@
 import { Button, Container, Typography } from "@material-ui/core";
 import React from "react";
-// import EventsListContainer from "../components/EventsListContainer";
-// import useEvents from "../util/useEvents";
+import EventsListContainer from "../components/EventsListContainer";
+import useEvents from "../util/useEvents";
 import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
+import middleware from "../middleware";
+import Game from "../models/Game";
 
-const HomePage = () => {
+const HomePage = ({ initialData }) => {
+  const { events } = useEvents(initialData);
   const router = useRouter();
   const [session] = useSession();
 
@@ -28,10 +31,13 @@ const HomePage = () => {
       </Container>
     );
 
+  const userEventsHosting = [];
+  const userEventsAttending = [];
+
   return (
     <Container>
       <Typography variant="body1">Hello, {session.user.name}.</Typography>
-      {/* {user.eventsHosting.length > 0 && (
+      {userEventsHosting.length > 0 && (
         <Fragment>
           <Typography variant="body1" style={{ marginTop: "1.5rem" }}>
             Events You Are Hosting:
@@ -39,16 +45,27 @@ const HomePage = () => {
           <EventsListContainer events={userEventsHosting} isHosting />
         </Fragment>
       )}
-      {user.eventsAttending.length > 0 && (
+      {userEventsAttending.length > 0 && (
         <Fragment>
           <Typography variant="body1" style={{ marginTop: "1.5rem" }}>
             Events You Are Attending:
           </Typography>
           <EventsListContainer events={userEventsAttending} />
         </Fragment>
-      )} */}
+      )}
     </Container>
   );
 };
 
 export default HomePage;
+
+export const getServerSideProps = async ({ req, res }) => {
+  await middleware.apply(req, res);
+  const games = await Game.find().lean();
+  return {
+    props: {
+      eventsHosting: JSON.stringify(eventsHosting) || null,
+      eventsAttending: JSON.stringify(eventsAttending) || null,
+    },
+  };
+};

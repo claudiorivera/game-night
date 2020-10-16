@@ -29,7 +29,7 @@ const EditEventPage = ({ initialEventData, initialGamesData }) => {
   const eventId = router.query.id;
   const { event, eventMutate } = useEvent(eventId, initialEventData);
   const { games } = useGames(initialGamesData);
-  const [eventDateTime, setEventDateTime] = useState(Date.now());
+  const [eventDateTime, setEventDateTime] = useState(event.eventDateTime);
   const [gameId, setGameId] = useState("");
 
   if (!session)
