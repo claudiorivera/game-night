@@ -81,28 +81,25 @@ handler.put(async (req, res) => {
       // Adds current user to event with given id
       case "join":
         try {
-          const eventToJoin = await Event.findOneAndUpdate(
-            req.query.id,
-            {
-              $push: {
-                eventGuests: {
-                  id: session.user.id,
-                  name: session.user.name,
-                  image: session.user.name,
-                },
-              },
-            },
-            { new: true }
-          );
-          if (eventToJoin.eventHost.id.toString() === session.user.id) {
+          const eventToJoin = await Event.findById(req.query.id);
+          if (eventToJoin.eventHost.toString() === session.user.id) {
             return res.status(400).json({
               success: false,
               message: "Can't join an event you're hosting",
             });
           }
-          // Add user to guests array in event
+          eventToJoin.eventGuests.push({
+            _id: session.user.id,
+            name: session.user.name,
+            image: session.user.image,
+          });
           await eventToJoin.save();
-          res.json({ success: true, message: "Successfully joined event!" });
+          res.json({
+            success: true,
+            message: "Successfully joined event!",
+            eventJoined: eventToJoin,
+            user: session.user.id,
+          });
         } catch (error) {
           res.status(500).json({
             success: false,
@@ -115,24 +112,15 @@ handler.put(async (req, res) => {
       // Removes current user from event with given id
       case "leave":
         try {
-          const eventToLeave = await Event.findOneAndUpdate(
-            req.query.id,
-            {
-              $pull: {
-                eventGuests: {
-                  id: session.user.id,
-                },
-              },
-            },
-            { new: true }
-          );
-          if (eventToLeave.eventHost.id.toString() === session.user.id) {
+          const eventToLeave = await Event.findById(req.query.id);
+          if (eventToLeave.eventHost.toString() === session.user.id) {
             return res.status(400).json({
               success: false,
               message:
                 "Can't leave an event you're hosting. Delete the event instead.",
             });
           }
+          eventToLeave.eventGuests.pull({ _id: session.user.id });
           await eventToLeave.save();
           res.json({
             success: true,
@@ -149,14 +137,9 @@ handler.put(async (req, res) => {
       // Updates event with given id
       case "edit":
         try {
-          const eventToEdit = await Event.findOneAndUpdate(
-            req.query.id,
-            {
-              eventGame: req.body.gameId,
-              eventDateTime: req.body.eventDateTime,
-            },
-            { new: true }
-          );
+          const eventToEdit = await Event.findById(req.query.id);
+          eventToEdit.eventGame = req.body.gameId;
+          eventToEdit.eventDateTime = req.body.eventDateTime;
           await eventToEdit.save();
           res.json({
             success: true,
