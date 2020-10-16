@@ -1,14 +1,12 @@
 import { Button, Container, Typography } from "@material-ui/core";
-import React from "react";
+import React, { Fragment } from "react";
 import EventsListContainer from "../components/EventsListContainer";
-import useEvents from "../util/useEvents";
-import { useSession } from "next-auth/client";
+import { getSession, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import middleware from "../middleware";
-import Game from "../models/Game";
+import Event from "../models/Event";
 
-const HomePage = ({ initialData }) => {
-  const { events } = useEvents(initialData);
+const HomePage = ({ eventsHosting, eventsAttending }) => {
   const router = useRouter();
   const [session] = useSession();
 
@@ -31,26 +29,23 @@ const HomePage = ({ initialData }) => {
       </Container>
     );
 
-  const userEventsHosting = [];
-  const userEventsAttending = [];
-
   return (
     <Container>
       <Typography variant="body1">Hello, {session.user.name}.</Typography>
-      {userEventsHosting.length > 0 && (
+      {eventsHosting.length > 0 && (
         <Fragment>
           <Typography variant="body1" style={{ marginTop: "1.5rem" }}>
             Events You Are Hosting:
           </Typography>
-          <EventsListContainer events={userEventsHosting} isHosting />
+          <EventsListContainer events={eventsHosting} isHosting />
         </Fragment>
       )}
-      {userEventsAttending.length > 0 && (
+      {eventsAttending.length > 0 && (
         <Fragment>
           <Typography variant="body1" style={{ marginTop: "1.5rem" }}>
             Events You Are Attending:
           </Typography>
-          <EventsListContainer events={userEventsAttending} />
+          <EventsListContainer events={eventsAttending} />
         </Fragment>
       )}
     </Container>
@@ -61,11 +56,14 @@ export default HomePage;
 
 export const getServerSideProps = async ({ req, res }) => {
   await middleware.apply(req, res);
-  const games = await Game.find().lean();
+  const session = await getSession({ req });
+
+  // TODO: Implement logic to fetch these
+  const eventsHosting = await Event.find().lean();
+  const eventsAttending = await Event.find().lean();
+
   return {
-    props: {
-      eventsHosting: JSON.stringify(eventsHosting) || null,
-      eventsAttending: JSON.stringify(eventsAttending) || null,
-    },
+    // https://github.com/vercel/next.js/discussions/11209#discussioncomment-35915
+    props: JSON.parse(JSON.stringify({ eventsHosting, eventsAttending })),
   };
 };
