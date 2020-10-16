@@ -41,9 +41,9 @@ const MobileMenu = ({ session, userLinks, adminLinks, signOut }) => {
       >
         {session?.user.id && (
           <div>
-            {userLinks.map(({ url, title }, index) => (
+            {userLinks.map(({ url, title }) => (
               <MenuItem
-                key={index}
+                key={title}
                 onClick={() => {
                   handleMenuClose();
                   router.push(url);
@@ -63,9 +63,9 @@ const MobileMenu = ({ session, userLinks, adminLinks, signOut }) => {
           </div>
         )}
         {/* TODO: Protect admin link routes */}
-        {adminLinks.map(({ title, url }, index) => (
+        {adminLinks.map(({ title, url }) => (
           <MenuItem
-            key={index}
+            key={title}
             onClick={() => {
               handleMenuClose();
               router.push(url);

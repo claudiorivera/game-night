@@ -116,8 +116,8 @@ const EventDetailsPage = ({ initialData }) => {
             </Typography>
             <Typography variant="subtitle1">
               Guests:
-              {event.eventGuests.map((guest, index) => (
-                <Chip key={index} label={guest.name} />
+              {event.eventGuests.map((guest) => (
+                <Chip key={guest.name} label={guest.name} />
               ))}
             </Typography>
             <Typography variant="body1">Game Info:</Typography>
