@@ -1,23 +1,20 @@
 import { Container, Snackbar } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { styled } from "@material-ui/core/styles";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import React, { Fragment, useContext } from "react";
 import { AlertContext } from "../context/Alert";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "100%",
-    "& > * + *": {
-      marginTop: theme.spacing(2),
-    },
+const StyledContainer = styled(Container)(({ theme }) => ({
+  width: "100%",
+  "& > * + *": {
+    marginTop: theme.spacing(2),
   },
 }));
 
 const AlertDialog = () => {
-  const classes = useStyles();
   const { message, clearAlert } = useContext(AlertContext);
   return message ? (
-    <Container className={classes.root}>
+    <StyledContainer>
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open
@@ -36,7 +33,7 @@ const AlertDialog = () => {
           {JSON.stringify(message)}
         </Alert>
       </Snackbar>
-    </Container>
+    </StyledContainer>
   ) : (
     <Fragment></Fragment>
   );
