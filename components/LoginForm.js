@@ -9,7 +9,7 @@ const LoginForm = ({ providers }) => {
         Please login using one of the following options:
       </Typography>
       {providers &&
-        { ...providers }.map((provider) => (
+        Object.values(providers).map((provider) => (
           <Button
             key={provider.id}
             type="submit"
