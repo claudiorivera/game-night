@@ -4,17 +4,13 @@ An application that lets you create and join board game nights.
 
 Uses the [BoardGameGeek API2](https://boardgamegeek.com/wiki/page/BGG_XML_API2) on the Admin side to pull game info. I also used [fast-xml-parser](https://www.npmjs.com/package/fast-xml-parser) to [parse the XML](https://github.com/claudiorivera/game-night/tree/master/client/src/lib) into some custom JSON.
 
-# Changes
-
-- New in this version is a refactoring to use Next.js and serverless API routes, as well as Next Auth.
-
 # Future Improvements
 
-- Make the "add game" option available to anyone hosting an event. Currently, only admins can add games. The reason for this limitation is that some queries return too many results if they're not specific enough, and my parser chokes. On that note, I'd like to implement an admin console for deleting users and granting admin rights.
-
-- More confirmation dialogs.
-
 - Move old events into a "past events" section.
+- Implement the game search into the event creation process.
+- Add more signin providers.
+- More confirmation dialogs, and tweak the toasts. 🍞
+- Fancier UI
 
 # Install
 
@@ -22,7 +18,7 @@ Uses the [BoardGameGeek API2](https://boardgamegeek.com/wiki/page/BGG_XML_API2) 
 
 # Config
 
-Add a `.env.local` file with a `MONGODB_URI` value for a MongoDB connection string, as well as a `SECRET`, and `auth0` secrets as shown in the `.sample-env.local`.
+Add a `.env.local` file with environmental variables as shown in the example `.sample-env.local` file.
 
 # Dev
 
