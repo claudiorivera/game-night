@@ -23,9 +23,9 @@ import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
 import GameDetails from "../../../components/GameDetails";
 import { AlertContext } from "../../../context/Alert";
+import useEvent from "../../../util/useEvent";
 import middleware from "../../../middleware";
 import Event from "../../../models/Event";
-import useEvent from "../../../util/useEvent";
 
 const StyledCard = styled(Card)({
   margin: "10px",
@@ -61,10 +61,10 @@ const EventDetailsPage = ({ initialData }) => {
     );
 
   // Delete confirm dialog
-  const [open, setOpen] = useState(false);
-  const handleClose = () => {
-    setOpen(false);
-  };
+  // const [open, setOpen] = useState(false);
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
 
   const handleDelete = async () => {
     // await deleteEventById(event._id);
@@ -151,7 +151,7 @@ const EventDetailsPage = ({ initialData }) => {
               // Otherwise, we're the host, so show the Edit button
               <Button
                 onClick={() => {
-                  router.push(`${router.pathname}/edit`);
+                  router.push(`/events/${router.query.id}/edit`);
                 }}
               >
                 Edit
@@ -162,7 +162,8 @@ const EventDetailsPage = ({ initialData }) => {
               session.user.isAdmin) && (
               <Button
                 onClick={async () => {
-                  setOpen(true);
+                  // setOpen(true);
+                  console.log("delete button clicked");
                 }}
               >
                 Delete
@@ -171,7 +172,7 @@ const EventDetailsPage = ({ initialData }) => {
           </CardActions>
         </StyledCard>
       )}
-      <Dialog
+      {/* <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
@@ -191,19 +192,19 @@ const EventDetailsPage = ({ initialData }) => {
             Yes
           </Button>
         </DialogActions>
-      </Dialog>
+      </Dialog> */}
     </Container>
   );
 };
 
 export default EventDetailsPage;
 
-export const getServerSideProps = async ({ params, req, res }) => {
+export const getServerSideProps = async ({ req, res, params }) => {
   await middleware.apply(req, res);
-  const event = await Event.findById(params.id);
+  const event = await Event.findById(params.id).lean();
   return {
     props: {
-      initialData: JSON.stringify(event) || null,
+      initialEventData: JSON.stringify(event) || null,
     },
   };
 };

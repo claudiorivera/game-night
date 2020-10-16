@@ -13,6 +13,7 @@ import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
 import { AlertContext } from "../../context/Alert";
+import middleware from "../../middleware";
 import Game from "../../models/Game";
 import useGames from "../../util/useGames";
 

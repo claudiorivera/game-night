@@ -12,6 +12,7 @@ import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { Fragment } from "react";
 import GameDetails from "../../components/GameDetails";
+import middleware from "../../middleware";
 import Game from "../../models/Game";
 import useGames from "../../util/useGames";
 

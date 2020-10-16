@@ -1,7 +1,6 @@
 import nextConnect from "next-connect";
 import middleware from "../../../middleware";
 import Event from "../../../models/Event";
-import Game from "../../../models/Game";
 import { getSession } from "next-auth/client";
 
 const handler = nextConnect();
@@ -83,17 +82,14 @@ handler.put(async (req, res) => {
       case "join":
         try {
           const eventToJoin = await Event.findById(req.query.id);
-          if (
-            eventToJoin.eventHost.toString() === session.user._id.toString()
-          ) {
+          if (eventToJoin.eventHost.id === session.user.id) {
             return res.status(400).json({
               success: false,
               message: "Can't join an event you're hosting",
             });
           }
           // Add user to guests array in event
-          eventToJoin.eventGuests.addToSet(session.user);
-          // Save both
+          eventToJoin.eventGuests.addToSet(session.user.id);
           await eventToJoin.save();
           res.json({ success: true, message: "Successfully joined event!" });
         } catch (error) {
@@ -109,9 +105,7 @@ handler.put(async (req, res) => {
       case "leave":
         try {
           const eventToLeave = await Event.findById(req.query.id);
-          if (
-            eventToLeave.eventHost.toString() === session.user._id.toString()
-          ) {
+          if (eventToLeave.eventHost.id === session.user.id) {
             return res.status(400).json({
               success: false,
               message:
@@ -119,7 +113,7 @@ handler.put(async (req, res) => {
             });
           }
           // Remove user from guests array of event
-          eventToLeave.eventGuests.pull(session.user);
+          eventToLeave.eventGuests.pull(session.user.id);
           await eventToLeave.save();
           res.json({
             success: true,
@@ -137,7 +131,10 @@ handler.put(async (req, res) => {
       case "edit":
         try {
           const eventToEdit = await Event.findById(req.query.id);
-          eventToEdit.set(req.body);
+          eventToEdit.set({
+            eventGame: req.body.gameId,
+            eventDateTime: req.body.eventDateTime,
+          });
           await eventToEdit.save();
           res.json({
             success: true,

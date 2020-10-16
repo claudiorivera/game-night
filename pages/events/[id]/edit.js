@@ -6,29 +6,31 @@ import {
   Select,
   Typography,
 } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { styled } from "@material-ui/core/styles";
 import { ArrowBack as ArrowBackIcon } from "@material-ui/icons";
 import { DateTimePicker } from "@material-ui/pickers";
+import axios from "axios";
 import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
+import middleware from "../../../middleware";
+import Event from "../../../models/Event";
+import Game from "../../../models/Game";
+import useEvent from "../../../util/useEvent";
 import useGames from "../../../util/useGames";
 
-const useStyles = makeStyles({
-  margin: {
-    margin: "10px",
-  },
+const StyledFormControl = styled(FormControl)({
+  margin: "1rem",
 });
 
-const EditEventPage = () => {
+const EditEventPage = ({ initialEventData, initialGamesData }) => {
+  const [session] = useSession();
   const router = useRouter();
-  const classes = useStyles();
-  const { games } = useGames();
+  const eventId = router.query.id;
+  const { event, eventMutate } = useEvent(eventId, initialEventData);
+  const { games } = useGames(initialGamesData);
   const [eventDateTime, setEventDateTime] = useState(Date.now());
   const [gameId, setGameId] = useState("");
-  const [event, setEvent] = useState(null);
-  const eventId = router.query;
-  const [session] = useSession();
 
   if (!session)
     return (
@@ -51,17 +53,12 @@ const EditEventPage = () => {
       </Container>
     );
 
-  useEffect(() => {
-    getEventById(eventId);
-  }, []);
-
-  const getEventById = async (id) => {
-    const response = await axios.get(`/api/events/${id}`);
-    setEvent(response.data.event);
-  };
-
-  const updateEvent = () => {
-    console.log("updateEvent");
+  const updateEvent = async () => {
+    await axios.put(`/api/events/${eventId}?action=edit`, {
+      gameId,
+      eventDateTime,
+    });
+    eventMutate();
   };
 
   return (
@@ -71,7 +68,7 @@ const EditEventPage = () => {
         Go Back
       </Button>
       <Typography variant="h4">Edit Event</Typography>
-      {event && (
+      {event ? (
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -79,7 +76,7 @@ const EditEventPage = () => {
             router.back();
           }}
         >
-          <FormControl className={classes.margin}>
+          <StyledFormControl>
             <DateTimePicker
               disablePast
               id="datetime-picker"
@@ -87,9 +84,9 @@ const EditEventPage = () => {
               value={eventDateTime}
               onChange={setEventDateTime}
             />
-          </FormControl>
+          </StyledFormControl>
           {games && (
-            <FormControl className={classes.margin}>
+            <StyledFormControl>
               <Select
                 id="game-select"
                 value={gameId}
@@ -103,7 +100,7 @@ const EditEventPage = () => {
                   </MenuItem>
                 ))}
               </Select>
-            </FormControl>
+            </StyledFormControl>
           )}
           <Button
             size="large"
@@ -115,9 +112,23 @@ const EditEventPage = () => {
             Save
           </Button>
         </form>
+      ) : (
+        ""
       )}
     </Container>
   );
 };
 
 export default EditEventPage;
+
+export const getServerSideProps = async ({ req, res, params }) => {
+  await middleware.apply(req, res);
+  const event = await Event.findById(params.id).lean();
+  const games = await Game.find().lean();
+  return {
+    props: {
+      initialEventData: JSON.stringify(event) || null,
+      initialGamesData: JSON.stringify(games) || null,
+    },
+  };
+};
