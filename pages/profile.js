@@ -39,7 +39,6 @@ const ProfilePage = () => {
     <Container>
       <Img src={session.user.image} alt="User's profile picture" />
       <Typography variant="h5">Name: {session.user.name}</Typography>
-      <Typography variant="h5">Email: {session.user.email}</Typography>
     </Container>
   );
 };
