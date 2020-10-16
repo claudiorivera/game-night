@@ -125,7 +125,9 @@ const EventDetailsPage = ({ initialData }) => {
           </CardContent>
           <CardActions>
             {/* If user is already a guest, show the Leave button */}
-            {event.eventGuests.some((guest) => guest.id === session.user.id) ? (
+            {event.eventGuests.some(
+              (guest) => guest._id === session.user.id
+            ) ? (
               <Button
                 onClick={async () => {
                   await leaveEventById(event._id);
@@ -135,7 +137,7 @@ const EventDetailsPage = ({ initialData }) => {
                 Leave
               </Button>
             ) : // Otherwise, as long as user isn't the host, show the Join button
-            event.eventHost.id !== session.user.id ? (
+            event.eventHost._id !== session.user.id ? (
               <Button
                 onClick={async () => {
                   await joinEventById(event._id);
@@ -155,7 +157,7 @@ const EventDetailsPage = ({ initialData }) => {
               </Button>
             )}
             {/* Show the Delete button to hosts and admins */}
-            {event.eventHost.id === session.user.id && (
+            {event.eventHost._id === session.user.id && (
               <Button
                 onClick={async () => {
                   setIsDialogOpen(true);

@@ -17,7 +17,7 @@ const EventSchema = new mongoose.Schema({
     required: true,
   },
   eventHost: {
-    id: {
+    _id: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
     },
@@ -30,7 +30,7 @@ const EventSchema = new mongoose.Schema({
   },
   eventGuests: [
     {
-      id: {
+      _id: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
       },

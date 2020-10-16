@@ -34,7 +34,7 @@ handler.post(async (req, res) => {
     try {
       const event = new Event({
         eventHost: {
-          id: session.user.id,
+          _id: session.user.id,
           name: session.user.name,
           image: session.user.image,
         },
