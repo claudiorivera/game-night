@@ -31,8 +31,6 @@ const HomePage = ({ eventsHosting, eventsAttending }) => {
 
   return (
     <Container>
-      <pre>Hosting: {JSON.stringify(eventsHosting, null, 2)}</pre>
-      <pre>Attending: {JSON.stringify(eventsAttending, null, 2)}</pre>
       <Typography variant="body1">Hello, {session.user.name}.</Typography>
       {eventsHosting.length > 0 && (
         <Fragment>
@@ -62,11 +60,17 @@ export const getServerSideProps = async ({ req, res }) => {
 
   if (!session) return { props: { eventsHosting: [], eventsAttending: [] } };
 
-  // TODO: Implement logic to fetch these
-  const eventsHosting = await Event.find({
-    eventHost: session.user.id,
-  }).lean();
-  const eventsAttending = await Event.find().lean();
+  const allEvents = await Event.find().lean();
+
+  const eventsHosting = allEvents.filter(
+    (event) => event.eventHost._id.toString() === session.user.id
+  );
+  const eventsAttending = allEvents.filter(
+    (event) =>
+      event.eventGuests.filter(
+        (guest) => guest._id.toString() === session.user.id
+      ).length > 0
+  );
 
   return {
     // https://github.com/vercel/next.js/discussions/11209#discussioncomment-35915
