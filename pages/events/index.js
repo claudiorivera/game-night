@@ -30,7 +30,7 @@ const EventsListPage = ({ initialData }) => {
           color="secondary"
           variant="contained"
           onClick={() => {
-            router.push("/auth/user");
+            router.push("/auth/login");
           }}
         >
           Login/Register
