@@ -69,7 +69,7 @@ export const getServerSideProps = async ({ req, res }) => {
   const events = await Event.find().lean();
   return {
     props: {
-      initialData: JSON.stringify(events) || null,
+      initialData: events || null,
     },
   };
 };

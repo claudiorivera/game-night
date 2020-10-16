@@ -127,8 +127,8 @@ export const getServerSideProps = async ({ req, res, params }) => {
   const games = await Game.find().lean();
   return {
     props: {
-      initialEventData: JSON.stringify(event) || null,
-      initialGamesData: JSON.stringify(games) || null,
+      initialEventData: event || null,
+      initialGamesData: games || null,
     },
   };
 };
