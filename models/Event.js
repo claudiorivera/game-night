@@ -40,8 +40,7 @@ const EventSchema = new mongoose.Schema({
 
 EventSchema.pre("find", function () {
   this.populate("eventGuests", "name")
-    .populate("eventHost", "name")
-    .populate("eventGame")
+    .populate("eventGame", "name imageSrc")
     .sort({
       eventDateTime: "asc",
     });
@@ -49,8 +48,7 @@ EventSchema.pre("find", function () {
 
 EventSchema.pre("findOne", function () {
   this.populate("eventGuests", "name")
-    .populate("eventHost", "name")
-    .populate("eventGame")
+    .populate("eventGame", "name imageSrc")
     .sort({
       eventDateTime: "asc",
     });
