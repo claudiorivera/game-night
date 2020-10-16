@@ -46,9 +46,9 @@ const userLinks = [
 ];
 
 const MainAppBar = () => {
+  const [session] = useSession();
   const router = useRouter();
   const theme = useTheme();
-  const [session] = useSession();
   const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
 
   return (
@@ -78,8 +78,8 @@ const MainAppBar = () => {
         {/* User links */}
         {!isMobile && session && (
           <Fragment>
-            {userLinks.map(({ title, url }, index) => (
-              <Link key={index} href={url}>
+            {userLinks.map(({ title, url }) => (
+              <Link key={title} href={url}>
                 <Button color="inherit">{title}</Button>
               </Link>
             ))}
@@ -94,10 +94,10 @@ const MainAppBar = () => {
           </Fragment>
         )}
         {/* Admin links */}
-        {/* TODO: Secure admin routes */}
+        {/* TODO: Secure admin routes on client and server side*/}
         {!isMobile &&
-          adminLinks.map(({ title, url }, index) => (
-            <Link key={index} href={url}>
+          adminLinks.map(({ title, url }) => (
+            <Link key={title} href={url}>
               <Button color="inherit">{title}</Button>
             </Link>
           ))}
