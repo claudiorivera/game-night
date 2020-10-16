@@ -121,7 +121,7 @@ const EventDetailsPage = ({ initialData }) => {
               ))}
             </Typography>
             <Typography variant="body1">Game Info:</Typography>
-            <GameDetails gameId={event.eventGame._id} />
+            <GameDetails fetchById={event.eventGame._id} />
           </CardContent>
           <CardActions>
             {/* If user is already a guest, show the Leave button */}

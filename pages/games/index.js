@@ -93,7 +93,7 @@ export const getServerSideProps = async ({ req, res }) => {
   const games = await Game.find().lean();
   return {
     props: {
-      initialData: games || null,
+      initialData: JSON.parse(JSON.stringify({ games })) || null,
     },
   };
 };
