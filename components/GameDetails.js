@@ -4,7 +4,7 @@ import GameDetailsFull from "./GameDetailsFull";
 
 const GameDetails = ({ game, fetchById }) => {
   if (fetchById) {
-    const { game } = useGame(gameId);
+    const { game } = useGame(fetchById);
     return <GameDetailsFull game={game} />;
   } else {
     return <GameDetailsFull game={game} />;
