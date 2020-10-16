@@ -1,8 +1,8 @@
 import { Button, Container, Typography } from "@material-ui/core";
-import React, { Fragment } from "react";
-import EventsListContainer from "../components/EventsListContainer";
 import { getSession, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
+import React, { Fragment } from "react";
+import EventsListContainer from "../components/EventsListContainer";
 import middleware from "../middleware";
 import Event from "../models/Event";
 
@@ -31,6 +31,8 @@ const HomePage = ({ eventsHosting, eventsAttending }) => {
 
   return (
     <Container>
+      <pre>Hosting: {JSON.stringify(eventsHosting, null, 2)}</pre>
+      <pre>Attending: {JSON.stringify(eventsAttending, null, 2)}</pre>
       <Typography variant="body1">Hello, {session.user.name}.</Typography>
       {eventsHosting.length > 0 && (
         <Fragment>
@@ -58,8 +60,12 @@ export const getServerSideProps = async ({ req, res }) => {
   await middleware.apply(req, res);
   const session = await getSession({ req });
 
+  if (!session) return { props: { eventsHosting: [], eventsAttending: [] } };
+
   // TODO: Implement logic to fetch these
-  const eventsHosting = await Event.find().lean();
+  const eventsHosting = await Event.find({
+    eventHost: session.user.id,
+  }).lean();
   const eventsAttending = await Event.find().lean();
 
   return {
