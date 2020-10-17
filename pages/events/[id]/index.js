@@ -1,4 +1,6 @@
 import {
+  Avatar,
+  Box,
   Button,
   Card,
   CardActions,
@@ -11,6 +13,8 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Divider,
+  Tooltip,
   Typography,
 } from "@material-ui/core";
 import { styled } from "@material-ui/core/styles";
@@ -25,11 +29,16 @@ import { AlertContext } from "../../../context/Alert";
 import useEvent from "../../../util/useEvent";
 import middleware from "../../../middleware";
 import Event from "../../../models/Event";
+import { AvatarGroup } from "@material-ui/lab";
 
 const StyledCard = styled(Card)({
-  margin: "10px",
-  padding: "20px",
+  margin: "1rem",
+  padding: "2rem",
   flexDirection: "column",
+});
+
+const StyledDivider = styled(Divider)({
+  margin: "2rem",
 });
 
 const EventDetailsPage = ({ initialData }) => {
@@ -111,17 +120,27 @@ const EventDetailsPage = ({ initialData }) => {
             subheader={event.eventGame.name}
           />
           <CardContent>
-            <Typography variant="body1">
-              Hosted by: {event.eventHost.name}
-            </Typography>
-            <Typography variant="subtitle1">
-              Guests:
-              {event.eventGuests.map((guest) => (
-                <Chip key={guest.name} label={guest.name} />
-              ))}
-            </Typography>
-            <Typography variant="body1">Game Info:</Typography>
             <GameDetails fetchById={event.eventGame._id} />
+            <StyledDivider variant="middle" />
+            <Container>
+              <Typography variant="body1">Host:</Typography>
+              <Tooltip title={event.eventHost.name}>
+                <Avatar
+                  alt={event.eventHost.name}
+                  src={event.eventHost.image}
+                />
+              </Tooltip>
+            </Container>
+            <Container>
+              <Typography variant="subtitle1">Guests:</Typography>
+              <AvatarGroup max={8}>
+                {event.eventGuests.map((guest) => (
+                  <Tooltip key={guest.name} title={guest.name}>
+                    <Avatar alt={guest.name} src={guest.image} />
+                  </Tooltip>
+                ))}
+              </AvatarGroup>
+            </Container>
           </CardContent>
           <CardActions>
             {/* If user is already a guest, show the Leave button */}
