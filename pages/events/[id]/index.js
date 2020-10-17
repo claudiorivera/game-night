@@ -20,7 +20,7 @@ import { ArrowBack as ArrowBackIcon } from "@material-ui/icons";
 import { AvatarGroup } from "@material-ui/lab";
 import axios from "axios";
 import moment from "moment";
-import { signIn, useSession } from "next-auth/client";
+import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
 import GameDetails from "../../../components/GameDetails";
@@ -41,29 +41,15 @@ const StyledDivider = styled(Divider)({
 
 const EventDetailsPage = ({ initialData }) => {
   const [session] = useSession();
+  const { createAlertWithMessage } = useContext(AlertContext);
   const router = useRouter();
   const { event } = useEvent(router.query.id, initialData);
-  const { createAlertWithMessage } = useContext(AlertContext);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  if (!session)
-    return (
-      <Container>
-        <Typography variant="h5" align="center">
-          You must be logged in to access this page.
-        </Typography>
-        <Button
-          type="submit"
-          size="large"
-          fullWidth
-          color="secondary"
-          variant="contained"
-          onClick={signIn}
-        >
-          Login/Register
-        </Button>
-      </Container>
-    );
+  if (!session) {
+    createAlertWithMessage("You must be signed in to access this page");
+    router.push("/auth/login");
+  }
 
   // Delete confirm dialog
   const handleClose = () => {

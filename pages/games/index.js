@@ -8,10 +8,11 @@ import {
 } from "@material-ui/core";
 import { styled } from "@material-ui/core/styles";
 import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
-import { signIn, useSession } from "next-auth/client";
+import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import GameDetails from "../../components/GameDetails";
+import { AlertContext } from "../../context/Alert";
 import middleware from "../../middleware";
 import Game from "../../models/Game";
 import useGames from "../../util/useGames";
@@ -22,27 +23,14 @@ const ContainerWithMargin = styled(Container)({
 
 const GamesListPage = ({ initialData }) => {
   const [session] = useSession();
+  const { createAlertWithMessage } = useContext(AlertContext);
   const router = useRouter();
   const { games } = useGames(initialData);
 
-  if (!session)
-    return (
-      <Container>
-        <Typography variant="h5" align="center">
-          You must be logged in to access this page.
-        </Typography>
-        <Button
-          type="submit"
-          size="large"
-          fullWidth
-          color="secondary"
-          variant="contained"
-          onClick={signIn}
-        >
-          Login/Register
-        </Button>
-      </Container>
-    );
+  if (!session) {
+    createAlertWithMessage("You must be signed in to access this page");
+    router.push("/auth/login");
+  }
 
   return (
     <Fragment>

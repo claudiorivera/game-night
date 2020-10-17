@@ -10,7 +10,7 @@ import {
 import { styled } from "@material-ui/core/styles";
 import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
 import axios from "axios";
-import { signIn, useSession } from "next-auth/client";
+import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
 import GameDetails from "../../components/GameDetails";
@@ -28,29 +28,15 @@ const StyledButton = styled(Button)({
 
 const AddGamePage = () => {
   const [session] = useSession();
+  const { clearAlert, createAlertWithMessage } = useContext(AlertContext);
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [queryResults, setQueryResults] = useState([]);
-  const { clearAlert, createAlertWithMessage } = useContext(AlertContext);
 
-  if (!session)
-    return (
-      <Container>
-        <Typography variant="h5" align="center">
-          You must be logged in to access this page.
-        </Typography>
-        <Button
-          type="submit"
-          size="large"
-          fullWidth
-          color="secondary"
-          variant="contained"
-          onClick={signIn}
-        >
-          Login/Register
-        </Button>
-      </Container>
-    );
+  if (!session) {
+    createAlertWithMessage("You must be signed in to access this page");
+    router.push("/auth/login");
+  }
 
   const handleSearch = async (e) => {
     e.preventDefault();

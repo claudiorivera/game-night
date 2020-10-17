@@ -1,6 +1,8 @@
-import { Button, Container, styled, Typography } from "@material-ui/core";
-import { signIn, useSession } from "next-auth/client";
-import React from "react";
+import { Container, styled, Typography } from "@material-ui/core";
+import { useSession } from "next-auth/client";
+import { useRouter } from "next/router";
+import React, { useContext } from "react";
+import { AlertContext } from "../context/Alert";
 
 const Img = styled("img")({
   borderRadius: "50%",
@@ -11,30 +13,21 @@ const Img = styled("img")({
 
 const ProfilePage = () => {
   const [session] = useSession();
+  const { createAlertWithMessage } = useContext(AlertContext);
+  const router = useRouter();
 
-  if (!session)
-    return (
-      <Container>
-        <Typography variant="h5" align="center">
-          You must be logged in to access this page.
-        </Typography>
-        <Button
-          type="submit"
-          size="large"
-          fullWidth
-          color="secondary"
-          variant="contained"
-          onClick={signIn}
-        >
-          Login/Register
-        </Button>
-      </Container>
-    );
+  if (!session) {
+    createAlertWithMessage("You must be signed in to access this page");
+    router.push("/auth/login");
+  }
 
   return (
     <Container>
       <Img src={session.user.image} alt="User's profile picture" />
       <Typography variant="h5">Name: {session.user.name}</Typography>
+      <Typography variant="h5">
+        Email Verified? {session.user.emailVerified ? "Yes" : "No"}
+      </Typography>
     </Container>
   );
 };

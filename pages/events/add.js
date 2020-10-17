@@ -22,32 +22,17 @@ const StyledFormControl = styled(FormControl)({
 });
 
 const AddEventPage = ({ initialData }) => {
+  const [session] = useSession();
+  const { createAlertWithMessage } = useContext(AlertContext);
   const router = useRouter();
   const { games } = useGames(initialData);
   const [eventDateTime, setEventDateTime] = useState(new Date());
   const [gameId, setGameId] = useState("");
-  const { createAlertWithMessage } = useContext(AlertContext);
 
-  const [session] = useSession();
-
-  if (!session)
-    return (
-      <Container>
-        <Typography variant="h5" align="center">
-          You must be logged in to access this page.
-        </Typography>
-        <Button
-          type="submit"
-          size="large"
-          fullWidth
-          color="secondary"
-          variant="contained"
-          onClick={signIn}
-        >
-          Login/Register
-        </Button>
-      </Container>
-    );
+  if (!session) {
+    createAlertWithMessage("You must be signed in to access this page");
+    router.push("/auth/login");
+  }
 
   const addEvent = async (gameId, eventDateTime) => {
     try {
