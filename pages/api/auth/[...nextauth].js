@@ -9,6 +9,7 @@ handler.use(middleware);
 
 handler.use((req, res) =>
   NextAuth(req, res, {
+    debug: true,
     providers: [
       Providers.GitHub({
         clientId: process.env.GITHUB_CLIENT_ID,
@@ -23,8 +24,6 @@ handler.use((req, res) =>
     secret: process.env.SECRET,
     pages: {
       signIn: "/auth/login",
-      error: "/auth/error", // Error code passed in query string as ?error=
-      verifyRequest: "/auth/verifyrequest", // (used for check email message)
     },
     jwt: {
       secret: process.env.JWT_SECRET,
