@@ -3,7 +3,7 @@ import { Menu as MenuIcon } from "@material-ui/icons";
 import { useRouter } from "next/router";
 import React, { Fragment, useState } from "react";
 
-const MobileMenu = ({ session, userLinks, adminLinks, signOut }) => {
+const MobileMenu = ({ session, userLinks, adminLinks, signOut, signIn }) => {
   const router = useRouter();
   // https://material-ui.com/components/app-bar/#app-bar-with-menu
   const [anchorEl, setAnchorEl] = useState(null);
@@ -55,7 +55,7 @@ const MobileMenu = ({ session, userLinks, adminLinks, signOut }) => {
             <MenuItem
               onClick={() => {
                 handleMenuClose();
-                signOut();
+                signOut({ callbackUrl: process.env.BASE_URL });
               }}
             >
               Log Out
@@ -74,16 +74,7 @@ const MobileMenu = ({ session, userLinks, adminLinks, signOut }) => {
             {title}
           </MenuItem>
         ))}
-        {!session && (
-          <MenuItem
-            onClick={() => {
-              handleClose();
-              router.push("/auth/login");
-            }}
-          >
-            Login/Register
-          </MenuItem>
-        )}
+        {!session && <MenuItem onClick={signIn}>Login</MenuItem>}
       </Menu>
     </Fragment>
   );

@@ -6,9 +6,8 @@ import {
   useMediaQuery,
 } from "@material-ui/core";
 import { styled, useTheme } from "@material-ui/core/styles";
-import { signOut, useSession } from "next-auth/client";
+import { signIn, signOut, useSession } from "next-auth/client";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React, { Fragment } from "react";
 import MobileMenu from "./MobileMenu";
 
@@ -47,7 +46,6 @@ const userLinks = [
 
 const MainAppBar = () => {
   const [session] = useSession();
-  const router = useRouter();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
 
@@ -62,17 +60,13 @@ const MainAppBar = () => {
             session={session}
             userLinks={userLinks}
             adminLinks={adminLinks}
+            signIn={signIn}
             signOut={signOut}
           />
         )}
         {!isMobile && !session && (
-          <Button
-            color="inherit"
-            onClick={() => {
-              router.push("/auth/login");
-            }}
-          >
-            Login/Register
+          <Button color="inherit" onClick={signIn}>
+            Login
           </Button>
         )}
         {/* User links */}
@@ -86,7 +80,7 @@ const MainAppBar = () => {
             <Button
               color="inherit"
               onClick={() => {
-                signOut();
+                signOut({ callbackUrl: process.env.BASE_URL });
               }}
             >
               Log Out
