@@ -36,7 +36,7 @@ const GameSchema = new mongoose.Schema({
   bggId: {
     type: Number,
     required: true,
-    unique: true,
+    // unique: true,
   },
   yearPublished: {
     type: Number,

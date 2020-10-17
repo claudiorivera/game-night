@@ -40,9 +40,9 @@ const StyledDivider = styled(Divider)({
 });
 
 const EventDetailsPage = ({ initialData }) => {
-  const [session] = useSession();
-  const { createAlertWithMessage } = useContext(AlertContext);
   const router = useRouter();
+  const { createAlertWithMessage } = useContext(AlertContext);
+  const [session] = useSession();
   const { event } = useEvent(router.query.id, initialData);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 

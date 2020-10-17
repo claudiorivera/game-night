@@ -14,9 +14,9 @@ const StyledContainer = styled(Container)({
 });
 
 const EventsListPage = ({ initialData }) => {
-  const [session] = useSession();
-  const { createAlertWithMessage } = useContext(AlertContext);
   const router = useRouter();
+  const { createAlertWithMessage } = useContext(AlertContext);
+  const [session] = useSession();
   const { events } = useEvents(initialData);
 
   if (!session) {

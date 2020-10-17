@@ -12,9 +12,9 @@ const Img = styled("img")({
 });
 
 const ProfilePage = () => {
-  const [session] = useSession();
-  const { createAlertWithMessage } = useContext(AlertContext);
   const router = useRouter();
+  const { createAlertWithMessage } = useContext(AlertContext);
+  const [session] = useSession();
 
   if (!session) {
     createAlertWithMessage("You must be signed in to access this page");

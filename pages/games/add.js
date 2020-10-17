@@ -27,9 +27,9 @@ const StyledButton = styled(Button)({
 });
 
 const AddGamePage = () => {
-  const [session] = useSession();
-  const { clearAlert, createAlertWithMessage } = useContext(AlertContext);
   const router = useRouter();
+  const { clearAlert, createAlertWithMessage } = useContext(AlertContext);
+  const [session] = useSession();
   const [query, setQuery] = useState("");
   const [queryResults, setQueryResults] = useState([]);
 

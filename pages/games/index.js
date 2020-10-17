@@ -22,9 +22,9 @@ const ContainerWithMargin = styled(Container)({
 });
 
 const GamesListPage = ({ initialData }) => {
-  const [session] = useSession();
-  const { createAlertWithMessage } = useContext(AlertContext);
   const router = useRouter();
+  const { createAlertWithMessage } = useContext(AlertContext);
+  const [session] = useSession();
   const { games } = useGames(initialData);
 
   if (!session) {

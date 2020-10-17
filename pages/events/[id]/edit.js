@@ -23,9 +23,9 @@ const StyledFormControl = styled(FormControl)({
 });
 
 const EditEventPage = ({ event, games }) => {
-  const [session] = useSession();
-  const { createAlertWithMessage } = useContext(AlertContext);
   const router = useRouter();
+  const { createAlertWithMessage } = useContext(AlertContext);
+  const [session] = useSession();
   const eventId = router.query.id;
   const [eventDateTime, setEventDateTime] = useState(event.eventDateTime);
   const [gameId, setGameId] = useState(event.eventGame._id);

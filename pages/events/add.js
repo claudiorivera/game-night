@@ -22,9 +22,9 @@ const StyledFormControl = styled(FormControl)({
 });
 
 const AddEventPage = ({ initialData }) => {
-  const [session] = useSession();
-  const { createAlertWithMessage } = useContext(AlertContext);
   const router = useRouter();
+  const { createAlertWithMessage } = useContext(AlertContext);
+  const [session] = useSession();
   const { games } = useGames(initialData);
   const [eventDateTime, setEventDateTime] = useState(new Date());
   const [gameId, setGameId] = useState("");
