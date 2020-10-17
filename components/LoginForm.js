@@ -1,6 +1,10 @@
-import { Button, Container, Typography } from "@material-ui/core";
+import { Button, Container, styled, Typography } from "@material-ui/core";
 import { signIn } from "next-auth/client";
 import React from "react";
+
+const StyledButton = styled(Button)({
+  margin: ".5rem .25rem",
+});
 
 const LoginForm = ({ providers }) => {
   return (
@@ -10,7 +14,7 @@ const LoginForm = ({ providers }) => {
       </Typography>
       {providers &&
         Object.values(providers).map((provider) => (
-          <Button
+          <StyledButton
             key={provider.id}
             type="submit"
             size="large"
@@ -22,7 +26,7 @@ const LoginForm = ({ providers }) => {
             }}
           >
             {provider.name}
-          </Button>
+          </StyledButton>
         ))}
     </Container>
   );
