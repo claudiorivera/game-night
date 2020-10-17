@@ -53,7 +53,6 @@ EventSchema.pre("find", function () {
 });
 
 EventSchema.pre("findOne", function () {
-  console.log("in pre findOne");
   this.populate("eventGuests", "name")
     .populate("eventGame", "name imageSrc")
     .sort({
