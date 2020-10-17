@@ -1,12 +1,10 @@
 import {
   Avatar,
-  Box,
   Button,
   Card,
   CardActions,
   CardContent,
   CardHeader,
-  Chip,
   Container,
   Dialog,
   DialogActions,
@@ -19,17 +17,17 @@ import {
 } from "@material-ui/core";
 import { styled } from "@material-ui/core/styles";
 import { ArrowBack as ArrowBackIcon } from "@material-ui/icons";
+import { AvatarGroup } from "@material-ui/lab";
 import axios from "axios";
 import moment from "moment";
-import { useSession } from "next-auth/client";
+import { signIn, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
 import GameDetails from "../../../components/GameDetails";
 import { AlertContext } from "../../../context/Alert";
-import useEvent from "../../../util/useEvent";
 import middleware from "../../../middleware";
 import Event from "../../../models/Event";
-import { AvatarGroup } from "@material-ui/lab";
+import useEvent from "../../../util/useEvent";
 
 const StyledCard = styled(Card)({
   margin: "1rem",
@@ -60,9 +58,7 @@ const EventDetailsPage = ({ initialData }) => {
           fullWidth
           color="secondary"
           variant="contained"
-          onClick={() => {
-            router.push("/auth/login");
-          }}
+          onClick={signIn}
         >
           Login/Register
         </Button>
