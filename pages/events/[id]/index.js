@@ -49,7 +49,7 @@ const EventDetailsPage = ({ initialData }) => {
   if (!session)
     return (
       <Container>
-        <Typography variant="h3">
+        <Typography variant="h5" align="center">
           You must be logged in to access this page.
         </Typography>
         <Button
