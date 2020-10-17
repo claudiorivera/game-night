@@ -1,6 +1,6 @@
 import { Button, Container, Typography } from "@material-ui/core";
 import { styled } from "@material-ui/styles";
-import { useSession } from "next-auth/client";
+import { signIn, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { Fragment } from "react";
 import EventsListContainer from "../../components/EventsListContainer";
@@ -29,9 +29,7 @@ const EventsListPage = ({ initialData }) => {
           fullWidth
           color="secondary"
           variant="contained"
-          onClick={() => {
-            router.push("/auth/login");
-          }}
+          onClick={signIn}
         >
           Login/Register
         </Button>

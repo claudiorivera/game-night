@@ -1,13 +1,11 @@
 import { Button, Container, Typography } from "@material-ui/core";
-import { getSession, useSession } from "next-auth/client";
-import { useRouter } from "next/router";
+import { getSession, signIn, useSession } from "next-auth/client";
 import React, { Fragment } from "react";
 import EventsListContainer from "../components/EventsListContainer";
 import middleware from "../middleware";
 import Event from "../models/Event";
 
 const HomePage = ({ eventsHosting, eventsAttending }) => {
-  const router = useRouter();
   const [session] = useSession();
 
   if (!session)
@@ -20,9 +18,7 @@ const HomePage = ({ eventsHosting, eventsAttending }) => {
           fullWidth
           color="secondary"
           variant="contained"
-          onClick={() => {
-            router.push("/auth/login");
-          }}
+          onClick={signIn}
         >
           Login/Register
         </Button>

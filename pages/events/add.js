@@ -42,9 +42,7 @@ const AddEventPage = ({ initialData }) => {
           fullWidth
           color="secondary"
           variant="contained"
-          onClick={() => {
-            router.push("/auth/login");
-          }}
+          onClick={signIn}
         >
           Login/Register
         </Button>

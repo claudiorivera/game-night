@@ -10,7 +10,7 @@ import {
 import { styled } from "@material-ui/core/styles";
 import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
 import axios from "axios";
-import { useSession } from "next-auth/client";
+import { signIn, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
 import GameDetails from "../../components/GameDetails";
@@ -45,9 +45,7 @@ const AddGamePage = () => {
           fullWidth
           color="secondary"
           variant="contained"
-          onClick={() => {
-            router.push("/auth/login");
-          }}
+          onClick={signIn}
         >
           Login/Register
         </Button>

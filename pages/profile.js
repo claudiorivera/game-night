@@ -1,7 +1,6 @@
 import { Button, Container, styled, Typography } from "@material-ui/core";
-import { useSession } from "next-auth/client";
+import { signIn, useSession } from "next-auth/client";
 import React from "react";
-import { useRouter } from "next/router";
 
 const Img = styled("img")({
   borderRadius: "50%",
@@ -11,7 +10,6 @@ const Img = styled("img")({
 });
 
 const ProfilePage = () => {
-  const router = useRouter();
   const [session] = useSession();
 
   if (!session)
@@ -26,9 +24,7 @@ const ProfilePage = () => {
           fullWidth
           color="secondary"
           variant="contained"
-          onClick={() => {
-            router.push("/auth/login");
-          }}
+          onClick={signIn}
         >
           Login/Register
         </Button>

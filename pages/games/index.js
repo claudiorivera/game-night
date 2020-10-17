@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core";
 import { styled } from "@material-ui/core/styles";
 import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
-import { useSession } from "next-auth/client";
+import { signIn, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { Fragment } from "react";
 import GameDetails from "../../components/GameDetails";
@@ -37,9 +37,7 @@ const GamesListPage = ({ initialData }) => {
           fullWidth
           color="secondary"
           variant="contained"
-          onClick={() => {
-            router.push("/auth/login");
-          }}
+          onClick={signIn}
         >
           Login/Register
         </Button>
