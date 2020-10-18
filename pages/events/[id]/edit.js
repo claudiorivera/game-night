@@ -10,10 +10,9 @@ import { styled } from "@material-ui/core/styles";
 import { ArrowBack as ArrowBackIcon } from "@material-ui/icons";
 import { DateTimePicker } from "@material-ui/pickers";
 import axios from "axios";
-import { useSession } from "next-auth/client";
+import { signIn, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
-import React, { useContext, useState } from "react";
-import { AlertContext } from "../../../context/Alert";
+import React, { useState } from "react";
 import middleware from "../../../middleware";
 import Event from "../../../models/Event";
 import Game from "../../../models/Game";
@@ -24,16 +23,29 @@ const StyledFormControl = styled(FormControl)({
 
 const EditEventPage = ({ event, games }) => {
   const router = useRouter();
-  const { createAlertWithMessage } = useContext(AlertContext);
-  const [session] = useSession();
   const eventId = router.query.id;
   const [eventDateTime, setEventDateTime] = useState(event.eventDateTime);
   const [gameId, setGameId] = useState(event.eventGame._id);
+  const [session] = useSession();
 
-  if (!session) {
-    createAlertWithMessage("You must be signed in to access this page");
-    router.push("/auth/login");
-  }
+  if (!session)
+    return (
+      <Container>
+        <Typography variant="h5" align="center">
+          You must be logged in to view this page.
+        </Typography>
+        <Button
+          type="submit"
+          size="large"
+          fullWidth
+          color="secondary"
+          variant="contained"
+          onClick={signIn}
+        >
+          Login
+        </Button>
+      </Container>
+    );
 
   const updateEvent = async () => {
     await axios.put(`/api/events/${eventId}?action=edit`, {

@@ -1,10 +1,9 @@
-import { Button, Container } from "@material-ui/core";
+import { Button, Container, Typography } from "@material-ui/core";
 import { styled } from "@material-ui/styles";
-import { useSession } from "next-auth/client";
+import { signIn, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
-import React, { Fragment, useContext } from "react";
+import React, { Fragment } from "react";
 import EventsListContainer from "../../components/EventsListContainer";
-import { AlertContext } from "../../context/Alert";
 import middleware from "../../middleware";
 import Event from "../../models/Event";
 import useEvents from "../../util/useEvents";
@@ -15,14 +14,27 @@ const StyledContainer = styled(Container)({
 
 const EventsListPage = ({ initialData }) => {
   const router = useRouter();
-  const { createAlertWithMessage } = useContext(AlertContext);
-  const [session] = useSession();
   const { events } = useEvents(initialData);
+  const [session] = useSession();
 
-  if (!session) {
-    createAlertWithMessage("You must be signed in to access this page");
-    router.push("/auth/login");
-  }
+  if (!session)
+    return (
+      <Container>
+        <Typography variant="h5" align="center">
+          You must be logged in to view this page.
+        </Typography>
+        <Button
+          type="submit"
+          size="large"
+          fullWidth
+          color="secondary"
+          variant="contained"
+          onClick={signIn}
+        >
+          Login
+        </Button>
+      </Container>
+    );
 
   return (
     <Fragment>

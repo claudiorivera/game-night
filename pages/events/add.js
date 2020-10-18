@@ -9,7 +9,7 @@ import {
 import { styled } from "@material-ui/core/styles";
 import { DateTimePicker } from "@material-ui/pickers";
 import axios from "axios";
-import { useSession } from "next-auth/client";
+import { signIn, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
 import { AlertContext } from "../../context/Alert";
@@ -24,15 +24,29 @@ const StyledFormControl = styled(FormControl)({
 const AddEventPage = ({ initialData }) => {
   const router = useRouter();
   const { createAlertWithMessage } = useContext(AlertContext);
-  const [session] = useSession();
   const { games } = useGames(initialData);
   const [eventDateTime, setEventDateTime] = useState(new Date());
   const [gameId, setGameId] = useState("");
+  const [session] = useSession();
 
-  if (!session) {
-    createAlertWithMessage("You must be signed in to access this page");
-    router.push("/auth/login");
-  }
+  if (!session)
+    return (
+      <Container>
+        <Typography variant="h5" align="center">
+          You must be logged in to view this page.
+        </Typography>
+        <Button
+          type="submit"
+          size="large"
+          fullWidth
+          color="secondary"
+          variant="contained"
+          onClick={signIn}
+        >
+          Login
+        </Button>
+      </Container>
+    );
 
   const addEvent = async (gameId, eventDateTime) => {
     try {
