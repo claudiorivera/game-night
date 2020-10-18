@@ -27,6 +27,7 @@ handler.use((req, res) =>
     secret: process.env.SECRET,
     pages: {
       signIn: "/auth/login",
+      error: "/auth/error",
       verifyRequest: "/auth/verifyrequest",
     },
     jwt: {

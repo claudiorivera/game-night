@@ -11,8 +11,9 @@ const AuthErrorPage = () => {
   const router = useRouter();
   return (
     <Container>
-      <Typography variant="body1">{router.query.error}</Typography>
-      <StyledLink href="/auth/login">Try again</StyledLink>.
+      <Typography variant="h5">Sorry, something went wrong.</Typography>
+      <StyledLink href="/auth/login">Click here to try again</StyledLink>.
+      <Typography variant="body1">Error Code: {router.query.error}</Typography>
     </Container>
   );
 };
