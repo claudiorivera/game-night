@@ -1,5 +1,5 @@
 MONGODB_URI=
-NEXTAUTH_URL=
+NEXTAUTH_URL=<see https://next-auth.js.org/configuration/options#environment-variables >
 SECRET=
 JWT_SECRET=
 EMAIL_SERVER=smtp://<username>:<password>@<server>:<port>

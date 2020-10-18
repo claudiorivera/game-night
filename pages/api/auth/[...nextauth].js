@@ -37,14 +37,6 @@ handler.use((req, res) =>
       jwt: true,
     },
     callbacks: {
-      signIn: async (user, account, profile) => {
-        const isAllowedToSignIn = true;
-        if (isAllowedToSignIn) {
-          return Promise.resolve(true);
-        } else {
-          return Promise.resolve(false);
-        }
-      },
       jwt: async (token, user) => {
         if (user) {
           token.uid = user.id;
