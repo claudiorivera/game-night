@@ -10,13 +10,13 @@ handler.use(middleware);
 handler.use((req, res) =>
   NextAuth(req, res, {
     providers: [
-      Providers.GitHub({
-        clientId: process.env.GITHUB_CLIENT_ID,
-        clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      }),
       Providers.Facebook({
         clientId: process.env.FACEBOOK_CLIENT_ID,
         clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+      }),
+      Providers.GitHub({
+        clientId: process.env.GITHUB_CLIENT_ID,
+        clientSecret: process.env.GITHUB_CLIENT_SECRET,
       }),
       Providers.Email({
         server: process.env.EMAIL_SERVER,
@@ -28,7 +28,6 @@ handler.use((req, res) =>
     pages: {
       signIn: "/auth/login",
       verifyRequest: "/auth/verifyrequest",
-      newUser: "/profile",
     },
     jwt: {
       secret: process.env.JWT_SECRET,
@@ -38,13 +37,6 @@ handler.use((req, res) =>
     },
     callbacks: {
       signIn: async (user, account, profile) => {
-        console.log(`
-        *** signIn callback BEGIN ***
-        *** USER ***: ${JSON.stringify(user, null, 2)}
-        *** ACCOUNT ***: ${JSON.stringify(account, null, 2)}
-        *** PROFILE ***: ${JSON.stringify(profile, null, 2)}
-        *** signIn callback END ***
-        `);
         const isAllowedToSignIn = true;
         if (isAllowedToSignIn) {
           return Promise.resolve(true);
