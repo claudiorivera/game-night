@@ -19,11 +19,12 @@ Uses the [BoardGameGeek API2](https://boardgamegeek.com/wiki/page/BGG_XML_API2) 
 
 # Future Improvements
 
+- More progress indicators, particularly on the Add Game search.
 - Move old events into a "past events" section.
 - Implement the game search into the event creation process.
 - Add more signin providers.
-- More confirmation dialogs, and tweak the toasts. 🍞
-- Fancier UI, with user profile avatars incorporated into event details.
+- More confirmation dialogs, and improve the toasts. 🍞
+- Improve overall design and styles.
 
 # Install
 
@@ -39,5 +40,4 @@ Add a `.env.local` file with environmental variables as shown in the example `.s
 
 # Known Bugs
 
-- GitHub OAuth redirect after login is supposed to send you home, but it does not. Should be an wasy fix.
 - The Board Game Geek API [has an issue](https://boardgamegeek.com/wiki/page/XML_API_Enhancements#) where the game descriptions output escaped character sequences instead of the characters.
