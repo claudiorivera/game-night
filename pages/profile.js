@@ -1,33 +1,44 @@
-import { Container, styled, Typography } from "@material-ui/core";
-import { useSession } from "next-auth/client";
-import { useRouter } from "next/router";
-import React, { useContext } from "react";
-import { AlertContext } from "../context/Alert";
+import {
+  Avatar,
+  Button,
+  Container,
+  styled,
+  Typography,
+} from "@material-ui/core";
+import { signIn, useSession } from "next-auth/client";
+import React from "react";
 
-const Img = styled("img")({
-  borderRadius: "50%",
-  maxWidth: "5rem",
-  margin: "2rem auto",
-  display: "block",
+const LargeAvatar = styled(Avatar)({
+  width: "5rem",
+  height: "5rem",
 });
 
 const ProfilePage = () => {
-  const router = useRouter();
-  const { createAlertWithMessage } = useContext(AlertContext);
   const [session] = useSession();
 
-  if (!session) {
-    createAlertWithMessage("You must be signed in to access this page");
-    router.push("/auth/login");
-  }
+  if (!session)
+    return (
+      <Container>
+        <Typography variant="h5" align="center">
+          You must be logged in to view this page.
+        </Typography>
+        <Button
+          type="submit"
+          size="large"
+          fullWidth
+          color="secondary"
+          variant="contained"
+          onClick={signIn}
+        >
+          Login
+        </Button>
+      </Container>
+    );
 
   return (
-    <Container>
-      <Img src={session.user.image} alt="User's profile picture" />
-      <Typography variant="h5">Name: {session.user.name}</Typography>
-      <Typography variant="h5">
-        Email Verified? {session.user.emailVerified ? "Yes" : "No"}
-      </Typography>
+    <Container align="center">
+      <LargeAvatar alt={session.user.name} src={session.user.image} />
+      <Typography variant="h5">{session.user.name}</Typography>
     </Container>
   );
 };
