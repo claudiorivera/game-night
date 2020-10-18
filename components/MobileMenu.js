@@ -1,9 +1,16 @@
-import { IconButton, Menu, MenuItem } from "@material-ui/core";
+import {
+  CircularProgress,
+  IconButton,
+  Menu,
+  MenuItem,
+} from "@material-ui/core";
 import { Menu as MenuIcon } from "@material-ui/icons";
+import { useSession, signIn, signOut } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { Fragment, useState } from "react";
 
-const MobileMenu = ({ session, userLinks, adminLinks, signOut, signIn }) => {
+const MobileMenu = ({ userLinks, adminLinks }) => {
+  const [session, loading] = useSession();
   const router = useRouter();
   // https://material-ui.com/components/app-bar/#app-bar-with-menu
   const [anchorEl, setAnchorEl] = useState(null);
@@ -39,8 +46,12 @@ const MobileMenu = ({ session, userLinks, adminLinks, signOut, signIn }) => {
         open={isMobileMenuOpen}
         onClose={handleMenuClose}
       >
-        {session?.user.id && (
-          <div>
+        {loading ? (
+          <CircularProgress />
+        ) : !session ? (
+          <MenuItem onClick={signIn}>Login</MenuItem>
+        ) : (
+          <Fragment>
             {userLinks.map(({ url, title }) => (
               <MenuItem
                 key={title}
@@ -55,14 +66,14 @@ const MobileMenu = ({ session, userLinks, adminLinks, signOut, signIn }) => {
             <MenuItem
               onClick={() => {
                 handleMenuClose();
-                signOut({ callbackUrl: process.env.BASE_URL });
+                signOut();
               }}
             >
               Log Out
             </MenuItem>
-          </div>
+          </Fragment>
         )}
-        {/* TODO: Protect admin link routes */}
+        {/* TODO: Create and protect admin routes */}
         {adminLinks.map(({ title, url }) => (
           <MenuItem
             key={title}
@@ -74,7 +85,6 @@ const MobileMenu = ({ session, userLinks, adminLinks, signOut, signIn }) => {
             {title}
           </MenuItem>
         ))}
-        {!session && <MenuItem onClick={signIn}>Login</MenuItem>}
       </Menu>
     </Fragment>
   );

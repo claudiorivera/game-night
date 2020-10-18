@@ -6,8 +6,9 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import { signIn } from "next-auth/client";
+import { signIn, useSession } from "next-auth/client";
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 
 const StyledButton = styled(Button)({
   margin: ".5rem .25rem",
@@ -18,11 +19,14 @@ const StyledDivider = styled(Divider)({
 });
 
 const LoginForm = ({ providers }) => {
+  const router = useRouter();
+  const [session] = useSession();
   const [email, setEmail] = useState("");
+  if (session) router.push("/");
   return (
     <Container>
-      <Typography variant="h4">
-        Please login using one of the following options:
+      <Typography variant="h5">
+        Please login with one of the following:
       </Typography>
       {providers &&
         Object.values(providers)
@@ -36,7 +40,7 @@ const LoginForm = ({ providers }) => {
               color="secondary"
               variant="contained"
               onClick={() => {
-                signIn(provider.id, { callbackUrl: process.env.BASE_URL });
+                signIn(provider.id);
               }}
             >
               {provider.name}
@@ -48,7 +52,7 @@ const LoginForm = ({ providers }) => {
         required
         id="email"
         label="Email"
-        placeholder="Enter email"
+        placeholder="Or enter your email here to receive a login link"
         fullWidth
         margin="normal"
         InputLabelProps={{
@@ -65,7 +69,7 @@ const LoginForm = ({ providers }) => {
         color="secondary"
         variant="contained"
         onClick={() => {
-          signIn("email", { email, callbackUrl: process.env.BASE_URL });
+          signIn("email", { email });
         }}
       >
         Send Me A Login Link

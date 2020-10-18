@@ -1,6 +1,7 @@
 import {
   AppBar,
   Button,
+  CircularProgress,
   Toolbar,
   Typography,
   useMediaQuery,
@@ -10,6 +11,7 @@ import { signIn, signOut, useSession } from "next-auth/client";
 import Link from "next/link";
 import React, { Fragment } from "react";
 import MobileMenu from "./MobileMenu";
+import { useRouter } from "next/router";
 
 const Title = styled(Typography)({
   flexGrow: 1,
@@ -45,9 +47,11 @@ const userLinks = [
 ];
 
 const MainAppBar = () => {
-  const [session] = useSession();
+  const [session, loading] = useSession();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
+  const router = useRouter();
+  const isOnLoginPage = router.asPath.startsWith("/auth/login");
 
   return (
     <StyledAppBar position="sticky">
@@ -55,24 +59,23 @@ const MainAppBar = () => {
         <Link href="/" passHref>
           <Title component={"a"}>Game Night</Title>
         </Link>
-        {isMobile && (
-          <MobileMenu
-            session={session}
-            userLinks={userLinks}
-            adminLinks={adminLinks}
-            signIn={signIn}
-            signOut={signOut}
-          />
-        )}
-        {!isMobile && !session && (
+        {isOnLoginPage ? null : isMobile ? (
+          <MobileMenu userLinks={userLinks} adminLinks={adminLinks} />
+        ) : loading ? (
+          <CircularProgress />
+        ) : !session ? (
           <Button color="inherit" onClick={signIn}>
             Login
           </Button>
-        )}
-        {/* User links */}
-        {!isMobile && session && (
+        ) : (
           <Fragment>
             {userLinks.map(({ title, url }) => (
+              <Link key={title} href={url}>
+                <Button color="inherit">{title}</Button>
+              </Link>
+            ))}
+            {/* TODO: Create and protect admin routes */}
+            {adminLinks.map(({ title, url }) => (
               <Link key={title} href={url}>
                 <Button color="inherit">{title}</Button>
               </Link>
@@ -80,21 +83,13 @@ const MainAppBar = () => {
             <Button
               color="inherit"
               onClick={() => {
-                signOut({ callbackUrl: process.env.BASE_URL });
+                signOut();
               }}
             >
               Log Out
             </Button>
           </Fragment>
         )}
-        {/* Admin links */}
-        {/* TODO: Secure admin routes on client and server side*/}
-        {!isMobile &&
-          adminLinks.map(({ title, url }) => (
-            <Link key={title} href={url}>
-              <Button color="inherit">{title}</Button>
-            </Link>
-          ))}
       </Toolbar>
     </StyledAppBar>
   );
