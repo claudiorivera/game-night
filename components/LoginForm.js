@@ -47,33 +47,37 @@ const LoginForm = ({ providers }) => {
             </StyledButton>
           ))}
       <StyledDivider />
-      <TextField
-        name="email"
-        required
-        id="email"
-        label="Email"
-        placeholder="Or enter your email here to receive a login link"
-        fullWidth
-        margin="normal"
-        InputLabelProps={{
-          shrink: true,
-        }}
-        variant="outlined"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <StyledButton
-        type="submit"
-        size="large"
-        fullWidth
-        color="secondary"
-        variant="contained"
-        onClick={() => {
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
           signIn("email", { email });
         }}
       >
-        Send Me A Login Link
-      </StyledButton>
+        <TextField
+          name="email"
+          required
+          id="email"
+          label="Email"
+          placeholder="Or enter your email here to receive a login link"
+          fullWidth
+          margin="normal"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="outlined"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <StyledButton
+          type="submit"
+          size="large"
+          fullWidth
+          color="secondary"
+          variant="contained"
+        >
+          Send Me A Login Link
+        </StyledButton>
+      </form>
     </Container>
   );
 };
