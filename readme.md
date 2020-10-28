@@ -12,18 +12,18 @@ Uses the [BoardGameGeek API2](https://boardgamegeek.com/wiki/page/BGG_XML_API2) 
 - Material-UI
 - MongoDB
 - [SWR](https://swr.vercel.app)
-- [NextAuth.js](https://next-auth.js.org) for GitHub OAuth and "Magic Link"
+- [NextAuth.js](https://next-auth.js.org) for GitHub OAuth
 - [Moment](https://momentjs.com)
 - [Fast XML Parser](https://github.com/NaturalIntelligence/fast-xml-parser)
 - [BoardGameGeek API2](https://boardgamegeek.com/wiki/page/BGG_XML_API2)
 
 # New in This Version
 
-- Log in with "magic link" via email
 - Event info card shows host and guest avatars, with their names in tooltips.
 
 # Future Improvements
 
+- Log in with "magic link" via email (I jumped the gun and implemented without random name/avatar, which doesn't play well with the card UI, so I'm rolling back and will re-visit in the future)
 - More progress indicators (spinners on buttons or dialogs), particularly on the Add Game search, which can take a while when there are lots of results.
 - Move old events into a "past events" section on the dashboard and events page.
 - Implement the game search into the event creation process.
