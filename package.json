@@ -13,17 +13,17 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@material-ui/pickers": "^3.2.10",
-    "axios": "^0.20.0",
+    "axios": "0.21.0",
     "fast-xml-parser": "^3.17.4",
     "fontsource-roboto": "^3.0.3",
     "moment": "^2.29.1",
-    "mongoose": "^5.10.9",
-    "next": "9.5.4",
+    "mongoose": "5.10.11",
+    "next": "10.0.0",
     "next-auth": "^3.1.0",
-    "next-connect": "^0.9.0",
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
-    "swr": "^0.3.5"
+    "next-connect": "0.9.1",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "swr": "0.3.6"
   },
   "peerOptionalDependencies": {
     "mongodb": "^3.6.2"
