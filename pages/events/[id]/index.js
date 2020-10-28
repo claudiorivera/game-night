@@ -214,7 +214,7 @@ const EventDetailsPage = ({ initialData }) => {
 export default EventDetailsPage;
 
 export const getServerSideProps = async ({ req, res, params }) => {
-  await middleware.apply(req, res);
+  await middleware.run(req, res);
   const event = await Event.findById(params.id).lean();
   return {
     props: {

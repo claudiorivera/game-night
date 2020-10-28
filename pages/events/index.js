@@ -63,7 +63,7 @@ const EventsListPage = ({ initialData }) => {
 export default EventsListPage;
 
 export const getServerSideProps = async ({ req, res }) => {
-  await middleware.apply(req, res);
+  await middleware.run(req, res);
   const events = await Event.find().lean();
   return {
     props: {

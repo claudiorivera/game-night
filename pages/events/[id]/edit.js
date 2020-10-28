@@ -116,7 +116,7 @@ const EditEventPage = ({ event, games }) => {
 export default EditEventPage;
 
 export const getServerSideProps = async ({ req, res, params }) => {
-  await middleware.apply(req, res);
+  await middleware.run(req, res);
   const event = await Event.findById(params.id).lean();
   const games = await Game.find().lean();
   return {

@@ -113,7 +113,7 @@ const AddEventPage = ({ initialData }) => {
 export default AddEventPage;
 
 export const getServerSideProps = async ({ req, res }) => {
-  await middleware.apply(req, res);
+  await middleware.run(req, res);
   const games = await Game.find().lean();
   return {
     props: {

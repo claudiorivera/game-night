@@ -53,7 +53,7 @@ const HomePage = ({ eventsHosting, eventsAttending }) => {
 export default HomePage;
 
 export const getServerSideProps = async ({ req, res }) => {
-  await middleware.apply(req, res);
+  await middleware.run(req, res);
   const session = await getSession({ req });
 
   if (!session) return { props: { eventsHosting: [], eventsAttending: [] } };
