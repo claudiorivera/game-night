@@ -14,10 +14,6 @@ handler.use((req, res) =>
         clientId: process.env.GITHUB_CLIENT_ID,
         clientSecret: process.env.GITHUB_CLIENT_SECRET,
       }),
-      Providers.Email({
-        server: process.env.EMAIL_SERVER,
-        from: process.env.EMAIL_FROM,
-      }),
     ],
     database: process.env.MONGODB_URI,
     secret: process.env.SECRET,
