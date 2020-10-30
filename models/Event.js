@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import Game from "./Game";
 
 const EventSchema = new mongoose.Schema({
   dateCreated: {
@@ -28,33 +27,20 @@ const EventSchema = new mongoose.Schema({
       type: String,
     },
   },
-  eventGuests: [
-    {
-      _id: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-      },
-      name: {
-        type: String,
-      },
-      image: {
-        type: String,
-      },
-    },
-  ],
+  eventGuests: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
 });
 
 EventSchema.pre("find", function () {
-  this.populate("eventGuests", "name")
-    .populate("eventGame", "name imageSrc")
+  this.populate("eventGame", "name imageSrc")
+    .populate("eventGuests", "_id image name")
     .sort({
       eventDateTime: "asc",
     });
 });
 
 EventSchema.pre("findOne", function () {
-  this.populate("eventGuests", "name")
-    .populate("eventGame", "name imageSrc")
+  this.populate("eventGame", "name imageSrc")
+    .populate("eventGuests", "_id image name")
     .sort({
       eventDateTime: "asc",
     });
