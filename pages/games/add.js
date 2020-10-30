@@ -5,6 +5,7 @@ import {
   AccordionDetails,
   AccordionSummary,
   Button,
+  CircularProgress,
   Container,
   TextField,
   Typography,
@@ -32,6 +33,7 @@ const AddGamePage = () => {
   const [query, setQuery] = useState("");
   const [queryResults, setQueryResults] = useState([]);
   const [session] = useSession();
+  const [isFetching, setIsFetching] = useState(false);
 
   if (!session)
     return (
@@ -54,8 +56,10 @@ const AddGamePage = () => {
 
   const handleSearch = async (e) => {
     e.preventDefault();
+    setIsFetching(true);
     const results = await bggFetchGamesByQuery(query);
     setQueryResults(results);
+    setIsFetching(false);
     clearAlert();
   };
 
@@ -89,8 +93,14 @@ const AddGamePage = () => {
           value={query}
           onChange={handleQueryChange}
         />
-        <Button variant="contained" color="primary" fullWidth type="submit">
-          Search
+        <Button
+          variant="contained"
+          color="secondary"
+          fullWidth
+          type="submit"
+          disabled={isFetching}
+        >
+          {isFetching ? <CircularProgress /> : "Search"}
         </Button>
         <Typography variant="caption">
           Note: This search uses the BoardGameGeek API, which requires a
