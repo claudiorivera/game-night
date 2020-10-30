@@ -1,22 +1,21 @@
+import GameDetails from "@components/GameDetails";
+import { AlertContext } from "@context/Alert";
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
   Button,
-  CircularProgress,
   Container,
   TextField,
   Typography,
 } from "@material-ui/core";
 import { styled } from "@material-ui/core/styles";
 import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
+import { bggFetchGamesByQuery } from "@util/bggFetchGamesByQuery";
 import axios from "axios";
 import { signIn, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
-import GameDetails from "../../components/GameDetails";
-import { AlertContext } from "../../context/Alert";
-import { bggFetchGamesByQuery } from "../../util/bggFetchGamesByQuery";
 
 const StyledAccordionDetails = styled(AccordionDetails)({
   display: "flex",

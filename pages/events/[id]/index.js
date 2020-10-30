@@ -1,3 +1,5 @@
+import GameDetails from "@components/GameDetails";
+import { AlertContext } from "@context/Alert";
 import {
   Avatar,
   Button,
@@ -18,16 +20,14 @@ import {
 import { styled } from "@material-ui/core/styles";
 import { ArrowBack as ArrowBackIcon } from "@material-ui/icons";
 import { AvatarGroup } from "@material-ui/lab";
+import middleware from "@middleware";
+import Event from "@models/Event";
+import useEvent from "@util/useEvent";
 import axios from "axios";
 import moment from "moment";
 import { signIn, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
-import GameDetails from "../../../components/GameDetails";
-import { AlertContext } from "../../../context/Alert";
-import middleware from "../../../middleware";
-import Event from "../../../models/Event";
-import useEvent from "../../../util/useEvent";
 
 const StyledCard = styled(Card)({
   margin: "1rem",

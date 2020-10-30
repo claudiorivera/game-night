@@ -1,6 +1,6 @@
+import GameDetailsFull from "@components/GameDetailsFull";
+import useGame from "@util/useGame";
 import React from "react";
-import useGame from "../util/useGame";
-import GameDetailsFull from "./GameDetailsFull";
 
 const GameDetails = ({ game, fetchById }) => {
   if (fetchById) {

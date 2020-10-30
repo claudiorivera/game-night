@@ -1,7 +1,7 @@
+import LoginForm from "@components/LoginForm";
 import { Container } from "@material-ui/core";
 import { providers } from "next-auth/client";
 import React from "react";
-import LoginForm from "../../components/LoginForm";
 
 const AuthLoginPage = ({ providers }) => (
   <Container>

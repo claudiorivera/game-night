@@ -9,13 +9,13 @@ import {
 import { styled } from "@material-ui/core/styles";
 import { ArrowBack as ArrowBackIcon } from "@material-ui/icons";
 import { DateTimePicker } from "@material-ui/pickers";
+import middleware from "@middleware";
+import Event from "@models/Event";
+import Game from "@models/Game";
 import axios from "axios";
 import { signIn, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import middleware from "../../../middleware";
-import Event from "../../../models/Event";
-import Game from "../../../models/Game";
 
 const StyledFormControl = styled(FormControl)({
   margin: "1rem",

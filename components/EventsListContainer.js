@@ -1,6 +1,6 @@
+import EventSummaryCard from "@components/EventSummaryCard";
 import { Grid } from "@material-ui/core";
 import React from "react";
-import EventSummaryCard from "./EventSummaryCard";
 
 const EventsListContainer = ({ events, isHosting }) => {
   return (

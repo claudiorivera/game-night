@@ -1,6 +1,6 @@
+import middleware from "@middleware";
+import Game from "@models/Game";
 import nextConnect from "next-connect";
-import middleware from "../../../middleware";
-import Game from "../../../models/Game";
 
 const handler = nextConnect();
 

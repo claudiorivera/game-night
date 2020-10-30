@@ -1,3 +1,4 @@
+import GameDetails from "@components/GameDetails";
 import {
   Accordion,
   AccordionDetails,
@@ -8,13 +9,12 @@ import {
 } from "@material-ui/core";
 import { styled } from "@material-ui/core/styles";
 import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
+import middleware from "@middleware";
+import Game from "@models/Game";
+import useGames from "@util/useGames";
 import { signIn, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { Fragment } from "react";
-import GameDetails from "../../components/GameDetails";
-import middleware from "../../middleware";
-import Game from "../../models/Game";
-import useGames from "../../util/useGames";
 
 const ContainerWithMargin = styled(Container)({
   marginBottom: "1.5rem",

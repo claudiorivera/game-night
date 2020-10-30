@@ -1,6 +1,6 @@
+import GameMetaData from "@components/GameMetaData";
 import { CircularProgress, Grid, Typography } from "@material-ui/core";
 import React from "react";
-import GameMetaData from "./GameMetaData";
 
 const GameDetailsFull = ({ game }) => {
   return game ? (

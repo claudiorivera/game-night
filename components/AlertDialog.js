@@ -1,8 +1,8 @@
+import { AlertContext } from "@context/Alert";
 import { Container, Snackbar } from "@material-ui/core";
 import { styled } from "@material-ui/core/styles";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import React, { Fragment, useContext } from "react";
-import { AlertContext } from "../context/Alert";
 
 const StyledContainer = styled(Container)(({ theme }) => ({
   width: "100%",

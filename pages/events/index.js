@@ -1,12 +1,12 @@
+import EventsListContainer from "@components/EventsListContainer";
 import { Button, Container, Typography } from "@material-ui/core";
 import { styled } from "@material-ui/styles";
+import middleware from "@middleware";
+import Event from "@models/Event";
+import useEvents from "@util/useEvents";
 import { signIn, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { Fragment } from "react";
-import EventsListContainer from "../../components/EventsListContainer";
-import middleware from "../../middleware";
-import Event from "../../models/Event";
-import useEvents from "../../util/useEvents";
 
 const StyledContainer = styled(Container)({
   marginBottom: "1.5rem",

@@ -1,3 +1,4 @@
+import { AlertContext } from "@context/Alert";
 import {
   Button,
   Container,
@@ -8,14 +9,13 @@ import {
 } from "@material-ui/core";
 import { styled } from "@material-ui/core/styles";
 import { DateTimePicker } from "@material-ui/pickers";
+import middleware from "@middleware";
+import Game from "@models/Game";
+import useGames from "@util/useGames";
 import axios from "axios";
 import { signIn, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
-import { AlertContext } from "../../context/Alert";
-import middleware from "../../middleware";
-import Game from "../../models/Game";
-import useGames from "../../util/useGames";
 
 const StyledFormControl = styled(FormControl)({
   margin: "10px",

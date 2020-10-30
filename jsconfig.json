@@ -1,0 +1,15 @@
+{
+  "exclude": ["node_modules, .next, .vercel"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["components/*"],
+      "@models/*": ["models/*"],
+      "@util/*": ["util/*"],
+      "@config": ["config.js"],
+      "@middleware": ["middleware"],
+      "@theme": ["styles/theme.js"],
+      "@context/*": ["context/*"]
+    }
+  }
+}

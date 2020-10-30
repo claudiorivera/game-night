@@ -1,7 +1,7 @@
-import nextConnect from "next-connect";
-import middleware from "../../../middleware";
-import Game from "../../../models/Game";
+import middleware from "@middleware";
+import Game from "@models/Game";
 import { getSession } from "next-auth/client";
+import nextConnect from "next-connect";
 
 const handler = nextConnect();
 

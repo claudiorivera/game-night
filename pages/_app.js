@@ -1,15 +1,15 @@
+import AlertDialog from "@components/AlertDialog";
+import MainAppBar from "@components/MainAppBar";
+import { AlertProvider } from "@context/Alert";
 import MomentUtils from "@date-io/moment";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import theme from "@theme";
 import { Provider } from "next-auth/client";
 import Head from "next/head";
 import PropTypes from "prop-types";
 import React from "react";
-import AlertDialog from "../components/AlertDialog";
-import MainAppBar from "../components/MainAppBar";
-import { AlertProvider } from "../context/Alert";
-import theme from "../styles/theme";
 
 const App = (props) => {
   const { Component, pageProps } = props;
