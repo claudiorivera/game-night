@@ -19,12 +19,12 @@ Uses the [BoardGameGeek API2](https://boardgamegeek.com/wiki/page/BGG_XML_API2) 
 
 # New in This Version
 
-- Event info card shows host and guest avatars, with their names in tooltips.
+- Log in with "magic link" via email (random image and name assigned when using Email to login)
+- Remove unimplemented Profile page until we're ready to implement
 
-# Future Improvements
+# Future Improvement Ideas
 
-- Log in with "magic link" via email (I jumped the gun and implemented without random name/avatar, which doesn't play well with the card UI, so I'm rolling back and will re-visit in the future)
-- More progress indicators (spinners on buttons or dialogs), particularly on the Add Game search, which can take a while when there are lots of results.
+- Allow users to update name and profile pic
 - Move old events into a "past events" section on the dashboard and events page.
 - Implement the game search into the event creation process.
 - Add Facebook login.
