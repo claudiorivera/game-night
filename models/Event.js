@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import Game from "@models/Game";
+import User from "@models/User";
 
 const EventSchema = new mongoose.Schema({
   dateCreated: {
