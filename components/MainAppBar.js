@@ -1,3 +1,5 @@
+import MobileMenu from "@components/MobileMenu";
+import { adminLinks, userLinks } from "@config";
 import {
   AppBar,
   Button,
@@ -9,9 +11,8 @@ import {
 import { styled, useTheme } from "@material-ui/core/styles";
 import { signIn, signOut, useSession } from "next-auth/client";
 import Link from "next/link";
-import React, { Fragment } from "react";
-import MobileMenu from "./MobileMenu";
 import { useRouter } from "next/router";
+import React, { Fragment } from "react";
 
 const Title = styled(Typography)({
   flexGrow: 1,
@@ -24,27 +25,6 @@ const Title = styled(Typography)({
 const StyledAppBar = styled(AppBar)({
   marginBottom: "2rem",
 });
-
-const adminLinks = [];
-
-const userLinks = [
-  {
-    title: "Home",
-    url: "/",
-  },
-  {
-    title: "Events",
-    url: "/events",
-  },
-  {
-    title: "My Profile",
-    url: "/profile",
-  },
-  {
-    title: "Games",
-    url: "/games",
-  },
-];
 
 const MainAppBar = () => {
   const [session, loading] = useSession();
