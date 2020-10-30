@@ -1,12 +1,15 @@
 import {
   Avatar,
   Button,
+  CircularProgress,
   Container,
   styled,
   Typography,
 } from "@material-ui/core";
+import fetcher from "@util/fetcher";
 import { signIn, useSession } from "next-auth/client";
 import React from "react";
+import useSWR from "swr";
 
 const LargeAvatar = styled(Avatar)({
   width: "5rem",
@@ -35,10 +38,14 @@ const ProfilePage = () => {
       </Container>
     );
 
+  const { data: user } = useSWR(`/api/user/${session.user.id}`, fetcher);
+
+  if (!user) return <CircularProgress />;
+
   return (
     <Container align="center">
-      <LargeAvatar alt={session.user.name} src={session.user.image} />
-      <Typography variant="h5">{session.user.name}</Typography>
+      <LargeAvatar alt={user.name} src={user.image} />
+      <Typography variant="h5">{user.name}</Typography>
     </Container>
   );
 };

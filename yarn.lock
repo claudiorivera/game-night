@@ -5946,6 +5946,11 @@ unique-filename@^1.1.1:
   dependencies:
     unique-slug "^2.0.0"
 
+unique-names-generator@^4.3.1:
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/unique-names-generator/-/unique-names-generator-4.3.1.tgz#f61ec2290b2f865894af01afb40f3e1043bb8fa2"
+  integrity sha512-oxkKrDXbwx6I5M963SdfmMH2t8n1OIfYyzoJ25BmDeETlyWAZjTbMXwIEMiQDex4lkD2pqe+9gxDJQAB2IOfDg==
+
 unique-slug@^2.0.0:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/unique-slug/-/unique-slug-2.0.2.tgz#baabce91083fc64e945b0f3ad613e264f7cd4e6c"
@@ -6016,6 +6021,11 @@ util@^0.11.0:
   integrity sha512-HShAsny+zS2TZfaXxD9tYj4HQGlBezXZMZuM/S5PKLLoZkShZiGk9o5CzukI1LVHZvjdvZ2Sj1aW/Ndn2NB/HQ==
   dependencies:
     inherits "2.0.3"
+
+uuid@^8.3.1:
+  version "8.3.1"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.1.tgz#2ba2e6ca000da60fce5a196954ab241131e05a31"
+  integrity sha512-FOmRr+FmWEIG8uhZv6C2bTgEVXsHk08kE7mPlrBbEe+c3r9pjceVPgupIfNIhc4yx55H69OXANrUaSuu9eInKg==
 
 vm-browserify@1.1.2, vm-browserify@^1.0.1:
   version "1.1.2"

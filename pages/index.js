@@ -1,9 +1,16 @@
-import { Button, Container, Typography } from "@material-ui/core";
+import EventsListContainer from "@components/EventsListContainer";
+import {
+  Button,
+  CircularProgress,
+  Container,
+  Typography,
+} from "@material-ui/core";
+import middleware from "@middleware";
+import Event from "@models/Event";
+import fetcher from "@util/fetcher";
 import { getSession, signIn, useSession } from "next-auth/client";
 import React, { Fragment } from "react";
-import EventsListContainer from "../components/EventsListContainer";
-import middleware from "../middleware";
-import Event from "../models/Event";
+import useSWR from "swr";
 
 const HomePage = ({ eventsHosting, eventsAttending }) => {
   const [session] = useSession();
@@ -27,9 +34,13 @@ const HomePage = ({ eventsHosting, eventsAttending }) => {
       </Container>
     );
 
+  const { data: user } = useSWR(`/api/user/${session.user.id}`, fetcher);
+
+  if (!user) return <CircularProgress />;
+
   return (
     <Container>
-      <Typography variant="body1">Hello, {session.user.name}.</Typography>
+      <Typography variant="body1">Hello, {user.name}.</Typography>
       {eventsHosting.length > 0 && (
         <Fragment>
           <Typography variant="body1" style={{ marginTop: "1.5rem" }}>
