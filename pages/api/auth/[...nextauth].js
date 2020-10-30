@@ -1,7 +1,11 @@
+import middleware from "@middleware";
+import User from "@models/User";
+import randomlyGeneratedName from "@util/randomlyGeneratedName";
+import verificationRequest from "@util/verificationRequest";
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
 import nextConnect from "next-connect";
-import middleware from "../../../middleware";
+import { v4 as uuidv4 } from "uuid";
 
 const handler = nextConnect();
 
@@ -14,6 +18,11 @@ handler.use((req, res) =>
         clientId: process.env.GITHUB_CLIENT_ID,
         clientSecret: process.env.GITHUB_CLIENT_SECRET,
       }),
+      Providers.Email({
+        server: process.env.EMAIL_SERVER,
+        from: process.env.EMAIL_FROM,
+        sendVerificationRequest: verificationRequest,
+      }),
     ],
     database: process.env.MONGODB_URI,
     secret: process.env.SECRET,
@@ -22,23 +31,45 @@ handler.use((req, res) =>
       error: "/auth/error",
       verifyRequest: "/auth/verifyrequest",
     },
-    jwt: {
-      secret: process.env.JWT_SECRET,
-    },
     session: {
       jwt: true,
     },
     callbacks: {
-      jwt: async (token, user) => {
+      jwt: async (token, user, _account, _profile, isNewUser) => {
+        if (isNewUser) {
+          try {
+            const userFound = await User.findById(user.id);
+            // Generate random name, if none is provided
+            if (user.name) {
+              userFound.name = user.name;
+            } else {
+              userFound.name = randomlyGeneratedName();
+            }
+            // Generate random avatar, if none is provided
+            if (user.image) {
+              userFound.image = user.image;
+            } else {
+              userFound.image = `https://picsum.photos/seed/${uuidv4()}/180`;
+            }
+            await userFound.save();
+          } catch (error) {
+            console.error(error);
+          }
+        }
         if (user) {
           token.uid = user.id;
-          token.emailVerified = user.emailVerified;
+          try {
+            const userFound = await User.findById(user.id);
+            token.isAdmin = userFound?.isAdmin;
+          } catch (error) {
+            console.error(error);
+          }
         }
         return Promise.resolve(token);
       },
       session: async (session, token) => {
         session.user.id = token.uid;
-        session.user.emailVerified = token.emailVerified;
+        session.user.isAdmin = token.isAdmin;
         return Promise.resolve(session);
       },
     },
