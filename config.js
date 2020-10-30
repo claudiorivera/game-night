@@ -12,10 +12,6 @@ const userLinks = [
     url: "/events",
   },
   {
-    title: "My Profile",
-    url: "/profile",
-  },
-  {
     title: "Games",
     url: "/games",
   },
