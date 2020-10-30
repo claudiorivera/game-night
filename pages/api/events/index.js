@@ -1,7 +1,8 @@
-import nextConnect from "next-connect";
-import middleware from "../../../middleware";
-import Event from "../../../models/Event";
+import middleware from "@middleware";
+import Event from "@models/Event";
+import User from "@models/User";
 import { getSession } from "next-auth/client";
+import nextConnect from "next-connect";
 
 const handler = nextConnect();
 
@@ -32,11 +33,12 @@ handler.post(async (req, res) => {
 
   if (session) {
     try {
+      const user = await User.findById(session.user.id);
       const event = new Event({
         eventHost: {
           _id: session.user.id,
-          name: session.user.name,
-          image: session.user.image,
+          name: user.name,
+          image: user.image,
         },
         eventDateTime: req.body.eventDateTime,
         eventGame: req.body.gameId,

@@ -1,7 +1,7 @@
-import nextConnect from "next-connect";
-import middleware from "../../../middleware";
-import Event from "../../../models/Event";
+import middleware from "@middleware";
+import Event from "@models/Event";
 import { getSession } from "next-auth/client";
+import nextConnect from "next-connect";
 
 const handler = nextConnect();
 
@@ -88,11 +88,7 @@ handler.put(async (req, res) => {
               message: "Can't join an event you're hosting",
             });
           }
-          eventToJoin.eventGuests.push({
-            _id: session.user.id,
-            name: session.user.name,
-            image: session.user.image,
-          });
+          eventToJoin.eventGuests.addToSet(session.user.id);
           await eventToJoin.save();
           res.json({
             success: true,
