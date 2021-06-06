@@ -8,7 +8,6 @@ Uses the [BoardGameGeek API2](https://boardgamegeek.com/wiki/page/BGG_XML_API2) 
 
 - React
 - [Next.js](https://nextjs.org)
-- Serverless API Routes
 - Material-UI
 - MongoDB
 - [SWR](https://swr.vercel.app)
