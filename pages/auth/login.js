@@ -1,13 +1,8 @@
 import LoginForm from "@components/LoginForm";
-import { Container } from "@material-ui/core";
 import { providers } from "next-auth/client";
 import React from "react";
 
-const AuthLoginPage = ({ providers }) => (
-  <Container>
-    <LoginForm providers={providers} />
-  </Container>
-);
+const AuthLoginPage = ({ providers }) => <LoginForm providers={providers} />;
 
 export default AuthLoginPage;
 

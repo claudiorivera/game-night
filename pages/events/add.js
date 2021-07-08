@@ -1,7 +1,6 @@
 import { AlertContext } from "@context/Alert";
 import {
   Button,
-  Container,
   FormControl,
   MenuItem,
   Select,
@@ -31,7 +30,7 @@ const AddEventPage = ({ initialData }) => {
 
   if (!session)
     return (
-      <Container>
+      <>
         <Typography variant="h5" align="center">
           You must be logged in to view this page.
         </Typography>
@@ -45,7 +44,7 @@ const AddEventPage = ({ initialData }) => {
         >
           Login
         </Button>
-      </Container>
+      </>
     );
 
   const addEvent = async (gameId, eventDateTime) => {
@@ -61,7 +60,7 @@ const AddEventPage = ({ initialData }) => {
   };
 
   return (
-    <Container>
+    <>
       <Typography variant="h4">Add New Event</Typography>
       <form
         onSubmit={async (e) => {
@@ -106,7 +105,7 @@ const AddEventPage = ({ initialData }) => {
           Add Event
         </Button>
       </form>
-    </Container>
+    </>
   );
 };
 

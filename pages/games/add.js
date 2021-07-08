@@ -37,7 +37,7 @@ const AddGamePage = () => {
 
   if (!session)
     return (
-      <Container>
+      <>
         <Typography variant="h5" align="center">
           You must be logged in to view this page.
         </Typography>
@@ -51,7 +51,7 @@ const AddGamePage = () => {
         >
           Login
         </Button>
-      </Container>
+      </>
     );
 
   const handleSearch = async (e) => {
@@ -77,50 +77,52 @@ const AddGamePage = () => {
   };
 
   return (
-    <Container>
-      <form onSubmit={handleSearch}>
-        <TextField
-          name="query"
-          id="query"
-          label="Search for game to add"
-          placeholder="Enter a boardgame name to search for"
-          fullWidth
-          margin="normal"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          variant="outlined"
-          value={query}
-          onChange={handleQueryChange}
-        />
-        <Button
-          variant="contained"
-          color="secondary"
-          fullWidth
-          type="submit"
-          disabled={isFetching}
-        >
-          {isFetching ? <CircularProgress /> : "Search"}
-        </Button>
-        <Typography variant="caption">
-          Note: This search uses the BoardGameGeek API, which requires a
-          separate call to query IDs and a call for each result. Please be
-          patient with it, as I find ways to improve this experience.
-        </Typography>
-      </form>
-      {queryResults &&
-        queryResults.map((result) => (
-          <Accordion key={result.bggId}>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls={`panel-${result.bggId}-content`}
-            >
-              <Typography>
-                {result.name} ({result.yearPublished})
-              </Typography>
-            </AccordionSummary>
-            <StyledAccordionDetails>
-              <Container>
+    <>
+      <Container>
+        <form onSubmit={handleSearch}>
+          <TextField
+            name="query"
+            id="query"
+            label="Search for game to add"
+            placeholder="Enter a boardgame name to search for"
+            fullWidth
+            margin="normal"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            variant="outlined"
+            value={query}
+            onChange={handleQueryChange}
+          />
+          <Button
+            variant="contained"
+            color="secondary"
+            fullWidth
+            type="submit"
+            disabled={isFetching}
+          >
+            {isFetching ? <CircularProgress /> : "Search"}
+          </Button>
+          <Typography variant="caption">
+            Note: This search uses the BoardGameGeek API, which requires a
+            separate call to query IDs and a call for each result. Please be
+            patient with it, as I find ways to improve this experience.
+          </Typography>
+        </form>
+      </Container>
+      <Container>
+        {queryResults &&
+          queryResults.map((result) => (
+            <Accordion key={result.bggId} square>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls={`panel-${result.bggId}-content`}
+              >
+                <Typography>
+                  {result.name} ({result.yearPublished})
+                </Typography>
+              </AccordionSummary>
+              <StyledAccordionDetails>
                 <StyledButton
                   fullWidth
                   size="large"
@@ -150,11 +152,11 @@ const AddGamePage = () => {
                   Add This Game
                 </StyledButton>
                 <GameDetails game={result} />
-              </Container>
-            </StyledAccordionDetails>
-          </Accordion>
-        ))}
-    </Container>
+              </StyledAccordionDetails>
+            </Accordion>
+          ))}
+      </Container>
+    </>
   );
 };
 

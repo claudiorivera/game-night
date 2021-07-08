@@ -3,7 +3,7 @@ import fetcher from "./fetcher";
 
 const useEvent = (eventId, initialData) => {
   const { data, error, mutate } = useSWR(
-    `/api/events/${eventId}`,
+    eventId ? `/api/events/${eventId}` : null,
     fetcher,
     initialData
   );

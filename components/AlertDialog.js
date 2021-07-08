@@ -2,7 +2,7 @@ import { AlertContext } from "@context/Alert";
 import { Container, Snackbar } from "@material-ui/core";
 import { styled } from "@material-ui/core/styles";
 import { Alert, AlertTitle } from "@material-ui/lab";
-import React, { Fragment, useContext } from "react";
+import { useContext } from "react";
 
 const StyledContainer = styled(Container)(({ theme }) => ({
   width: "100%",
@@ -13,7 +13,8 @@ const StyledContainer = styled(Container)(({ theme }) => ({
 
 const AlertDialog = () => {
   const { message, clearAlert } = useContext(AlertContext);
-  return message ? (
+  if (!message) return null;
+  return (
     <StyledContainer>
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
@@ -34,8 +35,6 @@ const AlertDialog = () => {
         </Alert>
       </Snackbar>
     </StyledContainer>
-  ) : (
-    <Fragment></Fragment>
   );
 };
 

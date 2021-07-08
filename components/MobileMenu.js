@@ -1,16 +1,11 @@
-import {
-  CircularProgress,
-  IconButton,
-  Menu,
-  MenuItem,
-} from "@material-ui/core";
+import { IconButton, Menu, MenuItem } from "@material-ui/core";
 import { Menu as MenuIcon } from "@material-ui/icons";
-import { useSession, signIn, signOut } from "next-auth/client";
+import { signIn, signOut, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 
 const MobileMenu = ({ userLinks, adminLinks }) => {
-  const [session, loading] = useSession();
+  const [session] = useSession();
   const router = useRouter();
   // https://material-ui.com/components/app-bar/#app-bar-with-menu
   const [anchorEl, setAnchorEl] = useState(null);
@@ -21,8 +16,9 @@ const MobileMenu = ({ userLinks, adminLinks }) => {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
+
   return (
-    <Fragment>
+    <>
       <IconButton
         edge="start"
         color="inherit"
@@ -46,47 +42,42 @@ const MobileMenu = ({ userLinks, adminLinks }) => {
         open={isMobileMenuOpen}
         onClose={handleMenuClose}
       >
-        {loading ? (
-          <CircularProgress />
-        ) : !session ? (
-          <MenuItem onClick={signIn}>Login</MenuItem>
-        ) : (
-          <Fragment>
-            {userLinks.map(({ url, title }) => (
-              <MenuItem
-                key={title}
-                onClick={() => {
-                  handleMenuClose();
-                  router.push(url);
-                }}
-              >
-                {title}
-              </MenuItem>
-            ))}
+        {!session && <MenuItem onClick={signIn}>Login</MenuItem>}
+        {!!userLinks.length &&
+          userLinks.map(({ url, title }) => (
             <MenuItem
+              key={title}
               onClick={() => {
                 handleMenuClose();
-                signOut();
+                router.push(url);
               }}
             >
-              Log Out
+              {title}
             </MenuItem>
-          </Fragment>
-        )}
+          ))}
+        <MenuItem
+          onClick={() => {
+            handleMenuClose();
+            signOut();
+          }}
+        >
+          Log Out
+        </MenuItem>
         {/* TODO: Create and protect admin routes */}
-        {adminLinks.map(({ title, url }) => (
-          <MenuItem
-            key={title}
-            onClick={() => {
-              handleMenuClose();
-              router.push(url);
-            }}
-          >
-            {title}
-          </MenuItem>
-        ))}
+        {!!adminLinks.length &&
+          adminLinks.map(({ title, url }) => (
+            <MenuItem
+              key={title}
+              onClick={() => {
+                handleMenuClose();
+                router.push(url);
+              }}
+            >
+              {title}
+            </MenuItem>
+          ))}
       </Menu>
-    </Fragment>
+    </>
   );
 };
 

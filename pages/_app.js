@@ -2,7 +2,7 @@ import AlertDialog from "@components/AlertDialog";
 import MainAppBar from "@components/MainAppBar";
 import { AlertProvider } from "@context/Alert";
 import MomentUtils from "@date-io/moment";
-import CssBaseline from "@material-ui/core/CssBaseline";
+import { Container, CssBaseline } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import theme from "@theme";
@@ -23,7 +23,7 @@ const App = (props) => {
   }, []);
 
   return (
-    <React.Fragment>
+    <>
       <Head>
         <title>Game Night</title>
         <meta
@@ -38,12 +38,14 @@ const App = (props) => {
               <CssBaseline />
               <MainAppBar />
               <AlertDialog />
-              <Component {...pageProps} />
+              <Container maxWidth="lg">
+                <Component {...pageProps} />
+              </Container>
             </MuiPickersUtilsProvider>
           </Provider>
         </AlertProvider>
       </ThemeProvider>
-    </React.Fragment>
+    </>
   );
 };
 

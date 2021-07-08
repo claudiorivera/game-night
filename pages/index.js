@@ -1,24 +1,22 @@
 import EventsListContainer from "@components/EventsListContainer";
-import {
-  Button,
-  CircularProgress,
-  Container,
-  Typography,
-} from "@material-ui/core";
+import { Button, CircularProgress, Typography } from "@material-ui/core";
 import middleware from "@middleware";
 import Event from "@models/Event";
 import fetcher from "@util/fetcher";
 import { getSession, signIn, useSession } from "next-auth/client";
-import React, { Fragment } from "react";
 import useSWR from "swr";
 
 const HomePage = ({ eventsHosting, eventsAttending }) => {
   const [session] = useSession();
+  const { data: user } = useSWR(
+    session ? `/api/user/${session.user.id}` : null,
+    fetcher
+  );
 
   if (!session)
     return (
-      <Container>
-        <Typography variant="h5" align="center">
+      <>
+        <Typography variant="h5" align="center" gutterBottom>
           Welcome. Please login.
         </Typography>
         <Button
@@ -31,33 +29,40 @@ const HomePage = ({ eventsHosting, eventsAttending }) => {
         >
           Login
         </Button>
-      </Container>
+      </>
     );
-
-  const { data: user } = useSWR(`/api/user/${session.user.id}`, fetcher);
 
   if (!user) return <CircularProgress />;
 
   return (
-    <Container>
-      <Typography variant="body1">Hello, {user.name}.</Typography>
-      {eventsHosting.length > 0 && (
-        <Fragment>
-          <Typography variant="body1" style={{ marginTop: "1.5rem" }}>
+    <>
+      <Typography variant="body1" gutterBottom>
+        Hello, {user.name}.
+      </Typography>
+      {!!eventsHosting.length && (
+        <>
+          <Typography variant="h4" gutterBottom>
             Events You Are Hosting:
           </Typography>
-          <EventsListContainer events={eventsHosting} isHosting />
-        </Fragment>
+          <EventsListContainer
+            events={eventsHosting}
+            isHosting
+            style={{ marginBottom: "1rem" }}
+          />
+        </>
       )}
-      {eventsAttending.length > 0 && (
-        <Fragment>
-          <Typography variant="body1" style={{ marginTop: "1.5rem" }}>
+      {!!eventsAttending.length && (
+        <>
+          <Typography variant="h4" gutterBottom>
             Events You Are Attending:
           </Typography>
-          <EventsListContainer events={eventsAttending} />
-        </Fragment>
+          <EventsListContainer
+            events={eventsAttending}
+            style={{ marginBottom: "1rem" }}
+          />
+        </>
       )}
-    </Container>
+    </>
   );
 };
 
@@ -76,9 +81,9 @@ export const getServerSideProps = async ({ req, res }) => {
   );
   const eventsAttending = allEvents.filter(
     (event) =>
-      event.eventGuests.filter(
+      !!event.eventGuests.filter(
         (guest) => guest._id.toString() === session.user.id
-      ).length > 0
+      ).length
   );
 
   return {

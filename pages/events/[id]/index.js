@@ -48,7 +48,7 @@ const EventDetailsPage = ({ initialData }) => {
 
   if (!session)
     return (
-      <Container>
+      <>
         <Typography variant="h5" align="center">
           You must be logged in to view this page.
         </Typography>
@@ -62,7 +62,7 @@ const EventDetailsPage = ({ initialData }) => {
         >
           Login
         </Button>
-      </Container>
+      </>
     );
 
   // Delete confirm dialog

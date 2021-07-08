@@ -30,7 +30,7 @@ const EditEventPage = ({ event, games }) => {
 
   if (!session)
     return (
-      <Container>
+      <>
         <Typography variant="h5" align="center">
           You must be logged in to view this page.
         </Typography>
@@ -44,7 +44,7 @@ const EditEventPage = ({ event, games }) => {
         >
           Login
         </Button>
-      </Container>
+      </>
     );
 
   const updateEvent = async () => {

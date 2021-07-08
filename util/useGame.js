@@ -2,7 +2,10 @@ import useSWR from "swr";
 import fetcher from "./fetcher";
 
 const useGame = (gameId) => {
-  const { data, error, mutate } = useSWR(`/api/games/${gameId}`, fetcher);
+  const { data, error, mutate } = useSWR(
+    gameId ? `/api/games/${gameId}` : null,
+    fetcher
+  );
   return {
     game: data?.game,
     gameError: error,

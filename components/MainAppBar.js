@@ -12,7 +12,7 @@ import { styled, useTheme } from "@material-ui/core/styles";
 import { signIn, signOut, useSession } from "next-auth/client";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { Fragment } from "react";
+import React from "react";
 
 const Title = styled(Typography)({
   flexGrow: 1,
@@ -48,15 +48,15 @@ const MainAppBar = () => {
             Login
           </Button>
         ) : (
-          <Fragment>
+          <>
             {userLinks.map(({ title, url }) => (
-              <Link key={title} href={url}>
+              <Link key={title} href={url} passHref>
                 <Button color="inherit">{title}</Button>
               </Link>
             ))}
             {/* TODO: Create and protect admin routes */}
             {adminLinks.map(({ title, url }) => (
-              <Link key={title} href={url}>
+              <Link key={title} href={url} passHref>
                 <Button color="inherit">{title}</Button>
               </Link>
             ))}
@@ -68,7 +68,7 @@ const MainAppBar = () => {
             >
               Log Out
             </Button>
-          </Fragment>
+          </>
         )}
       </Toolbar>
     </StyledAppBar>

@@ -1,15 +1,11 @@
-import { Container, Typography } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import React from "react";
 
-const AuthVerifyRequestPage = () => {
-  return (
-    <Container>
-      <Typography variant="body1">
-        Check your email for a login link from notifications@claudiorivera.com.
-        Be sure to check your spam folder.
-      </Typography>
-    </Container>
-  );
-};
+const AuthVerifyRequestPage = () => (
+  <Typography variant="body1" align="center">
+    {`Check your email for a login link from ${process.env.NEXT_PUBLIC_EMAIL_FROM}. Be
+    sure to check your spam folder.`}
+  </Typography>
+);
 
 export default AuthVerifyRequestPage;

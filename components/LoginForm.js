@@ -3,7 +3,7 @@ import StyledDivider from "@components/StyledDivider";
 import { CircularProgress, TextField, Typography } from "@material-ui/core";
 import { signIn, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
-import React, { Fragment, useState } from "react";
+import { useState } from "react";
 
 const LoginForm = ({ providers }) => {
   const [session] = useSession();
@@ -14,7 +14,7 @@ const LoginForm = ({ providers }) => {
   if (session) router.push("/");
 
   return (
-    <Fragment>
+    <>
       <Typography variant="h5">
         Please login with one of the following:
       </Typography>
@@ -70,7 +70,7 @@ const LoginForm = ({ providers }) => {
           {isFetching ? <CircularProgress /> : "Send Me A Login Link"}
         </StyledButton>
       </form>
-    </Fragment>
+    </>
   );
 };
 
