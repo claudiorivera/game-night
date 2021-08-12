@@ -19,7 +19,7 @@
     "fontsource-roboto": "4.0.0",
     "moment": "2.29.1",
     "mongoose": "5.13.7",
-    "next": "11.0.1",
+    "next": "11.1.0",
     "next-auth": "3.27.3",
     "next-connect": "0.10.2",
     "react": "17.0.2",
@@ -35,7 +35,7 @@
     "@types/nodemailer": "6.4.4",
     "@types/uuid": "8.3.1",
     "eslint": "7.32.0",
-    "eslint-config-next": "11.0.1",
+    "eslint-config-next": "11.1.0",
     "typescript": "4.3.5"
   }
 }
