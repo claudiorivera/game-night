@@ -18,7 +18,7 @@
     "fast-xml-parser": "3.19.0",
     "fontsource-roboto": "4.0.0",
     "moment": "2.29.1",
-    "mongodb": "3.6.11",
+    "mongodb": "4.1.1",
     "mongoose": "6.0.0",
     "next": "11.1.0",
     "next-auth": "3.29.0",
