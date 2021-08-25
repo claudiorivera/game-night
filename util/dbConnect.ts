@@ -4,12 +4,7 @@ const dbConnect = async () => {
   // https://mongoosejs.com/docs/api.html#connection_Connection-readyState
   if (mongoose.connections[0].readyState) return;
 
-  await mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-    useCreateIndex: true,
-  });
+  await mongoose.connect(process.env.MONGODB_URI);
 };
 
 export default dbConnect;
