@@ -18,7 +18,6 @@
     "fast-xml-parser": "3.19.0",
     "fontsource-roboto": "4.0.0",
     "moment": "2.29.1",
-    "mongodb": "3.6.11",
     "mongoose": "6.0.1",
     "next": "11.1.0",
     "next-auth": "3.29.0",
@@ -28,6 +27,9 @@
     "swr": "0.5.6",
     "unique-names-generator": "4.6.0",
     "uuid": "8.3.2"
+  },
+  "optionalDependencies": {
+    "mongodb": "3.6.0"
   },
   "devDependencies": {
     "@types/nodemailer": "6.4.4",
