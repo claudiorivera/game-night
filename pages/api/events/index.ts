@@ -19,7 +19,7 @@ handler.get(async (_, res) => {
       message: "Successfully fetched all events",
       events,
     });
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({
       success: false,
       message: error.message || "Error fetching all events",
@@ -49,7 +49,7 @@ handler.post(async (req, res) => {
         success: true,
         message: "Successfully added event",
       });
-    } catch (error) {
+    } catch (error: any) {
       res.status(500).json({
         success: false,
         message: error.message || "Unable to add event",

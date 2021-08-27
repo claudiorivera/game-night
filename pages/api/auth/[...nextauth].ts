@@ -53,7 +53,7 @@ handler.use((req: NextApiRequest, res: NextApiResponse) =>
               userFound.image = `https://picsum.photos/seed/${uuidv4()}/180`;
             }
             await userFound.save();
-          } catch (error) {
+          } catch (error: any) {
             console.error(error);
           }
         }
@@ -62,7 +62,7 @@ handler.use((req: NextApiRequest, res: NextApiResponse) =>
           try {
             const userFound = await User.findById(user.id);
             token.isAdmin = userFound?.isAdmin;
-          } catch (error) {
+          } catch (error: any) {
             console.error(error);
           }
         }

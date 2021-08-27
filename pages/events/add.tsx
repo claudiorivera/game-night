@@ -62,7 +62,7 @@ const AddEventPage = ({ allGames }: Props) => {
         eventDateTime,
       });
       createAlertWithMessage(response.data.message);
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
     }
   };

@@ -79,7 +79,7 @@ const AddGamePage = () => {
     try {
       const response = await axios.post("/api/games", gameToAdd);
       createAlertWithMessage(response.data.message);
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
     }
   };

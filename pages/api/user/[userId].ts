@@ -17,7 +17,7 @@ handler.get(async (req, res) => {
       .select("_id image name")
       .lean();
     res.json(user);
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({
       message: error.message || "Unable to get user",
     });
