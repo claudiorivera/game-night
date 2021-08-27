@@ -18,7 +18,7 @@ handler.get(async (_, res) => {
       message: "Successfully fetched all games",
       games,
     });
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({
       success: false,
       message: error.message || "Games not found",
@@ -56,7 +56,7 @@ handler.post(async (req, res) => {
         message: "Successfully added game",
         game: savedGame,
       });
-    } catch (error) {
+    } catch (error: any) {
       res.status(500).json({
         success: false,
         message: error.message || "Unable to add game",

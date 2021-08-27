@@ -88,7 +88,7 @@ const EventDetailsPage = ({ initialData }: Props) => {
     try {
       const response = await axios.delete(`/api/events/${id}`);
       createAlertWithMessage(response.data.message);
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
     }
   };
@@ -97,7 +97,7 @@ const EventDetailsPage = ({ initialData }: Props) => {
     try {
       const response = await axios.put(`/api/events/${id}?action=join`);
       createAlertWithMessage(response.data.message);
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
     }
   };
@@ -106,7 +106,7 @@ const EventDetailsPage = ({ initialData }: Props) => {
     try {
       const response = await axios.put(`/api/events/${id}?action=leave`);
       createAlertWithMessage(response.data.message);
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
     }
   };

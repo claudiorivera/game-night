@@ -17,7 +17,7 @@ handler.get(async (req, res) => {
       message: "Successfully fetched the game",
       game,
     });
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({
       success: false,
       message: error.message || "Game not found",

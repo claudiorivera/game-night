@@ -21,7 +21,7 @@ handler.get(async (req, res) => {
         message: "Successfully fetched guests attending event",
         eventGuests: event.eventGuests,
       });
-    } catch (error) {
+    } catch (error: any) {
       res.status(400).json({
         success: false,
         message: error.message || "Unable to fetch guests for event",
@@ -39,7 +39,7 @@ handler.get(async (req, res) => {
         message: "Successfully fetched event",
         event,
       });
-    } catch (error) {
+    } catch (error: any) {
       res.status(500).json({
         success: false,
         message: error.message || "Unable to fetch event",
@@ -61,7 +61,7 @@ handler.delete(async (req, res) => {
         success: true,
         message: "Successfully deleted event",
       });
-    } catch (error) {
+    } catch (error: any) {
       res.status(500).json({
         success: false,
         message: error.message || "Unable to delete event",
@@ -101,7 +101,7 @@ handler.put(async (req, res) => {
             eventJoined: eventToJoin,
             user: session.user.id,
           });
-        } catch (error) {
+        } catch (error: any) {
           res.status(500).json({
             success: false,
             message: error.message || "Unable to join event",
@@ -127,7 +127,7 @@ handler.put(async (req, res) => {
             success: true,
             message: "Successfully left event",
           });
-        } catch (error) {
+        } catch (error: any) {
           res
             .status(500)
             .json({ success: false, message: "Unable to leave event" });
@@ -146,7 +146,7 @@ handler.put(async (req, res) => {
             success: true,
             message: "Successfully updated event",
           });
-        } catch (error) {
+        } catch (error: any) {
           res
             .status(500)
             .json({ success: false, message: "Unable to edit event" });
