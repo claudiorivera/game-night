@@ -1,7 +1,0 @@
-MONGODB_URI=
-NEXTAUTH_URL=<see https://next-auth.js.org/configuration/options#environment-variables >
-SECRET=
-EMAIL_SERVER=smtp://<username>:<password>@<server>:<port>
-EMAIL_FROM=
-GITHUB_CLIENT_ID=
-GITHUB_CLIENT_SECRET=
