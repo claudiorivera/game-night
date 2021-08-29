@@ -7,7 +7,7 @@ export interface Event {
   eventDateTime: string;
   eventGame: PopulatedDoc<Game & Document>;
   eventHost: PopulatedDoc<User & Document>;
-  eventGuests: [PopulatedDoc<User & Document>];
+  eventGuests: PopulatedDoc<User & Document>[];
 }
 const EventSchema = new Schema<Event>({
   eventDateTime: {

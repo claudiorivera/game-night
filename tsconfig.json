@@ -22,7 +22,8 @@
       "@middleware": ["middleware"],
       "@theme": ["styles/theme.ts"],
       "@context/*": ["context/*"]
-    }
+    },
+    "typeRoots": ["types"]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
