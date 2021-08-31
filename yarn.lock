@@ -2609,10 +2609,10 @@ mongodb-connection-string-url@^2.0.0:
     "@types/whatwg-url" "^8.2.1"
     whatwg-url "^9.1.0"
 
-mongodb@3.6.12:
-  version "3.6.12"
-  resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-3.6.12.tgz#a8c152ae0c6c953b88d3b03714e2b885d6c2cae4"
-  integrity sha512-ErHpF4P4disEIQB8Nns2twIMVXcvmlwjpKqfVnyB/hhd/L5We48LfoBYjBjuUSiSqL6ffmcygPTgjvpy2LETRQ==
+mongodb@3.7.0:
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-3.7.0.tgz#a2e1d086b72e06f9af685d9ac863aeb3e80a41b8"
+  integrity sha512-JOAYjT9WYeRFkIP6XtDidAr3qvpfLRJhT2iokRWWH0tgqCQr9kmSfOJBZ3Ry0E5A3EqKxVPVhN3MV8Gn03o7pA==
   dependencies:
     bl "^2.2.1"
     bson "^1.1.4"
