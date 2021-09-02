@@ -4,7 +4,7 @@ import useGame from "@util/useGame";
 import React from "react";
 
 interface Props {
-  game?: Game;
+  game?: Omit<Game, "_id">;
   fetchById?: number;
 }
 
