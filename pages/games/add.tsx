@@ -75,7 +75,7 @@ const AddGamePage = () => {
     setQuery(e.target.value);
   };
 
-  const addGame = async (gameToAdd: Game) => {
+  const addGame = async (gameToAdd: Omit<Game, "_id">) => {
     try {
       const response = await axios.post("/api/games", gameToAdd);
       createAlertWithMessage(response.data.message);

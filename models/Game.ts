@@ -1,7 +1,7 @@
 import { model, models, Schema, Types } from "mongoose";
 
 export interface Game {
-  _id?: Types.ObjectId;
+  _id: Types.ObjectId;
   name: string;
   imageSrc: string;
   thumbnailSrc: string;
