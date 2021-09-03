@@ -1,4 +1,3 @@
-import { Event } from "@models/Event";
 import useSWR from "swr";
 import fetcher from "./fetcher";
 

@@ -10,15 +10,16 @@ import { styled } from "@material-ui/core/styles";
 import { ArrowBack as ArrowBackIcon } from "@material-ui/icons";
 import { DateTimePicker } from "@material-ui/pickers";
 import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
-import middleware from "@middleware";
-import Event, { Event as IEvent } from "@models/Event";
-import Game, { Game as IGame } from "@models/Game";
 import axios from "axios";
+import middleware from "middleware";
+import { EventModel, GameModel } from "models";
 import moment from "moment";
+import { Types } from "mongoose";
 import { GetServerSideProps } from "next";
 import { signIn, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
+import { IEvent, IGame } from "types";
 
 const StyledFormControl = styled(FormControl)({
   margin: "1rem",
@@ -30,11 +31,12 @@ interface Props {
 }
 
 const EditEventPage = ({ event, games }: Props) => {
+  const game = event.eventGame as IGame;
   const router = useRouter();
   const eventId = router.query.id;
   const [eventDateTime, setEventDateTime] =
     useState<MaterialUiPickersDate | null>(moment(event.eventDateTime));
-  const [gameId, setGameId] = useState(event.eventGame._id);
+  const [gameId, setGameId] = useState<Types.ObjectId | unknown>(game._id);
   const [session] = useSession();
 
   if (!session)
@@ -97,7 +99,7 @@ const EditEventPage = ({ event, games }: Props) => {
               <Select
                 id="game-select"
                 value={gameId}
-                onChange={(e) => {
+                onChange={(e: ChangeEvent<{ value: unknown }>) => {
                   setGameId(e.target.value);
                 }}
               >
@@ -134,10 +136,10 @@ export const getServerSideProps: GetServerSideProps = async ({
   params,
 }) => {
   await middleware.run(req, res);
-  const event = (await Event.findById(params?.id)
+  const event = (await EventModel.findById(params?.id)
     .populate("eventGame")
     .lean()) as IEvent;
-  const games = (await Game.find().lean()) as IGame[];
+  const games = (await GameModel.find().lean()) as IGame[];
   return {
     props: {
       event: JSON.parse(JSON.stringify(event)) || null,

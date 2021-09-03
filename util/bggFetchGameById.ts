@@ -1,29 +1,7 @@
 // Interfaces with the BoardGameGeek API2 and returns a custom game object
 import axios from "axios";
 import parser from "fast-xml-parser";
-
-interface BGGQueryResponse {
-  type: string;
-  value: string;
-}
-
-export interface BGGGameResponse {
-  bggId: number;
-  imageSrc: string;
-  thumbnailSrc: string;
-  description: string;
-  yearPublished: number;
-  minPlayers: number;
-  maxPlayers: number;
-  playingTime: number;
-  minAge: number;
-  rating: number;
-  numOfRatings: number;
-  name: string;
-  authors: string[];
-  categories: string[];
-  gameMechanics: string[];
-}
+import { BGGGameResponse, BGGQueryResponse } from "types";
 
 export const bggFetchGameById = async (
   id: number

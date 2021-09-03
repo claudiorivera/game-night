@@ -1,5 +1,5 @@
-import middleware from "@middleware";
-import Event from "@models/Event";
+import middleware from "middleware";
+import { EventModel } from "models";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/client";
 import nextConnect from "next-connect";
@@ -15,7 +15,7 @@ handler.get(async (req, res) => {
   // Returns guests attending event with given id
   if ("guests" in req.query) {
     try {
-      const event = await Event.findById(req.query.id).lean();
+      const event = await EventModel.findById(req.query.id).lean();
       res.json({
         success: true,
         message: "Successfully fetched guests attending event",
@@ -29,7 +29,7 @@ handler.get(async (req, res) => {
     }
   } else {
     try {
-      const event = await Event.findById(req.query.id)
+      const event = await EventModel.findById(req.query.id)
         .populate("eventHost", "name image")
         .populate("eventGuests", "name image")
         .populate("eventGame")
@@ -55,7 +55,7 @@ handler.delete(async (req, res) => {
   const session = await getSession({ req });
   if (session) {
     try {
-      const eventToRemove = await Event.findById(req.query.id);
+      const eventToRemove = await EventModel.findById(req.query.id);
       await eventToRemove.deleteOne(); // https://mongoosejs.com/docs/deprecations.html
       res.json({
         success: true,
@@ -86,7 +86,7 @@ handler.put(async (req, res) => {
       // Adds current user to event with given id
       case "join":
         try {
-          const eventToJoin = await Event.findById(req.query.id);
+          const eventToJoin = await EventModel.findById(req.query.id);
           if (eventToJoin.eventHost.toString() === session.user.id) {
             return res.status(400).json({
               success: false,
@@ -113,7 +113,7 @@ handler.put(async (req, res) => {
       // Removes current user from event with given id
       case "leave":
         try {
-          const eventToLeave = await Event.findById(req.query.id);
+          const eventToLeave = await EventModel.findById(req.query.id);
           if (eventToLeave.eventHost.toString() === session.user.id) {
             return res.status(400).json({
               success: false,
@@ -138,7 +138,7 @@ handler.put(async (req, res) => {
       // Updates event with given id
       case "edit":
         try {
-          const eventToEdit = await Event.findById(req.query.id);
+          const eventToEdit = await EventModel.findById(req.query.id);
           eventToEdit.eventGame = req.body.gameId;
           eventToEdit.eventDateTime = req.body.eventDateTime;
           await eventToEdit.save();

@@ -1,11 +1,12 @@
-import EventsListContainer from "@components/EventsListContainer";
 import { Button, Container, Typography } from "@material-ui/core";
-import middleware from "@middleware";
-import Event, { Event as IEvent } from "@models/Event";
+import { EventsListContainer } from "components";
+import middleware from "middleware";
+import { EventModel } from "models";
 import { GetServerSideProps } from "next";
 import { signIn, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React from "react";
+import { IEvent } from "types";
 
 interface Props {
   allEvents: IEvent[];
@@ -63,7 +64,7 @@ export default EventsListPage;
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   await middleware.run(req, res);
-  const allEvents = (await Event.find().populate(
+  const allEvents = (await EventModel.find().populate(
     "eventGame",
     "name imageSrc"
   )) as [IEvent];

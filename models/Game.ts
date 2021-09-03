@@ -1,25 +1,7 @@
-import { model, models, Schema, Types } from "mongoose";
+import { model, models, Schema } from "mongoose";
+import { IGame } from "types";
 
-export interface Game {
-  _id: Types.ObjectId;
-  name: string;
-  imageSrc: string;
-  thumbnailSrc: string;
-  description: string;
-  authors: string[];
-  categories: string[];
-  gameMechanics: string[];
-  bggId: number;
-  yearPublished: number;
-  minPlayers: number;
-  maxPlayers: number;
-  playingTime: number;
-  minAge: number;
-  rating: number;
-  numOfRatings: number;
-}
-
-const GameSchema = new Schema<Game>({
+const GameSchema = new Schema<IGame>({
   name: {
     type: String,
     required: true,
@@ -83,4 +65,4 @@ const GameSchema = new Schema<Game>({
   },
 });
 
-export default models.Game || model<Game>("Game", GameSchema);
+export const GameModel = models.Game || model<IGame>("Game", GameSchema);

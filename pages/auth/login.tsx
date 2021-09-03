@@ -1,4 +1,4 @@
-import LoginForm from "@components/LoginForm";
+import { LoginForm } from "components";
 import { GetServerSideProps } from "next";
 import { getProviders, providers } from "next-auth/client";
 import React from "react";

@@ -1,15 +1,15 @@
-import EventSummaryCard from "@components/EventSummaryCard";
 import { Grid } from "@material-ui/core";
-import { Event } from "@models/Event";
+import { EventSummaryCard } from "components";
 import React from "react";
+import { IEvent } from "types";
 
 interface Props {
-  events: Event[];
+  events: IEvent[];
   isHosting?: boolean;
   [props: string]: any;
 }
 
-const EventsListContainer = ({ events, isHosting, ...props }: Props) => {
+export const EventsListContainer = ({ events, isHosting, ...props }: Props) => {
   return (
     <Grid container spacing={2} {...props}>
       {events.map((event) => (
@@ -20,4 +20,3 @@ const EventsListContainer = ({ events, isHosting, ...props }: Props) => {
     </Grid>
   );
 };
-export default EventsListContainer;

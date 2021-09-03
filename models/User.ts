@@ -1,13 +1,7 @@
-import { model, models, Schema, Types } from "mongoose";
+import { model, models, Schema } from "mongoose";
+import { IUser } from "types";
 
-export interface User {
-  _id: Types.ObjectId;
-  name: string;
-  image: string;
-  isAdmin: boolean;
-}
-
-const UserSchema = new Schema<User>({
+const UserSchema = new Schema<IUser>({
   name: {
     type: String,
   },
@@ -20,4 +14,4 @@ const UserSchema = new Schema<User>({
   },
 });
 
-export default models.User || model<User>("User", UserSchema);
+export const UserModel = models.User || model<IUser>("User", UserSchema);

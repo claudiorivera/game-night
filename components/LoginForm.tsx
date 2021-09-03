@@ -1,6 +1,5 @@
-import StyledButton from "@components/StyledButton";
-import StyledDivider from "@components/StyledDivider";
 import { CircularProgress, TextField, Typography } from "@material-ui/core";
+import { StyledButton, StyledDivider } from "components";
 import { getProviders, signIn, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -9,7 +8,7 @@ interface Props {
   providers: typeof getProviders;
 }
 
-const LoginForm = ({ providers }: Props) => {
+export const LoginForm = ({ providers }: Props) => {
   const [session] = useSession();
   const router = useRouter();
   const [email, setEmail] = useState("");
@@ -77,5 +76,3 @@ const LoginForm = ({ providers }: Props) => {
     </>
   );
 };
-
-export default LoginForm;
