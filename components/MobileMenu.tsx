@@ -10,7 +10,7 @@ interface Props {
   adminLinks: Link[];
 }
 
-const MobileMenu = ({ userLinks, adminLinks }: Props) => {
+export const MobileMenu = ({ userLinks, adminLinks }: Props) => {
   const [session] = useSession();
   const router = useRouter();
   // https://material-ui.com/components/app-bar/#app-bar-with-menu
@@ -96,5 +96,3 @@ const MobileMenu = ({ userLinks, adminLinks }: Props) => {
     </>
   );
 };
-
-export default MobileMenu;

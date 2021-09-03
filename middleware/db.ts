@@ -1,7 +1,7 @@
-import dbConnect from "@util/dbConnect";
 import mongoose from "mongoose";
 import { NextApiRequest, NextApiResponse } from "next";
 import { NextHandler } from "next-connect";
+import dbConnect from "util/dbConnect";
 
 const db = async (
   _req: NextApiRequest,

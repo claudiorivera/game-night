@@ -1,7 +1,7 @@
-import { AlertContext } from "@context/Alert";
 import { Container, Snackbar } from "@material-ui/core";
 import { styled } from "@material-ui/core/styles";
 import { Alert, AlertTitle } from "@material-ui/lab";
+import { AlertContext } from "context/Alert";
 import { useContext } from "react";
 
 const StyledContainer = styled(Container)(({ theme }) => ({
@@ -11,7 +11,7 @@ const StyledContainer = styled(Container)(({ theme }) => ({
   },
 }));
 
-const AlertDialog = () => {
+export const AlertDialog = () => {
   const { message, clearAlert } = useContext(AlertContext);
   if (!message || !clearAlert) return null;
 
@@ -38,5 +38,3 @@ const AlertDialog = () => {
     </StyledContainer>
   );
 };
-
-export default AlertDialog;

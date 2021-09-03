@@ -1,6 +1,6 @@
 import { Box, Chip, styled, Typography } from "@material-ui/core";
-import { Game } from "@models/Game";
 import React from "react";
+import { IGame } from "types";
 
 const StyledChip = styled(Chip)({
   padding: "0",
@@ -8,10 +8,10 @@ const StyledChip = styled(Chip)({
 });
 
 interface Props {
-  game: Game;
+  game: IGame;
 }
 
-const GameMetaData = ({ game }: Props) => {
+export const GameMetaData = ({ game }: Props) => {
   return (
     <Box display="flex" flexDirection="column">
       <Typography variant="subtitle1">
@@ -40,5 +40,3 @@ const GameMetaData = ({ game }: Props) => {
     </Box>
   );
 };
-
-export default GameMetaData;

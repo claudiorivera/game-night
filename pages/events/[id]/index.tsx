@@ -1,5 +1,3 @@
-import GameDetails from "@components/GameDetails";
-import { AlertContext } from "@context/Alert";
 import {
   Avatar,
   Button,
@@ -20,17 +18,19 @@ import {
 import { styled } from "@material-ui/core/styles";
 import { ArrowBack as ArrowBackIcon } from "@material-ui/icons";
 import { AvatarGroup } from "@material-ui/lab";
-import middleware from "@middleware";
-import Event, { Event as IEvent } from "@models/Event";
-import { User } from "@models/User";
-import useEvent from "@util/useEvent";
 import axios from "axios";
+import { GameDetails } from "components";
+import { AlertContext } from "context/Alert";
+import middleware from "middleware";
+import { EventModel } from "models";
 import moment from "moment";
 import { ObjectId } from "mongoose";
 import { GetServerSideProps } from "next";
 import { signIn, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
+import { IEvent, IUser } from "types";
+import useEvent from "util/useEvent";
 
 const StyledCard = styled(Card)({
   margin: "1rem",
@@ -140,7 +140,7 @@ const EventDetailsPage = ({ initialData }: Props) => {
             <Container>
               <Typography variant="subtitle1">Guests:</Typography>
               <AvatarGroup max={8}>
-                {event.eventGuests.map((guest: User) => (
+                {event.eventGuests.map((guest: IUser) => (
                   <Tooltip key={guest.name} title={guest.name}>
                     <Avatar alt={guest.name} src={guest.image} />
                   </Tooltip>
@@ -151,7 +151,7 @@ const EventDetailsPage = ({ initialData }: Props) => {
           <CardActions>
             {/* If user is already a guest, show the Leave button */}
             {event.eventGuests.some(
-              (guest: User) => String(guest._id) === session.user.id
+              (guest: IUser) => String(guest._id) === session.user.id
             ) ? (
               <Button
                 onClick={async () => {
@@ -232,7 +232,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     throw new Error("EventIdPage: missing event id");
   }
   await middleware.run(req, res);
-  const event = (await Event.findById(params.id).lean()) as IEvent;
+  const event = (await EventModel.findById(params.id).lean()) as IEvent;
   return {
     props: {
       initialEventData: JSON.parse(JSON.stringify(event)) as IEvent,

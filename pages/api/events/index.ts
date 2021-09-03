@@ -1,6 +1,5 @@
-import middleware from "@middleware";
-import Event from "@models/Event";
-import User from "@models/User";
+import middleware from "middleware";
+import { EventModel, UserModel } from "models";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/client";
 import nextConnect from "next-connect";
@@ -13,7 +12,7 @@ handler.use(middleware);
 // Returns all events
 handler.get(async (_, res) => {
   try {
-    const events = await Event.find().lean();
+    const events = await EventModel.find().lean();
     res.json({
       success: true,
       message: "Successfully fetched all events",
@@ -34,8 +33,8 @@ handler.post(async (req, res) => {
 
   if (session) {
     try {
-      const user = await User.findById(session.user.id);
-      const event = new Event({
+      const user = await UserModel.findById(session.user.id);
+      const event = new EventModel({
         eventHost: {
           _id: session.user.id,
           name: user.name,

@@ -1,5 +1,3 @@
-import MobileMenu from "@components/MobileMenu";
-import { adminLinks, userLinks } from "@config";
 import {
   AppBar,
   Button,
@@ -9,6 +7,8 @@ import {
   useMediaQuery,
 } from "@material-ui/core";
 import { styled, useTheme } from "@material-ui/core/styles";
+import { MobileMenu } from "components";
+import { adminLinks, userLinks } from "config";
 import { signIn, signOut, useSession } from "next-auth/client";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -18,7 +18,7 @@ const StyledAppBar = styled(AppBar)({
   marginBottom: "2rem",
 });
 
-const MainAppBar = () => {
+export const MainAppBar = () => {
   const [session, loading] = useSession();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
@@ -82,5 +82,3 @@ const MainAppBar = () => {
     </StyledAppBar>
   );
 };
-
-export default MainAppBar;

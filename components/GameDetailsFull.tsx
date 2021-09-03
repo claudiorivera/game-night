@@ -1,14 +1,14 @@
-import GameMetaData from "@components/GameMetaData";
 import { CircularProgress, Grid, Typography } from "@material-ui/core";
-import { Game } from "@models/Game";
+import { GameMetaData } from "components";
 import Image from "next/image";
 import React from "react";
+import { IGame } from "types";
 
 interface Props {
-  game: Game;
+  game: IGame;
 }
 
-const GameDetailsFull = ({ game }: Props) => {
+export const GameDetailsFull = ({ game }: Props) => {
   if (!game) return <CircularProgress size={100} thickness={4} />;
 
   return (
@@ -23,5 +23,3 @@ const GameDetailsFull = ({ game }: Props) => {
     </Grid>
   );
 };
-
-export default GameDetailsFull;

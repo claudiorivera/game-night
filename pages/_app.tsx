@@ -1,16 +1,14 @@
-import AlertDialog from "@components/AlertDialog";
-import MainAppBar from "@components/MainAppBar";
-import { AlertProvider } from "@context/Alert";
 import MomentUtils from "@date-io/moment";
 import { Container, CssBaseline } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
-import theme from "@theme";
+import { AlertDialog, MainAppBar } from "components";
+import { AlertProvider } from "context/Alert";
 import { Provider } from "next-auth/client";
 import { AppProps } from "next/app";
 import Head from "next/head";
-import PropTypes from "prop-types";
 import React from "react";
+import theme from "styles/theme";
 
 const App = (props: AppProps) => {
   const { Component, pageProps } = props;
@@ -48,11 +46,6 @@ const App = (props: AppProps) => {
       </ThemeProvider>
     </>
   );
-};
-
-App.propTypes = {
-  Component: PropTypes.elementType.isRequired,
-  pageProps: PropTypes.object.isRequired,
 };
 
 export default App;

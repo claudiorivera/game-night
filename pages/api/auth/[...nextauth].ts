@@ -1,11 +1,11 @@
-import middleware from "@middleware";
-import User from "@models/User";
-import randomlyGeneratedName from "@util/randomlyGeneratedName";
-import sendVerificationRequest from "@util/sendVerificationRequest";
+import middleware from "middleware";
+import { UserModel } from "models";
 import { NextApiRequest, NextApiResponse } from "next";
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
 import nextConnect from "next-connect";
+import randomlyGeneratedName from "util/randomlyGeneratedName";
+import sendVerificationRequest from "util/sendVerificationRequest";
 import { v4 as uuidv4 } from "uuid";
 
 const handler = nextConnect();
@@ -39,7 +39,7 @@ handler.use((req: NextApiRequest, res: NextApiResponse) =>
       jwt: async (token, user, _account, _profile, isNewUser) => {
         if (user && isNewUser) {
           try {
-            const userFound = await User.findById(user.id);
+            const userFound = await UserModel.findById(user.id);
             // Generate random name, if none is provided
             if (user.name) {
               userFound.name = user.name;
@@ -60,7 +60,7 @@ handler.use((req: NextApiRequest, res: NextApiResponse) =>
         if (user) {
           token.uid = user.id;
           try {
-            const userFound = await User.findById(user.id);
+            const userFound = await UserModel.findById(user.id);
             token.isAdmin = userFound?.isAdmin;
           } catch (error: any) {
             console.error(error);

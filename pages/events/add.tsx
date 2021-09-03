@@ -1,4 +1,3 @@
-import { AlertContext } from "@context/Alert";
 import {
   Button,
   FormControl,
@@ -9,14 +8,16 @@ import {
 import { styled } from "@material-ui/core/styles";
 import { DateTimePicker } from "@material-ui/pickers";
 import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
-import middleware from "@middleware";
-import Game, { Game as IGame } from "@models/Game";
 import axios from "axios";
+import { AlertContext } from "context/Alert";
+import middleware from "middleware";
+import { GameModel } from "models";
 import moment from "moment";
 import { GetServerSideProps } from "next";
 import { signIn, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
+import { IGame } from "types";
 
 const StyledFormControl = styled(FormControl)({
   margin: "10px",
@@ -121,7 +122,7 @@ export default AddEventPage;
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   await middleware.run(req, res);
-  const allGames = (await Game.find().lean()) as IGame[];
+  const allGames = (await GameModel.find().lean()) as IGame[];
   return {
     props: JSON.parse(JSON.stringify({ allGames })) || [],
   };

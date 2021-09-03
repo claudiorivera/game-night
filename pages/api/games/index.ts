@@ -1,5 +1,5 @@
-import middleware from "@middleware";
-import Game from "@models/Game";
+import middleware from "middleware";
+import { GameModel } from "models";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/client";
 import nextConnect from "next-connect";
@@ -12,7 +12,7 @@ handler.use(middleware);
 // Returns all games
 handler.get(async (_, res) => {
   try {
-    const games = await Game.find().sort({ numOfRatings: "desc" }).lean();
+    const games = await GameModel.find().sort({ numOfRatings: "desc" }).lean();
     res.json({
       success: true,
       message: "Successfully fetched all games",
@@ -33,7 +33,7 @@ handler.post(async (req, res) => {
 
   if (session) {
     try {
-      const game = new Game({
+      const game = new GameModel({
         name: req.body.name,
         imageSrc: req.body.imageSrc,
         thumbnailSrc: req.body.thumbnailSrc,

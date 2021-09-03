@@ -1,5 +1,5 @@
 // https://next-auth.js.org/providers/email#customising-emails
-import { appTitle, primaryColor } from "@config";
+import { appTitle, primaryColor } from "config";
 import { SendVerificationRequest } from "next-auth/providers";
 import nodemailer from "nodemailer";
 
@@ -41,7 +41,7 @@ interface HtmlProps {
 }
 
 // Email HTML body
-const html = ({ url, site, email }: HtmlProps) => {
+const html = ({ url, email }: HtmlProps) => {
   // Insert invisible space into domains and email address to prevent both the
   // email address and the domain from being turned into a hyperlink by email
   // clients like Outlook and Apple mail, as this is confusing because it seems

@@ -1,5 +1,3 @@
-import GameDetails from "@components/GameDetails";
-import { AlertContext } from "@context/Alert";
 import {
   Accordion,
   AccordionDetails,
@@ -12,13 +10,14 @@ import {
 } from "@material-ui/core";
 import { styled } from "@material-ui/core/styles";
 import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
-import { Game } from "@models/Game";
-import { BGGGameResponse } from "@util/bggFetchGameById";
-import { bggFetchGamesByQuery } from "@util/bggFetchGamesByQuery";
 import axios from "axios";
+import { GameDetails } from "components";
+import { AlertContext } from "context/Alert";
 import { signIn, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
+import { BGGGameResponse, IGame } from "types";
+import { bggFetchGamesByQuery } from "util/bggFetchGamesByQuery";
 
 const StyledAccordionDetails = styled(AccordionDetails)({
   display: "flex",
@@ -75,7 +74,7 @@ const AddGamePage = () => {
     setQuery(e.target.value);
   };
 
-  const addGame = async (gameToAdd: Omit<Game, "_id">) => {
+  const addGame = async (gameToAdd: Omit<IGame, "_id">) => {
     try {
       const response = await axios.post("/api/games", gameToAdd);
       createAlertWithMessage(response.data.message);

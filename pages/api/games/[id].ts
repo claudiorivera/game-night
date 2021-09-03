@@ -1,5 +1,5 @@
-import middleware from "@middleware";
-import Game from "@models/Game";
+import middleware from "middleware";
+import { GameModel } from "models";
 import { NextApiRequest, NextApiResponse } from "next";
 import nextConnect from "next-connect";
 
@@ -11,7 +11,7 @@ handler.use(middleware);
 // Returns game with given id
 handler.get(async (req, res) => {
   try {
-    const game = await Game.findById(req.query.id).lean();
+    const game = await GameModel.findById(req.query.id).lean();
     res.json({
       success: true,
       message: "Successfully fetched the game",

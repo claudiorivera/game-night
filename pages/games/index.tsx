@@ -1,4 +1,3 @@
-import GameDetails from "@components/GameDetails";
 import {
   Accordion,
   AccordionDetails,
@@ -8,12 +7,14 @@ import {
   Typography,
 } from "@material-ui/core";
 import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
-import middleware from "@middleware";
-import Game, { Game as IGame } from "@models/Game";
+import { GameDetails } from "components";
+import middleware from "middleware";
+import { GameModel } from "models";
 import { GetServerSideProps } from "next";
 import { signIn, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React from "react";
+import { IGame } from "types";
 
 interface Props {
   allGames: IGame[];
@@ -82,7 +83,7 @@ export default GamesListPage;
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   await middleware.run(req, res);
-  const allGames = await Game.find().lean();
+  const allGames = await GameModel.find().lean();
   return {
     props: JSON.parse(JSON.stringify({ allGames })) || [],
   };

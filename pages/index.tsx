@@ -1,11 +1,12 @@
-import EventsListContainer from "@components/EventsListContainer";
 import { Button, CircularProgress, Typography } from "@material-ui/core";
-import middleware from "@middleware";
-import Event, { Event as IEvent } from "@models/Event";
-import fetcher from "@util/fetcher";
+import { EventsListContainer } from "components";
+import middleware from "middleware";
+import { EventModel } from "models";
 import { GetServerSideProps } from "next";
 import { getSession, signIn, useSession } from "next-auth/client";
 import useSWR from "swr";
+import { IEvent } from "types";
+import fetcher from "util/fetcher";
 
 interface HomePageProps {
   eventsHosting: IEvent[];
@@ -82,17 +83,17 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 
   if (!session) return { props: { eventsHosting: [], eventsAttending: [] } };
 
-  const allEvents = (await Event.find().populate(
+  const allEvents = (await EventModel.find().populate(
     "eventGame",
     "name imageSrc"
   )) as IEvent[];
   const eventsHosting = allEvents.filter(
-    (event) => event.eventHost._id.toString() === session.user.id
+    (event) => event.eventHost?._id.toString() === session.user.id
   );
   const eventsAttending = allEvents.filter(
     (event) =>
       !!event.eventGuests.filter(
-        (guest) => guest._id.toString() === session.user.id
+        (guest) => guest?._id.toString() === session.user.id
       ).length
   );
 
