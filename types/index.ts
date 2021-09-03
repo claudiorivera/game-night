@@ -7,7 +7,7 @@ export interface Link {
 
 export interface IEvent {
   _id: Types.ObjectId;
-  eventDateTime: string;
+  eventDateTime: Date;
   eventGame: PopulatedDoc<IGame & Document>;
   eventHost: PopulatedDoc<IUser & Document>;
   eventGuests: PopulatedDoc<IUser & Document>[];

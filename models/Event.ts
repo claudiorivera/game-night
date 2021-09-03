@@ -3,7 +3,7 @@ import { IEvent } from "types";
 
 const EventSchema = new Schema<IEvent>({
   eventDateTime: {
-    type: String,
+    type: Date,
     required: true,
   },
   eventGame: { type: "ObjectId", ref: "Game", required: true },
