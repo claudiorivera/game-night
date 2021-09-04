@@ -5,8 +5,8 @@ import {
   Button,
   Container,
   Typography,
-} from "@material-ui/core";
-import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
+} from "@mui/material";
+import { ExpandMore as ExpandMoreIcon } from "@mui/icons-material";
 import { GameDetails } from "components";
 import middleware from "middleware";
 import { GameModel } from "models";

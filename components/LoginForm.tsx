@@ -1,4 +1,4 @@
-import { CircularProgress, TextField, Typography } from "@material-ui/core";
+import { CircularProgress, TextField, Typography } from "@mui/material";
 import { StyledButton, StyledDivider } from "components";
 import { getProviders, signIn, useSession } from "next-auth/client";
 import { useRouter } from "next/router";

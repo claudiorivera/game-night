@@ -1,7 +1,11 @@
-import MomentUtils from "@date-io/moment";
-import { Container, CssBaseline } from "@material-ui/core";
-import { ThemeProvider } from "@material-ui/core/styles";
-import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import AdapterMoment from "@mui/lab/AdapterMoment";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import { Container, CssBaseline } from "@mui/material";
+import {
+  StyledEngineProvider,
+  Theme,
+  ThemeProvider,
+} from "@mui/material/styles";
 import { AlertDialog, MainAppBar } from "components";
 import { AlertProvider } from "context/Alert";
 import { Provider } from "next-auth/client";
@@ -9,6 +13,10 @@ import { AppProps } from "next/app";
 import Head from "next/head";
 import React from "react";
 import theme from "styles/theme";
+
+declare module "@mui/styles/defaultTheme" {
+  interface DefaultTheme extends Theme {}
+}
 
 const App = (props: AppProps) => {
   const { Component, pageProps } = props;
@@ -30,20 +38,22 @@ const App = (props: AppProps) => {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Head>
-      <ThemeProvider theme={theme}>
-        <AlertProvider>
-          <Provider session={pageProps.session}>
-            <MuiPickersUtilsProvider utils={MomentUtils}>
-              <CssBaseline />
-              <MainAppBar />
-              <AlertDialog />
-              <Container maxWidth="lg">
-                <Component {...pageProps} />
-              </Container>
-            </MuiPickersUtilsProvider>
-          </Provider>
-        </AlertProvider>
-      </ThemeProvider>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          <AlertProvider>
+            <Provider session={pageProps.session}>
+              <LocalizationProvider dateAdapter={AdapterMoment}>
+                <CssBaseline />
+                <MainAppBar />
+                <AlertDialog />
+                <Container maxWidth="lg">
+                  <Component {...pageProps} />
+                </Container>
+              </LocalizationProvider>
+            </Provider>
+          </AlertProvider>
+        </ThemeProvider>
+      </StyledEngineProvider>
     </>
   );
 };

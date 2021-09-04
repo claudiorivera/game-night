@@ -1,4 +1,5 @@
-import { Box, Chip, styled, Typography } from "@material-ui/core";
+import { Box, Chip, Typography } from "@mui/material";
+import { styled } from "@mui/styles";
 import React from "react";
 import { IGame } from "types";
 

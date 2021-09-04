@@ -1,3 +1,4 @@
+import { ExpandMore as ExpandMoreIcon } from "@mui/icons-material";
 import {
   Accordion,
   AccordionDetails,
@@ -7,9 +8,8 @@ import {
   Container,
   TextField,
   Typography,
-} from "@material-ui/core";
-import { styled } from "@material-ui/core/styles";
-import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
+} from "@mui/material";
+import { styled } from "@mui/styles";
 import axios from "axios";
 import { GameDetails } from "components";
 import { AlertContext } from "context/Alert";

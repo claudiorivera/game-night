@@ -1,4 +1,4 @@
-import { Button, CircularProgress, Typography } from "@material-ui/core";
+import { Button, CircularProgress, Typography } from "@mui/material";
 import { EventsListContainer } from "components";
 import middleware from "middleware";
 import { EventModel } from "models";

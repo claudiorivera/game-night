@@ -1,4 +1,4 @@
-import { CircularProgress, Grid, Typography } from "@material-ui/core";
+import { CircularProgress, Grid, Typography } from "@mui/material";
 import { GameMetaData } from "components";
 import Image from "next/image";
 import React from "react";

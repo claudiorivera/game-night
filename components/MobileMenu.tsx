@@ -1,5 +1,5 @@
-import { IconButton, Menu, MenuItem } from "@material-ui/core";
-import { Menu as MenuIcon } from "@material-ui/icons";
+import { IconButton, Menu, MenuItem } from "@mui/material";
+import { Menu as MenuIcon } from "@mui/icons-material";
 import { signIn, signOut, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
@@ -23,76 +23,74 @@ export const MobileMenu = ({ userLinks, adminLinks }: Props) => {
     setAnchorEl(null);
   };
 
-  return (
-    <>
-      <IconButton
-        edge="start"
-        color="inherit"
-        aria-label="menu"
-        onClick={(e) => {
-          handleMenuOpen(e);
-        }}
-      >
-        <MenuIcon />
-      </IconButton>
-      <Menu
-        id="menu-appbar"
-        anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-        keepMounted
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-        open={isMobileMenuOpen}
-        onClose={handleMenuClose}
-      >
-        {!session && (
-          <MenuItem
-            onClick={() => {
-              signIn();
-            }}
-          >
-            Login
-          </MenuItem>
-        )}
-        {!!userLinks.length &&
-          userLinks.map(({ url, title }) => (
-            <MenuItem
-              key={title}
-              onClick={() => {
-                handleMenuClose();
-                router.push(url);
-              }}
-            >
-              {title}
-            </MenuItem>
-          ))}
+  return <>
+    <IconButton
+      edge="start"
+      color="inherit"
+      aria-label="menu"
+      onClick={(e) => {
+        handleMenuOpen(e);
+      }}
+      size="large">
+      <MenuIcon />
+    </IconButton>
+    <Menu
+      id="menu-appbar"
+      anchorEl={anchorEl}
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      keepMounted
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      open={isMobileMenuOpen}
+      onClose={handleMenuClose}
+    >
+      {!session && (
         <MenuItem
           onClick={() => {
-            handleMenuClose();
-            signOut();
+            signIn();
           }}
         >
-          Log Out
+          Login
         </MenuItem>
-        {/* TODO: Create and protect admin routes */}
-        {!!adminLinks.length &&
-          adminLinks.map(({ title, url }) => (
-            <MenuItem
-              key={title}
-              onClick={() => {
-                handleMenuClose();
-                router.push(url);
-              }}
-            >
-              {title}
-            </MenuItem>
-          ))}
-      </Menu>
-    </>
-  );
+      )}
+      {!!userLinks.length &&
+        userLinks.map(({ url, title }) => (
+          <MenuItem
+            key={title}
+            onClick={() => {
+              handleMenuClose();
+              router.push(url);
+            }}
+          >
+            {title}
+          </MenuItem>
+        ))}
+      <MenuItem
+        onClick={() => {
+          handleMenuClose();
+          signOut();
+        }}
+      >
+        Log Out
+      </MenuItem>
+      {/* TODO: Create and protect admin routes */}
+      {!!adminLinks.length &&
+        adminLinks.map(({ title, url }) => (
+          <MenuItem
+            key={title}
+            onClick={() => {
+              handleMenuClose();
+              router.push(url);
+            }}
+          >
+            {title}
+          </MenuItem>
+        ))}
+    </Menu>
+  </>;
 };

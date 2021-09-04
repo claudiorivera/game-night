@@ -4,8 +4,8 @@ import {
   CardHeader,
   CardMedia,
   Typography,
-} from "@material-ui/core";
-import { styled } from "@material-ui/styles";
+} from "@mui/material";
+import { styled } from "@mui/styles";
 import moment from "moment";
 import Link from "next/link";
 import React from "react";

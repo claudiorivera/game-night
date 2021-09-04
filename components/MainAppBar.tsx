@@ -5,8 +5,9 @@ import {
   Toolbar,
   Typography,
   useMediaQuery,
-} from "@material-ui/core";
-import { styled, useTheme } from "@material-ui/core/styles";
+} from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import { styled } from "@mui/styles";
 import { MobileMenu } from "components";
 import { adminLinks, userLinks } from "config";
 import { signIn, signOut, useSession } from "next-auth/client";
@@ -21,7 +22,7 @@ const StyledAppBar = styled(AppBar)({
 export const MainAppBar = () => {
   const [session, loading] = useSession();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const router = useRouter();
   const isOnLoginPage = router.asPath.startsWith("/auth/login");
 

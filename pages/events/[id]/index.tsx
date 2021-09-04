@@ -1,5 +1,7 @@
+import { ArrowBack as ArrowBackIcon } from "@mui/icons-material";
 import {
   Avatar,
+  AvatarGroup,
   Button,
   Card,
   CardActions,
@@ -14,10 +16,8 @@ import {
   Divider,
   Tooltip,
   Typography,
-} from "@material-ui/core";
-import { styled } from "@material-ui/core/styles";
-import { ArrowBack as ArrowBackIcon } from "@material-ui/icons";
-import { AvatarGroup } from "@material-ui/lab";
+} from "@mui/material";
+import { styled } from "@mui/styles";
 import axios from "axios";
 import { GameDetails } from "components";
 import { AlertContext } from "context/Alert";
@@ -47,7 +47,6 @@ interface Props {
 }
 
 const EventDetailsPage = ({ initialData }: Props) => {
-  console.log(initialData);
   const router = useRouter();
   const { createAlertWithMessage } = useContext(AlertContext);
   const { event } = useEvent(String(router.query.id), initialData);
