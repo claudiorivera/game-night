@@ -1,5 +1,5 @@
 // https://github.com/mui-org/material-ui/tree/master/examples/nextjs
-import ServerStyleSheets from '@mui/styles/ServerStyleSheets';
+import ServerStyleSheets from "@mui/styles/ServerStyleSheets";
 import Document, { Head, Html, Main, NextScript } from "next/document";
 import React from "react";
 import theme from "styles/theme";
@@ -29,6 +29,10 @@ class MyDocument extends Document {
             href="/favicon-16x16.png"
           />
           <link rel="manifest" href="/site.webmanifest" />
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+          />
         </Head>
         <body>
           <Main />
