@@ -7,17 +7,11 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import { styled } from "@mui/styles";
-import { MobileMenu } from "components";
+import { Link, MobileMenu } from "components";
 import { adminLinks, userLinks } from "config";
 import { signIn, signOut, useSession } from "next-auth/client";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-
-const StyledAppBar = styled(AppBar)({
-  marginBottom: "2rem",
-});
 
 export const MainAppBar = () => {
   const [session, loading] = useSession();
@@ -27,12 +21,11 @@ export const MainAppBar = () => {
   const isOnLoginPage = router.asPath.startsWith("/auth/login");
 
   return (
-    <StyledAppBar position="sticky">
+    <AppBar position="sticky" sx={{ marginBottom: "1rem" }}>
       <Toolbar>
-        <Link href="/" passHref>
+        <Link href="/" sx={{ marginRight: "auto" }}>
           <Typography
-            component={"a"}
-            style={{
+            sx={{
               flexGrow: 1,
               textDecoration: "none",
               color: "white",
@@ -59,15 +52,27 @@ export const MainAppBar = () => {
         ) : (
           <>
             {userLinks.map(({ title, url }) => (
-              <Link key={title} href={url} passHref>
-                <Button color="inherit">{title}</Button>
-              </Link>
+              <Button
+                color="inherit"
+                key={title}
+                onClick={() => {
+                  router.push(url);
+                }}
+              >
+                {title}
+              </Button>
             ))}
             {/* TODO: Create and protect admin routes */}
             {adminLinks.map(({ title, url }) => (
-              <Link key={title} href={url} passHref>
-                <Button color="inherit">{title}</Button>
-              </Link>
+              <Button
+                color="inherit"
+                key={title}
+                onClick={() => {
+                  router.push(url);
+                }}
+              >
+                {title}
+              </Button>
             ))}
             <Button
               color="inherit"
@@ -80,6 +85,6 @@ export const MainAppBar = () => {
           </>
         )}
       </Toolbar>
-    </StyledAppBar>
+    </AppBar>
   );
 };

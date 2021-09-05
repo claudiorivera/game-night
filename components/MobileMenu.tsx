@@ -23,74 +23,78 @@ export const MobileMenu = ({ userLinks, adminLinks }: Props) => {
     setAnchorEl(null);
   };
 
-  return <>
-    <IconButton
-      edge="start"
-      color="inherit"
-      aria-label="menu"
-      onClick={(e) => {
-        handleMenuOpen(e);
-      }}
-      size="large">
-      <MenuIcon />
-    </IconButton>
-    <Menu
-      id="menu-appbar"
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={isMobileMenuOpen}
-      onClose={handleMenuClose}
-    >
-      {!session && (
+  return (
+    <>
+      <IconButton
+        sx={{ marginLeft: "auto" }}
+        edge="start"
+        color="inherit"
+        aria-label="menu"
+        onClick={(e) => {
+          handleMenuOpen(e);
+        }}
+        size="large"
+      >
+        <MenuIcon />
+      </IconButton>
+      <Menu
+        id="menu-appbar"
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        keepMounted
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        open={isMobileMenuOpen}
+        onClose={handleMenuClose}
+      >
+        {!session && (
+          <MenuItem
+            onClick={() => {
+              signIn();
+            }}
+          >
+            Login
+          </MenuItem>
+        )}
+        {!!userLinks.length &&
+          userLinks.map(({ url, title }) => (
+            <MenuItem
+              key={title}
+              onClick={() => {
+                handleMenuClose();
+                router.push(url);
+              }}
+            >
+              {title}
+            </MenuItem>
+          ))}
         <MenuItem
           onClick={() => {
-            signIn();
+            handleMenuClose();
+            signOut();
           }}
         >
-          Login
+          Log Out
         </MenuItem>
-      )}
-      {!!userLinks.length &&
-        userLinks.map(({ url, title }) => (
-          <MenuItem
-            key={title}
-            onClick={() => {
-              handleMenuClose();
-              router.push(url);
-            }}
-          >
-            {title}
-          </MenuItem>
-        ))}
-      <MenuItem
-        onClick={() => {
-          handleMenuClose();
-          signOut();
-        }}
-      >
-        Log Out
-      </MenuItem>
-      {/* TODO: Create and protect admin routes */}
-      {!!adminLinks.length &&
-        adminLinks.map(({ title, url }) => (
-          <MenuItem
-            key={title}
-            onClick={() => {
-              handleMenuClose();
-              router.push(url);
-            }}
-          >
-            {title}
-          </MenuItem>
-        ))}
-    </Menu>
-  </>;
+        {/* TODO: Create and protect admin routes */}
+        {!!adminLinks.length &&
+          adminLinks.map(({ title, url }) => (
+            <MenuItem
+              key={title}
+              onClick={() => {
+                handleMenuClose();
+                router.push(url);
+              }}
+            >
+              {title}
+            </MenuItem>
+          ))}
+      </Menu>
+    </>
+  );
 };

@@ -70,7 +70,9 @@ const EditEventPage = ({ event, games }: Props) => {
         <ArrowBackIcon />
         Go Back
       </Button>
-      <Typography variant="h4">Edit Event</Typography>
+      <Typography variant="h4" sx={{ marginTop: "1rem" }}>
+        Edit Event
+      </Typography>
       {event ? (
         <form
           onSubmit={(e) => {

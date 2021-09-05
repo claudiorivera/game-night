@@ -55,7 +55,7 @@ const GamesListPage = ({ allGames }: Props) => {
         onClick={() => {
           router.push("/games/add");
         }}
-        style={{ marginBottom: "1rem" }}
+        sx={{ marginBottom: "1rem" }}
       >
         Add Game
       </Button>
