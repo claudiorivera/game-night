@@ -1,4 +1,4 @@
-import { Button, Container, Typography } from "@material-ui/core";
+import { Button, Container, Typography } from "@mui/material";
 import { EventsListContainer } from "components";
 import middleware from "middleware";
 import { EventModel } from "models";
@@ -38,7 +38,7 @@ const EventsListPage = ({ allEvents }: Props) => {
 
   return (
     <>
-      <Container style={{ marginBottom: "1rem" }}>
+      <Container sx={{ marginBottom: "1rem" }}>
         <Button
           fullWidth
           color="secondary"

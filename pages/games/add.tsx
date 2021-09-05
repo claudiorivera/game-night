@@ -1,3 +1,4 @@
+import { ExpandMore as ExpandMoreIcon } from "@mui/icons-material";
 import {
   Accordion,
   AccordionDetails,
@@ -7,9 +8,7 @@ import {
   Container,
   TextField,
   Typography,
-} from "@material-ui/core";
-import { styled } from "@material-ui/core/styles";
-import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
+} from "@mui/material";
 import axios from "axios";
 import { GameDetails } from "components";
 import { AlertContext } from "context/Alert";
@@ -18,15 +17,6 @@ import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
 import { BGGGameResponse, IGame } from "types";
 import { bggFetchGamesByQuery } from "util/bggFetchGamesByQuery";
-
-const StyledAccordionDetails = styled(AccordionDetails)({
-  display: "flex",
-  flexDirection: "column",
-});
-
-const StyledButton = styled(Button)({
-  margin: "1rem 0",
-});
 
 const AddGamePage = () => {
   const router = useRouter();
@@ -120,49 +110,60 @@ const AddGamePage = () => {
       <Container>
         <>
           {queryResults &&
-            queryResults.map((result) => (
-              <Accordion key={result.bggId} square>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls={`panel-${result.bggId}-content`}
-                >
-                  <Typography>
-                    {result.name} ({result.yearPublished})
-                  </Typography>
-                </AccordionSummary>
-                <StyledAccordionDetails>
-                  <StyledButton
-                    fullWidth
-                    size="large"
-                    color="secondary"
-                    variant="contained"
-                    onClick={async () => {
-                      await addGame({
-                        bggId: result.bggId,
-                        imageSrc: result.imageSrc,
-                        thumbnailSrc: result.thumbnailSrc,
-                        description: result.description,
-                        yearPublished: result.yearPublished,
-                        minPlayers: result.minPlayers,
-                        maxPlayers: result.maxPlayers,
-                        playingTime: result.playingTime,
-                        minAge: result.minAge,
-                        rating: result.rating,
-                        numOfRatings: result.numOfRatings,
-                        name: result.name,
-                        authors: result.authors,
-                        categories: result.categories,
-                        gameMechanics: result.gameMechanics,
-                      });
-                      router.push("/games");
+            queryResults.map((result) => {
+              if (!result.imageSrc) return null;
+              return (
+                <Accordion key={result.bggId} square>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls={`panel-${result.bggId}-content`}
+                  >
+                    <Typography>
+                      {result.name} ({result.yearPublished})
+                    </Typography>
+                  </AccordionSummary>
+                  <AccordionDetails
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
                     }}
                   >
-                    Add This Game
-                  </StyledButton>
-                  <GameDetails game={result} />
-                </StyledAccordionDetails>
-              </Accordion>
-            ))}
+                    <Button
+                      sx={{
+                        margin: ".5rem 0",
+                      }}
+                      fullWidth
+                      size="large"
+                      color="secondary"
+                      variant="contained"
+                      onClick={async () => {
+                        await addGame({
+                          bggId: result.bggId,
+                          imageSrc: result.imageSrc,
+                          thumbnailSrc: result.thumbnailSrc,
+                          description: result.description,
+                          yearPublished: result.yearPublished,
+                          minPlayers: result.minPlayers,
+                          maxPlayers: result.maxPlayers,
+                          playingTime: result.playingTime,
+                          minAge: result.minAge,
+                          rating: result.rating,
+                          numOfRatings: result.numOfRatings,
+                          name: result.name,
+                          authors: result.authors,
+                          categories: result.categories,
+                          gameMechanics: result.gameMechanics,
+                        });
+                        router.push("/games");
+                      }}
+                    >
+                      Add This Game
+                    </Button>
+                    <GameDetails game={result} />
+                  </AccordionDetails>
+                </Accordion>
+              );
+            })}
         </>
       </Container>
     </>

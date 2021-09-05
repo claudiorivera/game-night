@@ -1,6 +1,5 @@
-import { Container, Snackbar } from "@material-ui/core";
-import { styled } from "@material-ui/core/styles";
-import { Alert, AlertTitle } from "@material-ui/lab";
+import { Alert, AlertTitle, Container, Snackbar } from "@mui/material";
+import { styled } from "@mui/styles";
 import { AlertContext } from "context/Alert";
 import { useContext } from "react";
 

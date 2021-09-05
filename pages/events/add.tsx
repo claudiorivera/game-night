@@ -1,27 +1,23 @@
+import DateTimePicker from "@mui/lab/DateTimePicker";
 import {
   Button,
   FormControl,
+  Grid,
+  InputLabel,
   MenuItem,
   Select,
+  TextField,
   Typography,
-} from "@material-ui/core";
-import { styled } from "@material-ui/core/styles";
-import { DateTimePicker } from "@material-ui/pickers";
-import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
+} from "@mui/material";
 import axios from "axios";
 import { AlertContext } from "context/Alert";
 import middleware from "middleware";
 import { GameModel } from "models";
-import moment from "moment";
 import { GetServerSideProps } from "next";
 import { signIn, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
 import { IGame } from "types";
-
-const StyledFormControl = styled(FormControl)({
-  margin: "10px",
-});
 
 interface Props {
   allGames: IGame[];
@@ -30,8 +26,9 @@ interface Props {
 const AddEventPage = ({ allGames }: Props) => {
   const router = useRouter();
   const { createAlertWithMessage } = useContext(AlertContext);
-  const [eventDateTime, setEventDateTime] =
-    useState<MaterialUiPickersDate | null>(moment());
+  const [eventDateTime, setEventDateTime] = useState<Date | unknown>(
+    new Date()
+  );
   const [gameId, setGameId] = useState("");
   const [session] = useSession();
 
@@ -78,41 +75,51 @@ const AddEventPage = ({ allGames }: Props) => {
           router.push("/events");
         }}
       >
-        <StyledFormControl>
-          <DateTimePicker
-            disablePast
-            id="datetime-picker"
-            minutesStep={15}
-            value={eventDateTime}
-            onChange={setEventDateTime}
-          />
-        </StyledFormControl>
-        {!!allGames.length && (
-          <StyledFormControl>
-            <Select
-              id="game-select"
-              value={gameId}
-              onChange={(e) => {
-                setGameId(e.target.value as string);
-              }}
+        <Grid container spacing={3} mt={1}>
+          <Grid item xs={12} sm={6}>
+            <FormControl sx={{ width: "100%" }}>
+              <DateTimePicker
+                renderInput={(props) => <TextField {...props} />}
+                label="Event Date and Time"
+                value={eventDateTime}
+                onChange={setEventDateTime}
+              />
+            </FormControl>
+          </Grid>
+          {!!allGames.length && (
+            <Grid item xs={12} sm={6}>
+              <FormControl sx={{ width: "100%" }}>
+                <InputLabel id="select-game-label">Select Game</InputLabel>
+                <Select
+                  id="select-game"
+                  value={gameId}
+                  label="Select Game"
+                  labelId="select-game-label"
+                  onChange={(e) => {
+                    setGameId(e.target.value as string);
+                  }}
+                >
+                  {allGames.map(({ _id, name }) => (
+                    <MenuItem key={String(_id)} value={String(_id)}>
+                      {name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+          )}
+          <Grid item xs={12}>
+            <Button
+              size="large"
+              fullWidth
+              variant="contained"
+              color="primary"
+              type="submit"
             >
-              {allGames.map(({ _id, name }) => (
-                <MenuItem key={String(_id)} value={String(_id)}>
-                  {name}
-                </MenuItem>
-              ))}
-            </Select>
-          </StyledFormControl>
-        )}
-        <Button
-          size="large"
-          fullWidth
-          variant="contained"
-          color="primary"
-          type="submit"
-        >
-          Add Event
-        </Button>
+              Add Event
+            </Button>
+          </Grid>
+        </Grid>
       </form>
     </>
   );

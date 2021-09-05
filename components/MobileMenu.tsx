@@ -1,5 +1,5 @@
-import { IconButton, Menu, MenuItem } from "@material-ui/core";
-import { Menu as MenuIcon } from "@material-ui/icons";
+import { IconButton, Menu, MenuItem } from "@mui/material";
+import { Menu as MenuIcon } from "@mui/icons-material";
 import { signIn, signOut, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
@@ -26,12 +26,14 @@ export const MobileMenu = ({ userLinks, adminLinks }: Props) => {
   return (
     <>
       <IconButton
+        sx={{ marginLeft: "auto" }}
         edge="start"
         color="inherit"
         aria-label="menu"
         onClick={(e) => {
           handleMenuOpen(e);
         }}
+        size="large"
       >
         <MenuIcon />
       </IconButton>

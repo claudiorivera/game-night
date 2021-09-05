@@ -1,5 +1,7 @@
+import { ArrowBack as ArrowBackIcon } from "@mui/icons-material";
 import {
   Avatar,
+  AvatarGroup,
   Button,
   Card,
   CardActions,
@@ -14,10 +16,7 @@ import {
   Divider,
   Tooltip,
   Typography,
-} from "@material-ui/core";
-import { styled } from "@material-ui/core/styles";
-import { ArrowBack as ArrowBackIcon } from "@material-ui/icons";
-import { AvatarGroup } from "@material-ui/lab";
+} from "@mui/material";
 import axios from "axios";
 import { GameDetails } from "components";
 import { AlertContext } from "context/Alert";
@@ -32,22 +31,11 @@ import React, { useContext, useState } from "react";
 import { IEvent, IUser } from "types";
 import useEvent from "util/useEvent";
 
-const StyledCard = styled(Card)({
-  margin: "1rem",
-  padding: "2rem",
-  flexDirection: "column",
-});
-
-const StyledDivider = styled(Divider)({
-  margin: "2rem",
-});
-
 interface Props {
   initialData: IEvent;
 }
 
 const EventDetailsPage = ({ initialData }: Props) => {
-  console.log(initialData);
   const router = useRouter();
   const { createAlertWithMessage } = useContext(AlertContext);
   const { event } = useEvent(String(router.query.id), initialData);
@@ -118,7 +106,13 @@ const EventDetailsPage = ({ initialData }: Props) => {
         Go Back
       </Button>
       {event ? (
-        <StyledCard>
+        <Card
+          sx={{
+            margin: "1rem",
+            padding: "2rem",
+            flexDirection: "column",
+          }}
+        >
           <CardHeader
             title={moment(event.eventDateTime).format(
               "MMMM Do, YYYY [at] h:mma"
@@ -127,7 +121,12 @@ const EventDetailsPage = ({ initialData }: Props) => {
           />
           <CardContent>
             <GameDetails fetchById={event.eventGame._id} />
-            <StyledDivider variant="middle" />
+            <Divider
+              variant="middle"
+              sx={{
+                margin: "2rem",
+              }}
+            />
             <Container>
               <Typography variant="body1">Host:</Typography>
               <Tooltip title={event.eventHost.name}>
@@ -192,7 +191,7 @@ const EventDetailsPage = ({ initialData }: Props) => {
               </Button>
             )}
           </CardActions>
-        </StyledCard>
+        </Card>
       ) : (
         ""
       )}

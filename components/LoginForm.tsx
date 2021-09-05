@@ -1,5 +1,10 @@
-import { CircularProgress, TextField, Typography } from "@material-ui/core";
-import { StyledButton, StyledDivider } from "components";
+import {
+  Button,
+  CircularProgress,
+  Divider,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { getProviders, signIn, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -25,7 +30,10 @@ export const LoginForm = ({ providers }: Props) => {
         Object.values(providers)
           .filter((provider) => provider.id !== "email")
           .map((provider) => (
-            <StyledButton
+            <Button
+              sx={{
+                margin: ".5rem 0",
+              }}
               key={provider.id}
               type="submit"
               size="large"
@@ -37,9 +45,13 @@ export const LoginForm = ({ providers }: Props) => {
               }}
             >
               {provider.name}
-            </StyledButton>
+            </Button>
           ))}
-      <StyledDivider />
+      <Divider
+        sx={{
+          margin: "1.5rem",
+        }}
+      />
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -62,7 +74,10 @@ export const LoginForm = ({ providers }: Props) => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <StyledButton
+        <Button
+          sx={{
+            margin: ".5rem 0",
+          }}
           type="submit"
           size="large"
           fullWidth
@@ -71,7 +86,7 @@ export const LoginForm = ({ providers }: Props) => {
           disabled={isFetching}
         >
           {isFetching ? <CircularProgress /> : "Send Me A Login Link"}
-        </StyledButton>
+        </Button>
       </form>
     </>
   );

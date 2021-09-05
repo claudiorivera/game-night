@@ -1,11 +1,6 @@
-import { Box, Chip, styled, Typography } from "@material-ui/core";
+import { Box, Chip, Typography } from "@mui/material";
 import React from "react";
 import { IGame } from "types";
-
-const StyledChip = styled(Chip)({
-  padding: "0",
-  margin: ".1rem",
-});
 
 interface Props {
   game: IGame;
@@ -17,13 +12,27 @@ export const GameMetaData = ({ game }: Props) => {
       <Typography variant="subtitle1">
         Authors:
         {game.authors.map((author) => (
-          <StyledChip key={author} label={author} />
+          <Chip
+            sx={{
+              padding: "0",
+              margin: ".1rem",
+            }}
+            key={author}
+            label={author}
+          />
         ))}
       </Typography>
       <Typography variant="subtitle1">
         Categories:
         {game.categories.map((category) => (
-          <StyledChip key={category} label={category} />
+          <Chip
+            sx={{
+              padding: "0",
+              margin: ".1rem",
+            }}
+            key={category}
+            label={category}
+          />
         ))}
       </Typography>
       <Typography variant="subtitle1">

@@ -1,29 +1,24 @@
+import { ArrowBack as ArrowBackIcon } from "@mui/icons-material";
+import DatePicker from "@mui/lab/DatePicker";
 import {
   Button,
   Container,
   FormControl,
+  Grid,
   MenuItem,
   Select,
+  TextField,
   Typography,
-} from "@material-ui/core";
-import { styled } from "@material-ui/core/styles";
-import { ArrowBack as ArrowBackIcon } from "@material-ui/icons";
-import { DateTimePicker } from "@material-ui/pickers";
-import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
+} from "@mui/material";
 import axios from "axios";
 import middleware from "middleware";
 import { EventModel, GameModel } from "models";
-import moment from "moment";
 import { Types } from "mongoose";
 import { GetServerSideProps } from "next";
 import { signIn, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
-import React, { ChangeEvent, useState } from "react";
+import React, { useState } from "react";
 import { IEvent, IGame } from "types";
-
-const StyledFormControl = styled(FormControl)({
-  margin: "1rem",
-});
 
 interface Props {
   event: IEvent;
@@ -34,8 +29,9 @@ const EditEventPage = ({ event, games }: Props) => {
   const game = event.eventGame as IGame;
   const router = useRouter();
   const eventId = router.query.id;
-  const [eventDateTime, setEventDateTime] =
-    useState<MaterialUiPickersDate | null>(moment(event.eventDateTime));
+  const [eventDateTime, setEventDateTime] = useState<Date | unknown>(
+    new Date()
+  );
   const [gameId, setGameId] = useState<Types.ObjectId | unknown>(game._id);
   const [session] = useSession();
 
@@ -74,7 +70,9 @@ const EditEventPage = ({ event, games }: Props) => {
         <ArrowBackIcon />
         Go Back
       </Button>
-      <Typography variant="h4">Edit Event</Typography>
+      <Typography variant="h4" sx={{ marginTop: "1rem" }}>
+        Edit Event
+      </Typography>
       {event ? (
         <form
           onSubmit={(e) => {
@@ -83,43 +81,48 @@ const EditEventPage = ({ event, games }: Props) => {
             router.back();
           }}
         >
-          <StyledFormControl>
-            <DateTimePicker
-              disablePast
-              id="datetime-picker"
-              minutesStep={15}
-              value={eventDateTime}
-              onChange={(e) => {
-                setEventDateTime(e);
-              }}
-            />
-          </StyledFormControl>
-          {games && (
-            <StyledFormControl>
-              <Select
-                id="game-select"
-                value={gameId}
-                onChange={(e: ChangeEvent<{ value: unknown }>) => {
-                  setGameId(e.target.value);
-                }}
+          <Grid container spacing={3} mt={1}>
+            <Grid item xs={12} sm={6}>
+              <FormControl sx={{ width: "100%" }}>
+                <DatePicker
+                  renderInput={(props) => <TextField {...props} />}
+                  disablePast
+                  value={eventDateTime}
+                  onChange={setEventDateTime}
+                />
+              </FormControl>
+            </Grid>
+            {games && (
+              <Grid item xs={12} sm={6}>
+                <FormControl sx={{ width: "100%" }}>
+                  <Select
+                    id="game-select"
+                    value={gameId}
+                    onChange={(e) => {
+                      setGameId(e.target.value);
+                    }}
+                  >
+                    {games.map(({ _id, name }) => (
+                      <MenuItem key={String(_id)} value={String(_id)}>
+                        {name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+            )}
+            <Grid item xs={12}>
+              <Button
+                size="large"
+                fullWidth
+                variant="contained"
+                color="primary"
+                type="submit"
               >
-                {games.map(({ _id, name }) => (
-                  <MenuItem key={String(_id)} value={String(_id)}>
-                    {name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </StyledFormControl>
-          )}
-          <Button
-            size="large"
-            fullWidth
-            variant="contained"
-            color="primary"
-            type="submit"
-          >
-            Save
-          </Button>
+                Save
+              </Button>
+            </Grid>
+          </Grid>
         </form>
       ) : (
         ""
