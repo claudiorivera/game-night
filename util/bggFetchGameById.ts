@@ -14,16 +14,14 @@ export const bggFetchGameById = async (
   // https://github.com/NaturalIntelligence/fast-xml-parser
   // Make sure we have parseable data
   if (parser.validate(data) === true) {
-    const {
-      items: { item: game },
-    } = parser.parse(data, {
-      attributeNamePrefix: "",
+    const parsedData = parser.parse(data, {
       ignoreAttributes: false,
-      parseAttributeValue: true,
     });
 
+    const game = parsedData.items.item;
+
     // Clean up the api data and set our new game object
-    return {
+    const gameObject = {
       bggId: game.id,
       imageSrc: game.image,
       thumbnailSrc: game.thumbnail,
@@ -59,6 +57,7 @@ export const bggFetchGameById = async (
         )
         .map((mechanic: BGGQueryResponse) => mechanic.value),
     };
+    return gameObject;
   } else {
     return null;
   }

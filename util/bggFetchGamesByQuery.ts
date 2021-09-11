@@ -15,23 +15,23 @@ export const bggFetchGamesByQuery = async (query: string) => {
   // https://github.com/NaturalIntelligence/fast-xml-parser
   // Make sure we have parseable data
   if (parser.validate(data) === true) {
-    const {
-      items: { item },
-    } = parser.parse(data, {
+    const parsedData = parser.parse(data, {
       attributeNamePrefix: "",
       ignoreAttributes: false,
       parseAttributeValue: true,
     });
 
+    const gameList = parsedData.items.item;
+
     // Async calls can't be inside a .map() - https://flaviocopes.com/javascript-async-await-array-map/
     const results = [];
-    if (Array.isArray(item)) {
+    if (Array.isArray(gameList)) {
       // Limit the number of calls to the BGG API, so it doesn't yell at us
-      for (const game of item.slice(0, API_CALL_LIMIT)) {
+      for (const game of gameList.slice(0, API_CALL_LIMIT)) {
         results.push(await bggFetchGameById(game.id));
       }
     } else {
-      results.push(await bggFetchGameById(item.id));
+      results.push(await bggFetchGameById(gameList.id));
     }
 
     return results;
