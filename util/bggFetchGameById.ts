@@ -16,23 +16,24 @@ export const bggFetchGameById = async (
   if (parser.validate(data) === true) {
     const parsedData = parser.parse(data, {
       ignoreAttributes: false,
+      attributeNamePrefix: "",
     });
 
     const game = parsedData.items.item;
 
     // Clean up the api data and set our new game object
-    const gameObject = {
-      bggId: game.id,
+    const gameObject: BGGGameResponse = {
+      bggId: Number(game.id),
       imageSrc: game.image,
       thumbnailSrc: game.thumbnail,
       description: game.description,
-      yearPublished: game.yearpublished.value,
-      minPlayers: game.minplayers.value,
-      maxPlayers: game.maxplayers.value,
-      playingTime: game.playingtime.value,
-      minAge: game.minage.value,
-      rating: game.statistics.ratings.average.value,
-      numOfRatings: game.statistics.ratings.usersrated.value,
+      yearPublished: Number(game.yearpublished.value),
+      minPlayers: Number(game.minplayers.value),
+      maxPlayers: Number(game.maxplayers.value),
+      playingTime: Number(game.playingtime.value),
+      minAge: Number(game.minage.value),
+      rating: Number(game.statistics.ratings.average.value),
+      numOfRatings: Number(game.statistics.ratings.usersrated.value),
       // Ignore all alternate names, if there are multiple (ie. isArray)
       name: Array.isArray(game.name)
         ? game.name.filter(
