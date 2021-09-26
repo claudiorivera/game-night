@@ -12,7 +12,11 @@ handler.use(middleware);
 // Returns all events
 handler.get(async (_, res) => {
   try {
-    const events = await EventModel.find().lean();
+    const events = await EventModel.find()
+      .populate("eventHost", "name image")
+      .populate("eventGuests", "name image")
+      .populate("eventGame")
+      .lean();
     res.json({
       success: true,
       message: "Successfully fetched all events",

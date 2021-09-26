@@ -1,19 +1,14 @@
-import { Button, Container, Typography } from "@mui/material";
+import { Button, CircularProgress, Container, Typography } from "@mui/material";
 import { EventsListContainer } from "components";
-import middleware from "middleware";
-import { EventModel } from "models";
-import { GetServerSideProps } from "next";
+import useEvents from "hooks/useEvents";
 import { signIn, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React from "react";
-import { IEvent } from "types";
 
-interface Props {
-  allEvents: IEvent[];
-}
-const EventsListPage = ({ allEvents }: Props) => {
+const EventsListPage = () => {
   const router = useRouter();
   const [session] = useSession();
+  const { events, isLoading } = useEvents();
 
   if (!session)
     return (
@@ -36,6 +31,8 @@ const EventsListPage = ({ allEvents }: Props) => {
       </>
     );
 
+  if (isLoading) return <CircularProgress />;
+
   return (
     <>
       <Container sx={{ marginBottom: "1rem" }}>
@@ -51,24 +48,11 @@ const EventsListPage = ({ allEvents }: Props) => {
           Add Event
         </Button>
       </Container>
-      {!!allEvents.length && (
-        <Container>
-          <EventsListContainer events={allEvents} />
-        </Container>
-      )}
+      <Container>
+        <EventsListContainer events={events} />
+      </Container>
     </>
   );
 };
 
 export default EventsListPage;
-
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  await middleware.run(req, res);
-  const allEvents = (await EventModel.find().populate(
-    "eventGame",
-    "name imageSrc"
-  )) as [IEvent];
-  return {
-    props: allEvents ? JSON.parse(JSON.stringify({ allEvents })) : [],
-  };
-};

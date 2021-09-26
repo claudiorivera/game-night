@@ -1,7 +1,7 @@
 import { GameDetailsFull } from "components";
+import useGame from "hooks/useGame";
 import React from "react";
 import { IGame } from "types";
-import useGame from "util/useGame";
 
 interface Props {
   game?: Omit<IGame, "_id">;

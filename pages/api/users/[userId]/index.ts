@@ -7,7 +7,7 @@ import nextConnect from "next-connect";
 const handler = nextConnect<NextApiRequest, NextApiResponse>();
 handler.use(middleware);
 
-// GET api/user/userId
+// GET api/users/userId
 // Returns the given user
 handler.get(async (req, res) => {
   try {

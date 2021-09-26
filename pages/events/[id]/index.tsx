@@ -7,6 +7,7 @@ import {
   CardActions,
   CardContent,
   CardHeader,
+  CircularProgress,
   Container,
   Dialog,
   DialogActions,
@@ -20,25 +21,18 @@ import {
 import axios from "axios";
 import { GameDetails } from "components";
 import { AlertContext } from "context/Alert";
-import middleware from "middleware";
-import { EventModel } from "models";
 import moment from "moment";
 import { ObjectId } from "mongoose";
-import { GetServerSideProps } from "next";
 import { signIn, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
-import { IEvent, IUser } from "types";
-import useEvent from "util/useEvent";
+import { IUser } from "types";
+import useEvent from "hooks/useEvent";
 
-interface Props {
-  initialData: IEvent;
-}
-
-const EventDetailsPage = ({ initialData }: Props) => {
+const EventDetailsPage = () => {
   const router = useRouter();
   const { createAlertWithMessage } = useContext(AlertContext);
-  const { event } = useEvent(String(router.query.id), initialData);
+  const { event, isLoading } = useEvent(String(router.query.id));
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [session] = useSession();
 
@@ -62,6 +56,8 @@ const EventDetailsPage = ({ initialData }: Props) => {
         </Button>
       </>
     );
+
+  if (isLoading) return <CircularProgress />;
 
   // Delete confirm dialog
   const handleClose = () => {
@@ -221,20 +217,3 @@ const EventDetailsPage = ({ initialData }: Props) => {
 };
 
 export default EventDetailsPage;
-
-export const getServerSideProps: GetServerSideProps = async ({
-  req,
-  res,
-  params,
-}) => {
-  if (!params?.id) {
-    throw new Error("EventIdPage: missing event id");
-  }
-  await middleware.run(req, res);
-  const event = (await EventModel.findById(params.id).lean()) as IEvent;
-  return {
-    props: {
-      initialEventData: JSON.parse(JSON.stringify(event)) as IEvent,
-    },
-  };
-};

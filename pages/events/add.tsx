@@ -1,6 +1,7 @@
 import DateTimePicker from "@mui/lab/DateTimePicker";
 import {
   Button,
+  CircularProgress,
   FormControl,
   Grid,
   InputLabel,
@@ -11,19 +12,13 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { AlertContext } from "context/Alert";
-import middleware from "middleware";
-import { GameModel } from "models";
-import { GetServerSideProps } from "next";
+import useGames from "hooks/useGames";
 import { signIn, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
-import { IGame } from "types";
 
-interface Props {
-  allGames: IGame[];
-}
-
-const AddEventPage = ({ allGames }: Props) => {
+const AddEventPage = () => {
+  const { games: allGames, isLoading } = useGames();
   const router = useRouter();
   const { createAlertWithMessage } = useContext(AlertContext);
   const [eventDateTime, setEventDateTime] = useState<Date | unknown>(
@@ -51,6 +46,7 @@ const AddEventPage = ({ allGames }: Props) => {
       </>
     );
 
+  if (isLoading) return <CircularProgress />;
   if (!createAlertWithMessage) return null;
 
   const addEvent = async (gameId: string, eventDateTime: string) => {
@@ -86,7 +82,7 @@ const AddEventPage = ({ allGames }: Props) => {
               />
             </FormControl>
           </Grid>
-          {!!allGames.length && (
+          {!!allGames?.length && (
             <Grid item xs={12} sm={6}>
               <FormControl sx={{ width: "100%" }}>
                 <InputLabel id="select-game-label">Select Game</InputLabel>
@@ -126,11 +122,3 @@ const AddEventPage = ({ allGames }: Props) => {
 };
 
 export default AddEventPage;
-
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  await middleware.run(req, res);
-  const allGames = (await GameModel.find().lean()) as IGame[];
-  return {
-    props: JSON.parse(JSON.stringify({ allGames })) || [],
-  };
-};

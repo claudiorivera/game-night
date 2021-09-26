@@ -1,23 +1,12 @@
 import { Button, CircularProgress, Typography } from "@mui/material";
 import { EventsListContainer } from "components";
-import middleware from "middleware";
-import { EventModel } from "models";
-import { GetServerSideProps } from "next";
-import { getSession, signIn, useSession } from "next-auth/client";
-import useSWR from "swr";
-import { IEvent } from "types";
-import fetcher from "util/fetcher";
+import useUser from "hooks/useUser";
+import { signIn, useSession } from "next-auth/client";
 
-interface HomePageProps {
-  eventsHosting: IEvent[];
-  eventsAttending: IEvent[];
-}
-
-const HomePage = ({ eventsHosting, eventsAttending }: HomePageProps) => {
+const HomePage = () => {
   const [session] = useSession();
-  const { data: user } = useSWR(
-    session ? `/api/user/${session.user.id}` : null,
-    fetcher
+  const { user, isLoading, eventsAttending, eventsHosting } = useUser(
+    session ? session.user.id : undefined
   );
 
   if (!session)
@@ -41,14 +30,14 @@ const HomePage = ({ eventsHosting, eventsAttending }: HomePageProps) => {
       </>
     );
 
-  if (!user) return <CircularProgress />;
+  if (isLoading) return <CircularProgress />;
 
   return (
     <>
       <Typography variant="body1" gutterBottom>
         Hello, {user.name}.
       </Typography>
-      {!!eventsHosting.length && (
+      {!!eventsHosting?.length && (
         <>
           <Typography variant="h4" gutterBottom>
             Events You Are Hosting:
@@ -60,7 +49,7 @@ const HomePage = ({ eventsHosting, eventsAttending }: HomePageProps) => {
           />
         </>
       )}
-      {!!eventsAttending.length && (
+      {!!eventsAttending?.length && (
         <>
           <Typography variant="h4" gutterBottom>
             Events You Are Attending:
@@ -76,29 +65,3 @@ const HomePage = ({ eventsHosting, eventsAttending }: HomePageProps) => {
 };
 
 export default HomePage;
-
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  await middleware.run(req, res);
-  const session = await getSession({ req });
-
-  if (!session) return { props: { eventsHosting: [], eventsAttending: [] } };
-
-  const allEvents = (await EventModel.find().populate(
-    "eventGame",
-    "name imageSrc"
-  )) as IEvent[];
-  const eventsHosting = allEvents.filter(
-    (event) => event.eventHost?._id.toString() === session.user.id
-  );
-  const eventsAttending = allEvents.filter(
-    (event) =>
-      !!event.eventGuests.filter(
-        (guest) => guest?._id.toString() === session.user.id
-      ).length
-  );
-
-  return {
-    // https://github.com/vercel/next.js/discussions/11209#discussioncomment-35915
-    props: JSON.parse(JSON.stringify({ eventsHosting, eventsAttending })),
-  };
-};

@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import fetcher from "./fetcher";
+import fetcher from "util/fetcher";
 
 const useGame = (gameId: number) => {
   const { data, error, mutate } = useSWR(
@@ -8,9 +8,9 @@ const useGame = (gameId: number) => {
   );
   return {
     game: data?.game,
-    gameError: error,
-    gameLoading: !error && !data,
-    gameMutate: mutate,
+    error,
+    isLoading: !error && !data,
+    mutate,
   };
 };
 

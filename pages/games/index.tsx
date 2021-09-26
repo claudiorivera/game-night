@@ -1,28 +1,24 @@
+import { ExpandMore as ExpandMoreIcon } from "@mui/icons-material";
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
   Button,
+  CircularProgress,
   Container,
   Typography,
 } from "@mui/material";
-import { ExpandMore as ExpandMoreIcon } from "@mui/icons-material";
 import { GameDetails } from "components";
-import middleware from "middleware";
-import { GameModel } from "models";
-import { GetServerSideProps } from "next";
+import useGames from "hooks/useGames";
 import { signIn, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React from "react";
 import { IGame } from "types";
 
-interface Props {
-  allGames: IGame[];
-}
-
-const GamesListPage = ({ allGames }: Props) => {
+const GamesListPage = () => {
   const router = useRouter();
   const [session] = useSession();
+  const { games, isLoading } = useGames();
 
   if (!session)
     return (
@@ -45,6 +41,8 @@ const GamesListPage = ({ allGames }: Props) => {
       </>
     );
 
+  if (isLoading) return <CircularProgress />;
+
   return (
     <Container>
       <Button
@@ -59,32 +57,23 @@ const GamesListPage = ({ allGames }: Props) => {
       >
         Add Game
       </Button>
-      {!!allGames.length &&
-        allGames.map((game) => (
-          <Accordion key={game.bggId} square>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls={`panel-${game.bggId}-content`}
-            >
-              <Typography variant="h6">
-                {game.name} ({game.yearPublished})
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <GameDetails game={game} />
-            </AccordionDetails>
-          </Accordion>
-        ))}
+      {games.map((game: IGame) => (
+        <Accordion key={game.bggId} square>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls={`panel-${game.bggId}-content`}
+          >
+            <Typography variant="h6">
+              {game.name} ({game.yearPublished})
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <GameDetails game={game} />
+          </AccordionDetails>
+        </Accordion>
+      ))}
     </Container>
   );
 };
 
 export default GamesListPage;
-
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  await middleware.run(req, res);
-  const allGames = await GameModel.find().lean();
-  return {
-    props: JSON.parse(JSON.stringify({ allGames })) || [],
-  };
-};

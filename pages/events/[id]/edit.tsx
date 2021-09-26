@@ -2,6 +2,7 @@ import { ArrowBack as ArrowBackIcon } from "@mui/icons-material";
 import DatePicker from "@mui/lab/DatePicker";
 import {
   Button,
+  CircularProgress,
   Container,
   FormControl,
   Grid,
@@ -11,29 +12,28 @@ import {
   Typography,
 } from "@mui/material";
 import axios from "axios";
-import middleware from "middleware";
-import { EventModel, GameModel } from "models";
+import useEvent from "hooks/useEvent";
+import useGames from "hooks/useGames";
 import { Types } from "mongoose";
-import { GetServerSideProps } from "next";
 import { signIn, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { IEvent, IGame } from "types";
 
-interface Props {
-  event: IEvent;
-  games: IGame[];
-}
-
-const EditEventPage = ({ event, games }: Props) => {
-  const game = event.eventGame as IGame;
+const EditEventPage = () => {
+  const [session] = useSession();
   const router = useRouter();
-  const eventId = router.query.id;
+  const eventId = router.query.id as string;
+  const { event, isLoading: eventIsLoading } = useEvent(eventId);
+  const { games, isLoading: gamesIsLoading } = useGames();
+
   const [eventDateTime, setEventDateTime] = useState<Date | unknown>(
     new Date()
   );
-  const [gameId, setGameId] = useState<Types.ObjectId | unknown>(game._id);
-  const [session] = useSession();
+  const [gameId, setGameId] = useState<Types.ObjectId | unknown>(
+    event?.eventGame?._id
+  );
+
+  const isLoading = eventIsLoading || gamesIsLoading;
 
   if (!session)
     return (
@@ -55,6 +55,8 @@ const EditEventPage = ({ event, games }: Props) => {
         </Button>
       </>
     );
+
+  if (isLoading) return <CircularProgress />;
 
   const updateEvent = async () => {
     await axios.put(`/api/events/${eventId}?action=edit`, {
@@ -132,21 +134,3 @@ const EditEventPage = ({ event, games }: Props) => {
 };
 
 export default EditEventPage;
-
-export const getServerSideProps: GetServerSideProps = async ({
-  req,
-  res,
-  params,
-}) => {
-  await middleware.run(req, res);
-  const event = (await EventModel.findById(params?.id)
-    .populate("eventGame")
-    .lean()) as IEvent;
-  const games = (await GameModel.find().lean()) as IGame[];
-  return {
-    props: {
-      event: JSON.parse(JSON.stringify(event)) || null,
-      games: JSON.parse(JSON.stringify(games)) || [],
-    },
-  };
-};
