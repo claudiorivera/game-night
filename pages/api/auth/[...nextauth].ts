@@ -6,7 +6,6 @@ import Providers from "next-auth/providers";
 import nextConnect from "next-connect";
 import randomlyGeneratedName from "util/randomlyGeneratedName";
 import sendVerificationRequest from "util/sendVerificationRequest";
-import { v4 as uuidv4 } from "uuid";
 
 const handler = nextConnect();
 
@@ -39,21 +38,18 @@ handler.use((req: NextApiRequest, res: NextApiResponse) =>
       jwt: async (token, user, _account, _profile, isNewUser) => {
         if (user && isNewUser) {
           try {
-            const userFound = await UserModel.findById(user.id);
-            // Generate random name, if none is provided
-            if (user.name) {
-              userFound.name = user.name;
-            } else {
-              userFound.name = randomlyGeneratedName();
-            }
-            // Generate random avatar, if none is provided
-            if (user.image) {
-              userFound.image = user.image;
-            } else {
-              userFound.image = `https://picsum.photos/seed/${uuidv4()}/180`;
-            }
-            await userFound.save();
-          } catch (error: any) {
+            const randomImage = `https://picsum.photos/seed/${user.id}/180`;
+            const userToUpdate = await UserModel.findByIdAndUpdate(
+              user.id,
+              {
+                name: user.name || randomlyGeneratedName(),
+                image: user.image || randomImage,
+              },
+              { new: true }
+            ).exec();
+
+            await userToUpdate.save();
+          } catch (error) {
             console.error(error);
           }
         }
