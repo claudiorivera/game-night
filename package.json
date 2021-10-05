@@ -29,7 +29,7 @@
     "unique-names-generator": "4.6.0"
   },
   "optionalDependencies": {
-    "mongodb": "3.7.1"
+    "mongodb": "3.7.2"
   },
   "devDependencies": {
     "@types/nodemailer": "6.4.4",
