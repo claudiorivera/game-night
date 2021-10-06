@@ -66,7 +66,7 @@ const AddGamePage = () => {
 
   const addGame = async (gameToAdd: Omit<IGame, "_id">) => {
     try {
-      const response = await axios.post("/api/games", gameToAdd);
+      const response = await axios.post<any>("/api/games", gameToAdd);
       createAlertWithMessage(response.data.message);
     } catch (error: any) {
       console.error(error);

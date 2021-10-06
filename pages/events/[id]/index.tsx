@@ -70,7 +70,7 @@ const EventDetailsPage = () => {
 
   const deleteEventById = async (id: ObjectId) => {
     try {
-      const response = await axios.delete(`/api/events/${id}`);
+      const response = await axios.delete<any>(`/api/events/${id}`);
       createAlertWithMessage(response.data.message);
     } catch (error: any) {
       console.error(error);
@@ -79,7 +79,7 @@ const EventDetailsPage = () => {
 
   const joinEventById = async (id: ObjectId) => {
     try {
-      const response = await axios.put(`/api/events/${id}?action=join`);
+      const response = await axios.put<any>(`/api/events/${id}?action=join`);
       createAlertWithMessage(response.data.message);
     } catch (error: any) {
       console.error(error);
@@ -88,7 +88,7 @@ const EventDetailsPage = () => {
 
   const leaveEventById = async (id: ObjectId) => {
     try {
-      const response = await axios.put(`/api/events/${id}?action=leave`);
+      const response = await axios.put<any>(`/api/events/${id}?action=leave`);
       createAlertWithMessage(response.data.message);
     } catch (error: any) {
       console.error(error);
