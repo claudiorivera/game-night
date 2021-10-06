@@ -51,7 +51,7 @@ const AddEventPage = () => {
 
   const addEvent = async (gameId: string, eventDateTime: string) => {
     try {
-      const response = await axios.post("/api/events", {
+      const response = await axios.post<any>("/api/events", {
         gameId,
         eventDateTime,
       });
