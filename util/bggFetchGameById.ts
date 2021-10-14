@@ -6,7 +6,7 @@ import { BGGGameResponse, BGGQueryResponse } from "types";
 export const bggFetchGameById = async (
   id: number
 ): Promise<BGGGameResponse | null> => {
-  const { data } = await axios.get(
+  const { data } = await axios.get<string>(
     // https://boardgamegeek.com/wiki/page/BGG_XML_API2
     `https://api.geekdo.com/xmlapi2/thing?id=${id}&stats=1`
   );
