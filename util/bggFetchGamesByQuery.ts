@@ -7,7 +7,7 @@ import { bggFetchGameById } from "./bggFetchGameById";
 const API_CALL_LIMIT = 20;
 
 export const bggFetchGamesByQuery = async (query: string) => {
-  const { data } = await axios.get(
+  const { data } = await axios.get<string>(
     // https://boardgamegeek.com/wiki/page/BGG_XML_API2
     `https://api.geekdo.com/xmlapi2/search?query=${query}&type=boardgame`
   );
