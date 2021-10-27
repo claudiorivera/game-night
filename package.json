@@ -15,7 +15,7 @@
     "@mui/lab": "5.0.0-alpha.52",
     "@mui/material": "5.0.5",
     "@mui/styles": "5.0.2",
-    "axios": "0.23.0",
+    "axios": "0.24.0",
     "clsx": "1.1.1",
     "fast-xml-parser": "3.20.3",
     "moment": "2.29.1",
