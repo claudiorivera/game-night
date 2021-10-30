@@ -1,10 +1,10 @@
 import { Button, CircularProgress, Typography } from "@mui/material";
 import { EventsListContainer } from "components";
 import useUser from "hooks/useUser";
-import { signIn, useSession } from "next-auth/client";
+import { signIn, useSession } from "next-auth/react";
 
 const HomePage = () => {
-  const [session] = useSession();
+  const { data: session } = useSession();
   const { user, isLoading, eventsAttending, eventsHosting } = useUser(
     session ? session.user.id : undefined
   );

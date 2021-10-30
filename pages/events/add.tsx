@@ -13,7 +13,7 @@ import {
 import axios from "axios";
 import { AlertContext } from "context/Alert";
 import useGames from "hooks/useGames";
-import { signIn, useSession } from "next-auth/client";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
 
@@ -25,7 +25,7 @@ const AddEventPage = () => {
     new Date()
   );
   const [gameId, setGameId] = useState("");
-  const [session] = useSession();
+  const { data: session } = useSession();
 
   if (!session)
     return (

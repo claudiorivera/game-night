@@ -15,12 +15,12 @@ import axios from "axios";
 import useEvent from "hooks/useEvent";
 import useGames from "hooks/useGames";
 import { Types } from "mongoose";
-import { signIn, useSession } from "next-auth/client";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 
 const EditEventPage = () => {
-  const [session] = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
   const eventId = router.query.id as string;
   const { event, isLoading: eventIsLoading } = useEvent(eventId);

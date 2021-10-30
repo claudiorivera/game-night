@@ -12,7 +12,7 @@ import {
 import axios from "axios";
 import { GameDetails } from "components";
 import { AlertContext } from "context/Alert";
-import { signIn, useSession } from "next-auth/client";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
 import { BGGGameResponse, IGame } from "types";
@@ -25,7 +25,7 @@ const AddGamePage = () => {
   const [queryResults, setQueryResults] = useState<BGGGameResponse[] | null>(
     null
   );
-  const [session] = useSession();
+  const { data: session } = useSession();
   const [isFetching, setIsFetching] = useState(false);
 
   if (!session || !clearAlert || !createAlertWithMessage)

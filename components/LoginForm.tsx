@@ -5,7 +5,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { getProviders, signIn, useSession } from "next-auth/client";
+import { getProviders, signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -14,7 +14,7 @@ interface Props {
 }
 
 export const LoginForm = ({ providers }: Props) => {
-  const [session] = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [isFetching, setIsFetching] = useState(false);

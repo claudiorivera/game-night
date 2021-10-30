@@ -10,14 +10,14 @@ import {
 } from "@mui/material";
 import { GameDetails } from "components";
 import useGames from "hooks/useGames";
-import { signIn, useSession } from "next-auth/client";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React from "react";
 import { IGame } from "types";
 
 const GamesListPage = () => {
   const router = useRouter();
-  const [session] = useSession();
+  const { data: session } = useSession();
   const { games, isLoading } = useGames();
 
   if (!session)

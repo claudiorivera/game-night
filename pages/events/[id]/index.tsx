@@ -23,7 +23,7 @@ import { GameDetails } from "components";
 import { AlertContext } from "context/Alert";
 import moment from "moment";
 import { ObjectId } from "mongoose";
-import { signIn, useSession } from "next-auth/client";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
 import { IUser } from "types";
@@ -34,7 +34,7 @@ const EventDetailsPage = () => {
   const { createAlertWithMessage } = useContext(AlertContext);
   const { event, isLoading } = useEvent(String(router.query.id));
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [session] = useSession();
+  const { data: session } = useSession();
 
   if (!session || !createAlertWithMessage)
     return (

@@ -1,6 +1,6 @@
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import { Menu as MenuIcon } from "@mui/icons-material";
-import { signIn, signOut, useSession } from "next-auth/client";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { Link } from "types";
@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const MobileMenu = ({ userLinks, adminLinks }: Props) => {
-  const [session] = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
   // https://material-ui.com/components/app-bar/#app-bar-with-menu
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

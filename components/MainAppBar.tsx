@@ -9,12 +9,13 @@ import {
 import { useTheme } from "@mui/material/styles";
 import { Link, MobileMenu } from "components";
 import { adminLinks, userLinks } from "config";
-import { signIn, signOut, useSession } from "next-auth/client";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React from "react";
 
 export const MainAppBar = () => {
-  const [session, loading] = useSession();
+  const { data: session, status } = useSession();
+  const loading = status === "loading";
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const router = useRouter();

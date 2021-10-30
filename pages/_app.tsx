@@ -8,7 +8,7 @@ import {
 } from "@mui/material/styles";
 import { AlertDialog, MainAppBar } from "components";
 import { AlertProvider } from "context/Alert";
-import { Provider } from "next-auth/client";
+import { SessionProvider } from "next-auth/react";
 import { AppProps } from "next/app";
 import Head from "next/head";
 import React from "react";
@@ -41,7 +41,7 @@ const App = (props: AppProps) => {
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
           <AlertProvider>
-            <Provider session={pageProps.session}>
+            <SessionProvider session={pageProps.session}>
               <LocalizationProvider dateAdapter={AdapterMoment}>
                 <CssBaseline />
                 <MainAppBar />
@@ -50,7 +50,7 @@ const App = (props: AppProps) => {
                   <Component {...pageProps} />
                 </Container>
               </LocalizationProvider>
-            </Provider>
+            </SessionProvider>
           </AlertProvider>
         </ThemeProvider>
       </StyledEngineProvider>

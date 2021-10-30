@@ -1,13 +1,13 @@
 import { Button, CircularProgress, Container, Typography } from "@mui/material";
 import { EventsListContainer } from "components";
 import useEvents from "hooks/useEvents";
-import { signIn, useSession } from "next-auth/client";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React from "react";
 
 const EventsListPage = () => {
   const router = useRouter();
-  const [session] = useSession();
+  const { data: session } = useSession();
   const { events, isLoading } = useEvents();
 
   if (!session)
