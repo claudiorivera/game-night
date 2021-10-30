@@ -1,7 +1,7 @@
 import middleware from "middleware";
 import { UserModel } from "models";
 import { NextApiRequest, NextApiResponse } from "next";
-import { getSession } from "next-auth/client";
+import { getSession } from "next-auth/react";
 import nextConnect from "next-connect";
 
 const handler = nextConnect<NextApiRequest, NextApiResponse>();
