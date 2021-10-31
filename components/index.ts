@@ -5,7 +5,7 @@ export { GameDetails } from "components/GameDetails";
 export { GameDetailsFull } from "components/GameDetailsFull";
 export { GameMetaData } from "components/GameMetaData";
 export { Link } from "components/Link";
-export { LoginForm } from "components/LoginForm";
+export { SignInForm } from "components/SignInForm";
 export { MainAppBar } from "components/MainAppBar";
 export { MobileMenu } from "components/MobileMenu";
 export { StyledButton } from "components/StyledButton";

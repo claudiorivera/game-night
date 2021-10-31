@@ -19,7 +19,7 @@ export const MainAppBar = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const router = useRouter();
-  const isOnLoginPage = router.asPath.startsWith("/auth/login");
+  const isOnSignInPage = router.asPath.startsWith("/auth/signin");
 
   return (
     <AppBar position="sticky" sx={{ marginBottom: "1rem" }}>
@@ -37,7 +37,7 @@ export const MainAppBar = () => {
             Game Night
           </Typography>
         </Link>
-        {isOnLoginPage ? null : isMobile ? (
+        {isOnSignInPage ? null : isMobile ? (
           <MobileMenu userLinks={userLinks} adminLinks={adminLinks} />
         ) : loading ? (
           <CircularProgress />
@@ -48,7 +48,7 @@ export const MainAppBar = () => {
               signIn();
             }}
           >
-            Login
+            Sign In
           </Button>
         ) : (
           <>
@@ -81,7 +81,7 @@ export const MainAppBar = () => {
                 signOut();
               }}
             >
-              Log Out
+              Sign Out
             </Button>
           </>
         )}

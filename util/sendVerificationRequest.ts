@@ -1,42 +1,31 @@
-// https://next-auth.js.org/providers/email#customising-emails
 import { appTitle, primaryColor } from "config";
-import { SendVerificationRequest } from "next-auth/providers";
-import nodemailer from "nodemailer";
+import { EmailConfig } from "next-auth/providers";
+import { createTransport } from "nodemailer";
 
-const sendVerificationRequest: SendVerificationRequest = ({
+type Props = {
+  identifier: string;
+  url: string;
+  provider: EmailConfig;
+};
+
+const sendVerificationRequest = async ({
   identifier: email,
   url,
-  token,
-  baseUrl,
-  provider,
-}) => {
-  return new Promise((resolve, reject) => {
-    const { server, from } = provider;
-    // Strip protocol from URL and use domain as site name
-    const site = baseUrl.replace(/^https?:\/\//, "");
-
-    nodemailer.createTransport(server).sendMail(
-      {
-        to: email,
-        from,
-        subject: `Sign in to ${appTitle}`,
-        text: text({ url }),
-        html: html({ url, site, email }),
-      },
-      (error) => {
-        if (error) {
-          console.error("SEND_VERIFICATION_EMAIL_ERROR", email, error);
-          return reject(new Error(`SEND_VERIFICATION_EMAIL_ERROR: ${error}`));
-        }
-        return resolve();
-      }
-    );
+  provider: { server, from },
+}: Props) => {
+  const { host } = new URL(url);
+  const transport = createTransport(server);
+  await transport.sendMail({
+    to: email,
+    from,
+    subject: `Sign in to ${host}`,
+    text: text({ url }),
+    html: html({ url, email }),
   });
 };
 
 interface HtmlProps {
   url: string;
-  site: string;
   email: string;
 }
 
@@ -76,7 +65,7 @@ const html = ({ url, email }: HtmlProps) => {
       <td align="center" style="padding: 20px 0;">
         <table border="0" cellspacing="0" cellpadding="0">
           <tr>
-            <td align="center" style="border-radius: 5px;" bgcolor="${buttonBackgroundColor}"><a href="${url}" target="_blank" style="font-size: 18px; font-family: Helvetica, Arial, sans-serif; color: ${buttonTextColor}; text-decoration: none; text-decoration: none;border-radius: 5px; padding: 10px 20px; border: 1px solid ${buttonBorderColor}; display: inline-block; font-weight: bold;">Sign in</a></td>
+            <td align="center" style="border-radius: 5px;" bgcolor="${buttonBackgroundColor}"><a href="${url}" target="_blank" style="font-size: 18px; font-family: Helvetica, Arial, sans-serif; color: ${buttonTextColor}; text-decoration: none; text-decoration: none;border-radius: 5px; padding: 10px 20px; border: 1px solid ${buttonBorderColor}; display: inline-block; font-weight: bold;">Sign In</a></td>
           </tr>
         </table>
       </td>

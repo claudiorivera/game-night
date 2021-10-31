@@ -31,7 +31,7 @@ const AddEventPage = () => {
     return (
       <>
         <Typography variant="h5" align="center">
-          You must be logged in to view this page.
+          You must be sign in to view this page.
         </Typography>
         <Button
           type="submit"
@@ -41,7 +41,7 @@ const AddEventPage = () => {
           variant="contained"
           onClick={() => signIn()}
         >
-          Login
+          Sign In
         </Button>
       </>
     );

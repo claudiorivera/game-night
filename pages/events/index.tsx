@@ -14,7 +14,7 @@ const EventsListPage = () => {
     return (
       <>
         <Typography variant="h5" align="center">
-          You must be logged in to view this page.
+          You must be signed in to view this page.
         </Typography>
         <Button
           type="submit"
@@ -26,7 +26,7 @@ const EventsListPage = () => {
             signIn();
           }}
         >
-          Login
+          Sign In
         </Button>
       </>
     );

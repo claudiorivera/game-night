@@ -13,7 +13,7 @@ const HomePage = () => {
     return (
       <>
         <Typography variant="h5" align="center" gutterBottom>
-          Welcome. Please login.
+          Welcome. Please sign in.
         </Typography>
         <Button
           type="submit"
@@ -25,7 +25,7 @@ const HomePage = () => {
             signIn();
           }}
         >
-          Login
+          Sign In
         </Button>
       </>
     );

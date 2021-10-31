@@ -58,7 +58,7 @@ export const MobileMenu = ({ userLinks, adminLinks }: Props) => {
               signIn();
             }}
           >
-            Login
+            Sign In
           </MenuItem>
         )}
         {!!userLinks.length &&
@@ -79,7 +79,7 @@ export const MobileMenu = ({ userLinks, adminLinks }: Props) => {
             signOut();
           }}
         >
-          Log Out
+          Sign Out
         </MenuItem>
         {/* TODO: Create and protect admin routes */}
         {!!adminLinks.length &&

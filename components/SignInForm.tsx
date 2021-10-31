@@ -5,26 +5,21 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { getProviders, signIn, useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import { getProviders, signIn } from "next-auth/react";
 import { useState } from "react";
 
 interface Props {
   providers: typeof getProviders;
 }
 
-export const LoginForm = ({ providers }: Props) => {
-  const { data: session } = useSession();
-  const router = useRouter();
+export const SignInForm = ({ providers }: Props) => {
   const [email, setEmail] = useState("");
   const [isFetching, setIsFetching] = useState(false);
-
-  if (session) router.push("/");
 
   return (
     <>
       <Typography variant="h5">
-        Please login with one of the following:
+        Please sign in with one of the following:
       </Typography>
       {providers &&
         Object.values(providers)
@@ -64,7 +59,7 @@ export const LoginForm = ({ providers }: Props) => {
           required
           id="email"
           label="Email"
-          placeholder="Or enter your email here to receive a login link"
+          placeholder="Or enter your email here to receive a sign in link"
           fullWidth
           margin="normal"
           InputLabelProps={{
@@ -85,7 +80,7 @@ export const LoginForm = ({ providers }: Props) => {
           variant="contained"
           disabled={isFetching}
         >
-          {isFetching ? <CircularProgress /> : "Send Me A Login Link"}
+          {isFetching ? <CircularProgress /> : "Send Me A Sign In Link"}
         </Button>
       </form>
     </>
