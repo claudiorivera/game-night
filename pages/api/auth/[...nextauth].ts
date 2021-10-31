@@ -28,7 +28,7 @@ handler.use(async (req: NextApiRequest, res: NextApiResponse) =>
       }),
     ],
     adapter: MongoDBAdapter({
-      db: (await clientPromise).db("game-night"),
+      db: (await clientPromise).db(process.env.VERCEL_ENV),
     }),
     secret: process.env.SECRET,
     session: {
