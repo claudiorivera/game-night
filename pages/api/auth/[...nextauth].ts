@@ -32,7 +32,7 @@ handler.use(async (req: NextApiRequest, res: NextApiResponse) =>
     }),
     secret: process.env.SECRET,
     session: {
-      jwt: true,
+      strategy: "jwt",
     },
     callbacks: {
       jwt: async ({ token, user, isNewUser }) => {
