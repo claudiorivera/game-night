@@ -23,7 +23,7 @@
     "mongodb": "4.2.0",
     "mongoose": "6.0.13",
     "next": "12.0.4",
-    "next-auth": "4.0.0-beta.7",
+    "next-auth": "4.0.0-next.26",
     "next-connect": "0.11.0",
     "nodemailer": "6.7.1",
     "react": "17.0.2",
