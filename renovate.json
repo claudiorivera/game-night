@@ -3,11 +3,20 @@
   "packageRules": [
     {
       "matchUpdateTypes": ["patch", "pin", "digest"],
+      "excludePackagePatterns": ["^next-auth", "^@next-auth/mongodb-adapter"],
       "automerge": true
     },
     {
       "matchDepTypes": ["devDependencies"],
       "automerge": true
+    },
+    {
+      "matchPackagePatterns": ["^next-auth"],
+      "followTag": "beta"
+    },
+    {
+      "matchPackagePatterns": ["^@next-auth/mongodb-adapter"],
+      "followTag": "next"
     }
   ]
 }
