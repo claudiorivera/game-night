@@ -27,9 +27,7 @@ handler.use(async (req: NextApiRequest, res: NextApiResponse) =>
         sendVerificationRequest,
       }),
     ],
-    adapter: MongoDBAdapter({
-      db: (await clientPromise).db(process.env.VERCEL_ENV),
-    }),
+    adapter: MongoDBAdapter(clientPromise),
     secret: process.env.SECRET,
     session: {
       strategy: "jwt",
