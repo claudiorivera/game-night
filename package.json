@@ -28,7 +28,7 @@
     "nodemailer": "6.7.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "swr": "1.1.0",
+    "swr": "1.1.1",
     "unique-names-generator": "4.6.0"
   },
   "devDependencies": {
