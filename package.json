@@ -20,7 +20,7 @@
     "clsx": "1.1.1",
     "fast-xml-parser": "3.21.1",
     "moment": "2.29.1",
-    "mongodb": "4.3.0",
+    "mongodb": "4.3.1",
     "mongoose": "6.1.7",
     "next": "12.0.8",
     "next-auth": "4.0.0-beta.7",
