@@ -2094,12 +2094,12 @@ next-auth@4.0.0-beta.7:
     preact-render-to-string "^5.1.19"
     uuid "^8.3.2"
 
-next-connect@0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/next-connect/-/next-connect-0.11.0.tgz#447c7b78937ff71f36c97d03f1623a6d0264ef49"
-  integrity sha512-7VW5z9MWOpd8wnbST9dXgVd0c0V76LLLk5mBDYLSMtEC2dj3v3YF/Bl3t58cJrzm4SZ0e/s3yeD361F888u0yg==
+next-connect@0.11.1:
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/next-connect/-/next-connect-0.11.1.tgz#3bdca8a7b91c366f7d15c8f03cb39933f65a87cc"
+  integrity sha512-qdFXRVN8TP4vBtqcifc2E/OsLamp5gtBqMl3gWSW9bCO2TBJovjvvQGZEv7eSGxHoqvGGn8rO/t4qTUKPUCPFw==
   dependencies:
-    trouter "^3.1.0"
+    trouter "^3.2.0"
 
 next@12.0.10:
   version "12.0.10"
@@ -2736,10 +2736,10 @@ tr46@^3.0.0:
   dependencies:
     punycode "^2.1.1"
 
-trouter@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/trouter/-/trouter-3.1.0.tgz#76f4faea81d5ebd11bba4762c664a3b55eda9b23"
-  integrity sha512-3Swwu638QQWOefHLss9cdyLi5/9BKYmXZEXpH0KOFfB9YZwUAwHbDAcoYxaHfqAeFvbi/LqAK7rGkhCr1v1BJA==
+trouter@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/trouter/-/trouter-3.2.0.tgz#a9c510fce21b8e659a28732c9de9d82871efe8df"
+  integrity sha512-rLLXbhTObLy2MBVjLC+jTnoIKw99n0GuJs9ov10J870vDw5qhTurPzsDrudNtBf5w/CZ9ctZy2p2IMmhGcel2w==
   dependencies:
     regexparam "^1.3.0"
 
