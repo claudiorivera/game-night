@@ -18,7 +18,7 @@
     "@next-auth/mongodb-adapter": "0.0.2-next.298",
     "axios": "0.25.0",
     "clsx": "1.1.1",
-    "fast-xml-parser": "3.21.1",
+    "fast-xml-parser": "4.0.2",
     "moment": "2.29.1",
     "mongodb": "4.3.1",
     "mongoose": "6.2.0",
