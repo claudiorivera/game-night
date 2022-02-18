@@ -16,7 +16,7 @@
     "@mui/material": "5.4.2",
     "@mui/styles": "5.4.2",
     "@next-auth/mongodb-adapter": "1.0.1",
-    "axios": "0.25.0",
+    "axios": "0.26.0",
     "clsx": "1.1.1",
     "fast-xml-parser": "4.0.3",
     "moment": "2.29.1",
