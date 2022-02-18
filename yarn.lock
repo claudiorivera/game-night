@@ -1956,6 +1956,18 @@ mongodb@4.3.1:
   optionalDependencies:
     saslprep "^1.0.3"
 
+mongodb@4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-4.4.0.tgz#3b14b9701067713d5c9afb6d6e4a86ca7b969824"
+  integrity sha512-1hPhutJj6yxxu0ymwsO0uEimTo+QTh3oQP6YHxmLneBFBOGydYFdnmDDuLiGWimAlMdRN9WuDXY+JGp47aeOwA==
+  dependencies:
+    bson "^4.6.1"
+    denque "^2.0.1"
+    mongodb-connection-string-url "^2.4.1"
+    socks "^2.6.1"
+  optionalDependencies:
+    saslprep "^1.0.3"
+
 mongoose@6.2.2:
   version "6.2.2"
   resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-6.2.2.tgz#2e3a519ac79ef470c8a02c10f90de96c994cdfda"
