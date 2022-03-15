@@ -389,10 +389,10 @@
     prop-types "^15.7.2"
     react-is "^17.0.2"
 
-"@next-auth/mongodb-adapter@1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@next-auth/mongodb-adapter/-/mongodb-adapter-1.0.1.tgz#604225bea6e7a1071e16be9e969da6f2a8e9fa8a"
-  integrity sha512-lelT++VsktPQ3wdwRVTZuCR5M6upJge0nhiI/I/xYd45ekFaFp1reumZ0JywlxkR59dTRXDQLYEzU/JlMIcR5A==
+"@next-auth/mongodb-adapter@1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@next-auth/mongodb-adapter/-/mongodb-adapter-1.0.2.tgz#ae0c0e5bf4540dc8689ee6388b32f7340dbdbd04"
+  integrity sha512-uL4wbHCvb8w9e+2Ri6sPUFevpjAWYpB7rl8CGgbLAEyXo6EVpwsYXRsff8k+ku+38qq2PR6Qhb/XBfdfz+Y83w==
 
 "@next/env@12.1.0":
   version "12.1.0"
