@@ -16,10 +16,17 @@ Uses the [BoardGameGeek API2](https://boardgamegeek.com/wiki/page/BGG_XML_API2) 
 - [Fast XML Parser](https://github.com/NaturalIntelligence/fast-xml-parser)
 - [BoardGameGeek API2](https://boardgamegeek.com/wiki/page/BGG_XML_API2)
 
-# New in This Version
+# Install
 
-- Log in with "magic link" via email (random image and name assigned when using Email to login)
-- Remove unimplemented Profile page until we're ready to implement
+`pnpm i`
+
+# Config
+
+Add a `.env.local` file with environmental variables as shown in the example `.example.env.local` file.
+
+# Dev
+
+`pnpm dev`
 
 # Future Improvement Ideas
 
@@ -29,18 +36,6 @@ Uses the [BoardGameGeek API2](https://boardgamegeek.com/wiki/page/BGG_XML_API2) 
 - Add Facebook login.
 - More confirmation dialogs, and improve the toasts. 🍞
 - Improve overall design and styles. 💅🏼
-
-# Install
-
-`yarn`
-
-# Config
-
-Add a `.env.local` file with environmental variables as shown in the example `.example.env.local` file.
-
-# Dev
-
-`yarn dev`
 
 # Known Bugs
 
