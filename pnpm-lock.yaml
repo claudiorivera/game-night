@@ -19,7 +19,7 @@ specifiers:
   mongodb: 4.4.1
   mongoose: 6.2.7
   next: 12.1.0
-  next-auth: 4.2.1
+  next-auth: 4.3.1
   next-connect: 0.12.2
   nodemailer: 6.7.2
   react: 17.0.2
@@ -35,7 +35,7 @@ dependencies:
   '@mui/lab': 5.0.0-alpha.73_15e6f0eda330deea7e862617cd046068
   '@mui/material': 5.5.1_eb8585ddc00e6d8e3b40a6701d59ed38
   '@mui/styles': 5.5.1_react@17.0.2
-  '@next-auth/mongodb-adapter': 1.0.3_mongodb@4.4.1+next-auth@4.2.1
+  '@next-auth/mongodb-adapter': 1.0.3_mongodb@4.4.1+next-auth@4.3.1
   axios: 0.26.1
   clsx: 1.1.1
   fast-xml-parser: 4.0.6
@@ -43,7 +43,7 @@ dependencies:
   mongodb: 4.4.1
   mongoose: 6.2.7
   next: 12.1.0_react-dom@17.0.2+react@17.0.2
-  next-auth: 4.2.1_a5abe9a782f257b98b0228cd6e151b08
+  next-auth: 4.3.1_a5abe9a782f257b98b0228cd6e151b08
   next-connect: 0.12.2
   nodemailer: 6.7.2
   react: 17.0.2
@@ -556,14 +556,14 @@ packages:
       react-is: 17.0.2
     dev: false
 
-  /@next-auth/mongodb-adapter/1.0.3_mongodb@4.4.1+next-auth@4.2.1:
+  /@next-auth/mongodb-adapter/1.0.3_mongodb@4.4.1+next-auth@4.3.1:
     resolution: {integrity: sha512-oO8OYjMhYx8s5qsdWWD+yNCqszCO7ewg6UkDhvfY0KhJRbcoOAwOgYYH5Bo4ZGJDqmIw8g6JeGipP7+xLa2Ynw==}
     peerDependencies:
       mongodb: ^4.1.1
       next-auth: ^4.0.1
     dependencies:
       mongodb: 4.4.1
-      next-auth: 4.2.1_a5abe9a782f257b98b0228cd6e151b08
+      next-auth: 4.3.1_a5abe9a782f257b98b0228cd6e151b08
     dev: false
 
   /@next/env/12.1.0:
@@ -2077,8 +2077,8 @@ packages:
     resolution: {integrity: sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=}
     dev: true
 
-  /next-auth/4.2.1_a5abe9a782f257b98b0228cd6e151b08:
-    resolution: {integrity: sha512-XDtt7nqevkNf4EJ2zKAKkI+MFsURf11kx11vPwxrBYA1MHeqWwaWbGOUOI2ekNTvfAg4nTEJJUH3LV2cLrH3Tg==}
+  /next-auth/4.3.1_a5abe9a782f257b98b0228cd6e151b08:
+    resolution: {integrity: sha512-DBYEPBLq5naIqh/1i2zEHljcA1OXXecKW3NRU1W4s6R3UX3RdLZ2lWlqgBHUiZQ1zdNikFM/bYQxVGyG7bx8oA==}
     engines: {node: ^12.19.0 || ^14.15.0 || ^16.13.0}
     peerDependencies:
       nodemailer: ^6.6.5
