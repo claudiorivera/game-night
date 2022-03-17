@@ -1,11 +1,7 @@
-import { Db, MongoClient } from "mongodb";
+import { MongoClient } from "mongodb";
 
 declare global {
-  namespace NodeJS {
-    interface Global {
-      _mongoClientPromise: Promise<MongoClient>;
-    }
-  }
+  var _mongoClientPromise: Promise<MongoClient>;
 }
 
 const uri = process.env.MONGODB_URI;
