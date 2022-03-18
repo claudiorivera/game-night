@@ -14,7 +14,7 @@ specifiers:
   clsx: 1.1.1
   eslint: 8.11.0
   eslint-config-next: 12.1.0
-  fast-xml-parser: 4.0.6
+  fast-xml-parser: 4.0.7
   moment: 2.29.1
   mongodb: 4.4.1
   mongoose: 6.2.7
@@ -38,7 +38,7 @@ dependencies:
   '@next-auth/mongodb-adapter': 1.0.3_mongodb@4.4.1+next-auth@4.3.1
   axios: 0.26.1
   clsx: 1.1.1
-  fast-xml-parser: 4.0.6
+  fast-xml-parser: 4.0.7
   moment: 2.29.1
   mongodb: 4.4.1
   mongoose: 6.2.7
@@ -1479,8 +1479,8 @@ packages:
     resolution: {integrity: sha1-PYpcZog6FqMMqGQ+hR8Zuqd5eRc=}
     dev: true
 
-  /fast-xml-parser/4.0.6:
-    resolution: {integrity: sha512-RHz47iX/DKT6BQwYQUmKG/1fuC5g2s/TibpxNvE+0ysnpSJxePFzsJvRDtfGhLRg3zdKMzO6EJn8n7+AJ6pSHg==}
+  /fast-xml-parser/4.0.7:
+    resolution: {integrity: sha512-dMtibyus3kC7nbxj1CpVtysLzO13UOAZEFAb5vpQg3T4O6qvetmSePpXKFx5KPNCHKoGwjtgjfF5DOyn7s1ylQ==}
     hasBin: true
     dependencies:
       strnum: 1.0.5
