@@ -1,66 +1,68 @@
-import middleware from "middleware";
-import { EventModel, UserModel } from "models";
+import { eventSelect } from "lib/api";
 import { NextApiRequest, NextApiResponse } from "next";
+import { Session } from "next-auth";
 import { getSession } from "next-auth/react";
 import nextConnect from "next-connect";
 
-const handler = nextConnect<NextApiRequest, NextApiResponse>();
+import prisma from "../../../lib/prisma";
 
-handler.use(middleware);
+type ExtendedRequest = {
+  session: Session;
+};
+
+const handler = nextConnect<NextApiRequest, NextApiResponse>({
+  onError: (error, _req, res) => {
+    if (error instanceof Error) {
+      console.error(error.message);
+      return res.status(500).end(error.message);
+    } else {
+      return res.status(500).end("Something went wrong");
+    }
+  },
+  onNoMatch: (req, res) => {
+    return res.status(404).end(`${req.url} not found`);
+  },
+}).use<ExtendedRequest>(async (req, res, next) => {
+  const session = await getSession({ req });
+  if (!session) return res.status(401).end("Unauthorized");
+  req.session = session;
+  next();
+});
 
 // GET api/events
 // Returns all events
 handler.get(async (_, res) => {
-  try {
-    const events = await EventModel.find()
-      .populate("eventHost", "name image")
-      .populate("eventGuests", "name image")
-      .populate("eventGame")
-      .lean();
-    res.json({
-      success: true,
-      message: "Successfully fetched all events",
-      events,
-    });
-  } catch (error: any) {
-    res.status(500).json({
-      success: false,
-      message: error.message || "Error fetching all events",
-    });
-  }
+  const events = await prisma.event.findMany({
+    select: eventSelect,
+  });
+
+  return res.json(events);
 });
 
 // POST api/events
 // Adds a new event and returns the event
-handler.post(async (req, res) => {
-  const session = await getSession({ req });
-
-  if (session) {
-    try {
-      const user = await UserModel.findById(session.user.id);
-      const event = new EventModel({
-        eventHost: {
-          _id: session.user.id,
-          name: user.name,
-          image: user.image,
+handler.post<ExtendedRequest>(async (req, res) => {
+  const { gameId, dateTime } = req.body;
+  const event = await prisma.event.create({
+    data: {
+      dateTime,
+      game: {
+        connect: {
+          id: gameId,
         },
-        eventDateTime: req.body.eventDateTime,
-        eventGame: req.body.gameId,
-      });
-      await event.save();
-      res.status(201).json({
-        success: true,
-        message: "Successfully added event",
-      });
-    } catch (error: any) {
-      res.status(500).json({
-        success: false,
-        message: error.message || "Unable to add event",
-      });
-    }
-  } else {
-    res.status(401).json({ success: false, message: "Unauthorized user" });
-  }
+      },
+      host: {
+        connect: {
+          id: req.session.user.id,
+        },
+      },
+    },
+    select: eventSelect,
+  });
+
+  if (!event) return res.status(500).send("Event not created");
+
+  return res.status(201).json(event);
 });
 
 export default handler;

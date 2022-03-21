@@ -12,11 +12,28 @@ import {
 import axios from "axios";
 import { GameDetails } from "components";
 import { AlertContext } from "context/Alert";
-import { signIn, useSession } from "next-auth/react";
+import { bggFetchGamesByQuery } from "lib/bggFetchGamesByQuery";
+import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
+import { getSession } from "next-auth/react";
 import React, { useContext, useState } from "react";
-import { BGGGameResponse, IGame } from "types";
-import { bggFetchGamesByQuery } from "util/bggFetchGamesByQuery";
+import { BGGGameResponse } from "types";
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const session = await getSession({ req });
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/sign-in",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: { session },
+  };
+};
 
 const AddGamePage = () => {
   const router = useRouter();
@@ -25,29 +42,7 @@ const AddGamePage = () => {
   const [queryResults, setQueryResults] = useState<BGGGameResponse[] | null>(
     null
   );
-  const { data: session } = useSession();
   const [isFetching, setIsFetching] = useState(false);
-
-  if (!session || !clearAlert || !createAlertWithMessage)
-    return (
-      <>
-        <Typography variant="h5" align="center">
-          You must be signed in to view this page.
-        </Typography>
-        <Button
-          type="submit"
-          size="large"
-          fullWidth
-          color="secondary"
-          variant="contained"
-          onClick={() => {
-            signIn();
-          }}
-        >
-          Sign In
-        </Button>
-      </>
-    );
 
   const handleSearch = async (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -55,7 +50,7 @@ const AddGamePage = () => {
     const results = (await bggFetchGamesByQuery(query)) as BGGGameResponse[];
     setQueryResults(results);
     setIsFetching(false);
-    clearAlert();
+    clearAlert!();
   };
 
   const handleQueryChange: React.ChangeEventHandler<HTMLInputElement> = async (
@@ -64,11 +59,11 @@ const AddGamePage = () => {
     setQuery(e.target.value);
   };
 
-  const addGame = async (gameToAdd: Omit<IGame, "_id">) => {
+  const addGame = async (gameToAdd: any) => {
     try {
-      const response = await axios.post<any>("/api/games", gameToAdd);
-      createAlertWithMessage(response.data.message);
-    } catch (error: any) {
+      await axios.post("/api/games", gameToAdd);
+      createAlertWithMessage("Success!");
+    } catch (error) {
       console.error(error);
     }
   };
@@ -100,11 +95,6 @@ const AddGamePage = () => {
           >
             {isFetching ? <CircularProgress /> : "Search"}
           </Button>
-          <Typography variant="caption">
-            Note: This search uses the BoardGameGeek API, which requires a
-            separate call to query IDs and a call for each result. Please be
-            patient with it, as I find ways to improve this experience.
-          </Typography>
         </form>
       </Container>
       <Container>
@@ -152,7 +142,7 @@ const AddGamePage = () => {
                           name: result.name,
                           authors: result.authors,
                           categories: result.categories,
-                          gameMechanics: result.gameMechanics,
+                          mechanics: result.mechanics,
                         });
                         router.push("/games");
                       }}

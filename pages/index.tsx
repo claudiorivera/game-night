@@ -1,43 +1,59 @@
-import { Button, CircularProgress, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { EventsListContainer } from "components";
-import useUser from "hooks/useUser";
-import { signIn, useSession } from "next-auth/react";
+import { eventSelect } from "lib/api";
+import { GetServerSideProps } from "next";
+import { getSession } from "next-auth/react";
+import { PopulatedEvent } from "types";
 
-const HomePage = () => {
-  const { data: session } = useSession();
-  const { user, isLoading, eventsAttending, eventsHosting } = useUser(
-    session ? session.user.id : undefined
-  );
+import prisma from "../lib/prisma";
 
-  if (!session)
-    return (
-      <>
-        <Typography variant="h5" align="center" gutterBottom>
-          Welcome. Please sign in.
-        </Typography>
-        <Button
-          type="submit"
-          size="large"
-          fullWidth
-          color="secondary"
-          variant="contained"
-          onClick={() => {
-            signIn();
-          }}
-        >
-          Sign In
-        </Button>
-      </>
-    );
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const session = await getSession({ req });
 
-  if (isLoading) return <CircularProgress />;
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/sign-in",
+        permanent: false,
+      },
+    };
+  }
+
+  const user = await prisma.user.findFirst({
+    where: { id: session.user.id },
+    select: {
+      id: true,
+      name: true,
+      eventsHosting: {
+        select: eventSelect,
+      },
+      eventsAttending: {
+        select: eventSelect,
+      },
+    },
+  });
+
+  return {
+    props: { user: JSON.parse(JSON.stringify(user)) },
+  };
+};
+
+type HomePageProps = {
+  user: {
+    name: string;
+    eventsHosting: PopulatedEvent[];
+    eventsAttending: PopulatedEvent[];
+  };
+};
+const HomePage = ({ user }: HomePageProps) => {
+  const { name, eventsHosting, eventsAttending } = user;
 
   return (
     <>
       <Typography variant="body1" gutterBottom>
-        Hello, {user.name}.
+        Hello, {name}.
       </Typography>
-      {!!eventsHosting?.length && (
+      {!!eventsHosting.length && (
         <>
           <Typography variant="h4" gutterBottom>
             Events You Are Hosting:
@@ -49,7 +65,7 @@ const HomePage = () => {
           />
         </>
       )}
-      {!!eventsAttending?.length && (
+      {!!eventsAttending.length && (
         <>
           <Typography variant="h4" gutterBottom>
             Events You Are Attending:

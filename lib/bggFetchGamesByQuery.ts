@@ -2,6 +2,7 @@
 // by calling the bggFetchGameById function for each result
 import axios from "axios";
 import { XMLParser } from "fast-xml-parser";
+
 import { bggFetchGameById } from "./bggFetchGameById";
 
 const API_CALL_LIMIT = 20;

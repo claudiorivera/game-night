@@ -12,7 +12,8 @@ const StyledContainer = styled(Container)(({ theme }) => ({
 
 export const AlertDialog = () => {
   const { message, clearAlert } = useContext(AlertContext);
-  if (!message || !clearAlert) return null;
+
+  if (!message) return null;
 
   return (
     <StyledContainer>

@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
-import * as React from "react";
-import clsx from "clsx";
-import { useRouter } from "next/router";
-import NextLink, { LinkProps as NextLinkProps } from "next/link";
 import MuiLink, { LinkProps as MuiLinkProps } from "@mui/material/Link";
+import clsx from "clsx";
+import NextLink, { LinkProps as NextLinkProps } from "next/link";
+import { useRouter } from "next/router";
+import * as React from "react";
 
 interface NextLinkComposedProps
   extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href">,

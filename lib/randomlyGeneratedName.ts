@@ -1,7 +1,7 @@
 import {
-  uniqueNamesGenerator,
   adjectives,
   animals,
+  uniqueNamesGenerator,
 } from "unique-names-generator";
 
 const randomlyGeneratedName = () =>

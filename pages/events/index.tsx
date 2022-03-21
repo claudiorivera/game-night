@@ -1,37 +1,39 @@
-import { Button, CircularProgress, Container, Typography } from "@mui/material";
+import { Button, Container } from "@mui/material";
 import { EventsListContainer } from "components";
-import useEvents from "hooks/useEvents";
-import { signIn, useSession } from "next-auth/react";
+import { eventSelect } from "lib/api";
+import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
+import { getSession } from "next-auth/react";
 import React from "react";
+import { PopulatedEvent } from "types";
 
-const EventsListPage = () => {
+import prisma from "../../lib/prisma";
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const session = await getSession({ req });
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/sign-in",
+        permanent: false,
+      },
+    };
+  }
+
+  const events = await prisma.event.findMany({
+    select: eventSelect,
+  });
+  return {
+    props: { events: JSON.parse(JSON.stringify(events)) },
+  };
+};
+
+type EventsListPageProps = {
+  events: PopulatedEvent[];
+};
+const EventsListPage = ({ events }: EventsListPageProps) => {
   const router = useRouter();
-  const { data: session } = useSession();
-  const { events, isLoading } = useEvents();
-
-  if (!session)
-    return (
-      <>
-        <Typography variant="h5" align="center">
-          You must be signed in to view this page.
-        </Typography>
-        <Button
-          type="submit"
-          size="large"
-          fullWidth
-          color="secondary"
-          variant="contained"
-          onClick={() => {
-            signIn();
-          }}
-        >
-          Sign In
-        </Button>
-      </>
-    );
-
-  if (isLoading) return <CircularProgress />;
 
   return (
     <>

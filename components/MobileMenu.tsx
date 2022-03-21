@@ -1,18 +1,15 @@
-import { IconButton, Menu, MenuItem } from "@mui/material";
 import { Menu as MenuIcon } from "@mui/icons-material";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { CircularProgress, IconButton, Menu, MenuItem } from "@mui/material";
+import { adminLinks, userLinks } from "config";
 import { useRouter } from "next/router";
+import { signOut, useSession } from "next-auth/react";
 import React, { useState } from "react";
-import { Link } from "types";
 
-interface Props {
-  userLinks: Link[];
-  adminLinks: Link[];
-}
-
-export const MobileMenu = ({ userLinks, adminLinks }: Props) => {
-  const { data: session } = useSession();
+export const MobileMenu = () => {
+  const { data: session, status } = useSession();
+  const isLoading = status === "loading";
   const router = useRouter();
+
   // https://material-ui.com/components/app-bar/#app-bar-with-menu
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isMobileMenuOpen = Boolean(anchorEl);
@@ -22,6 +19,10 @@ export const MobileMenu = ({ userLinks, adminLinks }: Props) => {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
+
+  if (isLoading) {
+    return <CircularProgress />;
+  }
 
   return (
     <>
@@ -55,32 +56,38 @@ export const MobileMenu = ({ userLinks, adminLinks }: Props) => {
         {!session && (
           <MenuItem
             onClick={() => {
-              signIn();
+              router.push("/sign-in");
             }}
           >
             Sign In
           </MenuItem>
         )}
-        {!!userLinks.length &&
-          userLinks.map(({ url, title }) => (
-            <MenuItem
-              key={title}
-              onClick={() => {
-                handleMenuClose();
-                router.push(url);
-              }}
-            >
-              {title}
-            </MenuItem>
-          ))}
-        <MenuItem
-          onClick={() => {
-            handleMenuClose();
-            signOut();
-          }}
-        >
-          Sign Out
-        </MenuItem>
+        {!!session &&
+          !!userLinks.length &&
+          userLinks
+            .map(({ url, title }) => (
+              <MenuItem
+                key={title}
+                onClick={() => {
+                  handleMenuClose();
+                  router.push(url);
+                }}
+              >
+                {title}
+              </MenuItem>
+            ))
+            .concat(
+              <MenuItem
+                key="sign-out"
+                onClick={() => {
+                  handleMenuClose();
+                  signOut();
+                }}
+              >
+                Sign Out
+              </MenuItem>
+            )}
+
         {/* TODO: Create and protect admin routes */}
         {!!adminLinks.length &&
           adminLinks.map(({ title, url }) => (

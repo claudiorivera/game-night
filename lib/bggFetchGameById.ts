@@ -51,7 +51,7 @@ export const bggFetchGameById = async (
         (element: BGGQueryResponse) => element.type === "boardgamecategory"
       )
       .map((category: BGGQueryResponse) => category.value),
-    gameMechanics: game.link
+    mechanics: game.link
       .filter(
         (element: BGGQueryResponse) => element.type === "boardgamemechanic"
       )

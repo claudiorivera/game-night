@@ -1,47 +1,60 @@
-import middleware from "middleware";
-import { EventModel } from "models";
+import { eventSelect } from "lib/api";
 import { NextApiRequest, NextApiResponse } from "next";
+import { Session } from "next-auth";
 import { getSession } from "next-auth/react";
 import nextConnect from "next-connect";
 
-const handler = nextConnect<NextApiRequest, NextApiResponse>();
-handler.use(middleware);
+import prisma from "../../../../lib/prisma";
+
+type ExtendedRequest = {
+  session: Session;
+};
+
+const handler = nextConnect<NextApiRequest, NextApiResponse>({
+  onError: (error, _req, res) => {
+    if (error instanceof Error) {
+      console.error(error.message);
+      return res.status(500).end(error.message);
+    } else {
+      return res.status(500).end("Something went wrong");
+    }
+  },
+  onNoMatch: (req, res) => {
+    return res.status(404).end(`${req.url} not found`);
+  },
+}).use<ExtendedRequest>(async (req, res, next) => {
+  const session = await getSession({ req });
+  if (!session) return res.status(401).end("Unauthorized");
+  req.session = session;
+  next();
+});
 
 // GET api/users/userId/events
 // Returns the given user's events
-handler.get(async (req, res) => {
+handler.get<ExtendedRequest>(async (req, res) => {
   if ("hosting" in req.query) {
-    try {
-      const session = await getSession({ req });
-      if (!session) throw new Error("User not logged in");
-      const events = await EventModel.where("eventHost")
-        .equals(req.query.userId)
-        .populate("eventHost", "name image")
-        .populate("eventGuests", "name image")
-        .populate("eventGame")
-        .lean();
-      res.json(events);
-    } catch (error: any) {
-      res.status(500).json({
-        message: error.message || "Unable to get user",
-      });
-    }
+    const events = prisma.event.findMany({
+      where: {
+        host: {
+          id: req.session.user.id,
+        },
+      },
+      select: eventSelect,
+    });
+
+    return res.json(events);
   } else {
-    try {
-      const session = await getSession({ req });
-      if (!session) throw new Error("User not logged in");
-      const events = await EventModel.where("eventGuests")
-        .equals(req.query.userId)
-        .populate("eventHost", "name image")
-        .populate("eventGuests", "name image")
-        .populate("eventGame")
-        .lean();
-      res.json(events);
-    } catch (error: any) {
-      res.status(500).json({
-        message: error.message || "Unable to get user",
-      });
-    }
+    const events = prisma.event.findMany({
+      where: {
+        guests: {
+          some: {
+            id: req.session.user.id,
+          },
+        },
+      },
+      select: eventSelect,
+    });
+    return res.json(events);
   }
 });
 

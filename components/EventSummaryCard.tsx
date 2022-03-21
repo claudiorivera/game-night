@@ -8,22 +8,24 @@ import {
 import { Link } from "components";
 import moment from "moment";
 import React from "react";
-import { IEvent, IGame, IUser } from "types";
+import { PopulatedEvent } from "types";
 
-interface Props {
-  event: IEvent;
+type EventSummaryCardProps = {
+  event: PopulatedEvent;
   isHosting?: boolean;
-}
+};
 
-export const EventSummaryCard = ({ event, isHosting }: Props) => {
-  const game = event.eventGame as IGame;
-  const host = event.eventHost as IUser;
+export const EventSummaryCard = ({
+  event,
+  isHosting,
+}: EventSummaryCardProps) => {
+  const { game, host } = event;
 
   return (
-    <Link href={`/events/${event._id}`} sx={{ textDecoration: "none" }}>
+    <Link href={`/events/${event.id}`} sx={{ textDecoration: "none" }}>
       <Card>
         <CardHeader
-          title={moment(event.eventDateTime).format("MMMM Do, YYYY [at] h:mma")}
+          title={moment(event.dateTime).format("MMMM Do, YYYY [at] h:mma")}
           subheader={game.name}
         />
         <CardMedia
@@ -40,9 +42,7 @@ export const EventSummaryCard = ({ event, isHosting }: Props) => {
               Hosted by: {host.name}
             </Typography>
           )}
-          <Typography variant="body2">
-            Guests: {event.eventGuests.length}
-          </Typography>
+          <Typography variant="body2">Guests: {event.guests.length}</Typography>
         </CardContent>
       </Card>
     </Link>

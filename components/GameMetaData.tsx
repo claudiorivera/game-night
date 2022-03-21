@@ -1,9 +1,10 @@
 import { Box, Chip, Typography } from "@mui/material";
+import { Game } from "@prisma/client";
 import React from "react";
-import { IGame } from "types";
+import { BGGGameResponse } from "types";
 
 interface Props {
-  game: IGame;
+  game: Game | BGGGameResponse;
 }
 
 export const GameMetaData = ({ game }: Props) => {

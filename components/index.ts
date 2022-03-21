@@ -1,12 +1,12 @@
 export { AlertDialog } from "components/AlertDialog";
+export { DesktopMenu } from "components/DesktopMenu";
 export { EventsListContainer } from "components/EventsListContainer";
 export { EventSummaryCard } from "components/EventSummaryCard";
 export { GameDetails } from "components/GameDetails";
-export { GameDetailsFull } from "components/GameDetailsFull";
 export { GameMetaData } from "components/GameMetaData";
 export { Link } from "components/Link";
-export { SignInForm } from "components/SignInForm";
 export { MainAppBar } from "components/MainAppBar";
 export { MobileMenu } from "components/MobileMenu";
+export { SignInForm } from "components/SignInForm";
 export { StyledButton } from "components/StyledButton";
 export { StyledDivider } from "components/StyledDivider";

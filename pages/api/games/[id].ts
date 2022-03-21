@@ -1,28 +1,43 @@
-import middleware from "middleware";
-import { GameModel } from "models";
 import { NextApiRequest, NextApiResponse } from "next";
+import { Session } from "next-auth";
+import { getSession } from "next-auth/react";
 import nextConnect from "next-connect";
 
-const handler = nextConnect<NextApiRequest, NextApiResponse>();
+import prisma from "../../../lib/prisma";
 
-handler.use(middleware);
+type ExtendedRequest = {
+  session: Session;
+};
 
-// GET api/games/id
-// Returns game with given id
+const handler = nextConnect<NextApiRequest, NextApiResponse>({
+  onError: (error, _req, res) => {
+    if (error instanceof Error) {
+      console.error(error.message);
+      return res.status(500).end(error.message);
+    } else {
+      return res.status(500).end("Something went wrong");
+    }
+  },
+  onNoMatch: (req, res) => {
+    return res.status(404).end(`${req.url} not found`);
+  },
+}).use<ExtendedRequest>(async (req, res, next) => {
+  const session = await getSession({ req });
+  if (!session) return res.status(401).end("Unauthorized");
+  req.session = session;
+  next();
+});
+
+// GET api/games/:gameId
+// Returns game with given bggId
 handler.get(async (req, res) => {
-  try {
-    const game = await GameModel.findById(req.query.id).lean();
-    res.json({
-      success: true,
-      message: "Successfully fetched the game",
-      game,
-    });
-  } catch (error: any) {
-    res.status(500).json({
-      success: false,
-      message: error.message || "Game not found",
-    });
-  }
+  const game = await prisma.game.findUnique({
+    where: { id: +req.query.id },
+  });
+
+  if (!game) return res.status(404).send("Game not found");
+
+  return res.json(game);
 });
 
 export default handler;
