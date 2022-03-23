@@ -21,7 +21,7 @@
     "fast-xml-parser": "4.0.7",
     "moment": "2.29.1",
     "mongodb": "4.4.1",
-    "mongoose": "6.2.7",
+    "mongoose": "6.2.8",
     "next": "12.1.0",
     "next-auth": "4.3.1",
     "next-connect": "0.12.2",

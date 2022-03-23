@@ -17,7 +17,7 @@ specifiers:
   fast-xml-parser: 4.0.7
   moment: 2.29.1
   mongodb: 4.4.1
-  mongoose: 6.2.7
+  mongoose: 6.2.8
   next: 12.1.0
   next-auth: 4.3.1
   next-connect: 0.12.2
@@ -41,7 +41,7 @@ dependencies:
   fast-xml-parser: 4.0.7
   moment: 2.29.1
   mongodb: 4.4.1
-  mongoose: 6.2.7
+  mongoose: 6.2.8
   next: 12.1.0_react-dom@17.0.2+react@17.0.2
   next-auth: 4.3.1_4afad201897773dfa3805b662ddbabf0
   next-connect: 0.12.2
@@ -2028,8 +2028,8 @@ packages:
       saslprep: 1.0.3
     dev: false
 
-  /mongoose/6.2.7:
-    resolution: {integrity: sha512-yqTZcM3u0+aLzl6cirtXy6vr24kt+kFyTucCQ3pyncvO1jGn/M1R09qkC/v54QoPXeVJdpcuS5eQWn0NLlDvKA==}
+  /mongoose/6.2.8:
+    resolution: {integrity: sha512-Wq6HG0sOJEQHp5YqMlxrnf93vBFwdY2zlAwqI97EPPSt69kiVV21pTv4cDanrCNWi4upG8ajQ/p9jpDjcECjkQ==}
     engines: {node: '>=12.0.0'}
     dependencies:
       bson: 4.6.1
