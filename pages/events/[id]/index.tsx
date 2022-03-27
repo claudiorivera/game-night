@@ -201,7 +201,7 @@ const EventDetailsPage = ({ session, event, game }: EventDetailsPageProps) => {
             </Button>
           )}
           {/* Show the Delete button to hosts and admins */}
-          {event.host.id === session.user.id && (
+          {(event.host.id === session.user.id || !!session.user.isAdmin) && (
             <Button
               onClick={async () => {
                 setIsDialogOpen(true);
