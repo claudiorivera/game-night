@@ -15,7 +15,7 @@ export default NextAuth({
     }),
     EmailProvider({
       server: process.env.EMAIL_SERVER,
-      from: process.env.NEXT_PUBLIC_EMAIL_FROM,
+      from: process.env.EMAIL_FROM,
       sendVerificationRequest,
     }),
   ],
