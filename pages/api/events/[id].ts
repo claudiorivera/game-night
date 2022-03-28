@@ -9,7 +9,6 @@ import prisma from "../../../lib/prisma";
 type ExtendedRequest = {
   session: Session;
 };
-
 const handler = nextConnect<NextApiRequest, NextApiResponse>({
   onError: (error, _req, res) => {
     if (error instanceof Error) {
@@ -22,7 +21,9 @@ const handler = nextConnect<NextApiRequest, NextApiResponse>({
   onNoMatch: (req, res) => {
     return res.status(404).end(`${req.url} not found`);
   },
-}).use<ExtendedRequest>(async (req, res, next) => {
+}).use<{
+  session: Session;
+}>(async (req, res, next) => {
   const session = await getSession({ req });
   if (!session) return res.status(401).end("Unauthorized");
   req.session = session;
@@ -59,7 +60,6 @@ handler.delete(async (req, res) => {
   return res.status(204).end();
 });
 
-// Event update
 handler.put<ExtendedRequest>(async (req, res) => {
   switch (req.query.action) {
     // PUT api/events/id?action=join

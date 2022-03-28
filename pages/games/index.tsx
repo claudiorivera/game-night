@@ -54,22 +54,21 @@ const GamesListPage = ({ games }: GamesListPageProps) => {
       >
         Add Game
       </Button>
-      {games &&
-        games.map((game) => (
-          <Accordion key={game.bggId} square>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls={`panel-${game.bggId}-content`}
-            >
-              <Typography variant="h6">
-                {game.name} ({game.yearPublished})
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <GameDetails game={game} />
-            </AccordionDetails>
-          </Accordion>
-        ))}
+      {games.map((game) => (
+        <Accordion key={game.bggId} square>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls={`panel-${game.bggId}-content`}
+          >
+            <Typography variant="h6">
+              {game.name} ({game.yearPublished})
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <GameDetails game={game} />
+          </AccordionDetails>
+        </Accordion>
+      ))}
     </Container>
   );
 };

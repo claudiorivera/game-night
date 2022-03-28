@@ -13,7 +13,6 @@ type EventSummaryCardProps = {
   event: PopulatedEvent;
   isHosting?: boolean;
 };
-
 export const EventSummaryCard = ({
   event,
   isHosting,

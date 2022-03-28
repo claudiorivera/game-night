@@ -9,7 +9,6 @@ import prisma from "../../../../lib/prisma";
 type ExtendedRequest = {
   session: Session;
 };
-
 const handler = nextConnect<NextApiRequest, NextApiResponse>({
   onError: (error, _req, res) => {
     if (error instanceof Error) {
@@ -38,6 +37,7 @@ handler.get(async (req, res) => {
   });
 
   if (!user) return res.status(404).end("User not found");
+
   return res.json(user);
 });
 

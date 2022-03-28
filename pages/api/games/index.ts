@@ -8,7 +8,6 @@ import prisma from "../../../lib/prisma";
 type ExtendedRequest = {
   session: Session;
 };
-
 const handler = nextConnect<NextApiRequest, NextApiResponse>({
   onError: (error, _req, res) => {
     if (error instanceof Error) {

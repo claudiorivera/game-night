@@ -2,17 +2,16 @@ import { appTitle, primaryColor } from "config";
 import { EmailConfig } from "next-auth/providers";
 import { createTransport } from "nodemailer";
 
-type Props = {
+type SendVerificationRequestProps = {
   identifier: string;
   url: string;
   provider: EmailConfig;
 };
-
 const sendVerificationRequest = async ({
   identifier: email,
   url,
   provider: { server, from },
-}: Props) => {
+}: SendVerificationRequestProps) => {
   const { host } = new URL(url);
   const transport = createTransport(server);
   await transport.sendMail({
@@ -24,12 +23,10 @@ const sendVerificationRequest = async ({
   });
 };
 
-interface HtmlProps {
+type HtmlProps = {
   url: string;
   email: string;
-}
-
-// Email HTML body
+};
 const html = ({ url, email }: HtmlProps) => {
   // Insert invisible space into domains and email address to prevent both the
   // email address and the domain from being turned into a hyperlink by email
@@ -80,11 +77,9 @@ const html = ({ url, email }: HtmlProps) => {
 `;
 };
 
-interface TextProps {
+type TextProps = {
   url: string;
-}
-
-// Email text body – fallback for email clients that don't render HTML
+};
 const text = ({ url }: TextProps) => `Sign in to ${appTitle}\n${url}\n\n`;
 
 export default sendVerificationRequest;

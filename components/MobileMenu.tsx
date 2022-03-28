@@ -10,7 +10,6 @@ export const MobileMenu = () => {
   const isLoading = status === "loading";
   const router = useRouter();
 
-  // https://material-ui.com/components/app-bar/#app-bar-with-menu
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isMobileMenuOpen = Boolean(anchorEl);
   const handleMenuOpen = (event: React.MouseEvent<HTMLButtonElement>) => {

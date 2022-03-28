@@ -3,9 +3,7 @@ import axios from "axios";
 import { XMLParser } from "fast-xml-parser";
 import { BGGGameResponse, BGGQueryResponse } from "types";
 
-export const bggFetchGameById = async (
-  id: number
-): Promise<BGGGameResponse | null> => {
+export const bggFetchGameById = async (id: number) => {
   const { data } = await axios.get<string>(
     // https://boardgamegeek.com/wiki/page/BGG_XML_API2
     `https://api.geekdo.com/xmlapi2/thing?id=${id}&stats=1`
@@ -22,17 +20,17 @@ export const bggFetchGameById = async (
 
   // Clean up the api data and set our new game object
   const gameObject: BGGGameResponse = {
-    bggId: Number(game.id),
+    bggId: +game.id,
     imageSrc: game.image,
     thumbnailSrc: game.thumbnail,
     description: game.description,
-    yearPublished: Number(game.yearpublished.value),
-    minPlayers: Number(game.minplayers.value),
-    maxPlayers: Number(game.maxplayers.value),
-    playingTime: Number(game.playingtime.value),
-    minAge: Number(game.minage.value),
-    rating: Number(game.statistics.ratings.average.value),
-    numOfRatings: Number(game.statistics.ratings.usersrated.value),
+    yearPublished: +game.yearpublished.value,
+    minPlayers: +game.minplayers.value,
+    maxPlayers: +game.maxplayers.value,
+    playingTime: +game.playingtime.value,
+    minAge: +game.minage.value,
+    rating: +game.statistics.ratings.average.value,
+    numOfRatings: +game.statistics.ratings.usersrated.value,
     // Ignore all alternate names, if there are multiple (ie. isArray)
     name: Array.isArray(game.name)
       ? game.name.filter(

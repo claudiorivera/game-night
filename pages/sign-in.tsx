@@ -29,7 +29,6 @@ type SignInPageProps = {
     ClientSafeProvider
   > | null;
 };
-
 export const SignInPage = ({ providers }: SignInPageProps) => {
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -37,7 +36,7 @@ export const SignInPage = ({ providers }: SignInPageProps) => {
   return (
     <>
       <Typography variant="h5">
-        Please login with one of the following:
+        Please sign in with one of the following:
       </Typography>
       {providers &&
         Object.values(providers)

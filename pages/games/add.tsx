@@ -18,6 +18,7 @@ import { useRouter } from "next/router";
 import { getSession } from "next-auth/react";
 import { useContext, useState } from "react";
 import { BGGGameResponse } from "types";
+import { Prisma } from "@prisma/client";
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req });
@@ -59,7 +60,7 @@ const AddGamePage = () => {
     setQuery(e.target.value);
   };
 
-  const addGame = async (gameToAdd: any) => {
+  const addGame = async (gameToAdd: Prisma.GameCreateInput) => {
     try {
       await axios.post("/api/games", gameToAdd);
       createAlertWithMessage("Success!");

@@ -5,10 +5,10 @@ import {
 } from "unique-names-generator";
 
 const randomlyGeneratedName = () =>
-  `${uniqueNamesGenerator({
+  uniqueNamesGenerator({
     dictionaries: [adjectives, animals],
     style: "capital",
     separator: " ",
-  })}`;
+  }).toString();
 
 export default randomlyGeneratedName;

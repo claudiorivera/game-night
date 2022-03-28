@@ -8,11 +8,10 @@ import {
 import { getProviders, signIn } from "next-auth/react";
 import { useState } from "react";
 
-interface Props {
+type SignInFormProps = {
   providers: typeof getProviders;
-}
-
-export const SignInForm = ({ providers }: Props) => {
+};
+export const SignInForm = ({ providers }: SignInFormProps) => {
   const [email, setEmail] = useState("");
   const [isFetching, setIsFetching] = useState(false);
 
