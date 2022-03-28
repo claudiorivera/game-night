@@ -12,7 +12,6 @@ import { GameDetails } from "components";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { getSession } from "next-auth/react";
-import React from "react";
 
 import prisma from "../../lib/prisma";
 

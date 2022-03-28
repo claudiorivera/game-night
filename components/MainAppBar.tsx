@@ -1,7 +1,6 @@
 import { AppBar, Toolbar, Typography, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { DesktopMenu, Link, MobileMenu } from "components";
-import React from "react";
 
 export const MainAppBar = () => {
   const theme = useTheme();

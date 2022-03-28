@@ -1,6 +1,5 @@
 import { Box, Chip, Typography } from "@mui/material";
 import { Game } from "@prisma/client";
-import React from "react";
 import { BGGGameResponse } from "types";
 
 interface Props {

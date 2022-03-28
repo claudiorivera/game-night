@@ -2,7 +2,6 @@ import { Button, CircularProgress } from "@mui/material";
 import { adminLinks, userLinks } from "config";
 import { useRouter } from "next/router";
 import { signOut, useSession } from "next-auth/react";
-import React from "react";
 
 export const DesktopMenu = () => {
   const { data: session, status } = useSession();

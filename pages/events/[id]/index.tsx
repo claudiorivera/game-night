@@ -27,7 +27,7 @@ import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { Session } from "next-auth";
 import { getSession } from "next-auth/react";
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { PopulatedEvent } from "types";
 
 import prisma from "../../../lib/prisma";

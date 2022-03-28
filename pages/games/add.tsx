@@ -16,7 +16,7 @@ import { bggFetchGamesByQuery } from "lib/bggFetchGamesByQuery";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { getSession } from "next-auth/react";
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { BGGGameResponse } from "types";
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {

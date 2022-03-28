@@ -2,7 +2,6 @@ import { Grid, Typography } from "@mui/material";
 import { Game } from "@prisma/client";
 import { GameMetaData } from "components";
 import Image from "next/image";
-import React from "react";
 import { BGGGameResponse } from "types";
 
 interface Props {

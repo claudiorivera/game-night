@@ -7,7 +7,6 @@ import {
 } from "@mui/material";
 import { Link } from "components";
 import moment from "moment";
-import React from "react";
 import { PopulatedEvent } from "types";
 
 type EventSummaryCardProps = {

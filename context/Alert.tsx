@@ -1,7 +1,7 @@
-import React, { createContext, useState } from "react";
+import { createContext, ReactNode, useState } from "react";
 
 interface Props {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 interface AlertContext {

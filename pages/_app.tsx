@@ -11,7 +11,7 @@ import { AlertProvider } from "context/Alert";
 import { AppProps } from "next/app";
 import Head from "next/head";
 import { SessionProvider } from "next-auth/react";
-import React from "react";
+import { useEffect } from "react";
 import theme from "styles/theme";
 
 declare module "@mui/styles/defaultTheme" {
@@ -21,7 +21,7 @@ declare module "@mui/styles/defaultTheme" {
 const App = (props: AppProps) => {
   const { Component, pageProps } = props;
 
-  React.useEffect(() => {
+  useEffect(() => {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector("#jss-server-side");
     if (jssStyles) {

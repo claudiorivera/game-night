@@ -3,7 +3,7 @@ import { CircularProgress, IconButton, Menu, MenuItem } from "@mui/material";
 import { adminLinks, userLinks } from "config";
 import { useRouter } from "next/router";
 import { signOut, useSession } from "next-auth/react";
-import React, { useState } from "react";
+import { useState } from "react";
 
 export const MobileMenu = () => {
   const { data: session, status } = useSession();
