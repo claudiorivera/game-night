@@ -8,10 +8,11 @@ Uses the [BoardGameGeek API2](https://boardgamegeek.com/wiki/page/BGG_XML_API2) 
 
 - React
 - [Next.js](https://nextjs.org)
-- Material-UI
-- MongoDB
+- [Material-UI](https://mui.com)
+- Postgres
+- [Prisma](https://www.prisma.io/)
 - [SWR](https://swr.vercel.app)
-- [NextAuth.js](https://next-auth.js.org) for GitHub OAuth
+- [NextAuth.js](https://next-auth.js.org)
 - [Moment](https://momentjs.com)
 - [Fast XML Parser](https://github.com/NaturalIntelligence/fast-xml-parser)
 - [BoardGameGeek API2](https://boardgamegeek.com/wiki/page/BGG_XML_API2)

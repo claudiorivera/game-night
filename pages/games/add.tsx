@@ -9,6 +9,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { Prisma } from "@prisma/client";
 import axios from "axios";
 import { GameDetails } from "components";
 import { AlertContext } from "context/Alert";
@@ -18,7 +19,6 @@ import { useRouter } from "next/router";
 import { getSession } from "next-auth/react";
 import { useContext, useState } from "react";
 import { BGGGameResponse } from "types";
-import { Prisma } from "@prisma/client";
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req });
