@@ -1,10 +1,5 @@
-import {
-  Button,
-  CircularProgress,
-  Divider,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { LoadingButton } from "@mui/lab";
+import { Button, Divider, TextField, Typography } from "@mui/material";
 import { GetServerSideProps } from "next";
 import { BuiltInProviderType } from "next-auth/providers";
 import {
@@ -86,7 +81,7 @@ export const SignInPage = ({ providers }: SignInPageProps) => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <Button
+        <LoadingButton
           sx={{
             margin: ".5rem 0",
           }}
@@ -96,9 +91,10 @@ export const SignInPage = ({ providers }: SignInPageProps) => {
           color="secondary"
           variant="contained"
           disabled={isLoading}
+          loading={isLoading}
         >
-          {isLoading ? <CircularProgress /> : "Send sign-in link"}
-        </Button>
+          Send sign-in link
+        </LoadingButton>
       </form>
     </>
   );
