@@ -1,10 +1,5 @@
-import {
-  Button,
-  CircularProgress,
-  Divider,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { LoadingButton } from "@mui/lab";
+import { Divider, TextField, Typography } from "@mui/material";
 import { getProviders, signIn } from "next-auth/react";
 import { useState } from "react";
 
@@ -24,7 +19,7 @@ export const SignInForm = ({ providers }: SignInFormProps) => {
         Object.values(providers)
           .filter((provider) => provider.id !== "email")
           .map((provider) => (
-            <Button
+            <LoadingButton
               sx={{
                 margin: ".5rem 0",
               }}
@@ -34,12 +29,15 @@ export const SignInForm = ({ providers }: SignInFormProps) => {
               fullWidth
               color="secondary"
               variant="contained"
+              disabled={isFetching}
+              loading={isFetching}
               onClick={() => {
+                setIsFetching(true);
                 signIn(provider.id);
               }}
             >
               {provider.name}
-            </Button>
+            </LoadingButton>
           ))}
       <Divider
         sx={{
@@ -68,7 +66,7 @@ export const SignInForm = ({ providers }: SignInFormProps) => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <Button
+        <LoadingButton
           sx={{
             margin: ".5rem 0",
           }}
@@ -78,9 +76,10 @@ export const SignInForm = ({ providers }: SignInFormProps) => {
           color="secondary"
           variant="contained"
           disabled={isFetching}
+          loading={isFetching}
         >
-          {isFetching ? <CircularProgress /> : "Send Me A Sign In Link"}
-        </Button>
+          Send Me A Sign In Link
+        </LoadingButton>
       </form>
     </>
   );

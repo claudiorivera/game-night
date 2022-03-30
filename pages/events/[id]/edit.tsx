@@ -1,4 +1,5 @@
 import { ArrowBack as ArrowBackIcon } from "@mui/icons-material";
+import { LoadingButton } from "@mui/lab";
 import DatePicker from "@mui/lab/DatePicker";
 import {
   Button,
@@ -63,15 +64,14 @@ type EditEventPageProps = {
 };
 const EditEventPage = ({ event, games }: EditEventPageProps) => {
   const router = useRouter();
-  const [eventDateTime, setEventDateTime] = useState<Date | unknown>(
-    new Date()
-  );
+  const [dateTime, setDateTime] = useState<Date | unknown>(new Date());
   const [gameId, setGameId] = useState(event.game.id);
+  const [disabled, setDisabled] = useState(false);
 
   const updateEvent = async () => {
     await axios.put(`/api/events/${event.id}?action=edit`, {
       gameId,
-      eventDateTime,
+      dateTime,
     });
     router.back();
   };
@@ -89,6 +89,7 @@ const EditEventPage = ({ event, games }: EditEventPageProps) => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
+            setDisabled(true);
             updateEvent();
             router.back();
           }}
@@ -99,8 +100,8 @@ const EditEventPage = ({ event, games }: EditEventPageProps) => {
                 <DatePicker
                   renderInput={(props) => <TextField {...props} />}
                   disablePast
-                  value={eventDateTime}
-                  onChange={setEventDateTime}
+                  value={dateTime}
+                  onChange={setDateTime}
                 />
               </FormControl>
             </Grid>
@@ -124,15 +125,17 @@ const EditEventPage = ({ event, games }: EditEventPageProps) => {
               </Grid>
             )}
             <Grid item xs={12}>
-              <Button
+              <LoadingButton
                 size="large"
                 fullWidth
                 variant="contained"
                 color="primary"
                 type="submit"
+                disabled={disabled}
+                loading={disabled}
               >
                 Save
-              </Button>
+              </LoadingButton>
             </Grid>
           </Grid>
         </form>

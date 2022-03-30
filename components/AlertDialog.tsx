@@ -20,7 +20,7 @@ export const AlertDialog = () => {
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open
-        autoHideDuration={3000}
+        autoHideDuration={4000}
         onClose={() => {
           clearAlert();
         }}

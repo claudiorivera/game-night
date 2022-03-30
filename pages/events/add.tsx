@@ -1,6 +1,6 @@
+import { LoadingButton } from "@mui/lab";
 import DateTimePicker from "@mui/lab/DateTimePicker";
 import {
-  Button,
   FormControl,
   Grid,
   InputLabel,
@@ -46,6 +46,7 @@ const AddEventPage = ({ games }: AddEventPageProps) => {
   const { createAlertWithMessage } = useContext(AlertContext);
   const [dateTime, setDateTime] = useState<Date | null>(new Date());
   const [gameId, setGameId] = useState("");
+  const [disabled, setDisabled] = useState(false);
 
   const addEvent = async (gameId: string, dateTime: Date | null) => {
     try {
@@ -53,8 +54,8 @@ const AddEventPage = ({ games }: AddEventPageProps) => {
         gameId,
         dateTime,
       });
-      createAlertWithMessage("Success!");
     } catch (error) {
+      createAlertWithMessage(JSON.stringify(error, null, 2));
       console.error(error);
     }
   };
@@ -65,6 +66,7 @@ const AddEventPage = ({ games }: AddEventPageProps) => {
       <form
         onSubmit={async (e) => {
           e.preventDefault();
+          setDisabled(true);
           await addEvent(gameId, dateTime);
           router.push("/events");
         }}
@@ -103,15 +105,17 @@ const AddEventPage = ({ games }: AddEventPageProps) => {
             </Grid>
           )}
           <Grid item xs={12}>
-            <Button
+            <LoadingButton
               size="large"
               fullWidth
               variant="contained"
               color="primary"
               type="submit"
+              disabled={disabled}
+              loading={disabled}
             >
               Add Event
-            </Button>
+            </LoadingButton>
           </Grid>
         </Grid>
       </form>

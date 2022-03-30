@@ -1,9 +1,10 @@
-import { Button, Container } from "@mui/material";
-import { EventsListContainer } from "components";
+import { LoadingButton } from "@mui/lab";
+import { Container } from "@mui/material";
+import { EventsListContainer, NextLinkComposed } from "components";
 import { eventSelect } from "lib/api";
 import { GetServerSideProps } from "next";
-import { useRouter } from "next/router";
 import { getSession } from "next-auth/react";
+import { useState } from "react";
 import { PopulatedEvent } from "types";
 
 import prisma from "../../lib/prisma";
@@ -32,22 +33,28 @@ type EventsListPageProps = {
   events: PopulatedEvent[];
 };
 const EventsListPage = ({ events }: EventsListPageProps) => {
-  const router = useRouter();
+  const [disabled, setDisabled] = useState(false);
 
   return (
     <>
       <Container sx={{ marginBottom: "1rem" }}>
-        <Button
+        <LoadingButton
           fullWidth
           color="secondary"
           variant="contained"
           size="large"
+          disabled={disabled}
+          loading={disabled}
+          component={NextLinkComposed}
+          to={{
+            pathname: "/events/add",
+          }}
           onClick={() => {
-            router.push("/events/add");
+            setDisabled(true);
           }}
         >
           Add Event
-        </Button>
+        </LoadingButton>
       </Container>
       <Container>
         <EventsListContainer events={events} />

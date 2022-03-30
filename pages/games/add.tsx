@@ -1,10 +1,9 @@
 import { ExpandMore as ExpandMoreIcon } from "@mui/icons-material";
+import { LoadingButton } from "@mui/lab";
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Button,
-  CircularProgress,
   Container,
   TextField,
   Typography,
@@ -12,12 +11,11 @@ import {
 import { Prisma } from "@prisma/client";
 import axios from "axios";
 import { GameDetails } from "components";
-import { AlertContext } from "context/Alert";
 import { bggFetchGamesByQuery } from "lib/bggFetchGamesByQuery";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { getSession } from "next-auth/react";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { BGGGameResponse } from "types";
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
@@ -38,12 +36,12 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
 const AddGamePage = () => {
   const router = useRouter();
-  const { clearAlert, createAlertWithMessage } = useContext(AlertContext);
   const [query, setQuery] = useState("");
   const [queryResults, setQueryResults] = useState<BGGGameResponse[] | null>(
     null
   );
   const [isFetching, setIsFetching] = useState(false);
+  const [disabled, setDisabled] = useState(false);
 
   const handleSearch = async (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -51,7 +49,6 @@ const AddGamePage = () => {
     const results = (await bggFetchGamesByQuery(query)) as BGGGameResponse[];
     setQueryResults(results);
     setIsFetching(false);
-    clearAlert!();
   };
 
   const handleQueryChange: React.ChangeEventHandler<HTMLInputElement> = async (
@@ -63,7 +60,6 @@ const AddGamePage = () => {
   const addGame = async (gameToAdd: Prisma.GameCreateInput) => {
     try {
       await axios.post("/api/games", gameToAdd);
-      createAlertWithMessage("Success!");
     } catch (error) {
       console.error(error);
     }
@@ -87,15 +83,16 @@ const AddGamePage = () => {
             value={query}
             onChange={handleQueryChange}
           />
-          <Button
+          <LoadingButton
             variant="contained"
             color="secondary"
             fullWidth
             type="submit"
             disabled={isFetching}
+            loading={isFetching}
           >
-            {isFetching ? <CircularProgress /> : "Search"}
-          </Button>
+            Search
+          </LoadingButton>
         </form>
       </Container>
       <Container>
@@ -119,7 +116,7 @@ const AddGamePage = () => {
                       flexDirection: "column",
                     }}
                   >
-                    <Button
+                    <LoadingButton
                       sx={{
                         margin: ".5rem 0",
                       }}
@@ -127,7 +124,10 @@ const AddGamePage = () => {
                       size="large"
                       color="secondary"
                       variant="contained"
+                      disabled={disabled}
+                      loading={disabled}
                       onClick={async () => {
+                        setDisabled(true);
                         await addGame({
                           bggId: result.bggId,
                           imageSrc: result.imageSrc,
@@ -149,7 +149,7 @@ const AddGamePage = () => {
                       }}
                     >
                       Add This Game
-                    </Button>
+                    </LoadingButton>
                     <GameDetails game={result} />
                   </AccordionDetails>
                 </Accordion>

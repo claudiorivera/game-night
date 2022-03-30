@@ -1,4 +1,5 @@
 import { ArrowBack as ArrowBackIcon } from "@mui/icons-material";
+import { LoadingButton } from "@mui/lab";
 import {
   Avatar,
   AvatarGroup,
@@ -80,6 +81,7 @@ const EventDetailsPage = ({ session, event, game }: EventDetailsPageProps) => {
   const router = useRouter();
   const { createAlertWithMessage } = useContext(AlertContext);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [disabled, setDisabled] = useState(false);
 
   // Delete confirm dialog
   const handleClose = () => {
@@ -93,9 +95,10 @@ const EventDetailsPage = ({ session, event, game }: EventDetailsPageProps) => {
 
   const deleteEventById = async (id: number) => {
     try {
+      setDisabled(true);
       await axios.delete(`/api/events/${id}`);
-      createAlertWithMessage("Success!");
     } catch (error) {
+      createAlertWithMessage(JSON.stringify(error, null, 2));
       console.error(error);
     }
   };
@@ -103,8 +106,8 @@ const EventDetailsPage = ({ session, event, game }: EventDetailsPageProps) => {
   const joinEventById = async (id: number) => {
     try {
       await axios.put(`/api/events/${id}?action=join`);
-      createAlertWithMessage("Success!");
     } catch (error) {
+      createAlertWithMessage(JSON.stringify(error, null, 2));
       console.error(error);
     }
   };
@@ -112,8 +115,8 @@ const EventDetailsPage = ({ session, event, game }: EventDetailsPageProps) => {
   const leaveEventById = async (id: number) => {
     try {
       await axios.put(`/api/events/${id}?action=leave`);
-      createAlertWithMessage("Success!");
     } catch (error) {
+      createAlertWithMessage(JSON.stringify(error, null, 2));
       console.error(error);
     }
   };
@@ -172,24 +175,30 @@ const EventDetailsPage = ({ session, event, game }: EventDetailsPageProps) => {
         <CardActions>
           {/* If user is already a guest, show the Leave button */}
           {event.guests.some((guest) => guest.id === session.user.id) ? (
-            <Button
+            <LoadingButton
+              disabled={disabled}
+              loading={disabled}
               onClick={async () => {
+                setDisabled(true);
                 await leaveEventById(event.id);
                 router.back();
               }}
             >
               Leave
-            </Button>
-          ) : // Otherwise, as long as user isn't the host, show the Join button
+            </LoadingButton>
+          ) : // Otherwise, as long as user isn't the host, show the Join loadingbutton
           event.host.id !== session.user.id ? (
-            <Button
+            <LoadingButton
+              disabled={disabled}
+              loading={disabled}
               onClick={async () => {
+                setDisabled(true);
                 await joinEventById(event.id);
                 router.back();
               }}
             >
               Join
-            </Button>
+            </LoadingButton>
           ) : (
             // Otherwise, we're the host, so show the Edit button
             <Button
@@ -228,9 +237,15 @@ const EventDetailsPage = ({ session, event, game }: EventDetailsPageProps) => {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleDelete} color="primary" autoFocus>
+          <LoadingButton
+            disabled={disabled}
+            loading={disabled}
+            onClick={handleDelete}
+            color="primary"
+            autoFocus
+          >
             Yes
-          </Button>
+          </LoadingButton>
         </DialogActions>
       </Dialog>
     </Container>
