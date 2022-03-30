@@ -1,7 +1,7 @@
 // https://github.com/mui-org/material-ui/tree/master/examples/nextjs
 import ServerStyleSheets from "@mui/styles/ServerStyleSheets";
 import Document, { Head, Html, Main, NextScript } from "next/document";
-import React from "react";
+import { Children } from "react";
 import theme from "styles/theme";
 
 class MyDocument extends Document {
@@ -60,7 +60,7 @@ MyDocument.getInitialProps = async (ctx) => {
     ...initialProps,
     // Styles fragment is rendered after the app and page rendering finish.
     styles: [
-      ...React.Children.toArray(initialProps.styles),
+      ...Children.toArray(initialProps.styles),
       sheets.getStyleElement(),
     ],
   };

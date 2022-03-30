@@ -1,7 +1,6 @@
+import { LoadingButton } from "@mui/lab";
 import DateTimePicker from "@mui/lab/DateTimePicker";
 import {
-  Button,
-  CircularProgress,
   FormControl,
   Grid,
   InputLabel,
@@ -10,53 +9,53 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { Game } from "@prisma/client";
 import axios from "axios";
 import { AlertContext } from "context/Alert";
-import useGames from "hooks/useGames";
-import { signIn, useSession } from "next-auth/react";
+import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-import React, { useContext, useState } from "react";
+import { getSession } from "next-auth/react";
+import { useContext, useState } from "react";
 
-const AddEventPage = () => {
-  const { games: allGames, isLoading } = useGames();
+import prisma from "../../lib/prisma";
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const session = await getSession({ req });
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/sign-in",
+        permanent: false,
+      },
+    };
+  }
+
+  const games = await prisma.game.findMany();
+
+  return {
+    props: { games: JSON.parse(JSON.stringify(games)) },
+  };
+};
+
+type AddEventPageProps = {
+  games: Game[];
+};
+const AddEventPage = ({ games }: AddEventPageProps) => {
   const router = useRouter();
   const { createAlertWithMessage } = useContext(AlertContext);
-  const [eventDateTime, setEventDateTime] = useState<Date | unknown>(
-    new Date()
-  );
+  const [dateTime, setDateTime] = useState<Date | null>(new Date());
   const [gameId, setGameId] = useState("");
-  const { data: session } = useSession();
+  const [disabled, setDisabled] = useState(false);
 
-  if (!session)
-    return (
-      <>
-        <Typography variant="h5" align="center">
-          You must be sign in to view this page.
-        </Typography>
-        <Button
-          type="submit"
-          size="large"
-          fullWidth
-          color="secondary"
-          variant="contained"
-          onClick={() => signIn()}
-        >
-          Sign In
-        </Button>
-      </>
-    );
-
-  if (isLoading) return <CircularProgress />;
-  if (!createAlertWithMessage) return null;
-
-  const addEvent = async (gameId: string, eventDateTime: string) => {
+  const addEvent = async (gameId: string, dateTime: Date | null) => {
     try {
-      const response = await axios.post<any>("/api/events", {
+      await axios.post("/api/events", {
         gameId,
-        eventDateTime,
+        dateTime,
       });
-      createAlertWithMessage(response.data.message);
-    } catch (error: any) {
+    } catch (error) {
+      createAlertWithMessage(JSON.stringify(error, null, 2));
       console.error(error);
     }
   };
@@ -67,7 +66,8 @@ const AddEventPage = () => {
       <form
         onSubmit={async (e) => {
           e.preventDefault();
-          await addEvent(gameId, String(eventDateTime));
+          setDisabled(true);
+          await addEvent(gameId, dateTime);
           router.push("/events");
         }}
       >
@@ -77,12 +77,12 @@ const AddEventPage = () => {
               <DateTimePicker
                 renderInput={(props) => <TextField {...props} />}
                 label="Event Date and Time"
-                value={eventDateTime}
-                onChange={setEventDateTime}
+                value={dateTime}
+                onChange={setDateTime}
               />
             </FormControl>
           </Grid>
-          {!!allGames?.length && (
+          {!!games.length && (
             <Grid item xs={12} sm={6}>
               <FormControl sx={{ width: "100%" }}>
                 <InputLabel id="select-game-label">Select Game</InputLabel>
@@ -95,8 +95,8 @@ const AddEventPage = () => {
                     setGameId(e.target.value as string);
                   }}
                 >
-                  {allGames.map(({ _id, name }) => (
-                    <MenuItem key={String(_id)} value={String(_id)}>
+                  {games.map(({ id, name }) => (
+                    <MenuItem key={id} value={id}>
                       {name}
                     </MenuItem>
                   ))}
@@ -105,15 +105,17 @@ const AddEventPage = () => {
             </Grid>
           )}
           <Grid item xs={12}>
-            <Button
+            <LoadingButton
               size="large"
               fullWidth
               variant="contained"
               color="primary"
               type="submit"
+              disabled={disabled}
+              loading={disabled}
             >
               Add Event
-            </Button>
+            </LoadingButton>
           </Grid>
         </Grid>
       </form>

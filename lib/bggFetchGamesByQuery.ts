@@ -2,6 +2,7 @@
 // by calling the bggFetchGameById function for each result
 import axios from "axios";
 import { XMLParser } from "fast-xml-parser";
+
 import { bggFetchGameById } from "./bggFetchGameById";
 
 const API_CALL_LIMIT = 20;
@@ -22,7 +23,6 @@ export const bggFetchGamesByQuery = async (query: string) => {
 
   const gameList = parsedData.items.item;
 
-  // // Async calls can't be inside a .map() - https://flaviocopes.com/javascript-async-await-array-map/
   const results = [];
   if (Array.isArray(gameList)) {
     // Limit the number of calls to the BGG API, so it doesn't yell at us

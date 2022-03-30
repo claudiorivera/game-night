@@ -1,52 +1,60 @@
-import { Button, CircularProgress, Container, Typography } from "@mui/material";
-import { EventsListContainer } from "components";
-import useEvents from "hooks/useEvents";
-import { signIn, useSession } from "next-auth/react";
-import { useRouter } from "next/router";
-import React from "react";
+import { LoadingButton } from "@mui/lab";
+import { Container } from "@mui/material";
+import { EventsListContainer, NextLinkComposed } from "components";
+import { eventSelect } from "lib/api";
+import { GetServerSideProps } from "next";
+import { getSession } from "next-auth/react";
+import { useState } from "react";
+import { PopulatedEvent } from "types";
 
-const EventsListPage = () => {
-  const router = useRouter();
-  const { data: session } = useSession();
-  const { events, isLoading } = useEvents();
+import prisma from "../../lib/prisma";
 
-  if (!session)
-    return (
-      <>
-        <Typography variant="h5" align="center">
-          You must be signed in to view this page.
-        </Typography>
-        <Button
-          type="submit"
-          size="large"
-          fullWidth
-          color="secondary"
-          variant="contained"
-          onClick={() => {
-            signIn();
-          }}
-        >
-          Sign In
-        </Button>
-      </>
-    );
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const session = await getSession({ req });
 
-  if (isLoading) return <CircularProgress />;
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/sign-in",
+        permanent: false,
+      },
+    };
+  }
+
+  const events = await prisma.event.findMany({
+    select: eventSelect,
+  });
+  return {
+    props: { events: JSON.parse(JSON.stringify(events)) },
+  };
+};
+
+type EventsListPageProps = {
+  events: PopulatedEvent[];
+};
+const EventsListPage = ({ events }: EventsListPageProps) => {
+  const [disabled, setDisabled] = useState(false);
 
   return (
     <>
       <Container sx={{ marginBottom: "1rem" }}>
-        <Button
+        <LoadingButton
           fullWidth
           color="secondary"
           variant="contained"
           size="large"
+          disabled={disabled}
+          loading={disabled}
+          component={NextLinkComposed}
+          to={{
+            pathname: "/events/add",
+          }}
           onClick={() => {
-            router.push("/events/add");
+            setDisabled(true);
           }}
         >
           Add Event
-        </Button>
+        </LoadingButton>
       </Container>
       <Container>
         <EventsListContainer events={events} />

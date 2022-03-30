@@ -1,14 +1,20 @@
-import { GameDetailsFull } from "components";
-import useGame from "hooks/useGame";
-import React from "react";
-import { IGame } from "types";
+import { Grid, Typography } from "@mui/material";
+import { Game } from "@prisma/client";
+import { GameMetaData } from "components";
+import Image from "next/image";
+import { BGGGameResponse } from "types";
 
 interface Props {
-  game?: Omit<IGame, "_id">;
-  fetchById?: number;
+  game: Game | BGGGameResponse;
 }
-
-export const GameDetails = ({ game, fetchById }: Props) => {
-  const { game: fetchedGame } = useGame(fetchById!);
-  return <GameDetailsFull game={fetchById ? fetchedGame : game} />;
-};
+export const GameDetails = ({ game }: Props) => (
+  <Grid container spacing={4}>
+    <Grid item md={5} sm={4} xs={12}>
+      <Image src={game.imageSrc} alt={game.name} width={500} height={500} />
+      <GameMetaData game={game} />
+    </Grid>
+    <Grid item md={7} sm={8} xs={12}>
+      <Typography variant="body1">{game.description}</Typography>
+    </Grid>
+  </Grid>
+);

@@ -1,7 +1,7 @@
-import React, { createContext, useState } from "react";
+import { createContext, ReactNode, useState } from "react";
 
 interface Props {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 interface AlertContext {
@@ -10,7 +10,7 @@ interface AlertContext {
   clearAlert: () => void;
 }
 
-export const AlertContext = createContext<Partial<AlertContext>>({});
+export const AlertContext = createContext({} as AlertContext);
 
 export const AlertProvider = ({ children }: Props) => {
   const [message, setMessage] = useState<string | null>(null);
