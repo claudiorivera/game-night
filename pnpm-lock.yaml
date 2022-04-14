@@ -20,7 +20,7 @@ specifiers:
   fast-xml-parser: 4.0.7
   moment: 2.29.2
   next: 12.1.5
-  next-auth: 4.3.1
+  next-auth: 4.3.2
   next-connect: 0.12.2
   nodemailer: 6.7.3
   prisma: 3.12.0
@@ -37,14 +37,14 @@ dependencies:
   '@mui/lab': 5.0.0-alpha.75_cef31e82803414d2367081608acdf877
   '@mui/material': 5.5.3_9c27c630b69ec62c2fede5fefb2caebb
   '@mui/styles': 5.5.3_react@18.0.0
-  '@next-auth/prisma-adapter': 1.0.3_2b535bbfb604d219371c9582b52b11b1
+  '@next-auth/prisma-adapter': 1.0.3_c158a68c61ead4118885f9fa59c4e122
   '@prisma/client': 3.12.0_prisma@3.12.0
   axios: 0.26.1
   clsx: 1.1.1
   fast-xml-parser: 4.0.7
   moment: 2.29.2
   next: 12.1.5_react-dom@18.0.0+react@18.0.0
-  next-auth: 4.3.1_293f37d500369a03b239180d5cb6a3fb
+  next-auth: 4.3.2_293f37d500369a03b239180d5cb6a3fb
   next-connect: 0.12.2
   nodemailer: 6.7.3
   react: 18.0.0
@@ -561,14 +561,14 @@ packages:
       react-is: 17.0.2
     dev: false
 
-  /@next-auth/prisma-adapter/1.0.3_2b535bbfb604d219371c9582b52b11b1:
+  /@next-auth/prisma-adapter/1.0.3_c158a68c61ead4118885f9fa59c4e122:
     resolution: {integrity: sha512-3Lq1cD3ytKM3EGKJZ4UZvlqshLtlPvYxLeCrUV9ifYwYlq51kmDaHjsIawlp8EbH5pE1UhlsvtlXMery7RghtA==}
     peerDependencies:
       '@prisma/client': '>=2.26.0 || >=3'
       next-auth: ^4.0.1
     dependencies:
       '@prisma/client': 3.12.0_prisma@3.12.0
-      next-auth: 4.3.1_293f37d500369a03b239180d5cb6a3fb
+      next-auth: 4.3.2_293f37d500369a03b239180d5cb6a3fb
     dev: false
 
   /@next/env/12.1.5:
@@ -2041,8 +2041,8 @@ packages:
     resolution: {integrity: sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=}
     dev: true
 
-  /next-auth/4.3.1_293f37d500369a03b239180d5cb6a3fb:
-    resolution: {integrity: sha512-DBYEPBLq5naIqh/1i2zEHljcA1OXXecKW3NRU1W4s6R3UX3RdLZ2lWlqgBHUiZQ1zdNikFM/bYQxVGyG7bx8oA==}
+  /next-auth/4.3.2_293f37d500369a03b239180d5cb6a3fb:
+    resolution: {integrity: sha512-yj9HN9p81Fg3dkrq4Y0FxjfgupiABac7o+ve47j5GPLjo1qE2FFX1pr7g7mwQ1HDUCoGhLmgBpFBR8+pdWgFfQ==}
     engines: {node: ^12.19.0 || ^14.15.0 || ^16.13.0}
     peerDependencies:
       nodemailer: ^6.6.5
