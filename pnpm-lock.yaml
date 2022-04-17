@@ -18,7 +18,7 @@ specifiers:
   eslint-plugin-simple-import-sort: 7.0.0
   eslint-plugin-unused-imports: 2.0.0
   fast-xml-parser: 4.0.7
-  moment: 2.29.2
+  moment: 2.29.3
   next: 12.1.5
   next-auth: 4.3.2
   next-connect: 0.12.2
@@ -34,7 +34,7 @@ dependencies:
   '@emotion/react': 11.9.0_react@18.0.0
   '@emotion/styled': 11.8.1_0381be9ef9d4f3389e973d8e2731d4a2
   '@mui/icons-material': 5.5.1_@mui+material@5.5.3+react@18.0.0
-  '@mui/lab': 5.0.0-alpha.75_cdef8437e7a1e39b9a4a0b8623b37067
+  '@mui/lab': 5.0.0-alpha.75_33914dcee9060680bb1b850d38991aec
   '@mui/material': 5.5.3_6c8dcdda718e1b53eddefc29a789ee34
   '@mui/styles': 5.5.3_react@18.0.0
   '@next-auth/prisma-adapter': 1.0.3_c158a68c61ead4118885f9fa59c4e122
@@ -42,7 +42,7 @@ dependencies:
   axios: 0.26.1
   clsx: 1.1.1
   fast-xml-parser: 4.0.7
-  moment: 2.29.2
+  moment: 2.29.3
   next: 12.1.5_react-dom@18.0.0+react@18.0.0
   next-auth: 4.3.2_293f37d500369a03b239180d5cb6a3fb
   next-connect: 0.12.2
@@ -165,7 +165,7 @@ packages:
       '@date-io/core': 2.13.1
     dev: false
 
-  /@date-io/moment/2.13.1_moment@2.29.2:
+  /@date-io/moment/2.13.1_moment@2.29.3:
     resolution: {integrity: sha512-XX1X/Tlvl3TdqQy2j0ZUtEJV6Rl8tOyc5WOS3ki52He28Uzme4Ro/JuPWTMBDH63weSWIZDlbR7zBgp3ZA2y1A==}
     peerDependencies:
       moment: ^2.24.0
@@ -174,7 +174,7 @@ packages:
         optional: true
     dependencies:
       '@date-io/core': 2.13.1
-      moment: 2.29.2
+      moment: 2.29.3
     dev: false
 
   /@emotion/babel-plugin/11.7.2:
@@ -371,7 +371,7 @@ packages:
       react: 18.0.0
     dev: false
 
-  /@mui/lab/5.0.0-alpha.75_cdef8437e7a1e39b9a4a0b8623b37067:
+  /@mui/lab/5.0.0-alpha.75_33914dcee9060680bb1b850d38991aec:
     resolution: {integrity: sha512-2DgPGYm0wjuSSb9R4cp97LINvHBI7+8eT1WL108GmniwFbAxb0U7hc//QF44W0JyJbLU+qNiScFJupQMTbe4dg==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
@@ -399,13 +399,13 @@ packages:
       '@date-io/date-fns': 2.13.1
       '@date-io/dayjs': 2.13.1
       '@date-io/luxon': 2.13.1
-      '@date-io/moment': 2.13.1_moment@2.29.2
+      '@date-io/moment': 2.13.1_moment@2.29.3
       '@mui/base': 5.0.0-alpha.74_react-dom@18.0.0+react@18.0.0
       '@mui/material': 5.5.3_6c8dcdda718e1b53eddefc29a789ee34
       '@mui/system': 5.5.3_840a430ee8e73823706c6e9dc692d93a
       '@mui/utils': 5.5.3_react@18.0.0
       clsx: 1.1.1
-      moment: 2.29.2
+      moment: 2.29.3
       prop-types: 15.8.1
       react: 18.0.0
       react-dom: 18.0.0_react@18.0.0
@@ -2025,8 +2025,8 @@ packages:
     resolution: {integrity: sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==}
     dev: true
 
-  /moment/2.29.2:
-    resolution: {integrity: sha512-UgzG4rvxYpN15jgCmVJwac49h9ly9NurikMWGPdVxm8GZD6XjkKPxDTjQQ43gtGgnV3X0cAyWDdP2Wexoquifg==}
+  /moment/2.29.3:
+    resolution: {integrity: sha512-c6YRvhEo//6T2Jz/vVtYzqBzwvPT95JBQ+smCytzf7c50oMZRsR/a4w88aD34I+/QVSfnoAnSBFPJHItlOMJVw==}
     dev: false
 
   /ms/2.0.0:
