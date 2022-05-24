@@ -12,6 +12,7 @@ specifiers:
   '@prisma/client': 3.13.0
   '@types/nodemailer': 6.4.4
   '@types/react': 17.0.39
+  '@types/react-dom': 17.0.11
   '@types/uuid': 8.3.4
   axios: 0.27.2
   clsx: 1.1.1
@@ -58,6 +59,7 @@ devDependencies:
   '@babel/core': 7.18.0
   '@types/nodemailer': 6.4.4
   '@types/react': 17.0.39
+  '@types/react-dom': 17.0.11
   '@types/uuid': 8.3.4
   eslint: 8.16.0
   eslint-config-next: 12.1.6_zvyojjozjfatsvh7rlqywb6lme
@@ -988,6 +990,12 @@ packages:
   /@types/prop-types/15.7.4:
     resolution: {integrity: sha512-rZ5drC/jWjrArrS8BR6SIr4cWpW09RNTYt9AMZo3Jwwif+iacXAqgVjm0B0Bv/S1jhDXKHqRVNCbACkJ89RAnQ==}
 
+  /@types/react-dom/17.0.11:
+    resolution: {integrity: sha512-f96K3k+24RaLGVu/Y2Ng3e1EbZ8/cVJvypZWd7cy0ofCBaf2lcM46xNhycMZ2xGwbBjRql7hOlZ+e2WlJ5MH3Q==}
+    dependencies:
+      '@types/react': 18.0.9
+    dev: true
+
   /@types/react-is/17.0.3:
     resolution: {integrity: sha512-aBTIWg1emtu95bLTLx0cpkxwGW3ueZv71nE2YFBpL8k/z5czEW8yYpOo8Dp+UUAFAtKwNaOsh/ioSeQnWlZcfw==}
     dependencies:
@@ -1013,7 +1021,6 @@ packages:
       '@types/prop-types': 15.7.4
       '@types/scheduler': 0.16.2
       csstype: 3.0.11
-    dev: false
 
   /@types/scheduler/0.16.2:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
