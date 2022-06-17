@@ -23,7 +23,7 @@ specifiers:
   fast-xml-parser: 4.0.8
   moment: 2.29.3
   next: 12.1.6
-  next-auth: 4.3.4
+  next-auth: 4.5.0
   next-connect: 0.12.2
   nodemailer: 6.7.5
   prisma: 3.14.0
@@ -40,14 +40,14 @@ dependencies:
   '@mui/lab': 5.0.0-alpha.86_yw4tmr7b34xbg6pfwdspfm2dri
   '@mui/material': 5.8.4_nsjt6yaxfwsoiy2tkjg7rotyfi
   '@mui/styles': 5.8.4_sudpmbbyhqtxq6t4xf6jlicdem
-  '@next-auth/prisma-adapter': 1.0.3_ensgqe3sz6ibfvnwkrl3cb6rue
+  '@next-auth/prisma-adapter': 1.0.3_nuavwfmbkfnlijqjrr32kzmviq
   '@prisma/client': 3.14.0_prisma@3.14.0
   axios: 0.27.2
   clsx: 1.1.1
   fast-xml-parser: 4.0.8
   moment: 2.29.3
   next: 12.1.6_bw5me6qlxrwkidqrhljke6qy5u
-  next-auth: 4.3.4_omwoulzhwqsk4h4t6ewpuwhjqy
+  next-auth: 4.5.0_omwoulzhwqsk4h4t6ewpuwhjqy
   next-connect: 0.12.2
   nodemailer: 6.7.5
   react: 17.0.2
@@ -791,14 +791,14 @@ packages:
       rifm: 0.12.1_react@17.0.2
     dev: false
 
-  /@next-auth/prisma-adapter/1.0.3_ensgqe3sz6ibfvnwkrl3cb6rue:
+  /@next-auth/prisma-adapter/1.0.3_nuavwfmbkfnlijqjrr32kzmviq:
     resolution: {integrity: sha512-3Lq1cD3ytKM3EGKJZ4UZvlqshLtlPvYxLeCrUV9ifYwYlq51kmDaHjsIawlp8EbH5pE1UhlsvtlXMery7RghtA==}
     peerDependencies:
       '@prisma/client': '>=2.26.0 || >=3'
       next-auth: ^4.0.1
     dependencies:
       '@prisma/client': 3.14.0_prisma@3.14.0
-      next-auth: 4.3.4_omwoulzhwqsk4h4t6ewpuwhjqy
+      next-auth: 4.5.0_omwoulzhwqsk4h4t6ewpuwhjqy
     dev: false
 
   /@next/env/12.1.6:
@@ -2390,8 +2390,8 @@ packages:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
 
-  /next-auth/4.3.4_omwoulzhwqsk4h4t6ewpuwhjqy:
-    resolution: {integrity: sha512-8dGkNicbxY2BYsJq4uOJIEsGt39wXj5AViTBsVfbRQqtAFmZmXYHutf90VBmobm8rT2+Xl60HDUTkuVVK+x+xw==}
+  /next-auth/4.5.0_omwoulzhwqsk4h4t6ewpuwhjqy:
+    resolution: {integrity: sha512-B6gYRIbqtj8nlDsx3y2Ruwp/mvZnItPs7VUULY43QYw+M9xtDPIM9EBZ3ryd/wNYA3MDteBJlzGm/ivseXcmJA==}
     engines: {node: ^12.19.0 || ^14.15.0 || ^16.13.0}
     peerDependencies:
       nodemailer: ^6.6.5
@@ -2471,7 +2471,7 @@ packages:
     dev: false
 
   /oauth/0.9.15:
-    resolution: {integrity: sha1-vR/vr2hslrdUda7VGWQS/2DPucE=}
+    resolution: {integrity: sha512-a5ERWK1kh38ExDEfoO6qUHJb32rd7aYmPHuyCu3Fta/cnICvYmgd2uhuKXvPD+PXB+gCEYYEaQdIRAjCOwAKNA==}
     dev: false
 
   /object-assign/4.1.1:
@@ -2661,7 +2661,7 @@ packages:
     dev: true
 
   /pretty-format/3.8.0:
-    resolution: {integrity: sha1-v77VbV6ad2ZF9LH/eqGjrE+jw4U=}
+    resolution: {integrity: sha512-WuxUnVtlWL1OfZFQFuqvnvs6MiAGk9UNsBostyBOB0Is9wb5uRESevA6rnl/rkksXaGX3GzZhPup5d6Vp1nFew==}
     dev: false
 
   /prisma/3.14.0:
