@@ -15,7 +15,7 @@ specifiers:
   '@types/react-dom': 18.0.5
   '@types/uuid': 8.3.4
   axios: 0.27.2
-  clsx: 1.1.1
+  clsx: 1.2.0
   eslint: 8.19.0
   eslint-config-next: 12.1.6
   eslint-plugin-simple-import-sort: 7.0.0
@@ -43,7 +43,7 @@ dependencies:
   '@next-auth/prisma-adapter': 1.0.3_3pq3kxnod62bzywextqtouqueq
   '@prisma/client': 3.15.2_prisma@3.15.2
   axios: 0.27.2
-  clsx: 1.1.1
+  clsx: 1.2.0
   fast-xml-parser: 4.0.8
   moment: 2.29.3
   next: 12.1.6_apvyc6hsquzbx56wwdowrbgkzm
@@ -528,7 +528,7 @@ packages:
       '@mui/utils': 5.8.6_react@17.0.2
       '@popperjs/core': 2.11.5
       '@types/react': 17.0.47
-      clsx: 1.1.1
+      clsx: 1.2.0
       prop-types: 15.8.1
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
@@ -591,7 +591,7 @@ packages:
       '@mui/utils': 5.8.6_react@17.0.2
       '@mui/x-date-pickers': 5.0.0-alpha.1_gza5tjzmjhyqix2omfvw2qwsaa
       '@types/react': 17.0.47
-      clsx: 1.1.1
+      clsx: 1.2.0
       moment: 2.29.3
       prop-types: 15.8.1
       react: 17.0.2
@@ -627,7 +627,7 @@ packages:
       '@mui/utils': 5.8.6_react@17.0.2
       '@types/react': 17.0.47
       '@types/react-transition-group': 4.4.4
-      clsx: 1.1.1
+      clsx: 1.2.0
       csstype: 3.1.0
       prop-types: 15.8.1
       react: 17.0.2
@@ -690,7 +690,7 @@ packages:
       '@mui/types': 7.1.4_@types+react@17.0.47
       '@mui/utils': 5.8.6_react@17.0.2
       '@types/react': 17.0.47
-      clsx: 1.1.1
+      clsx: 1.2.0
       csstype: 3.1.0
       hoist-non-react-statics: 3.3.2
       jss: 10.9.0
@@ -729,7 +729,7 @@ packages:
       '@mui/types': 7.1.4_@types+react@17.0.47
       '@mui/utils': 5.8.6_react@17.0.2
       '@types/react': 17.0.47
-      clsx: 1.1.1
+      clsx: 1.2.0
       csstype: 3.1.0
       prop-types: 15.8.1
       react: 17.0.2
@@ -789,7 +789,7 @@ packages:
       '@mui/material': 5.8.6_mzmbzck2qunrnxjb6zwxgpnkmu
       '@mui/system': 5.8.6_a4sljt3p5xdicvpavskhm4wgcy
       '@mui/utils': 5.8.6_react@17.0.2
-      clsx: 1.1.1
+      clsx: 1.2.0
       moment: 2.29.3
       prop-types: 15.8.1
       react: 17.0.2
@@ -1265,8 +1265,8 @@ packages:
       supports-color: 7.2.0
     dev: true
 
-  /clsx/1.1.1:
-    resolution: {integrity: sha512-6/bPho624p3S2pMyvP5kKBPXnI3ufHLObBFCfgx+LkeR5lg2XYy2hqZqUf45ypD8COn2bhgGJSUE+l5dhNBieA==}
+  /clsx/1.2.0:
+    resolution: {integrity: sha512-EPRP7XJsM1y0iCU3Z7C7jFKdQboXSeHgEfzQUTlz7m5NP3hDrlz48aUsmNGp4pC+JOW9WA3vIRqlYuo/bl4Drw==}
     engines: {node: '>=6'}
     dev: false
 
