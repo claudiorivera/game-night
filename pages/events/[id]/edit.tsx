@@ -1,6 +1,5 @@
 import { ArrowBack as ArrowBackIcon } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
-import DatePicker from "@mui/lab/DatePicker";
 import {
   Button,
   Container,
@@ -11,6 +10,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Game } from "@prisma/client";
 import axios from "axios";
 import { eventSelect } from "lib/api";

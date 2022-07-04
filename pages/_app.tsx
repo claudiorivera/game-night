@@ -1,11 +1,11 @@
-import AdapterMoment from "@mui/lab/AdapterMoment";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { Container, CssBaseline } from "@mui/material";
 import {
   StyledEngineProvider,
   Theme,
   ThemeProvider,
 } from "@mui/material/styles";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { AlertDialog, MainAppBar } from "components";
 import { AlertProvider } from "context/Alert";
 import { AppProps } from "next/app";
