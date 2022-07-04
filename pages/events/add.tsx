@@ -1,5 +1,4 @@
 import { LoadingButton } from "@mui/lab";
-import DateTimePicker from "@mui/lab/DateTimePicker";
 import {
   FormControl,
   Grid,
@@ -9,6 +8,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { Game } from "@prisma/client";
 import axios from "axios";
 import { AlertContext } from "context/Alert";
