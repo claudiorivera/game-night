@@ -33,9 +33,13 @@ const handler = nextConnect<NextApiRequest, NextApiResponse>({
 // GET api/events/id
 // Returns event with given id
 handler.get(async (req, res) => {
+  const { id } = req.query;
+
+  if (!id) return res.status(400).end("No id provided");
+
   const event = await prisma.event.findUnique({
     where: {
-      id: +req.query.id,
+      id: +id,
     },
     select: eventSelect,
   });
@@ -49,9 +53,13 @@ handler.get(async (req, res) => {
 // Deletes event with given id
 // TODO: Validate that session user is the host or an admin
 handler.delete(async (req, res) => {
+  const { id } = req.query;
+
+  if (!id) return res.status(400).end("No id provided");
+
   const event = await prisma.event.delete({
     where: {
-      id: +req.query.id,
+      id: +id,
     },
   });
 
@@ -61,13 +69,17 @@ handler.delete(async (req, res) => {
 });
 
 handler.put<ExtendedRequest>(async (req, res) => {
+  const { id } = req.query;
+
+  if (!id) return res.status(400).end("No id provided");
+
   switch (req.query.action) {
     // PUT api/events/id?action=join
     // Adds current user to event with given id
     case "join": {
       const event = await prisma.event.update({
         where: {
-          id: +req.query.id,
+          id: +id,
         },
         data: {
           guests: {
@@ -88,7 +100,7 @@ handler.put<ExtendedRequest>(async (req, res) => {
     case "leave": {
       const event = await prisma.event.update({
         where: {
-          id: +req.query.id,
+          id: +id,
         },
         data: {
           guests: {
@@ -109,7 +121,7 @@ handler.put<ExtendedRequest>(async (req, res) => {
     case "edit": {
       const event = await prisma.event.update({
         where: {
-          id: +req.query.id,
+          id: +id,
         },
         data: {
           ...req.body,
