@@ -31,8 +31,11 @@ const handler = nextConnect<NextApiRequest, NextApiResponse>({
 // GET api/games/:gameId
 // Returns game with given bggId
 handler.get(async (req, res) => {
+  const { id } = req.query;
+  if (!id) return res.status(400).end("No id provided");
+
   const game = await prisma.game.findUnique({
-    where: { id: +req.query.id },
+    where: { id: +id },
   });
 
   if (!game) return res.status(404).send("Game not found");
