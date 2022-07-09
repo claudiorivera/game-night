@@ -21,7 +21,7 @@
     "axios": "0.27.2",
     "clsx": "1.2.1",
     "fast-xml-parser": "4.0.8",
-    "moment": "2.29.3",
+    "moment": "2.29.4",
     "next": "12.2.2",
     "next-auth": "4.8.0",
     "next-connect": "0.12.2",
