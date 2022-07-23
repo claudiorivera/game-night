@@ -25,7 +25,7 @@ specifiers:
   moment: 2.29.4
   next: 12.2.3
   next-auth: 4.10.2
-  next-connect: 0.12.2
+  next-connect: 0.13.0
   nodemailer: 6.7.7
   prisma: 4.1.0
   react: 18.2.0
@@ -50,7 +50,7 @@ dependencies:
   moment: 2.29.4
   next: 12.2.3_qugu52izettqdqqm5qcjcltcia
   next-auth: 4.10.2_mnimnj2pdeccz5uivmdmoly3tq
-  next-connect: 0.12.2
+  next-connect: 0.13.0
   nodemailer: 6.7.7
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -2455,8 +2455,8 @@ packages:
       uuid: 8.3.2
     dev: false
 
-  /next-connect/0.12.2:
-    resolution: {integrity: sha512-B/zKHPs5S7XWvAVsZVLvOeY2eL2U3g0W/BgCDetEJRcNDzxX2vi8rzqBuEoLLPlI8LvtHwujDVUFFjSgOEZTbA==}
+  /next-connect/0.13.0:
+    resolution: {integrity: sha512-f2G4edY01XomjCECSrgOpb/zzQinJO6Whd8Zds0+rLUYhj5cLwkh6FVvZsQCSSbxSc4k9nCwNuk5NLIhvO1gUA==}
     dependencies:
       trouter: 3.2.0
     dev: false
