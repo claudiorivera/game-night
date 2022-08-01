@@ -32,7 +32,7 @@
     "unique-names-generator": "4.7.1"
   },
   "devDependencies": {
-    "@babel/core": "7.18.9",
+    "@babel/core": "7.18.10",
     "@types/nodemailer": "6.4.4",
     "@types/react": "18.0.15",
     "@types/react-dom": "18.0.6",
