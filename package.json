@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.18.10",
-    "@types/nodemailer": "6.4.4",
+    "@types/nodemailer": "6.4.5",
     "@types/react": "18.0.15",
     "@types/react-dom": "18.0.6",
     "@types/uuid": "8.3.4",
