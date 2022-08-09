@@ -5,8 +5,8 @@ specifiers:
   '@emotion/react': 11.10.0
   '@emotion/styled': 11.10.0
   '@mui/icons-material': 5.8.4
-  '@mui/lab': 5.0.0-alpha.93
-  '@mui/material': 5.9.3
+  '@mui/lab': 5.0.0-alpha.94
+  '@mui/material': 5.10.0
   '@mui/styles': 5.9.3
   '@mui/x-date-pickers': 5.0.0-beta.4
   '@next-auth/prisma-adapter': 1.0.4
@@ -37,11 +37,11 @@ specifiers:
 dependencies:
   '@emotion/react': 11.10.0_msmmgljd7hl2w2irtggflhmema
   '@emotion/styled': 11.10.0_5sec57kzpgkzooe4crua5kfcly
-  '@mui/icons-material': 5.8.4_cj4qjnqz5mgdcxqceumq6irqta
-  '@mui/lab': 5.0.0-alpha.93_obq7pqqtcchn4uimx3472zza7m
-  '@mui/material': 5.9.3_sqzxty2p7kxc2tmue4tecplwku
+  '@mui/icons-material': 5.8.4_coxa3mmk7xdciqqsybg7vi3uaa
+  '@mui/lab': 5.0.0-alpha.94_3msxxy7zey5q6ncngb2tattk64
+  '@mui/material': 5.10.0_sqzxty2p7kxc2tmue4tecplwku
   '@mui/styles': 5.9.3_ug65io7jkbhmo4fihdmbrh3ina
-  '@mui/x-date-pickers': 5.0.0-beta.4_77k3ixl5rbsocjlxgfzkax3bju
+  '@mui/x-date-pickers': 5.0.0-beta.4_6ahy3l242s3sxuor2n7eey77fq
   '@next-auth/prisma-adapter': 1.0.4_eqiia2s2a5nupslks6d3bwmrfq
   '@prisma/client': 4.2.0_prisma@4.2.0
   axios: 0.27.2
@@ -550,7 +550,7 @@ packages:
       react-is: 18.2.0
     dev: false
 
-  /@mui/icons-material/5.8.4_cj4qjnqz5mgdcxqceumq6irqta:
+  /@mui/icons-material/5.8.4_coxa3mmk7xdciqqsybg7vi3uaa:
     resolution: {integrity: sha512-9Z/vyj2szvEhGWDvb+gG875bOGm8b8rlHBKOD1+nA3PcgC3fV6W1AU6pfOorPeBfH2X4mb9Boe97vHvaSndQvA==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
@@ -562,13 +562,13 @@ packages:
         optional: true
     dependencies:
       '@babel/runtime': 7.18.0
-      '@mui/material': 5.9.3_sqzxty2p7kxc2tmue4tecplwku
+      '@mui/material': 5.10.0_sqzxty2p7kxc2tmue4tecplwku
       '@types/react': 18.0.17
       react: 18.2.0
     dev: false
 
-  /@mui/lab/5.0.0-alpha.93_obq7pqqtcchn4uimx3472zza7m:
-    resolution: {integrity: sha512-PGrI6tGwKGpLEv4sG7Jkhh/gqk5SE3KRCY8SKmC7JIOUpHEdPKIPH7kId/UZUd8+NOkr8YsljXmozpWv9PLsBQ==}
+  /@mui/lab/5.0.0-alpha.94_3msxxy7zey5q6ncngb2tattk64:
+    resolution: {integrity: sha512-1GjH70Th5SBMJbUR1LQTCrdKMcdUSEduZ7foy80kMlzUUQXwV50iwWzeGa1WMP4mgCQ94i+3n704IYHIxC6KNg==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
       '@emotion/react': ^11.5.0
@@ -589,8 +589,8 @@ packages:
       '@emotion/react': 11.10.0_msmmgljd7hl2w2irtggflhmema
       '@emotion/styled': 11.10.0_5sec57kzpgkzooe4crua5kfcly
       '@mui/base': 5.0.0-alpha.92_zxljzmqdrxwnuenbkrz77w74uy
-      '@mui/material': 5.9.3_sqzxty2p7kxc2tmue4tecplwku
-      '@mui/system': 5.9.3_4thu2zqr4v2ubfoxjiyrxa5urm
+      '@mui/material': 5.10.0_sqzxty2p7kxc2tmue4tecplwku
+      '@mui/system': 5.10.0_4thu2zqr4v2ubfoxjiyrxa5urm
       '@mui/utils': 5.9.3_react@18.2.0
       '@types/react': 18.0.17
       clsx: 1.2.1
@@ -600,8 +600,8 @@ packages:
       react-is: 18.2.0
     dev: false
 
-  /@mui/material/5.9.3_sqzxty2p7kxc2tmue4tecplwku:
-    resolution: {integrity: sha512-idDJajnfnDr+2pI6h2tzWtWoZJmVHNk6aSjISirMuVOGy0ugWpsCE+KW4++GS7aTCujXm9+cl5bWAyXvGjiPIQ==}
+  /@mui/material/5.10.0_sqzxty2p7kxc2tmue4tecplwku:
+    resolution: {integrity: sha512-MSEzkE2vhpM37m8Gh3+TcZCWL70p+MxzNvS8FHugBB6YZpafhBFmFKX7/pYJ2kVD87PpUhNR4szWub7/ohE02Q==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
       '@emotion/react': ^11.5.0
@@ -621,7 +621,7 @@ packages:
       '@emotion/react': 11.10.0_msmmgljd7hl2w2irtggflhmema
       '@emotion/styled': 11.10.0_5sec57kzpgkzooe4crua5kfcly
       '@mui/base': 5.0.0-alpha.92_zxljzmqdrxwnuenbkrz77w74uy
-      '@mui/system': 5.9.3_4thu2zqr4v2ubfoxjiyrxa5urm
+      '@mui/system': 5.10.0_4thu2zqr4v2ubfoxjiyrxa5urm
       '@mui/types': 7.1.5_@types+react@18.0.17
       '@mui/utils': 5.9.3_react@18.2.0
       '@types/react': 18.0.17
@@ -652,8 +652,8 @@ packages:
       react: 18.2.0
     dev: false
 
-  /@mui/styled-engine/5.8.7_rq3l25qc4qpq3j4w6o4x7hatzy:
-    resolution: {integrity: sha512-tVqtowjbYmiRq+qcqXK731L9eWoL9H8xTRhuTgaDGKdch1zlt4I2UwInUe1w2N9N/u3/jHsFbLcl1Un3uOwpQg==}
+  /@mui/styled-engine/5.10.0_rq3l25qc4qpq3j4w6o4x7hatzy:
+    resolution: {integrity: sha512-V0MmOx7KBDomDYg2/dRItVsvrpHpd51uZZiNqeuXiZruUJ1vPwtxztpvtSjX/xKvIxN7C0mxf8jmuwVUn6uaEA==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
       '@emotion/react': ^11.4.1
@@ -705,8 +705,8 @@ packages:
       react: 18.2.0
     dev: false
 
-  /@mui/system/5.9.3_4thu2zqr4v2ubfoxjiyrxa5urm:
-    resolution: {integrity: sha512-EXQV2POwncstHLYII+G4VSYdEFun1TjBbQSBDK76DbIkug8nPjtjAZ+3Kgk3/NoFIigW+vQ9cDVUZtlbRH6YMQ==}
+  /@mui/system/5.10.0_4thu2zqr4v2ubfoxjiyrxa5urm:
+    resolution: {integrity: sha512-HNu3LdA+37cWqgJBEhOF4F5LX4WVmvg6SoHRfajRO0neKXLdooibMP3W1bhSd27QcPxyMUmvY9/Dlp9znDeCRw==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
       '@emotion/react': ^11.5.0
@@ -725,7 +725,7 @@ packages:
       '@emotion/react': 11.10.0_msmmgljd7hl2w2irtggflhmema
       '@emotion/styled': 11.10.0_5sec57kzpgkzooe4crua5kfcly
       '@mui/private-theming': 5.9.3_ug65io7jkbhmo4fihdmbrh3ina
-      '@mui/styled-engine': 5.8.7_rq3l25qc4qpq3j4w6o4x7hatzy
+      '@mui/styled-engine': 5.10.0_rq3l25qc4qpq3j4w6o4x7hatzy
       '@mui/types': 7.1.5_@types+react@18.0.17
       '@mui/utils': 5.9.3_react@18.2.0
       '@types/react': 18.0.17
@@ -760,7 +760,7 @@ packages:
       react-is: 18.2.0
     dev: false
 
-  /@mui/x-date-pickers/5.0.0-beta.4_77k3ixl5rbsocjlxgfzkax3bju:
+  /@mui/x-date-pickers/5.0.0-beta.4_6ahy3l242s3sxuor2n7eey77fq:
     resolution: {integrity: sha512-MvfZVsTS99Bz4ZxlkgA3PU7beQ1ET5Aejj9T3sPhnnmb2f4YysIZqhReYl5r4IOEuU/enhMKUYwsqgB0GB0MTg==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
@@ -795,8 +795,8 @@ packages:
       '@date-io/moment': 2.14.0_moment@2.29.4
       '@emotion/react': 11.10.0_msmmgljd7hl2w2irtggflhmema
       '@emotion/styled': 11.10.0_5sec57kzpgkzooe4crua5kfcly
-      '@mui/material': 5.9.3_sqzxty2p7kxc2tmue4tecplwku
-      '@mui/system': 5.9.3_4thu2zqr4v2ubfoxjiyrxa5urm
+      '@mui/material': 5.10.0_sqzxty2p7kxc2tmue4tecplwku
+      '@mui/system': 5.10.0_4thu2zqr4v2ubfoxjiyrxa5urm
       '@mui/utils': 5.9.3_react@18.2.0
       '@types/react-transition-group': 4.4.5
       clsx: 1.2.1
