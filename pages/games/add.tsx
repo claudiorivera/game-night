@@ -14,12 +14,13 @@ import { GameDetails } from "components";
 import { bggFetchGamesByQuery } from "lib/bggFetchGamesByQuery";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-import { getSession } from "next-auth/react";
+import { unstable_getServerSession } from "next-auth";
+import { nextAuthOptions } from "pages/api/auth/[...nextauth]";
 import { useState } from "react";
 import { BGGGameResponse } from "types";
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const session = await getSession({ req });
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await unstable_getServerSession(req, res, nextAuthOptions);
 
   if (!session) {
     return {

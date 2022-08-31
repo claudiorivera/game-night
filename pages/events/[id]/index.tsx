@@ -26,8 +26,8 @@ import { eventSelect } from "lib/api";
 import moment from "moment";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-import { Session } from "next-auth";
-import { getSession } from "next-auth/react";
+import { Session, unstable_getServerSession } from "next-auth";
+import { nextAuthOptions } from "pages/api/auth/[...nextauth]";
 import { useContext, useState } from "react";
 import { PopulatedEvent } from "types";
 
@@ -35,9 +35,10 @@ import prisma from "../../../lib/prisma";
 
 export const getServerSideProps: GetServerSideProps = async ({
   req,
+  res,
   params,
 }) => {
-  const session = await getSession({ req });
+  const session = await unstable_getServerSession(req, res, nextAuthOptions);
 
   if (!session) {
     return {
