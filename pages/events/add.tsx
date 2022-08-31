@@ -14,13 +14,14 @@ import axios from "axios";
 import { AlertContext } from "context/Alert";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-import { getSession } from "next-auth/react";
+import { unstable_getServerSession } from "next-auth";
+import { nextAuthOptions } from "pages/api/auth/[...nextauth]";
 import { useContext, useState } from "react";
 
 import prisma from "../../lib/prisma";
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const session = await getSession({ req });
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await unstable_getServerSession(req, res, nextAuthOptions);
 
   if (!session) {
     return {
