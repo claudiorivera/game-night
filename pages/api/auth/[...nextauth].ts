@@ -8,6 +8,8 @@ import GitHubProvider from "next-auth/providers/github";
 const prisma = new PrismaClient();
 
 export const nextAuthOptions: NextAuthOptions = {
+  adapter: PrismaAdapter(prisma),
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     GitHubProvider({
       clientId: process.env.GITHUB_CLIENT_ID,
@@ -19,7 +21,6 @@ export const nextAuthOptions: NextAuthOptions = {
       sendVerificationRequest,
     }),
   ],
-  adapter: PrismaAdapter(prisma),
   callbacks: {
     async session({ session, user }) {
       session.user = user;
