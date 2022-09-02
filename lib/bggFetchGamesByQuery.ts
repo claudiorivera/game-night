@@ -5,7 +5,7 @@ import { XMLParser } from "fast-xml-parser";
 
 import { bggFetchGameById } from "./bggFetchGameById";
 
-const API_CALL_LIMIT = 20;
+const API_CALL_LIMIT = 10;
 
 export const bggFetchGamesByQuery = async (query: string) => {
   const { data } = await axios.get<string>(
