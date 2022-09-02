@@ -1,5 +1,4 @@
 import { faker } from "@faker-js/faker";
-import { bggFetchGameById } from "lib/bggFetchGameById";
 import { NextApiRequest, NextApiResponse } from "next";
 import nextConnect from "next-connect";
 
@@ -24,8 +23,6 @@ handler.post(async (req, res) => {
   if (authorization === `Bearer ${process.env.API_SECRET_KEY}`) {
     try {
       await wipeDatabase();
-
-      await addGamesFromBgg();
 
       // get a random existing game id
       const games = await prisma.game.findMany();
@@ -78,7 +75,6 @@ handler.post(async (req, res) => {
 
 const wipeDatabase = async () => {
   await prisma.user.deleteMany();
-  await prisma.game.deleteMany();
 };
 
 const randomGuestsToCreate = () =>
@@ -93,21 +89,5 @@ const randomGuestsToCreate = () =>
       isAdmin: false,
     },
   }));
-
-const addGamesFromBgg = async () => {
-  // fetch a bunch of rad games from BGG
-  const bggGameIds = [
-    266192, 120677, 167791, 13, 70323, 9209, 110327, 182028, 30549, 194594,
-    107529, 2651,
-  ];
-
-  const bggGamesToAdd = await Promise.all(
-    bggGameIds.map((id) => bggFetchGameById(id))
-  );
-
-  await prisma.game.createMany({
-    data: bggGamesToAdd,
-  });
-};
 
 export default handler;
