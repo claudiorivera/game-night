@@ -8,7 +8,7 @@ specifiers:
   '@mui/lab': 5.0.0-alpha.97
   '@mui/material': 5.10.3
   '@mui/styles': 5.10.3
-  '@mui/x-date-pickers': 5.0.0-beta.7
+  '@mui/x-date-pickers': 5.0.0
   '@next-auth/prisma-adapter': 1.0.4
   '@prisma/client': 4.3.1
   '@types/nodemailer': 6.4.5
@@ -41,7 +41,7 @@ dependencies:
   '@mui/lab': 5.0.0-alpha.97_csuey74pkaqs7dajvyv4snygm4
   '@mui/material': 5.10.3_vbxcdxy3bftsefaguotlgalomu
   '@mui/styles': 5.10.3_7v64pk2mkrohwh22gx7lrz5ive
-  '@mui/x-date-pickers': 5.0.0-beta.7_pgstyl67mnjdujewtcowtjtpua
+  '@mui/x-date-pickers': 5.0.0_pgstyl67mnjdujewtcowtjtpua
   '@next-auth/prisma-adapter': 1.0.4_bwhncj256yar2zz55r2fl3abo4
   '@prisma/client': 4.3.1_prisma@4.3.1
   axios: 0.27.2
@@ -776,22 +776,8 @@ packages:
       react-is: 18.2.0
     dev: false
 
-  /@mui/utils/5.9.3_react@18.2.0:
-    resolution: {integrity: sha512-l0N5bcrenE9hnwZ/jPecpIRqsDFHkPXoFUcmkgysaJwVZzJ3yQkGXB47eqmXX5yyGrSc6HksbbqXEaUya+siew==}
-    engines: {node: '>=12.0.0'}
-    peerDependencies:
-      react: ^17.0.0 || ^18.0.0
-    dependencies:
-      '@babel/runtime': 7.18.9
-      '@types/prop-types': 15.7.5
-      '@types/react-is': 17.0.3
-      prop-types: 15.8.1
-      react: 18.2.0
-      react-is: 18.2.0
-    dev: false
-
-  /@mui/x-date-pickers/5.0.0-beta.7_pgstyl67mnjdujewtcowtjtpua:
-    resolution: {integrity: sha512-3GugfJ17OQ13TOjyIvz/DsbtG3VF1cU+iKNxY+bscKx03LVJPTRZMXrMCVJnVz5L3mjhwWfcku7+nOY6aC0GVA==}
+  /@mui/x-date-pickers/5.0.0_pgstyl67mnjdujewtcowtjtpua:
+    resolution: {integrity: sha512-LcWJYFC/SdYbu0JSz6pgQcCh/cvllyoAqfpqf6iTex7jMSEk8i008pCntyrEVVcjGrx0fakDduSJthlnf0xNxQ==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
       '@emotion/react': ^11.9.0
@@ -828,7 +814,7 @@ packages:
       '@emotion/styled': 11.10.4_qzbwge7tbhs2ordiiw7o6wknfm
       '@mui/material': 5.10.3_vbxcdxy3bftsefaguotlgalomu
       '@mui/system': 5.10.3_wpm2ckkcb3o6jfqp3h4kjrjece
-      '@mui/utils': 5.9.3_react@18.2.0
+      '@mui/utils': 5.10.3_react@18.2.0
       '@types/react-transition-group': 4.4.5
       clsx: 1.2.1
       moment: 2.29.4
