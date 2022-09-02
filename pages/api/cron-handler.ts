@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+import { bggFetchGameById } from "lib/bggFetchGameById";
 import { NextApiRequest, NextApiResponse } from "next";
 import nextConnect from "next-connect";
 
@@ -15,27 +16,6 @@ const handler = nextConnect<NextApiRequest, NextApiResponse>({
   },
 });
 
-const wipeDatabase = async () => {
-  await prisma.user.deleteMany();
-  await prisma.account.deleteMany();
-  await prisma.session.deleteMany();
-  await prisma.verificationToken.deleteMany();
-  await prisma.event.deleteMany();
-};
-
-const randomGuestsToCreate = () =>
-  Array.from({ length: faker.datatype.number({ max: 4 }) }).map(() => ({
-    where: {
-      email: faker.internet.email(),
-    },
-    create: {
-      name: faker.name.fullName(),
-      image: faker.image.avatar(),
-      email: faker.internet.email(),
-      isAdmin: false,
-    },
-  }));
-
 // POST api/cron-handler
 // Clears and seeds the database
 handler.post(async (req, res) => {
@@ -44,6 +24,8 @@ handler.post(async (req, res) => {
   if (authorization === `Bearer ${process.env.API_SECRET_KEY}`) {
     try {
       await wipeDatabase();
+
+      await addGamesFromBgg();
 
       // get a random existing game id
       const games = await prisma.game.findMany();
@@ -55,7 +37,7 @@ handler.post(async (req, res) => {
       const eventsToCreate = Array.from({
         length: 6,
       }).map(() => ({
-        dateTime: faker.date.future(),
+        dateTime: faker.date.soon(90),
         game: {
           connect: {
             id: getRandomGameId(),
@@ -93,5 +75,39 @@ handler.post(async (req, res) => {
     return res.status(401).end();
   }
 });
+
+const wipeDatabase = async () => {
+  await prisma.user.deleteMany();
+  await prisma.game.deleteMany();
+};
+
+const randomGuestsToCreate = () =>
+  Array.from({ length: faker.datatype.number({ max: 4 }) }).map(() => ({
+    where: {
+      email: faker.internet.email(),
+    },
+    create: {
+      name: faker.name.fullName(),
+      image: faker.image.avatar(),
+      email: faker.internet.email(),
+      isAdmin: false,
+    },
+  }));
+
+const addGamesFromBgg = async () => {
+  // fetch a bunch of rad games from BGG
+  const bggGameIds = [
+    266192, 120677, 167791, 13, 70323, 9209, 110327, 182028, 30549, 194594,
+    107529, 2651,
+  ];
+
+  const bggGamesToAdd = await Promise.all(
+    bggGameIds.map((id) => bggFetchGameById(id))
+  );
+
+  await prisma.game.createMany({
+    data: bggGamesToAdd,
+  });
+};
 
 export default handler;
