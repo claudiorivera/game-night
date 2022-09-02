@@ -57,10 +57,10 @@ model User {
 model Event {
   id       Int      @id @default(autoincrement())
   dateTime DateTime
-  host     User     @relation(fields: [hostId], references: [id])
+  host     User     @relation(fields: [hostId], references: [id], onDelete: Cascade)
   hostId   String
   guests   User[]   @relation("EventGuests")
-  game     Game     @relation(fields: [gameId], references: [id])
+  game     Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)
   gameId   Int
 }
 

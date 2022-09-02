@@ -1,0 +1,13 @@
+name: daily-cron
+on:
+  schedule:
+    - cron: "0 1 * * *"
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Cron Handler
+        run: |
+          curl --request POST \
+          --url 'https://game-night.claudiorivera.com/api/cron-handler' \
+          --header 'Authorization: Bearer ${{ secrets.API_SECRET_KEY }}'
