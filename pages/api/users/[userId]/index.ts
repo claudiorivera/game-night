@@ -1,8 +1,8 @@
 import { userSelect } from "lib/api";
 import { NextApiRequest, NextApiResponse } from "next";
-import { Session } from "next-auth";
-import { getSession } from "next-auth/react";
+import { Session, unstable_getServerSession } from "next-auth";
 import nextConnect from "next-connect";
+import { nextAuthOptions } from "pages/api/auth/[...nextauth]";
 
 import prisma from "../../../../lib/prisma";
 
@@ -22,7 +22,7 @@ const handler = nextConnect<NextApiRequest, NextApiResponse>({
     return res.status(404).end(`${req.url} not found`);
   },
 }).use<ExtendedRequest>(async (req, res, next) => {
-  const session = await getSession({ req });
+  const session = await unstable_getServerSession(req, res, nextAuthOptions);
   if (!session) return res.status(401).end("Unauthorized");
   req.session = session;
   next();

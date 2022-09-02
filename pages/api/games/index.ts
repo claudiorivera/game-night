@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { Session } from "next-auth";
-import { getSession } from "next-auth/react";
+import { Session, unstable_getServerSession } from "next-auth";
 import nextConnect from "next-connect";
 
 import prisma from "../../../lib/prisma";
+import { nextAuthOptions } from "../auth/[...nextauth]";
 
 type ExtendedRequest = {
   session: Session;
@@ -21,7 +21,7 @@ const handler = nextConnect<NextApiRequest, NextApiResponse>({
     return res.status(404).end(`${req.url} not found`);
   },
 }).use<ExtendedRequest>(async (req, res, next) => {
-  const session = await getSession({ req });
+  const session = await unstable_getServerSession(req, res, nextAuthOptions);
   if (!session) return res.status(401).end("Unauthorized");
   req.session = session;
   next();
