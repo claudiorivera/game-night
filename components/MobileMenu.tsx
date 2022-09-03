@@ -23,6 +23,10 @@ export const MobileMenu = () => {
     return <CircularProgress />;
   }
 
+  if (!session) {
+    return null;
+  }
+
   return (
     <>
       <IconButton
@@ -52,15 +56,6 @@ export const MobileMenu = () => {
         open={isMobileMenuOpen}
         onClose={handleMenuClose}
       >
-        {!session && (
-          <MenuItem
-            onClick={() => {
-              router.push("/sign-in");
-            }}
-          >
-            Sign In
-          </MenuItem>
-        )}
         {!!session &&
           !!userLinks.length &&
           userLinks
