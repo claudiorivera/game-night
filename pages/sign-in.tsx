@@ -1,64 +1,49 @@
 import { LoadingButton } from "@mui/lab";
-import { Button, Divider, TextField, Typography } from "@mui/material";
-import { GetServerSideProps } from "next";
-import { BuiltInProviderType } from "next-auth/providers";
-import {
-  ClientSafeProvider,
-  getProviders,
-  LiteralUnion,
-  signIn,
-} from "next-auth/react";
+import { Button, TextField, Typography } from "@mui/material";
+import { signIn } from "next-auth/react";
 import { useState } from "react";
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  return {
-    props: {
-      providers: await getProviders(),
-    },
-  };
-};
-
-type SignInPageProps = {
-  providers: Record<
-    LiteralUnion<BuiltInProviderType, string>,
-    ClientSafeProvider
-  > | null;
-};
-export const SignInPage = ({ providers }: SignInPageProps) => {
+export const SignInPage = () => {
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   return (
     <>
-      <Typography variant="h5">
-        Please sign in with one of the following:
+      <Typography variant="h5" sx={{ mb: 4 }}>
+        Welcome to Game Night! Sign in to get started.
       </Typography>
-      {providers &&
-        Object.values(providers)
-          .filter((provider) => provider.id !== "email")
-          .map((provider) => (
-            <Button
-              sx={{
-                margin: ".5rem 0",
-              }}
-              key={provider.id}
-              type="submit"
-              size="large"
-              fullWidth
-              color="secondary"
-              variant="contained"
-              onClick={() => {
-                signIn(provider.id, { callbackUrl: "/" });
-              }}
-            >
-              {provider.name}
-            </Button>
-          ))}
-      <Divider
+      <Button
         sx={{
-          margin: "1.5rem",
+          my: 1,
         }}
-      />
+        type="submit"
+        size="large"
+        fullWidth
+        color="secondary"
+        variant="contained"
+        onClick={() => {
+          signIn("credentials", {
+            callbackUrl: "/",
+          });
+        }}
+      >
+        Sign In As Demo User
+      </Button>
+      <Button
+        sx={{
+          my: 1,
+        }}
+        type="submit"
+        size="large"
+        fullWidth
+        color="secondary"
+        variant="contained"
+        onClick={() => {
+          signIn("github", { callbackUrl: "/" });
+        }}
+      >
+        Sign In With GitHub
+      </Button>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -71,7 +56,7 @@ export const SignInPage = ({ providers }: SignInPageProps) => {
           required
           id="email"
           label="Email"
-          placeholder="Or enter your email here to receive a login link"
+          placeholder="email@example.com"
           fullWidth
           margin="normal"
           InputLabelProps={{
@@ -83,7 +68,7 @@ export const SignInPage = ({ providers }: SignInPageProps) => {
         />
         <LoadingButton
           sx={{
-            margin: ".5rem 0",
+            my: 1,
           }}
           type="submit"
           size="large"
@@ -93,7 +78,7 @@ export const SignInPage = ({ providers }: SignInPageProps) => {
           disabled={isLoading}
           loading={isLoading}
         >
-          Send sign-in link
+          Sign In With Email
         </LoadingButton>
       </form>
     </>
