@@ -84,7 +84,7 @@ const EditEventPage = ({ event, games }: EditEventPageProps) => {
         <ArrowBackIcon />
         Go Back
       </Button>
-      <Typography variant="h4" sx={{ marginTop: "1rem" }}>
+      <Typography variant="h4" sx={{ mt: 2 }}>
         Edit Event
       </Typography>
       {event && (

@@ -30,7 +30,7 @@ export const MobileMenu = () => {
   return (
     <>
       <IconButton
-        sx={{ marginLeft: "auto" }}
+        sx={{ ml: "auto" }}
         edge="start"
         color="inherit"
         aria-label="menu"

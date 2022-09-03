@@ -119,7 +119,7 @@ const AddGamePage = () => {
                   >
                     <LoadingButton
                       sx={{
-                        margin: ".5rem 0",
+                        my: 1,
                       }}
                       fullWidth
                       size="large"
