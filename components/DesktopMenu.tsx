@@ -13,11 +13,7 @@ export const DesktopMenu = () => {
   }
 
   if (!session) {
-    return (
-      <Button color="inherit" onClick={() => router.push("/sign-in")}>
-        Sign In
-      </Button>
-    );
+    return null;
   }
 
   return (

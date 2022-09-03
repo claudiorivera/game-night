@@ -6,7 +6,7 @@ import { useState } from "react";
 
 export const SignInPage = () => {
   const router = useRouter();
-  const { callbackUrl } = router.query;
+  const { callbackUrl } = router.query as { callbackUrl: string };
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
