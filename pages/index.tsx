@@ -62,7 +62,7 @@ const HomePage = ({ user }: HomePageProps) => {
           <EventsListContainer
             events={eventsHosting}
             isHosting
-            style={{ marginBottom: "1rem" }}
+            sx={{ mb: 2 }}
           />
         </>
       )}
@@ -71,10 +71,7 @@ const HomePage = ({ user }: HomePageProps) => {
           <Typography variant="h4" gutterBottom>
             Events You Are Attending:
           </Typography>
-          <EventsListContainer
-            events={eventsAttending}
-            style={{ marginBottom: "1rem" }}
-          />
+          <EventsListContainer events={eventsAttending} sx={{ mb: 2 }} />
         </>
       )}
     </>

@@ -38,7 +38,7 @@ const EventsListPage = ({ events }: EventsListPageProps) => {
 
   return (
     <>
-      <Container sx={{ marginBottom: "1rem" }}>
+      <Container sx={{ mb: 2 }}>
         <LoadingButton
           fullWidth
           color="secondary"

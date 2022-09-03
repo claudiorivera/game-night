@@ -21,7 +21,7 @@ export const SignInForm = ({ providers }: SignInFormProps) => {
           .map((provider) => (
             <LoadingButton
               sx={{
-                margin: ".5rem 0",
+                my: 1,
               }}
               key={provider.id}
               type="submit"
@@ -41,7 +41,7 @@ export const SignInForm = ({ providers }: SignInFormProps) => {
           ))}
       <Divider
         sx={{
-          margin: "1.5rem",
+          m: 2,
         }}
       />
       <form
@@ -68,7 +68,7 @@ export const SignInForm = ({ providers }: SignInFormProps) => {
         />
         <LoadingButton
           sx={{
-            margin: ".5rem 0",
+            my: 1,
           }}
           type="submit"
           size="large"

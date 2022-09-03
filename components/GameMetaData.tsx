@@ -12,8 +12,7 @@ export const GameMetaData = ({ game }: GameMetaDataProps) => (
       {game.authors.map((author) => (
         <Chip
           sx={{
-            padding: "0",
-            margin: ".1rem",
+            m: 0.5,
           }}
           key={author}
           label={author}
@@ -25,8 +24,7 @@ export const GameMetaData = ({ game }: GameMetaDataProps) => (
       {game.categories.map((category) => (
         <Chip
           sx={{
-            padding: "0",
-            margin: ".1rem",
+            m: 0.5,
           }}
           key={category}
           label={category}

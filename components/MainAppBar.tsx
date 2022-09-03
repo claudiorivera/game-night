@@ -7,9 +7,9 @@ export const MainAppBar = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
-    <AppBar position="sticky" sx={{ marginBottom: "1rem" }}>
+    <AppBar position="sticky" sx={{ mb: 2 }}>
       <Toolbar>
-        <Link href="/" sx={{ marginRight: "auto" }}>
+        <Link href="/" sx={{ mr: "auto" }}>
           <Typography
             sx={{
               flexGrow: 1,

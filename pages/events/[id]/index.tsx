@@ -130,8 +130,8 @@ const EventDetailsPage = ({ session, event, game }: EventDetailsPageProps) => {
       </Button>
       <Card
         sx={{
-          margin: "1rem",
-          padding: "2rem",
+          m: 2,
+          p: 4,
           flexDirection: "column",
         }}
       >
@@ -144,7 +144,7 @@ const EventDetailsPage = ({ session, event, game }: EventDetailsPageProps) => {
           <Divider
             variant="middle"
             sx={{
-              margin: "2rem",
+              m: 4,
             }}
           />
           <Container>
