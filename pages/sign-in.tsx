@@ -1,9 +1,12 @@
 import { LoadingButton } from "@mui/lab";
 import { Button, TextField, Typography } from "@mui/material";
+import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 
 export const SignInPage = () => {
+  const router = useRouter();
+  const { callbackUrl } = router.query;
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -22,9 +25,7 @@ export const SignInPage = () => {
         color="secondary"
         variant="contained"
         onClick={() => {
-          signIn("credentials", {
-            callbackUrl: "/",
-          });
+          signIn("credentials", { callbackUrl });
         }}
       >
         Sign In As Demo User
@@ -39,7 +40,7 @@ export const SignInPage = () => {
         color="secondary"
         variant="contained"
         onClick={() => {
-          signIn("github", { callbackUrl: "/" });
+          signIn("github", { callbackUrl });
         }}
       >
         Sign In With GitHub
@@ -48,7 +49,7 @@ export const SignInPage = () => {
         onSubmit={(e) => {
           e.preventDefault();
           setIsLoading(true);
-          signIn("email", { email, callbackUrl: "/" });
+          signIn("email", { email, callbackUrl });
         }}
       >
         <TextField

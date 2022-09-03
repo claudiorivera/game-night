@@ -14,7 +14,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   if (!session) {
     return {
       redirect: {
-        destination: "/sign-in",
+        destination: "/sign-in?callbackUrl=/",
         permanent: false,
       },
     };
