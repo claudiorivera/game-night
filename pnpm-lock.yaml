@@ -9,7 +9,7 @@ specifiers:
   '@mui/lab': 5.0.0-alpha.98
   '@mui/material': 5.10.4
   '@mui/styles': 5.10.3
-  '@mui/x-date-pickers': 5.0.0
+  '@mui/x-date-pickers': 5.0.1
   '@next-auth/prisma-adapter': 1.0.4
   '@prisma/client': 4.3.1
   '@types/nodemailer': 6.4.5
@@ -42,7 +42,7 @@ dependencies:
   '@mui/lab': 5.0.0-alpha.98_xiknshxjcg2am4zp4ruxcjguui
   '@mui/material': 5.10.4_vbxcdxy3bftsefaguotlgalomu
   '@mui/styles': 5.10.3_7v64pk2mkrohwh22gx7lrz5ive
-  '@mui/x-date-pickers': 5.0.0_wcjdc2qum4pne7mn52rsq7v7rm
+  '@mui/x-date-pickers': 5.0.1_wcjdc2qum4pne7mn52rsq7v7rm
   '@next-auth/prisma-adapter': 1.0.4_bwhncj256yar2zz55r2fl3abo4
   '@prisma/client': 4.3.1_prisma@4.3.1
   axios: 0.27.2
@@ -783,8 +783,8 @@ packages:
       react-is: 18.2.0
     dev: false
 
-  /@mui/x-date-pickers/5.0.0_wcjdc2qum4pne7mn52rsq7v7rm:
-    resolution: {integrity: sha512-LcWJYFC/SdYbu0JSz6pgQcCh/cvllyoAqfpqf6iTex7jMSEk8i008pCntyrEVVcjGrx0fakDduSJthlnf0xNxQ==}
+  /@mui/x-date-pickers/5.0.1_wcjdc2qum4pne7mn52rsq7v7rm:
+    resolution: {integrity: sha512-S+qUdhs3M/awoON9tfcoCtjBqn7tyfmU9gQUG1WwdGj6jySpze2bIjS7v7uhwydjddk7AlJGyrLOIc17F6ZVIA==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
       '@emotion/react': ^11.9.0
