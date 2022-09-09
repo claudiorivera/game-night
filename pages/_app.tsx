@@ -10,6 +10,7 @@ import { AlertDialog, MainAppBar } from "components";
 import { AlertProvider } from "context/Alert";
 import { AppProps } from "next/app";
 import Head from "next/head";
+import { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { useEffect } from "react";
 import theme from "styles/theme";
@@ -18,7 +19,11 @@ declare module "@mui/styles/defaultTheme" {
   interface DefaultTheme extends Theme {}
 }
 
-const App = (props: AppProps) => {
+const App = (
+  props: AppProps<{
+    session: Session;
+  }>
+) => {
   const { Component, pageProps } = props;
 
   useEffect(() => {
