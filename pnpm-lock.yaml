@@ -9,7 +9,7 @@ specifiers:
   '@mui/lab': 5.0.0-alpha.100
   '@mui/material': 5.10.6
   '@mui/styles': 5.10.6
-  '@mui/x-date-pickers': 5.0.2
+  '@mui/x-date-pickers': 5.0.3
   '@next-auth/prisma-adapter': 1.0.4
   '@prisma/client': 4.3.1
   '@types/nodemailer': 6.4.6
@@ -42,7 +42,7 @@ dependencies:
   '@mui/lab': 5.0.0-alpha.100_pzzt3nof6h4eaeyavklkqhlzsy
   '@mui/material': 5.10.6_ikcgkdnp4bn3rgptamntbhbo7e
   '@mui/styles': 5.10.6_iapumuv4e6jcjznwuxpf4tt22e
-  '@mui/x-date-pickers': 5.0.2_zpdayztu75qzyuxr6r45qa4hdq
+  '@mui/x-date-pickers': 5.0.3_zpdayztu75qzyuxr6r45qa4hdq
   '@next-auth/prisma-adapter': 1.0.4_bwhncj256yar2zz55r2fl3abo4
   '@prisma/client': 4.3.1_prisma@4.3.1
   axios: 0.27.2
@@ -776,20 +776,6 @@ packages:
       '@types/react': 18.0.21
     dev: false
 
-  /@mui/utils/5.10.3_react@18.2.0:
-    resolution: {integrity: sha512-4jXMDPfx6bpMVuheLaOpKTjpzw39ogAZLeaLj5+RJec3E37/hAZMYjURfblLfTWMMoGoqkY03mNsZaEwNobBow==}
-    engines: {node: '>=12.0.0'}
-    peerDependencies:
-      react: ^17.0.0 || ^18.0.0
-    dependencies:
-      '@babel/runtime': 7.19.0
-      '@types/prop-types': 15.7.5
-      '@types/react-is': 17.0.3
-      prop-types: 15.8.1
-      react: 18.2.0
-      react-is: 18.2.0
-    dev: false
-
   /@mui/utils/5.10.6_react@18.2.0:
     resolution: {integrity: sha512-g0Qs8xN/MW2M3fLL8197h5J2VB9U+49fLlnKKqC6zy/yus5cZwdT+Gwec+wUMxgwQoxMDn+J8oDWAn28kEOR/Q==}
     engines: {node: '>=12.0.0'}
@@ -804,8 +790,8 @@ packages:
       react-is: 18.2.0
     dev: false
 
-  /@mui/x-date-pickers/5.0.2_zpdayztu75qzyuxr6r45qa4hdq:
-    resolution: {integrity: sha512-O2yxax8SnUX/M1lfU8+fcBEY+PmOnl0T4onmNrnFOT/7wiry7OYQDLa48nFpBYIK8ROjfi4sPzEKiFCrcwEwjw==}
+  /@mui/x-date-pickers/5.0.3_zpdayztu75qzyuxr6r45qa4hdq:
+    resolution: {integrity: sha512-njoQvsh7WzgiHu0wGSSPnQ4emT3SDzxCpaKK9DM0jRaxyxfC2wQX431RWmouG8JjnugTltwLnPwkKjLclHQhhA==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
       '@emotion/react': ^11.9.0
@@ -832,7 +818,7 @@ packages:
       moment:
         optional: true
     dependencies:
-      '@babel/runtime': 7.18.9
+      '@babel/runtime': 7.19.0
       '@date-io/core': 2.15.0
       '@date-io/date-fns': 2.15.0
       '@date-io/dayjs': 2.15.0
@@ -842,7 +828,7 @@ packages:
       '@emotion/styled': 11.10.4_3hd6nwy3r2wumq5zfueojfsowa
       '@mui/material': 5.10.6_ikcgkdnp4bn3rgptamntbhbo7e
       '@mui/system': 5.10.6_h33l6npc22g7vcra72cibfsrvm
-      '@mui/utils': 5.10.3_react@18.2.0
+      '@mui/utils': 5.10.6_react@18.2.0
       '@types/react-transition-group': 4.4.5
       clsx: 1.2.1
       moment: 2.29.4
