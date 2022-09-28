@@ -27,7 +27,7 @@ specifiers:
   next: 12.3.1
   next-auth: 4.12.2
   next-connect: 0.13.0
-  nodemailer: 6.7.8
+  nodemailer: 6.8.0
   prisma: 4.3.1
   react: 18.2.0
   react-dom: 18.2.0
@@ -50,9 +50,9 @@ dependencies:
   fast-xml-parser: 4.0.10
   moment: 2.29.4
   next: 12.3.1_6tziyx3dehkoeijunclpkpolha
-  next-auth: 4.12.2_dbvwomqggpr34agl77wnoezghu
+  next-auth: 4.12.2_pvhs6umhoiyo7cgwjp6cvqsra4
   next-connect: 0.13.0
-  nodemailer: 6.7.8
+  nodemailer: 6.8.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   swr: 1.3.0_react@18.2.0
@@ -844,7 +844,7 @@ packages:
       next-auth: ^4
     dependencies:
       '@prisma/client': 4.3.1_prisma@4.3.1
-      next-auth: 4.12.2_dbvwomqggpr34agl77wnoezghu
+      next-auth: 4.12.2_pvhs6umhoiyo7cgwjp6cvqsra4
     dev: false
 
   /@next/env/12.3.1:
@@ -2488,7 +2488,7 @@ packages:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
 
-  /next-auth/4.12.2_dbvwomqggpr34agl77wnoezghu:
+  /next-auth/4.12.2_pvhs6umhoiyo7cgwjp6cvqsra4:
     resolution: {integrity: sha512-B25iFUIKYa2pRMWRFPIQWv84WJydqIsv6EbriNuzqNSZnxnlmpsrmJrTeMMLf+9a3qf9FG8enxDmDntmwnBkDQ==}
     engines: {node: ^12.19.0 || ^14.15.0 || ^16.13.0}
     peerDependencies:
@@ -2505,7 +2505,7 @@ packages:
       cookie: 0.5.0
       jose: 4.9.3
       next: 12.3.1_6tziyx3dehkoeijunclpkpolha
-      nodemailer: 6.7.8
+      nodemailer: 6.8.0
       oauth: 0.9.15
       openid-client: 5.1.6
       preact: 10.7.2
@@ -2569,8 +2569,8 @@ packages:
   /node-releases/2.0.6:
     resolution: {integrity: sha512-PiVXnNuFm5+iYkLBNeq5211hvO38y63T0i2KKh2KnUs3RpzJ+JtODFjkD8yjLwnDkTYF1eKXheUwdssR+NRZdg==}
 
-  /nodemailer/6.7.8:
-    resolution: {integrity: sha512-2zaTFGqZixVmTxpJRCFC+Vk5eGRd/fYtvIR+dl5u9QXLTQWGIf48x/JXvo58g9sa0bU6To04XUv554Paykum3g==}
+  /nodemailer/6.8.0:
+    resolution: {integrity: sha512-EjYvSmHzekz6VNkNd12aUqAco+bOkRe3Of5jVhltqKhEsjw/y0PYPJfp83+s9Wzh1dspYAkUW/YNQ350NATbSQ==}
     engines: {node: '>=6.0.0'}
     dev: false
 
