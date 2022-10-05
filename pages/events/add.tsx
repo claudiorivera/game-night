@@ -110,7 +110,7 @@ const AddEventPage = ({ games }: AddEventPageProps) => {
               size="large"
               fullWidth
               variant="contained"
-              color="primary"
+              color="secondary"
               type="submit"
               disabled={disabled}
               loading={disabled}

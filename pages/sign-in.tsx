@@ -1,5 +1,5 @@
 import { LoadingButton } from "@mui/lab";
-import { Button, TextField, Typography } from "@mui/material";
+import { TextField, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
@@ -15,36 +15,40 @@ export const SignInPage = () => {
       <Typography variant="h5" sx={{ mb: 4 }}>
         Welcome to Game Night! Sign in to get started.
       </Typography>
-      <Button
+      <LoadingButton
         sx={{
           my: 1,
         }}
-        type="submit"
         size="large"
         fullWidth
         color="secondary"
         variant="contained"
         onClick={() => {
+          setIsLoading(true);
           signIn("credentials", { callbackUrl });
         }}
+        disabled={isLoading}
+        loading={isLoading}
       >
         Sign In As Demo User
-      </Button>
-      <Button
+      </LoadingButton>
+      <LoadingButton
         sx={{
           my: 1,
         }}
-        type="submit"
         size="large"
         fullWidth
         color="secondary"
         variant="contained"
         onClick={() => {
+          setIsLoading(true);
           signIn("github", { callbackUrl });
         }}
+        disabled={isLoading}
+        loading={isLoading}
       >
         Sign In With GitHub
-      </Button>
+      </LoadingButton>
       <form
         onSubmit={(e) => {
           e.preventDefault();
