@@ -10,7 +10,7 @@ specifiers:
   '@mui/material': 5.10.8
   '@mui/styles': 5.10.8
   '@mui/x-date-pickers': 5.0.4
-  '@next-auth/prisma-adapter': 1.0.4
+  '@next-auth/prisma-adapter': 1.0.5
   '@prisma/client': 4.4.0
   '@types/nodemailer': 6.4.6
   '@types/react': 18.0.21
@@ -43,7 +43,7 @@ dependencies:
   '@mui/material': 5.10.8_ikcgkdnp4bn3rgptamntbhbo7e
   '@mui/styles': 5.10.8_iapumuv4e6jcjznwuxpf4tt22e
   '@mui/x-date-pickers': 5.0.4_dhvhreha42o2tgb7noq3kpg2rq
-  '@next-auth/prisma-adapter': 1.0.4_hmpxozr56wofvsy4o44updzgka
+  '@next-auth/prisma-adapter': 1.0.5_hmpxozr56wofvsy4o44updzgka
   '@prisma/client': 4.4.0_prisma@4.4.0
   axios: 1.0.0
   clsx: 1.2.1
@@ -833,8 +833,8 @@ packages:
       rifm: 0.12.1_react@18.2.0
     dev: false
 
-  /@next-auth/prisma-adapter/1.0.4_hmpxozr56wofvsy4o44updzgka:
-    resolution: {integrity: sha512-jIOM6CzCbl2/Mzbx9kb2IjtHoJOeRN9wtQgLk4EUm5bhneSVGv1rtz5TDskvp2UfCa+EK9nDmug+lje41z80Gg==}
+  /@next-auth/prisma-adapter/1.0.5_hmpxozr56wofvsy4o44updzgka:
+    resolution: {integrity: sha512-VqMS11IxPXrPGXw6Oul6jcyS/n8GLOWzRMrPr3EMdtD6eOalM6zz05j08PcNiis8QzkfuYnCv49OvufTuaEwYQ==}
     peerDependencies:
       '@prisma/client': '>=2.26.0 || >=3'
       next-auth: ^4
