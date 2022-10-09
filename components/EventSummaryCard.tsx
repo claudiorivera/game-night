@@ -25,6 +25,8 @@ export const EventSummaryCard = ({
         <CardHeader
           title={moment(event.dateTime).format("MMMM Do, YYYY [at] h:mma")}
           subheader={game.name}
+          titleTypographyProps={{ variant: "subtitle2" }}
+          subheaderTypographyProps={{ variant: "caption" }}
         />
         <CardMedia
           image={game.imageSrc}
@@ -36,11 +38,13 @@ export const EventSummaryCard = ({
         />
         <CardContent>
           {!isHosting && (
-            <Typography variant="body1" color="textSecondary">
-              Hosted by: {host.name}
+            <Typography variant="subtitle2" color="textSecondary">
+              Host: {host.name}
             </Typography>
           )}
-          <Typography variant="body2">Guests: {event.guests.length}</Typography>
+          <Typography variant="caption">
+            Guests: {event.guests.length}
+          </Typography>
         </CardContent>
       </Card>
     </Link>

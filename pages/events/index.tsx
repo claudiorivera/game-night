@@ -38,7 +38,7 @@ const EventsListPage = ({ events }: EventsListPageProps) => {
 
   return (
     <>
-      <Container sx={{ mb: 2 }}>
+      <Container sx={{ py: 2 }}>
         <LoadingButton
           fullWidth
           color="secondary"
@@ -57,7 +57,7 @@ const EventsListPage = ({ events }: EventsListPageProps) => {
           Add Event
         </LoadingButton>
       </Container>
-      <Container>
+      <Container sx={{ py: 2 }}>
         <EventsListContainer events={events} />
       </Container>
     </>
