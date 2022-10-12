@@ -4,7 +4,7 @@ specifiers:
   '@babel/core': 7.19.3
   '@emotion/react': 11.10.4
   '@emotion/styled': 11.10.4
-  '@faker-js/faker': 7.5.0
+  '@faker-js/faker': 7.6.0
   '@mui/icons-material': 5.10.9
   '@mui/lab': 5.0.0-alpha.103
   '@mui/material': 5.10.9
@@ -60,7 +60,7 @@ dependencies:
 
 devDependencies:
   '@babel/core': 7.19.3
-  '@faker-js/faker': 7.5.0
+  '@faker-js/faker': 7.6.0
   '@types/nodemailer': 6.4.6
   '@types/react': 18.0.21
   '@types/react-dom': 18.0.6
@@ -487,8 +487,8 @@ packages:
       - supports-color
     dev: true
 
-  /@faker-js/faker/7.5.0:
-    resolution: {integrity: sha512-8wNUCCUHvfvI0gQpDUho/3gPzABffnCn5um65F8dzQ86zz6dlt4+nmAA7PQUc8L+eH+9RgR/qzy5N/8kN0Ozdw==}
+  /@faker-js/faker/7.6.0:
+    resolution: {integrity: sha512-XK6BTq1NDMo9Xqw/YkYyGjSsg44fbNwYRx7QK2CuoQgyy+f1rrTDHoExVM5PsyXCtfl2vs2vVJ0MN0yN6LppRw==}
     engines: {node: '>=14.0.0', npm: '>=6.0.0'}
     dev: true
 
