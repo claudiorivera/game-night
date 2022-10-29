@@ -1,22 +1,28 @@
-import { Alert, AlertTitle, Container, Snackbar } from "@mui/material";
-import { styled } from "@mui/styles";
+import {
+  Alert,
+  AlertTitle,
+  Container,
+  Snackbar,
+  useTheme,
+} from "@mui/material";
 import { AlertContext } from "context/Alert";
 import { useContext } from "react";
 
-const StyledContainer = styled(Container)(({ theme }) => ({
-  width: "100%",
-  "& > * + *": {
-    marginTop: theme.spacing(2),
-  },
-}));
-
 export const AlertDialog = () => {
   const { message, clearAlert } = useContext(AlertContext);
+  const theme = useTheme();
 
   if (!message) return null;
 
   return (
-    <StyledContainer>
+    <Container
+      sx={{
+        width: "100%",
+        "& > * + *": {
+          marginTop: theme.spacing(2),
+        },
+      }}
+    >
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open
@@ -35,6 +41,6 @@ export const AlertDialog = () => {
           {JSON.stringify(message)}
         </Alert>
       </Snackbar>
-    </StyledContainer>
+    </Container>
   );
 };
