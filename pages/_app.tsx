@@ -1,41 +1,26 @@
+import { CacheProvider, EmotionCache } from "@emotion/react";
 import { Container, CssBaseline } from "@mui/material";
-import {
-  StyledEngineProvider,
-  Theme,
-  ThemeProvider,
-} from "@mui/material/styles";
+import { StyledEngineProvider, ThemeProvider } from "@mui/material/styles";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { AlertDialog, MainAppBar } from "components";
 import { AlertProvider } from "context/Alert";
+import { createEmotionCache } from "lib/createEmotionCache";
 import { AppProps } from "next/app";
 import Head from "next/head";
-import { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
-import { useEffect } from "react";
 import theme from "styles/theme";
 
-declare module "@mui/styles/defaultTheme" {
-  interface DefaultTheme extends Theme {}
+const clientSideEmotionCache = createEmotionCache();
+
+interface MyAppProps extends AppProps {
+  emotionCache?: EmotionCache;
 }
 
-const App = (
-  props: AppProps<{
-    session: Session;
-  }>
-) => {
-  const { Component, pageProps } = props;
-
-  useEffect(() => {
-    // Remove the server-side injected CSS.
-    const jssStyles = document.querySelector("#jss-server-side");
-    if (jssStyles) {
-      jssStyles.parentElement?.removeChild(jssStyles);
-    }
-  }, []);
-
+export default function MyApp(props: MyAppProps) {
+  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   return (
-    <>
+    <CacheProvider value={emotionCache}>
       <Head>
         <title>Game Night</title>
         <meta
@@ -59,8 +44,6 @@ const App = (
           </AlertProvider>
         </ThemeProvider>
       </StyledEngineProvider>
-    </>
+    </CacheProvider>
   );
-};
-
-export default App;
+}

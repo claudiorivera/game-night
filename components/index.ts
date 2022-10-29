@@ -8,5 +8,3 @@ export * from "components/Link";
 export * from "components/MainAppBar";
 export * from "components/MobileMenu";
 export * from "components/SignInForm";
-export * from "components/StyledButton";
-export * from "components/StyledDivider";
