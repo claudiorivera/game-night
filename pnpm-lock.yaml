@@ -26,7 +26,7 @@ specifiers:
   fast-xml-parser: 4.0.11
   moment: 2.29.4
   next: 13.0.2
-  next-auth: 4.15.2
+  next-auth: 4.16.2
   next-connect: 0.13.0
   nodemailer: 6.8.0
   prisma: 4.5.0
@@ -44,14 +44,14 @@ dependencies:
   '@mui/lab': 5.0.0-alpha.106_orixoqdvt2m5aekdkez2gi735e
   '@mui/material': 5.10.12_thp4wrxo45nyllusrnt46mid4u
   '@mui/x-date-pickers': 5.0.7_ngsxrfodztckrgl2i52sd573du
-  '@next-auth/prisma-adapter': 1.0.5_2tgl4rjpaykhlt37cfwvinvdzy
+  '@next-auth/prisma-adapter': 1.0.5_tih3yxqtac5gsi6ya47cxevw6m
   '@prisma/client': 4.5.0_prisma@4.5.0
   axios: 1.1.3
   clsx: 1.2.1
   fast-xml-parser: 4.0.11
   moment: 2.29.4
   next: 13.0.2_mqvh5p7ejg4taogoj6tpk3gd5a
-  next-auth: 4.15.2_vo2mwhatbdlbtvmnsv5k22xfpu
+  next-auth: 4.16.2_vo2mwhatbdlbtvmnsv5k22xfpu
   next-connect: 0.13.0
   nodemailer: 6.8.0
   react: 18.2.0
@@ -805,14 +805,14 @@ packages:
       rifm: 0.12.1_react@18.2.0
     dev: false
 
-  /@next-auth/prisma-adapter/1.0.5_2tgl4rjpaykhlt37cfwvinvdzy:
+  /@next-auth/prisma-adapter/1.0.5_tih3yxqtac5gsi6ya47cxevw6m:
     resolution: {integrity: sha512-VqMS11IxPXrPGXw6Oul6jcyS/n8GLOWzRMrPr3EMdtD6eOalM6zz05j08PcNiis8QzkfuYnCv49OvufTuaEwYQ==}
     peerDependencies:
       '@prisma/client': '>=2.26.0 || >=3'
       next-auth: ^4
     dependencies:
       '@prisma/client': 4.5.0_prisma@4.5.0
-      next-auth: 4.15.2_vo2mwhatbdlbtvmnsv5k22xfpu
+      next-auth: 4.16.2_vo2mwhatbdlbtvmnsv5k22xfpu
     dev: false
 
   /@next/env/13.0.2:
@@ -2423,8 +2423,8 @@ packages:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
 
-  /next-auth/4.15.2_vo2mwhatbdlbtvmnsv5k22xfpu:
-    resolution: {integrity: sha512-YsjGgY4hkTkN5pTIdwFBS2nTE68oI9KYXUBnOAC+SdWDOCK1vQikAICBdn4uUxBEeH9AH8xWYhpNzELaqFumsQ==}
+  /next-auth/4.16.2_vo2mwhatbdlbtvmnsv5k22xfpu:
+    resolution: {integrity: sha512-ZSb9omFv4hJT9Rm2OUAuUxCCBwpQnvQRXdcFHk7WIyt7Ud4O6NcNKH0fRTelFl30ycvr3Mc5PdnAt+zdr07nQw==}
     engines: {node: ^12.19.0 || ^14.15.0 || ^16.13.0 || ^18.12.0}
     peerDependencies:
       next: ^12.2.5 || ^13
