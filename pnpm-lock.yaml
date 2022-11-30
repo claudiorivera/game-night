@@ -16,7 +16,7 @@ specifiers:
   '@types/nodemailer': 6.4.6
   '@types/react': 18.0.25
   '@types/react-dom': 18.0.9
-  '@types/uuid': 8.3.4
+  '@types/uuid': 9.0.0
   axios: 1.2.0
   clsx: 1.2.1
   eslint: 8.28.0
@@ -64,7 +64,7 @@ devDependencies:
   '@types/nodemailer': 6.4.6
   '@types/react': 18.0.25
   '@types/react-dom': 18.0.9
-  '@types/uuid': 8.3.4
+  '@types/uuid': 9.0.0
   eslint: 8.28.0
   eslint-config-next: 13.0.5_hsf322ms6xhhd4b5ne6lb74y4a
   eslint-plugin-simple-import-sort: 8.0.0_eslint@8.28.0
@@ -1085,8 +1085,8 @@ packages:
   /@types/scheduler/0.16.2:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
 
-  /@types/uuid/8.3.4:
-    resolution: {integrity: sha512-c/I8ZRb51j+pYGAu5CrFMRxqZ2ke4y2grEBO5AUjgSkSk+qT2Ea+OdWElz/OiMf5MNpn2b17kuVBwZLQJXzihw==}
+  /@types/uuid/9.0.0:
+    resolution: {integrity: sha512-kr90f+ERiQtKWMz5rP32ltJ/BtULDI5RVO0uavn1HQUOwjx0R1h0rnDYNL0CepF1zL5bSY6FISAfd9tOdDhU5Q==}
     dev: true
 
   /@typescript-eslint/parser/5.42.1_hsf322ms6xhhd4b5ne6lb74y4a:
