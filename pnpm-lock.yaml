@@ -10,7 +10,7 @@ specifiers:
   '@mui/icons-material': 5.10.16
   '@mui/lab': 5.0.0-alpha.111
   '@mui/material': 5.10.17
-  '@mui/x-date-pickers': 5.0.9
+  '@mui/x-date-pickers': 5.0.10
   '@next-auth/prisma-adapter': 1.0.5
   '@prisma/client': 4.7.1
   '@types/nodemailer': 6.4.6
@@ -43,7 +43,7 @@ dependencies:
   '@mui/icons-material': 5.10.16_x5g5t372wpbxfzkqxtxktxetsq
   '@mui/lab': 5.0.0-alpha.111_leaybv7buhqcdmkx2ya2azdov4
   '@mui/material': 5.10.17_lskpmcsdi7ipu6qpuapyu56ihm
-  '@mui/x-date-pickers': 5.0.9_nguvwp4a4evflp44ed22fbx6ia
+  '@mui/x-date-pickers': 5.0.10_nguvwp4a4evflp44ed22fbx6ia
   '@next-auth/prisma-adapter': 1.0.5_inxn7o352d4boegikzpvj3st6e
   '@prisma/client': 4.7.1_prisma@4.7.1
   axios: 1.2.1
@@ -749,20 +749,6 @@ packages:
       '@types/react': 18.0.26
     dev: false
 
-  /@mui/utils/5.10.15_react@18.2.0:
-    resolution: {integrity: sha512-6AW4MLBUijJi31hxx+6utTJM2q/4hbO+QiMdtwM+f4Iy+BfFnh/elhb08apxNYLfuugPnXXpkDmzEjg+8uDU9g==}
-    engines: {node: '>=12.0.0'}
-    peerDependencies:
-      react: ^17.0.0 || ^18.0.0
-    dependencies:
-      '@babel/runtime': 7.20.1
-      '@types/prop-types': 15.7.5
-      '@types/react-is': 17.0.3
-      prop-types: 15.8.1
-      react: 18.2.0
-      react-is: 18.2.0
-    dev: false
-
   /@mui/utils/5.10.16_react@18.2.0:
     resolution: {integrity: sha512-3MB/SGsgiiu9Z55CFmAfiONUoR7AAue/H4F6w3mc2LnhFQCsoVvXhioDPcsiRpUMIQr34jDPzGXdCuqWooPCXQ==}
     engines: {node: '>=12.0.0'}
@@ -777,8 +763,8 @@ packages:
       react-is: 18.2.0
     dev: false
 
-  /@mui/x-date-pickers/5.0.9_nguvwp4a4evflp44ed22fbx6ia:
-    resolution: {integrity: sha512-PM3RU8MiwDVi+dSDGJ7ylI0hCe79wSCDfrjghS8ApGGFn/n87S8pUZxsZ5czw3mVRN6VfS2C19peo4nM1Tx+nA==}
+  /@mui/x-date-pickers/5.0.10_nguvwp4a4evflp44ed22fbx6ia:
+    resolution: {integrity: sha512-k+SKBqlpYsY49JVs7PORDvnfoXw9nJELfImR/3jTgHqP8hQQ6loFjB9ZFvc5NjV4Jf2NIJFmdcp6g8cO31Wmbg==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
       '@emotion/react': ^11.9.0
@@ -815,7 +801,7 @@ packages:
       '@emotion/styled': 11.10.5_3djhvnr4jirfvebjqpipo7gthy
       '@mui/material': 5.10.17_lskpmcsdi7ipu6qpuapyu56ihm
       '@mui/system': 5.10.17_ogriz7mfahdh34qnfautfro5yu
-      '@mui/utils': 5.10.15_react@18.2.0
+      '@mui/utils': 5.10.16_react@18.2.0
       '@types/react-transition-group': 4.4.5
       clsx: 1.2.1
       moment: 2.29.4
