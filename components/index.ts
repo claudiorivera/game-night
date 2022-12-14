@@ -7,4 +7,3 @@ export * from "components/GameMetaData";
 export * from "components/Link";
 export * from "components/MainAppBar";
 export * from "components/MobileMenu";
-export * from "components/SignInForm";

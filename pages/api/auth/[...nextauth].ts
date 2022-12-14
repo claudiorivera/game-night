@@ -10,12 +10,18 @@ import prisma from "../../../lib/prisma";
 export const nextAuthOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   secret: process.env.NEXTAUTH_SECRET,
+  theme: {
+    colorScheme: "auto", // "auto" | "dark" | "light"
+    brandColor: "#2A9D8F", // Hex color code
+    logo: "https://game-night.claudiorivera.com/android-chrome-512x512.png", // Absolute URL to image
+    buttonText: "#FFFFFF", // Hex color code
+  },
   session: {
     strategy: "jwt",
   },
   providers: [
     CredentialsProvider({
-      name: "any username and password",
+      name: "Demo User",
       credentials: {},
       async authorize() {
         const user = await prisma.user.findFirst();
