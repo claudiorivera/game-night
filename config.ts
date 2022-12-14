@@ -20,4 +20,4 @@ const userLinks: Link[] = [
   },
 ];
 
-export { appTitle, primaryColor, secondaryColor, adminLinks, userLinks };
+export { adminLinks, appTitle, primaryColor, secondaryColor, userLinks };

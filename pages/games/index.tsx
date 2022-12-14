@@ -22,7 +22,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   if (!session) {
     return {
       redirect: {
-        destination: "/sign-in?callbackUrl=/games",
+        destination: "/api/auth/signin",
         permanent: false,
       },
     };

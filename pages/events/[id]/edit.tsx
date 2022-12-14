@@ -33,7 +33,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   if (!session) {
     return {
       redirect: {
-        destination: `/sign-in?callbackUrl=/events/${params?.id}/edit`,
+        destination: "/api/auth/signin",
         permanent: false,
       },
     };
