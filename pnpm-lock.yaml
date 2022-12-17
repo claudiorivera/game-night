@@ -13,7 +13,7 @@ specifiers:
   '@mui/x-date-pickers': 5.0.11
   '@next-auth/prisma-adapter': 1.0.5
   '@prisma/client': 4.7.1
-  '@types/nodemailer': 6.4.6
+  '@types/nodemailer': 6.4.7
   '@types/react': 18.0.26
   '@types/react-dom': 18.0.9
   '@types/uuid': 9.0.0
@@ -61,7 +61,7 @@ dependencies:
 devDependencies:
   '@babel/core': 7.20.5
   '@faker-js/faker': 7.6.0
-  '@types/nodemailer': 6.4.6
+  '@types/nodemailer': 6.4.7
   '@types/react': 18.0.26
   '@types/react-dom': 18.0.9
   '@types/uuid': 9.0.0
@@ -1037,8 +1037,8 @@ packages:
     resolution: {integrity: sha512-vu1SrqBjbbZ3J6vwY17jBs8Sr/BKA+/a/WtjRG+whKg1iuLFOosq872EXS0eXWILdO36DHQQeku/ZcL6hz2fpg==}
     dev: true
 
-  /@types/nodemailer/6.4.6:
-    resolution: {integrity: sha512-pD6fL5GQtUKvD2WnPmg5bC2e8kWCAPDwMPmHe/ohQbW+Dy0EcHgZ2oCSuPlWNqk74LS5BVMig1SymQbFMPPK3w==}
+  /@types/nodemailer/6.4.7:
+    resolution: {integrity: sha512-f5qCBGAn/f0qtRcd4SEn88c8Fp3Swct1731X4ryPKqS61/A3LmmzN8zaEz7hneJvpjFbUUgY7lru/B/7ODTazg==}
     dependencies:
       '@types/node': 17.0.35
     dev: true
