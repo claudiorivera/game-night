@@ -25,6 +25,16 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const events = await prisma.event.findMany({
     select: eventSelect,
   });
+
+  if (!events) {
+    return {
+      redirect: {
+        destination: "/api/auth/signin",
+        permanent: false,
+      },
+    };
+  }
+
   return {
     props: { events: JSON.parse(JSON.stringify(events)) },
   };

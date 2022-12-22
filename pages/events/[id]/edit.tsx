@@ -47,6 +47,15 @@ export const getServerSideProps: GetServerSideProps = async ({
 
     const games = await prisma.game.findMany();
 
+    if (!games || !event) {
+      return {
+        redirect: {
+          destination: "/api/auth/signin",
+          permanent: false,
+        },
+      };
+    }
+
     return {
       props: {
         event: JSON.parse(JSON.stringify(event)),

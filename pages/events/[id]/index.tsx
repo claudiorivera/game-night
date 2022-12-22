@@ -59,6 +59,15 @@ export const getServerSideProps: GetServerSideProps = async ({
       where: { id: event?.game.id },
     });
 
+    if (!game || !event) {
+      return {
+        redirect: {
+          destination: "/api/auth/signin",
+          permanent: false,
+        },
+      };
+    }
+
     return {
       props: {
         session,
