@@ -34,6 +34,15 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     },
   });
 
+  if (!user) {
+    return {
+      redirect: {
+        destination: "/api/auth/signin",
+        permanent: false,
+      },
+    };
+  }
+
   return {
     props: { user: JSON.parse(JSON.stringify(user)) },
   };
