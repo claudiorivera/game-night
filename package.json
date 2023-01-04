@@ -34,7 +34,7 @@
     "unique-names-generator": "4.7.1"
   },
   "devDependencies": {
-    "@babel/core": "7.20.7",
+    "@babel/core": "7.20.12",
     "@faker-js/faker": "7.6.0",
     "@types/nodemailer": "6.4.7",
     "@types/react": "18.0.26",
