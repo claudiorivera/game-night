@@ -26,7 +26,7 @@ specifiers:
   fast-xml-parser: 4.0.13
   moment: 2.29.4
   next: 13.1.1
-  next-auth: 4.18.7
+  next-auth: 4.18.8
   next-connect: 0.13.0
   nodemailer: 6.8.0
   prisma: 4.8.1
@@ -44,14 +44,14 @@ dependencies:
   '@mui/lab': 5.0.0-alpha.114_k43z3ghfbkgbsmpaivfebys3bq
   '@mui/material': 5.11.3_lskpmcsdi7ipu6qpuapyu56ihm
   '@mui/x-date-pickers': 5.0.13_33z2lw6cz3c7mkz4uv34plsyaa
-  '@next-auth/prisma-adapter': 1.0.5_vblrumase6agqlas53tad34s44
+  '@next-auth/prisma-adapter': 1.0.5_pmiftlxd73swft3i7kjlxtgxni
   '@prisma/client': 4.8.1_prisma@4.8.1
   axios: 1.2.2
   clsx: 1.2.1
   fast-xml-parser: 4.0.13
   moment: 2.29.4
   next: 13.1.1_pjwopsidmaokadturxaafygjp4
-  next-auth: 4.18.7_mibeyvivfhhmvvbkd4wwrgzcom
+  next-auth: 4.18.8_mibeyvivfhhmvvbkd4wwrgzcom
   next-connect: 0.13.0
   nodemailer: 6.8.0
   react: 18.2.0
@@ -820,14 +820,14 @@ packages:
       rifm: 0.12.1_react@18.2.0
     dev: false
 
-  /@next-auth/prisma-adapter/1.0.5_vblrumase6agqlas53tad34s44:
+  /@next-auth/prisma-adapter/1.0.5_pmiftlxd73swft3i7kjlxtgxni:
     resolution: {integrity: sha512-VqMS11IxPXrPGXw6Oul6jcyS/n8GLOWzRMrPr3EMdtD6eOalM6zz05j08PcNiis8QzkfuYnCv49OvufTuaEwYQ==}
     peerDependencies:
       '@prisma/client': '>=2.26.0 || >=3'
       next-auth: ^4
     dependencies:
       '@prisma/client': 4.8.1_prisma@4.8.1
-      next-auth: 4.18.7_mibeyvivfhhmvvbkd4wwrgzcom
+      next-auth: 4.18.8_mibeyvivfhhmvvbkd4wwrgzcom
     dev: false
 
   /@next/env/13.1.1:
@@ -2510,8 +2510,8 @@ packages:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
 
-  /next-auth/4.18.7_mibeyvivfhhmvvbkd4wwrgzcom:
-    resolution: {integrity: sha512-kR3s1JVPMaDuSAlFxcGyv7Ec3fdE6za71r1F77IOII5zJmW2wfkIA2xj223fM0D20ip2pzFpHfk/qN4L6l5XMA==}
+  /next-auth/4.18.8_mibeyvivfhhmvvbkd4wwrgzcom:
+    resolution: {integrity: sha512-USP8ihmvB7iCGtkS0+toe2QPrzdbZfkydQZX56JOI9Ft5n/BardOXh3D4wQ2An+vpq/jDKojGlgfv21wVElW7A==}
     engines: {node: ^12.19.0 || ^14.15.0 || ^16.13.0 || ^18.12.0}
     peerDependencies:
       next: ^12.2.5 || ^13
@@ -2522,7 +2522,7 @@ packages:
       nodemailer:
         optional: true
     dependencies:
-      '@babel/runtime': 7.20.6
+      '@babel/runtime': 7.20.7
       '@panva/hkdf': 1.0.2
       cookie: 0.5.0
       jose: 4.9.3
