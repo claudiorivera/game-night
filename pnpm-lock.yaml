@@ -23,7 +23,7 @@ specifiers:
   eslint-config-next: 13.1.1
   eslint-plugin-simple-import-sort: 8.0.0
   eslint-plugin-unused-imports: 2.0.0
-  fast-xml-parser: 4.0.12
+  fast-xml-parser: 4.0.13
   moment: 2.29.4
   next: 13.1.1
   next-auth: 4.18.7
@@ -48,7 +48,7 @@ dependencies:
   '@prisma/client': 4.8.1_prisma@4.8.1
   axios: 1.2.2
   clsx: 1.2.1
-  fast-xml-parser: 4.0.12
+  fast-xml-parser: 4.0.13
   moment: 2.29.4
   next: 13.1.1_pjwopsidmaokadturxaafygjp4
   next-auth: 4.18.7_mibeyvivfhhmvvbkd4wwrgzcom
@@ -1905,8 +1905,8 @@ packages:
     resolution: {integrity: sha512-DCXu6Ifhqcks7TZKY3Hxp3y6qphY5SJZmrWMDrKcERSOXWQdMhU9Ig/PYrzyw/ul9jOIyh0N4M0tbC5hodg8dw==}
     dev: true
 
-  /fast-xml-parser/4.0.12:
-    resolution: {integrity: sha512-/Nmo3823Rfx7UTJosQNz6hBVbszfv1Unb7A4iNJZhvCGCgtIHv/uODmrYIH8vc05+XKZ4hNIOv6SlBejvJgATw==}
+  /fast-xml-parser/4.0.13:
+    resolution: {integrity: sha512-g+OboAw8ol1FgTHhKLR7ZHcItNudceiY04BBrvqa0JBWoPhi/+e5r4H5AeW+EsQCroJLJwsuOP3dD3c6cc5uOg==}
     hasBin: true
     dependencies:
       strnum: 1.0.5
