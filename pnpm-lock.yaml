@@ -28,7 +28,7 @@ specifiers:
   next: 13.1.1
   next-auth: 4.18.8
   next-connect: 0.13.0
-  nodemailer: 6.8.0
+  nodemailer: 6.9.0
   prisma: 4.8.1
   react: 18.2.0
   react-dom: 18.2.0
@@ -51,9 +51,9 @@ dependencies:
   fast-xml-parser: 4.0.13
   moment: 2.29.4
   next: 13.1.1_pjwopsidmaokadturxaafygjp4
-  next-auth: 4.18.8_mibeyvivfhhmvvbkd4wwrgzcom
+  next-auth: 4.18.8_5c5gjds27eda56zlahldgx35pi
   next-connect: 0.13.0
-  nodemailer: 6.8.0
+  nodemailer: 6.9.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   unique-names-generator: 4.7.1
@@ -827,7 +827,7 @@ packages:
       next-auth: ^4
     dependencies:
       '@prisma/client': 4.8.1_prisma@4.8.1
-      next-auth: 4.18.8_mibeyvivfhhmvvbkd4wwrgzcom
+      next-auth: 4.18.8_5c5gjds27eda56zlahldgx35pi
     dev: false
 
   /@next/env/13.1.1:
@@ -2510,7 +2510,7 @@ packages:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
 
-  /next-auth/4.18.8_mibeyvivfhhmvvbkd4wwrgzcom:
+  /next-auth/4.18.8_5c5gjds27eda56zlahldgx35pi:
     resolution: {integrity: sha512-USP8ihmvB7iCGtkS0+toe2QPrzdbZfkydQZX56JOI9Ft5n/BardOXh3D4wQ2An+vpq/jDKojGlgfv21wVElW7A==}
     engines: {node: ^12.19.0 || ^14.15.0 || ^16.13.0 || ^18.12.0}
     peerDependencies:
@@ -2527,7 +2527,7 @@ packages:
       cookie: 0.5.0
       jose: 4.9.3
       next: 13.1.1_pjwopsidmaokadturxaafygjp4
-      nodemailer: 6.8.0
+      nodemailer: 6.9.0
       oauth: 0.9.15
       openid-client: 5.1.6
       preact: 10.7.2
@@ -2590,8 +2590,8 @@ packages:
   /node-releases/2.0.6:
     resolution: {integrity: sha512-PiVXnNuFm5+iYkLBNeq5211hvO38y63T0i2KKh2KnUs3RpzJ+JtODFjkD8yjLwnDkTYF1eKXheUwdssR+NRZdg==}
 
-  /nodemailer/6.8.0:
-    resolution: {integrity: sha512-EjYvSmHzekz6VNkNd12aUqAco+bOkRe3Of5jVhltqKhEsjw/y0PYPJfp83+s9Wzh1dspYAkUW/YNQ350NATbSQ==}
+  /nodemailer/6.9.0:
+    resolution: {integrity: sha512-jFaCEGTeT3E/m/5R2MHWiyQH3pSARECRUDM+1hokOYc3lQAAG7ASuy+2jIsYVf+RVa9zePopSQwKNVFH8DKUpA==}
     engines: {node: '>=6.0.0'}
     dev: false
 
