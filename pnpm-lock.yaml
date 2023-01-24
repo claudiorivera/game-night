@@ -26,7 +26,7 @@ specifiers:
   fast-xml-parser: 4.0.14
   moment: 2.29.4
   next: 13.1.5
-  next-auth: 4.18.8
+  next-auth: 4.18.9
   next-connect: 0.13.0
   nodemailer: 6.9.0
   prisma: 4.9.0
@@ -44,14 +44,14 @@ dependencies:
   '@mui/lab': 5.0.0-alpha.117_pht22kiaujpoq7nmpt7dw6t4hq
   '@mui/material': 5.11.6_rqh7qj4464ntrqrt6banhaqg4q
   '@mui/x-date-pickers': 5.0.15_w3dpamufbfgnxnh5ui4qfk7opy
-  '@next-auth/prisma-adapter': 1.0.5_bd4lx2c2rys43d3d7o2mw3plau
+  '@next-auth/prisma-adapter': 1.0.5_a3sfrg3yes6j4ip3yx4ku7kd6a
   '@prisma/client': 4.9.0_prisma@4.9.0
   axios: 1.2.3
   clsx: 1.2.1
   fast-xml-parser: 4.0.14
   moment: 2.29.4
   next: 13.1.5_pjwopsidmaokadturxaafygjp4
-  next-auth: 4.18.8_lg7p6ay63mjy2htdrpjxoag3yy
+  next-auth: 4.18.9_lg7p6ay63mjy2htdrpjxoag3yy
   next-connect: 0.13.0
   nodemailer: 6.9.0
   react: 18.2.0
@@ -820,14 +820,14 @@ packages:
       rifm: 0.12.1_react@18.2.0
     dev: false
 
-  /@next-auth/prisma-adapter/1.0.5_bd4lx2c2rys43d3d7o2mw3plau:
+  /@next-auth/prisma-adapter/1.0.5_a3sfrg3yes6j4ip3yx4ku7kd6a:
     resolution: {integrity: sha512-VqMS11IxPXrPGXw6Oul6jcyS/n8GLOWzRMrPr3EMdtD6eOalM6zz05j08PcNiis8QzkfuYnCv49OvufTuaEwYQ==}
     peerDependencies:
       '@prisma/client': '>=2.26.0 || >=3'
       next-auth: ^4
     dependencies:
       '@prisma/client': 4.9.0_prisma@4.9.0
-      next-auth: 4.18.8_lg7p6ay63mjy2htdrpjxoag3yy
+      next-auth: 4.18.9_lg7p6ay63mjy2htdrpjxoag3yy
     dev: false
 
   /@next/env/13.1.5:
@@ -2510,9 +2510,8 @@ packages:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
 
-  /next-auth/4.18.8_lg7p6ay63mjy2htdrpjxoag3yy:
-    resolution: {integrity: sha512-USP8ihmvB7iCGtkS0+toe2QPrzdbZfkydQZX56JOI9Ft5n/BardOXh3D4wQ2An+vpq/jDKojGlgfv21wVElW7A==}
-    engines: {node: ^12.19.0 || ^14.15.0 || ^16.13.0 || ^18.12.0}
+  /next-auth/4.18.9_lg7p6ay63mjy2htdrpjxoag3yy:
+    resolution: {integrity: sha512-bcwgyVBFsl16eBs4XV4O327fS/zvr0X2smOy7Nha6hzB9bI8Yq95atM9F1vwXlLk2oHScj/DSoVUYv05gTjB3g==}
     peerDependencies:
       next: ^12.2.5 || ^13
       nodemailer: ^6.6.5
