@@ -17,7 +17,7 @@ specifiers:
   '@types/react': 18.0.27
   '@types/react-dom': 18.0.10
   '@types/uuid': 9.0.0
-  axios: 1.2.4
+  axios: 1.2.5
   clsx: 1.2.1
   eslint: 8.32.0
   eslint-config-next: 13.1.5
@@ -46,7 +46,7 @@ dependencies:
   '@mui/x-date-pickers': 5.0.15_w3dpamufbfgnxnh5ui4qfk7opy
   '@next-auth/prisma-adapter': 1.0.5_ikpamvtwgtawdygfd76io3powe
   '@prisma/client': 4.9.0_prisma@4.9.0
-  axios: 1.2.4
+  axios: 1.2.5
   clsx: 1.2.1
   fast-xml-parser: 4.0.15
   moment: 2.29.4
@@ -1247,8 +1247,8 @@ packages:
     engines: {node: '>=12'}
     dev: true
 
-  /axios/1.2.4:
-    resolution: {integrity: sha512-lIQuCfBJvZB/Bv7+RWUqEJqNShGOVpk9v7P0ZWx5Ip0qY6u7JBAU6dzQPMLasU9vHL2uD8av/1FDJXj7n6c39w==}
+  /axios/1.2.5:
+    resolution: {integrity: sha512-9pU/8mmjSSOb4CXVsvGIevN+MlO/t9OWtKadTaLuN85Gge3HGorUckgp8A/2FH4V4hJ7JuQ3LIeI7KAV9ITZrQ==}
     dependencies:
       follow-redirects: 1.15.0
       form-data: 4.0.0
