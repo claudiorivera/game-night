@@ -1,6 +1,6 @@
 import { eventSelect } from "lib/api";
 import { NextApiRequest, NextApiResponse } from "next";
-import { Session, unstable_getServerSession } from "next-auth";
+import { getServerSession, Session } from "next-auth";
 import nextConnect from "next-connect";
 
 import prisma from "../../../lib/prisma";
@@ -24,7 +24,7 @@ const handler = nextConnect<NextApiRequest, NextApiResponse>({
 }).use<{
   session: Session;
 }>(async (req, res, next) => {
-  const session = await unstable_getServerSession(req, res, nextAuthOptions);
+  const session = await getServerSession(req, res, nextAuthOptions);
   if (!session) return res.status(401).end("Unauthorized");
   req.session = session;
   next();

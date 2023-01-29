@@ -2,14 +2,14 @@ import { Typography } from "@mui/material";
 import { EventsListContainer } from "components";
 import { eventSelect } from "lib/api";
 import { GetServerSideProps } from "next";
-import { unstable_getServerSession } from "next-auth";
+import { getServerSession } from "next-auth";
 import { PopulatedEvent } from "types";
 
 import prisma from "../lib/prisma";
 import { nextAuthOptions } from "./api/auth/[...nextauth]";
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const session = await unstable_getServerSession(req, res, nextAuthOptions);
+  const session = await getServerSession(req, res, nextAuthOptions);
 
   if (!session) {
     return {
