@@ -3,7 +3,7 @@ import { Container } from "@mui/material";
 import { EventsListContainer, NextLinkComposed } from "components";
 import { eventSelect } from "lib/api";
 import { GetServerSideProps } from "next";
-import { unstable_getServerSession } from "next-auth";
+import { getServerSession } from "next-auth";
 import { nextAuthOptions } from "pages/api/auth/[...nextauth]";
 import { useState } from "react";
 import { PopulatedEvent } from "types";
@@ -11,7 +11,7 @@ import { PopulatedEvent } from "types";
 import prisma from "../../lib/prisma";
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const session = await unstable_getServerSession(req, res, nextAuthOptions);
+  const session = await getServerSession(req, res, nextAuthOptions);
 
   if (!session) {
     return {
