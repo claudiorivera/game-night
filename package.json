@@ -26,7 +26,7 @@
     "fast-xml-parser": "4.0.15",
     "moment": "2.29.4",
     "next": "13.1.6",
-    "next-auth": "4.18.10",
+    "next-auth": "4.19.0",
     "next-connect": "0.13.0",
     "nodemailer": "6.9.1",
     "react": "18.2.0",
