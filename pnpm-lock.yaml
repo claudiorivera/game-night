@@ -26,7 +26,7 @@ specifiers:
   fast-xml-parser: 4.0.15
   moment: 2.29.4
   next: 13.1.6
-  next-auth: 4.19.0
+  next-auth: 4.19.1
   next-connect: 0.13.0
   nodemailer: 6.9.1
   prisma: 4.9.0
@@ -44,14 +44,14 @@ dependencies:
   '@mui/lab': 5.0.0-alpha.118_fmcb73g2fj7ijupodkeaypqkh4
   '@mui/material': 5.11.7_rqh7qj4464ntrqrt6banhaqg4q
   '@mui/x-date-pickers': 5.0.16_ckiiqjky4gnzsxixmmpdgbgzkm
-  '@next-auth/prisma-adapter': 1.0.5_itdorc3kbufr4kntuocsjgxwwi
+  '@next-auth/prisma-adapter': 1.0.5_bhr4w7ukx5lbzsw34gjyxlh3rq
   '@prisma/client': 4.9.0_prisma@4.9.0
   axios: 1.2.6
   clsx: 1.2.1
   fast-xml-parser: 4.0.15
   moment: 2.29.4
   next: 13.1.6_pjwopsidmaokadturxaafygjp4
-  next-auth: 4.19.0_phzvn2nhb6zk7o4ds4z4gvqlei
+  next-auth: 4.19.1_phzvn2nhb6zk7o4ds4z4gvqlei
   next-connect: 0.13.0
   nodemailer: 6.9.1
   react: 18.2.0
@@ -834,14 +834,14 @@ packages:
       rifm: 0.12.1_react@18.2.0
     dev: false
 
-  /@next-auth/prisma-adapter/1.0.5_itdorc3kbufr4kntuocsjgxwwi:
+  /@next-auth/prisma-adapter/1.0.5_bhr4w7ukx5lbzsw34gjyxlh3rq:
     resolution: {integrity: sha512-VqMS11IxPXrPGXw6Oul6jcyS/n8GLOWzRMrPr3EMdtD6eOalM6zz05j08PcNiis8QzkfuYnCv49OvufTuaEwYQ==}
     peerDependencies:
       '@prisma/client': '>=2.26.0 || >=3'
       next-auth: ^4
     dependencies:
       '@prisma/client': 4.9.0_prisma@4.9.0
-      next-auth: 4.19.0_phzvn2nhb6zk7o4ds4z4gvqlei
+      next-auth: 4.19.1_phzvn2nhb6zk7o4ds4z4gvqlei
     dev: false
 
   /@next/env/13.1.6:
@@ -2524,8 +2524,8 @@ packages:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
 
-  /next-auth/4.19.0_phzvn2nhb6zk7o4ds4z4gvqlei:
-    resolution: {integrity: sha512-56Pc/Ni0cxfrVDAz2KeWdj+VXvABbHF1grgFR4+ktXbRmKQOiMU9uyMwhasBQkbL+pRrWujO0Ib/bwkP0oZS4g==}
+  /next-auth/4.19.1_phzvn2nhb6zk7o4ds4z4gvqlei:
+    resolution: {integrity: sha512-Wo0b1tWtEh1ORR+AzTtBHSPxAA2zKqynoMS/nQQVrT5RD/umVzpXz25fOkoRrO9t+Is+scU2DmKeyFIkhx45WQ==}
     peerDependencies:
       next: ^12.2.5 || ^13
       nodemailer: ^6.6.5
