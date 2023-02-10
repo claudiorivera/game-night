@@ -22,8 +22,7 @@ export const MainAppBar = () => {
             Game Night
           </Typography>
         </Link>
-        {isMobile && <MobileMenu />}
-        {!isMobile && <DesktopMenu />}
+        {isMobile ? <MobileMenu /> : <DesktopMenu />}
       </Toolbar>
     </AppBar>
   );
