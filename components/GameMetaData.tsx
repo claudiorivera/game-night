@@ -1,12 +1,12 @@
 import { Box, Chip, Typography } from "@mui/material";
-import { Game } from "@prisma/client";
-import { BGGGameResponse } from "lib/bggFetchGameById";
+import { BGGGameResponse } from "lib/fetchBggGameById";
 
 type GameMetaDataProps = {
-  game: Game | BGGGameResponse;
+  game: BGGGameResponse;
 };
 export const GameMetaData = ({ game }: GameMetaDataProps) => {
-  console.log(game);
+  if (!game) return null;
+
   return (
     <Box display="flex" flexDirection="column">
       <Typography variant="subtitle1">

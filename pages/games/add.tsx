@@ -11,8 +11,8 @@ import {
 import { Prisma } from "@prisma/client";
 import axios from "axios";
 import { GameDetails } from "components";
-import { BGGGameResponse } from "lib/bggFetchGameById";
-import { bggFetchGamesByQuery } from "lib/bggFetchGamesByQuery";
+import { BGGGameResponse } from "lib/fetchBggGameById";
+import { fetchBggGamesByQuery } from "lib/fetchBggGamesByQuery";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { getServerSession } from "next-auth";
@@ -38,16 +38,14 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 const AddGamePage = () => {
   const router = useRouter();
   const [query, setQuery] = useState("");
-  const [queryResults, setQueryResults] = useState<BGGGameResponse[] | null>(
-    null
-  );
+  const [queryResults, setQueryResults] = useState<Array<BGGGameResponse>>([]);
   const [isFetching, setIsFetching] = useState(false);
   const [disabled, setDisabled] = useState(false);
 
   const handleSearch = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     setIsFetching(true);
-    const results = (await bggFetchGamesByQuery(query)) as BGGGameResponse[];
+    const results = await fetchBggGamesByQuery(query);
     setQueryResults(results);
     setIsFetching(false);
   };
@@ -98,66 +96,65 @@ const AddGamePage = () => {
       </Container>
       <Container>
         <>
-          {queryResults &&
-            queryResults.map((result) => {
-              if (!result.imageSrc) return null;
-              return (
-                <Accordion key={result.bggId} square>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls={`panel-${result.bggId}-content`}
-                  >
-                    <Typography>
-                      {result.name} ({result.yearPublished})
-                    </Typography>
-                  </AccordionSummary>
-                  <AccordionDetails
+          {queryResults
+            .filter(
+              (result): result is NonNullable<BGGGameResponse> => !!result
+            )
+            .map((result) => (
+              <Accordion key={result.bggId} square>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls={`panel-${result.bggId}-content`}
+                >
+                  <Typography>
+                    {result.name} ({result.yearPublished})
+                  </Typography>
+                </AccordionSummary>
+                <AccordionDetails
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <LoadingButton
                     sx={{
-                      display: "flex",
-                      flexDirection: "column",
+                      my: 1,
+                    }}
+                    fullWidth
+                    size="large"
+                    color="secondary"
+                    variant="contained"
+                    disabled={disabled}
+                    loading={disabled}
+                    onClick={async () => {
+                      setDisabled(true);
+                      await addGame({
+                        bggId: result.bggId,
+                        imageSrc: result.imageSrc,
+                        thumbnailSrc: result.thumbnailSrc,
+                        description: result.description,
+                        yearPublished: result.yearPublished,
+                        minPlayers: result.minPlayers,
+                        maxPlayers: result.maxPlayers,
+                        playingTime: result.playingTime,
+                        minAge: result.minAge,
+                        rating: result.rating,
+                        numOfRatings: result.numOfRatings,
+                        name: result.name,
+                        authors: result.authors,
+                        categories: result.categories,
+                        mechanics: result.mechanics,
+                      });
+                      setDisabled(false);
+                      router.push("/games");
                     }}
                   >
-                    <LoadingButton
-                      sx={{
-                        my: 1,
-                      }}
-                      fullWidth
-                      size="large"
-                      color="secondary"
-                      variant="contained"
-                      disabled={disabled}
-                      loading={disabled}
-                      onClick={async () => {
-                        setDisabled(true);
-                        // TODO: Add zod validation
-                        await addGame({
-                          bggId: result.bggId,
-                          imageSrc: result.imageSrc ?? "",
-                          thumbnailSrc: result.thumbnailSrc ?? "",
-                          description: result.description,
-                          yearPublished: result.yearPublished,
-                          minPlayers: result.minPlayers,
-                          maxPlayers: result.maxPlayers,
-                          playingTime: result.playingTime,
-                          minAge: result.minAge,
-                          rating: result.rating,
-                          numOfRatings: result.numOfRatings,
-                          name: result.name,
-                          authors: result.authors,
-                          categories: result.categories,
-                          mechanics: result.mechanics,
-                        });
-                        setDisabled(false);
-                        router.push("/games");
-                      }}
-                    >
-                      Add This Game
-                    </LoadingButton>
-                    <GameDetails game={result} />
-                  </AccordionDetails>
-                </Accordion>
-              );
-            })}
+                    Add This Game
+                  </LoadingButton>
+                  <GameDetails game={result} />
+                </AccordionDetails>
+              </Accordion>
+            ))}
         </>
       </Container>
     </>
