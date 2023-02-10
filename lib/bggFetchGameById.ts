@@ -1,6 +1,5 @@
 // Interfaces with the BoardGameGeek API2 and returns a custom game object
 import axios from "axios";
-import { BGGQueryResponse } from "types";
 import { z } from "zod";
 
 import { xmlParser } from "./xmlParser";
@@ -13,7 +12,7 @@ const nameSchema = z.object({
   value: z.string(),
 });
 
-const linkSchema = z.object({
+const metaDataSchema = z.object({
   type: z.enum([
     "boardgamecategory",
     "boardgamemechanic",
@@ -31,7 +30,7 @@ const linkSchema = z.object({
 const rankSchema = z.object({
   type: z.string(),
   id: z.number(),
-  name: z.enum(["boardgame", "strategygames", "familygames"]),
+  name: z.string(),
   friendlyname: z.string(),
   value: z.string().or(z.number()),
   bayesaverage: z.number().or(z.string()),
@@ -51,7 +50,7 @@ const pollResultsSchema = z
   })
   .nullish();
 
-const schema = z.object({
+const parsedXmlSchema = z.object({
   "?xml": z.object({ version: z.number(), encoding: z.string() }),
   items: z.object({
     item: z.object({
@@ -74,7 +73,7 @@ const schema = z.object({
       minplaytime: numberValueSchema,
       maxplaytime: numberValueSchema,
       minage: numberValueSchema,
-      link: z.array(linkSchema),
+      link: z.array(metaDataSchema),
       statistics: z.object({
         ratings: z.object({
           usersrated: numberValueSchema,
@@ -112,22 +111,28 @@ const buildUrlForGameId = (id: number) => {
   return url.toString();
 };
 
+const getNameForGame = (game: Game) => {
+  // If there's alternate names, `game.name` will be an array
+  if (!Array.isArray(game.name)) return game.name.value;
+
+  return (
+    game.name.find((nameResponse) => nameResponse.type === "primary")?.value ??
+    `Game ${game.id}`
+  );
+};
+
 export const bggFetchGameById = async (id: number) => {
-  console.log("hello?");
   const url = buildUrlForGameId(id);
 
   const { data: xml } = await axios.get(url);
 
   const parsedData = xmlParser.parse(xml);
 
-  console.log({ parsedData });
-
-  const validData = schema.parse(parsedData);
+  const validData = parsedXmlSchema.parse(parsedData);
 
   const game = validData.items.item;
 
-  // Clean up the api data and set our new game object
-  const gameObject = {
+  const response = {
     bggId: game.id,
     imageSrc: game.image,
     thumbnailSrc: game.thumbnail,
@@ -139,30 +144,52 @@ export const bggFetchGameById = async (id: number) => {
     minAge: game.minage.value,
     rating: game.statistics.ratings.average.value,
     numOfRatings: game.statistics.ratings.usersrated.value,
-    // Ignore all alternate names, if there are multiple (ie. isArray)
-    name: Array.isArray(game.name)
-      ? game.name.filter(
-          (nameResponse: BGGQueryResponse) => nameResponse.type === "primary"
-        )[0].value
-      : game.name.value,
-    // Get all the deeper nested "link" properties - There's probably a more efficient way to do this
-    // without having to parse the link array multiple times
-    authors: game.link
-      .filter((element: BGGQueryResponse) => {
-        return element.type === "boardgamedesigner";
-      })
-      .map((designer: BGGQueryResponse) => designer.value),
-    categories: game.link
-      .filter(
-        (element: BGGQueryResponse) => element.type === "boardgamecategory"
-      )
-      .map((category: BGGQueryResponse) => category.value),
-    mechanics: game.link
-      .filter(
-        (element: BGGQueryResponse) => element.type === "boardgamemechanic"
-      )
-      .map((mechanic: BGGQueryResponse) => mechanic.value),
+    name: getNameForGame(game),
+    ...parseMetaData(game.link),
   };
 
-  return gameObject;
+  return response;
 };
+
+type MetaData = Record<"categories" | "mechanics" | "authors", Array<string>>;
+
+const parseMetaData = (linkField: Game["link"]) => {
+  const obj: MetaData = linkField.reduce(
+    (acc, cur) => {
+      switch (cur.type) {
+        case "boardgamecategory":
+          return {
+            ...acc,
+            categories: [...acc.categories, cur.value],
+          };
+
+        case "boardgamemechanic":
+          return {
+            ...acc,
+            mechanics: [...acc.mechanics, cur.value],
+          };
+
+        case "boardgamedesigner":
+          return {
+            ...acc,
+            authors: [...acc.authors, cur.value],
+          };
+
+        default:
+          return acc;
+      }
+    },
+    {
+      categories: [],
+      mechanics: [],
+      authors: [],
+    } as MetaData
+  );
+
+  console.log(obj);
+
+  return obj;
+};
+
+type Game = z.infer<typeof parsedXmlSchema>["items"]["item"];
+export type BGGGameResponse = Awaited<ReturnType<typeof bggFetchGameById>>;

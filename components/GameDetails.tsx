@@ -1,8 +1,10 @@
 import { Box, Grid, Typography } from "@mui/material";
 import { Game } from "@prisma/client";
 import { GameMetaData } from "components";
+import { BGGGameResponse } from "lib/bggFetchGameById";
 import Image from "next/image";
-import { BGGGameResponse } from "types";
+
+import placeholderImage from "../public/game-night-logo.png";
 
 interface Props {
   game: Game | BGGGameResponse;
@@ -13,7 +15,7 @@ export const GameDetails = ({ game }: Props) => (
       <Box
         sx={{ position: "relative", width: "100%", aspectRatio: "1/1", mb: 2 }}
       >
-        <Image src={game.imageSrc} alt={game.name} fill />
+        <Image src={game.imageSrc ?? placeholderImage} alt={game.name} fill />
       </Box>
       <GameMetaData game={game} />
     </Grid>

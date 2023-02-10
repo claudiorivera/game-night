@@ -11,13 +11,13 @@ import {
 import { Prisma } from "@prisma/client";
 import axios from "axios";
 import { GameDetails } from "components";
+import { BGGGameResponse } from "lib/bggFetchGameById";
 import { bggFetchGamesByQuery } from "lib/bggFetchGamesByQuery";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { getServerSession } from "next-auth";
 import { nextAuthOptions } from "pages/api/auth/[...nextauth]";
 import { useState } from "react";
-import { BGGGameResponse } from "types";
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getServerSession(req, res, nextAuthOptions);
@@ -129,10 +129,11 @@ const AddGamePage = () => {
                       loading={disabled}
                       onClick={async () => {
                         setDisabled(true);
+                        // TODO: Add zod validation
                         await addGame({
                           bggId: result.bggId,
-                          imageSrc: result.imageSrc,
-                          thumbnailSrc: result.thumbnailSrc,
+                          imageSrc: result.imageSrc ?? "",
+                          thumbnailSrc: result.thumbnailSrc ?? "",
                           description: result.description,
                           yearPublished: result.yearPublished,
                           minPlayers: result.minPlayers,
@@ -146,6 +147,7 @@ const AddGamePage = () => {
                           categories: result.categories,
                           mechanics: result.mechanics,
                         });
+                        setDisabled(false);
                         router.push("/games");
                       }}
                     >

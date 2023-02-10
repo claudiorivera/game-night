@@ -6,7 +6,7 @@ import { z } from "zod";
 import { bggFetchGameById } from "./bggFetchGameById";
 import { xmlParser } from "./xmlParser";
 
-const API_CALL_LIMIT = 1;
+const API_CALL_LIMIT = 10;
 
 const gameResultSchema = z.object({
   id: z.number(),
