@@ -19,13 +19,9 @@ export const MobileMenu = () => {
     setAnchorEl(null);
   };
 
-  if (isLoading) {
-    return <CircularProgress />;
-  }
+  if (isLoading) return <CircularProgress />;
 
-  if (!session) {
-    return null;
-  }
+  if (!session) return null;
 
   return (
     <>
