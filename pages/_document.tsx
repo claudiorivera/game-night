@@ -2,15 +2,18 @@
 import createEmotionServer from "@emotion/server/create-instance";
 import { createEmotionCache } from "lib/createEmotionCache";
 import Document, { Head, Html, Main, NextScript } from "next/document";
-import theme from "styles/theme";
+import theme, { roboto } from "styles/theme";
 
-class MyDocument extends Document {
+export default class MyDocument extends Document<{
+  emotionStyleTags: JSX.Element[];
+}> {
   render() {
     return (
-      <Html lang="en">
+      <Html lang="en" className={roboto.className}>
         <Head>
           {/* PWA primary color */}
           <meta name="theme-color" content={theme.palette.primary.main} />
+          <link rel="shortcut icon" href="/favicon.ico" />
           <link
             rel="apple-touch-icon"
             sizes="180x180"
@@ -29,10 +32,8 @@ class MyDocument extends Document {
             href="/favicon-16x16.png"
           />
           <link rel="manifest" href="/site.webmanifest" />
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-          />
+          <meta name="emotion-insertion-point" content="" />
+          {this.props.emotionStyleTags}
         </Head>
         <body>
           <Main />
@@ -75,5 +76,3 @@ MyDocument.getInitialProps = async (ctx) => {
     emotionStyleTags,
   };
 };
-
-export default MyDocument;
