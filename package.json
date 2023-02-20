@@ -37,7 +37,7 @@
     "zod": "3.20.6"
   },
   "devDependencies": {
-    "@babel/core": "7.20.12",
+    "@babel/core": "7.21.0",
     "@faker-js/faker": "7.6.0",
     "@types/nodemailer": "6.4.7",
     "@types/react": "18.0.28",
