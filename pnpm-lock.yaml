@@ -13,7 +13,7 @@ specifiers:
   '@mui/icons-material': 5.11.9
   '@mui/lab': 5.0.0-alpha.120
   '@mui/material': 5.11.10
-  '@mui/x-date-pickers': 5.0.19
+  '@mui/x-date-pickers': 5.0.20
   '@next-auth/prisma-adapter': 1.0.5
   '@next/font': 13.1.6
   '@prisma/client': 4.10.1
@@ -49,7 +49,7 @@ dependencies:
   '@mui/icons-material': 5.11.9_ylmaxqh5wvme7ymgn4ys5vax6u
   '@mui/lab': 5.0.0-alpha.120_2xjz24fcfpl7kgsqfa5xscfeo4
   '@mui/material': 5.11.10_xqeqsl5kvjjtyxwyi3jhw3yuli
-  '@mui/x-date-pickers': 5.0.19_6rfydwojwbelzruk5kkb7mddgi
+  '@mui/x-date-pickers': 5.0.20_6rfydwojwbelzruk5kkb7mddgi
   '@next-auth/prisma-adapter': 1.0.5_qpmskah7lm3ildf4stmwh4q42u
   '@next/font': 13.1.6
   '@prisma/client': 4.10.1_prisma@4.10.1
@@ -760,8 +760,8 @@ packages:
       react-is: 18.2.0
     dev: false
 
-  /@mui/x-date-pickers/5.0.19_6rfydwojwbelzruk5kkb7mddgi:
-    resolution: {integrity: sha512-D8zFyFgwA6faPCTM//3SG17RqCegczKQS9wF/toemhjsP7Ps4ape/llHqowL/BZLbi14OXV0Ud10tfUyVP7Q/Q==}
+  /@mui/x-date-pickers/5.0.20_6rfydwojwbelzruk5kkb7mddgi:
+    resolution: {integrity: sha512-ERukSeHIoNLbI1C2XRhF9wRhqfsr+Q4B1SAw2ZlU7CWgcG8UBOxgqRKDEOVAIoSWL+DWT6GRuQjOKvj6UXZceA==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
       '@emotion/react': ^11.9.0
