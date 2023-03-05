@@ -10,8 +10,8 @@ import {
 } from "@mui/material";
 import { Prisma } from "@prisma/client";
 import axios from "axios";
-import { BGGGameResponse } from "lib/fetchBggGameById";
-import { fetchBggGamesByQuery } from "lib/fetchBggGamesByQuery";
+import { BGGGameResponse } from "~/lib/fetchBggGameById";
+import { fetchBggGamesByQuery } from "~/lib/fetchBggGamesByQuery";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { getServerSession } from "next-auth";

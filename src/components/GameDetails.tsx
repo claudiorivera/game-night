@@ -1,5 +1,5 @@
 import { Box, Grid, Typography } from "@mui/material";
-import { BGGGameResponse } from "lib/fetchBggGameById";
+import { BGGGameResponse } from "~/lib/fetchBggGameById";
 import Image from "next/image";
 
 import { GameMetaData } from "~/components";

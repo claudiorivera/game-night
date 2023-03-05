@@ -1,6 +1,6 @@
-import { userSelect } from "lib/api";
+import { userSelect } from "~/lib/prismaHelpers";
 import { NextApiRequest, NextApiResponse } from "next";
-import { getServerSession,Session } from "next-auth";
+import { getServerSession, Session } from "next-auth";
 import nextConnect from "next-connect";
 import { nextAuthOptions } from "pages/api/auth/[...nextauth]";
 

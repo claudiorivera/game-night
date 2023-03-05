@@ -1,6 +1,6 @@
 import { LoadingButton } from "@mui/lab";
 import { Container } from "@mui/material";
-import { eventSelect } from "lib/api";
+import { eventSelect } from "~/lib/prismaHelpers";
 import { GetServerSideProps } from "next";
 import { getServerSession } from "next-auth";
 import { nextAuthOptions } from "pages/api/auth/[...nextauth]";

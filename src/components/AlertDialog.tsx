@@ -5,8 +5,9 @@ import {
   Snackbar,
   useTheme,
 } from "@mui/material";
-import { AlertContext } from "context/Alert";
 import { useContext } from "react";
+
+import { AlertContext } from "~/context/Alert";
 
 export const AlertDialog = () => {
   const { message, clearAlert } = useContext(AlertContext);

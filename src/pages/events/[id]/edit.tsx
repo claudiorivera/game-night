@@ -13,7 +13,7 @@ import {
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Game } from "@prisma/client";
 import axios from "axios";
-import { eventSelect } from "lib/api";
+import { eventSelect } from "~/lib/prismaHelpers";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { getServerSession } from "next-auth";

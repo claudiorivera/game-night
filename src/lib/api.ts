@@ -1,47 +1,68 @@
-import { Prisma } from "@prisma/client";
+/**
+ * This is the client-side entrypoint for your tRPC API. It is used to create the `api` object which
+ * contains the Next.js App-wrapper, as well as your type-safe React Query hooks.
+ *
+ * We also create a few inference helpers for input and output types.
+ */
+import { httpBatchLink, loggerLink } from "@trpc/client";
+import { createTRPCNext } from "@trpc/next";
+import { type inferRouterInputs, type inferRouterOutputs } from "@trpc/server";
+import superjson from "superjson";
 
-export const eventSelect = {
-  id: true,
-  dateTime: true,
-  game: {
-    select: {
-      id: true,
-      name: true,
-      imageSrc: true,
-    },
-  },
-  host: {
-    select: {
-      id: true,
-      name: true,
-      image: true,
-    },
-  },
-  guests: {
-    select: {
-      id: true,
-      name: true,
-      image: true,
-    },
-  },
+import { type AppRouter } from "~/server/api/root";
+
+const getBaseUrl = () => {
+  if (typeof window !== "undefined") return ""; // browser should use relative url
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`; // SSR should use vercel url
+  return `http://localhost:${process.env.PORT ?? 3000}`; // dev SSR should use localhost
 };
 
-export const populatedEvent = Prisma.validator<Prisma.EventArgs>()({
-  select: eventSelect,
+/** A set of type-safe react-query hooks for your tRPC API. */
+export const api = createTRPCNext<AppRouter>({
+  config() {
+    return {
+      /**
+       * Transformer used for data de-serialization from the server.
+       *
+       * @see https://trpc.io/docs/data-transformers
+       */
+      transformer: superjson,
+
+      /**
+       * Links used to determine request flow from client to server.
+       *
+       * @see https://trpc.io/docs/links
+       */
+      links: [
+        loggerLink({
+          enabled: (opts) =>
+            process.env.NODE_ENV === "development" ||
+            (opts.direction === "down" && opts.result instanceof Error),
+        }),
+        httpBatchLink({
+          url: `${getBaseUrl()}/api/trpc`,
+        }),
+      ],
+    };
+  },
+  /**
+   * Whether tRPC should await queries when server rendering pages.
+   *
+   * @see https://trpc.io/docs/nextjs#ssr-boolean-default-false
+   */
+  ssr: false,
 });
 
-export const userSelect = {
-  id: true,
-  name: true,
-  isAdmin: true,
-  eventsHosting: {
-    select: eventSelect,
-  },
-  eventsAttending: {
-    select: eventSelect,
-  },
-};
+/**
+ * Inference helper for inputs.
+ *
+ * @example type HelloInput = RouterInputs['example']['hello']
+ */
+export type RouterInputs = inferRouterInputs<AppRouter>;
 
-export const populatedUser = Prisma.validator<Prisma.UserArgs>()({
-  select: userSelect,
-});
+/**
+ * Inference helper for outputs.
+ *
+ * @example type HelloOutput = RouterOutputs['example']['hello']
+ */
+export type RouterOutputs = inferRouterOutputs<AppRouter>;

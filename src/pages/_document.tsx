@@ -1,8 +1,9 @@
 // https://github.com/mui-org/material-ui/tree/master/examples/nextjs
 import createEmotionServer from "@emotion/server/create-instance";
-import { createEmotionCache } from "lib/createEmotionCache";
 import Document, { Head, Html, Main, NextScript } from "next/document";
-import theme, { roboto } from "styles/theme";
+
+import { createEmotionCache } from "~/lib/createEmotionCache";
+import theme, { roboto } from "~/styles/theme";
 
 export default class MyDocument extends Document<{
   emotionStyleTags: JSX.Element[];

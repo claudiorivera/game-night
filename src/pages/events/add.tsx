@@ -11,7 +11,7 @@ import {
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { Game } from "@prisma/client";
 import axios from "axios";
-import { AlertContext } from "context/Alert";
+import { AlertContext } from "~/context/Alert";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { getServerSession } from "next-auth";

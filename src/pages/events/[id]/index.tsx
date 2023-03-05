@@ -20,8 +20,8 @@ import {
 } from "@mui/material";
 import { Game, User } from "@prisma/client";
 import axios from "axios";
-import { AlertContext } from "context/Alert";
-import { eventSelect } from "lib/api";
+import { AlertContext } from "~/context/Alert";
+import { eventSelect } from "~/lib/prismaHelpers";
 import moment from "moment";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";

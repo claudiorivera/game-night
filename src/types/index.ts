@@ -1,5 +1,5 @@
 import { Prisma } from "@prisma/client";
-import { populatedEvent, populatedUser } from "lib/api";
+import { populatedEvent, populatedUser } from "~/lib/prismaHelpers";
 
 export interface Link {
   title: string;
