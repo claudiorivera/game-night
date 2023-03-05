@@ -1,12 +1,13 @@
 import { LoadingButton } from "@mui/lab";
 import { Container } from "@mui/material";
-import { EventsListContainer, NextLinkComposed } from "components";
 import { eventSelect } from "lib/api";
 import { GetServerSideProps } from "next";
 import { getServerSession } from "next-auth";
 import { nextAuthOptions } from "pages/api/auth/[...nextauth]";
 import { useState } from "react";
 import { PopulatedEvent } from "types";
+
+import { EventsListContainer, NextLinkComposed } from "~/components";
 
 import prisma from "../../lib/prisma";
 

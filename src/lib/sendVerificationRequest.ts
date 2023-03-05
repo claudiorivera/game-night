@@ -1,6 +1,7 @@
-import { appTitle, primaryColor } from "config";
 import { EmailConfig } from "next-auth/providers";
 import { createTransport } from "nodemailer";
+
+import { appTitle, primaryColor } from "~/constants";
 
 type SendVerificationRequestProps = {
   identifier: string;

@@ -1,9 +1,10 @@
 import { Menu as MenuIcon } from "@mui/icons-material";
 import { CircularProgress, IconButton, Menu, MenuItem } from "@mui/material";
-import { adminLinks, userLinks } from "config";
 import { useRouter } from "next/router";
 import { signOut, useSession } from "next-auth/react";
 import { useState } from "react";
+
+import { adminLinks, userLinks } from "~/constants";
 
 export const MobileMenu = () => {
   const { data: session, status } = useSession();

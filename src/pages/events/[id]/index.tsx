@@ -20,16 +20,17 @@ import {
 } from "@mui/material";
 import { Game, User } from "@prisma/client";
 import axios from "axios";
-import { GameDetails } from "components";
 import { AlertContext } from "context/Alert";
 import { eventSelect } from "lib/api";
 import moment from "moment";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-import { getServerSession,Session } from "next-auth";
+import { getServerSession, Session } from "next-auth";
 import { nextAuthOptions } from "pages/api/auth/[...nextauth]";
 import { useContext, useState } from "react";
 import { PopulatedEvent } from "types";
+
+import { GameDetails } from "~/components";
 
 import prisma from "../../../lib/prisma";
 

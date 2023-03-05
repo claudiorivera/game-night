@@ -13,6 +13,8 @@ export const fetchBggGameById = async (id: number) => {
 
   const validation = parsedBggGameSchema.safeParse(parsedData);
 
+  console.log({ parsedData, validation });
+
   if (!validation.success) return;
 
   const { item: game } = validation.data.items;

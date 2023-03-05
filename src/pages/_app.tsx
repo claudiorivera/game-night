@@ -3,13 +3,14 @@ import { Container, CssBaseline } from "@mui/material";
 import { StyledEngineProvider, ThemeProvider } from "@mui/material/styles";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
-import { AlertDialog, MainAppBar } from "components";
 import { AlertProvider } from "context/Alert";
 import { createEmotionCache } from "lib/createEmotionCache";
 import { AppProps } from "next/app";
 import Head from "next/head";
 import { SessionProvider } from "next-auth/react";
 import theme from "styles/theme";
+
+import { AlertDialog, MainAppBar } from "~/components";
 
 const clientSideEmotionCache = createEmotionCache();
 

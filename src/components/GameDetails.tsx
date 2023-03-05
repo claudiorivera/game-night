@@ -1,7 +1,8 @@
 import { Box, Grid, Typography } from "@mui/material";
-import { GameMetaData } from "components";
 import { BGGGameResponse } from "lib/fetchBggGameById";
 import Image from "next/image";
+
+import { GameMetaData } from "~/components";
 
 interface Props {
   game: BGGGameResponse;

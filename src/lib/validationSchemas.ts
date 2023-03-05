@@ -9,16 +9,7 @@ const nameSchema = z.object({
 });
 
 const metaDataSchema = z.object({
-  type: z.enum([
-    "boardgamecategory",
-    "boardgamemechanic",
-    "boardgamefamily",
-    "boardgameexpansion",
-    "boardgamedesigner",
-    "boardgameartist",
-    "boardgamepublisher",
-    "boardgameimplementation",
-  ]),
+  type: z.string(),
   value: z.string(),
 });
 

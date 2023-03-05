@@ -10,7 +10,6 @@ import {
 } from "@mui/material";
 import { Prisma } from "@prisma/client";
 import axios from "axios";
-import { GameDetails } from "components";
 import { BGGGameResponse } from "lib/fetchBggGameById";
 import { fetchBggGamesByQuery } from "lib/fetchBggGamesByQuery";
 import { GetServerSideProps } from "next";
@@ -18,6 +17,8 @@ import { useRouter } from "next/router";
 import { getServerSession } from "next-auth";
 import { nextAuthOptions } from "pages/api/auth/[...nextauth]";
 import { useState } from "react";
+
+import { GameDetails } from "~/components";
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getServerSession(req, res, nextAuthOptions);

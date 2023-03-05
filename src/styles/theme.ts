@@ -1,6 +1,7 @@
 import { createTheme } from "@mui/material/styles";
-import { Roboto } from "@next/font/google";
-import { primaryColor, secondaryColor } from "config";
+import { Roboto } from "next/font/google";
+
+import { primaryColor, secondaryColor } from "~/constants";
 
 export const roboto = Roboto({
   weight: ["300", "400", "500", "700"],

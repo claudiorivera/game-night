@@ -8,11 +8,12 @@ import {
   Typography,
 } from "@mui/material";
 import { Game } from "@prisma/client";
-import { GameDetails, NextLinkComposed } from "components";
 import { GetServerSideProps } from "next";
 import { getServerSession } from "next-auth";
 import { nextAuthOptions } from "pages/api/auth/[...nextauth]";
 import { useState } from "react";
+
+import { GameDetails, NextLinkComposed } from "~/components";
 
 import prisma from "../../lib/prisma";
 

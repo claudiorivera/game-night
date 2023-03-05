@@ -1,6 +1,7 @@
 import { Grid } from "@mui/material";
-import { EventSummaryCard } from "components";
 import { PopulatedEvent } from "types";
+
+import { EventSummaryCard } from "~/components";
 
 type EventsListContainerProps = {
   events: PopulatedEvent[];

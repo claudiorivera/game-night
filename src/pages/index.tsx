@@ -1,9 +1,10 @@
 import { Typography } from "@mui/material";
-import { EventsListContainer } from "components";
 import { eventSelect } from "lib/api";
 import { GetServerSideProps } from "next";
 import { getServerSession } from "next-auth";
 import { PopulatedEvent } from "types";
+
+import { EventsListContainer } from "~/components";
 
 import prisma from "../lib/prisma";
 import { nextAuthOptions } from "./api/auth/[...nextauth]";
