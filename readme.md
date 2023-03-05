@@ -6,14 +6,14 @@ Uses the [BoardGameGeek API2](https://boardgamegeek.com/wiki/page/BGG_XML_API2) 
 
 # Technologies Used
 
-- React
+- [React](https://reactjs.org)
 - [Next.js](https://nextjs.org)
 - [Material-UI](https://mui.com)
-- Postgres
+- [Postgres](https://www.postgresql.org/)
 - [Prisma](https://www.prisma.io/)
-- [SWR](https://swr.vercel.app)
+- [tRPC](https://trpc.io)
 - [NextAuth.js](https://next-auth.js.org)
-- [Moment](https://momentjs.com)
+- [Day.js](https://dayjs.org)
 - [Fast XML Parser](https://github.com/NaturalIntelligence/fast-xml-parser)
 - [BoardGameGeek API2](https://boardgamegeek.com/wiki/page/BGG_XML_API2)
 
@@ -28,15 +28,6 @@ Add a `.env.local` file with environmental variables as shown in the example `.e
 # Dev
 
 `pnpm dev`
-
-# Future Improvement Ideas
-
-- Allow users to update name and profile pic
-- Move old events into a "past events" section on the dashboard and events page.
-- Implement the game search into the event creation process.
-- Add Facebook login.
-- More confirmation dialogs, and improve the toasts. 🍞
-- Improve overall design and styles. 💅🏼
 
 # Known Bugs
 
