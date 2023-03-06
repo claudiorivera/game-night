@@ -1,4 +1,5 @@
 import { Box, Chip, Typography } from "@mui/material";
+
 import { BGGGameResponse } from "~/lib/fetchBggGameById";
 
 type GameMetaDataProps = {

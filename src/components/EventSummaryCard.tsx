@@ -6,9 +6,9 @@ import {
   Typography,
 } from "@mui/material";
 import moment from "moment";
-import { PopulatedEvent } from "types";
 
 import { Link } from "~/components";
+import { PopulatedEvent } from "~/types";
 
 type EventSummaryCardProps = {
   event: PopulatedEvent;

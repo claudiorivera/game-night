@@ -1,51 +1,15 @@
 import { LoadingButton } from "@mui/lab";
 import { Container } from "@mui/material";
-import { eventSelect } from "~/lib/prismaHelpers";
-import { GetServerSideProps } from "next";
-import { getServerSession } from "next-auth";
-import { nextAuthOptions } from "pages/api/auth/[...nextauth]";
 import { useState } from "react";
-import { PopulatedEvent } from "types";
 
 import { EventsListContainer, NextLinkComposed } from "~/components";
+import { api } from "~/lib/api";
 
-import prisma from "../../lib/prisma";
-
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const session = await getServerSession(req, res, nextAuthOptions);
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/api/auth/signin",
-        permanent: false,
-      },
-    };
-  }
-
-  const events = await prisma.event.findMany({
-    select: eventSelect,
-  });
-
-  if (!events) {
-    return {
-      redirect: {
-        destination: "/api/auth/signin",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: { events: JSON.parse(JSON.stringify(events)) },
-  };
-};
-
-type EventsListPageProps = {
-  events: PopulatedEvent[];
-};
-const EventsListPage = ({ events }: EventsListPageProps) => {
+const EventsListPage = () => {
   const [disabled, setDisabled] = useState(false);
+  const { data: events } = api.event.getAll.useQuery();
+
+  if (!events) return null;
 
   return (
     <>

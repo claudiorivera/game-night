@@ -7,49 +7,12 @@ import {
   Container,
   Typography,
 } from "@mui/material";
-import { Game } from "@prisma/client";
-import { GetServerSideProps } from "next";
-import { getServerSession } from "next-auth";
-import { nextAuthOptions } from "pages/api/auth/[...nextauth]";
-import { useState } from "react";
 
 import { GameDetails, NextLinkComposed } from "~/components";
+import { api } from "~/lib/api";
 
-import prisma from "../../lib/prisma";
-
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const session = await getServerSession(req, res, nextAuthOptions);
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/api/auth/signin",
-        permanent: false,
-      },
-    };
-  }
-
-  const games = await prisma.game.findMany();
-
-  if (!games) {
-    return {
-      redirect: {
-        destination: "/api/auth/signin",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: { games: JSON.parse(JSON.stringify(games)) },
-  };
-};
-
-type GamesListPageProps = {
-  games: Game[];
-};
-const GamesListPage = ({ games }: GamesListPageProps) => {
-  const [disabled, setDisabled] = useState(false);
+const GamesListPage = () => {
+  const { data: games, isLoading: disabled } = api.game.getAll.useQuery();
 
   return (
     <>
@@ -65,15 +28,12 @@ const GamesListPage = ({ games }: GamesListPageProps) => {
           to={{
             pathname: "/games/add",
           }}
-          onClick={() => {
-            setDisabled(true);
-          }}
         >
           Add Game
         </LoadingButton>
       </Container>
       <Container>
-        {games.map((game) => (
+        {games?.map((game) => (
           <Accordion key={game.bggId} square>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}

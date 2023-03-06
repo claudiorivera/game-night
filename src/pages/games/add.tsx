@@ -8,40 +8,30 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { Prisma } from "@prisma/client";
-import axios from "axios";
-import { BGGGameResponse } from "~/lib/fetchBggGameById";
-import { fetchBggGamesByQuery } from "~/lib/fetchBggGamesByQuery";
-import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-import { getServerSession } from "next-auth";
-import { nextAuthOptions } from "pages/api/auth/[...nextauth]";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import { GameDetails } from "~/components";
-
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const session = await getServerSession(req, res, nextAuthOptions);
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/api/auth/signin",
-        permanent: false,
-      },
-    };
-  }
-  return {
-    props: {},
-  };
-};
+import { AlertContext } from "~/context/Alert";
+import { api } from "~/lib/api";
+import { BGGGameResponse } from "~/lib/fetchBggGameById";
+import { fetchBggGamesByQuery } from "~/lib/fetchBggGamesByQuery";
 
 const AddGamePage = () => {
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [queryResults, setQueryResults] = useState<Array<BGGGameResponse>>([]);
   const [isFetching, setIsFetching] = useState(false);
-  const [disabled, setDisabled] = useState(false);
+  const { createAlertWithMessage } = useContext(AlertContext);
+
+  const { mutate: addGame, isLoading: disabled } = api.game.import.useMutation({
+    onSuccess: () => {
+      router.push("/games");
+    },
+    onError: (error) => {
+      createAlertWithMessage(error.message);
+    },
+  });
 
   const handleSearch = async (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -55,14 +45,6 @@ const AddGamePage = () => {
     e
   ) => {
     setQuery(e.target.value);
-  };
-
-  const addGame = async (gameToAdd: Prisma.GameCreateInput) => {
-    try {
-      await axios.post("/api/games", gameToAdd);
-    } catch (error) {
-      console.error(error);
-    }
   };
 
   return (
@@ -127,9 +109,8 @@ const AddGamePage = () => {
                     variant="contained"
                     disabled={disabled}
                     loading={disabled}
-                    onClick={async () => {
-                      setDisabled(true);
-                      await addGame({
+                    onClick={() => {
+                      addGame({
                         bggId: result.bggId,
                         imageSrc: result.imageSrc,
                         thumbnailSrc: result.thumbnailSrc,
@@ -146,8 +127,6 @@ const AddGamePage = () => {
                         categories: result.categories,
                         mechanics: result.mechanics,
                       });
-                      setDisabled(false);
-                      router.push("/games");
                     }}
                   >
                     Add This Game

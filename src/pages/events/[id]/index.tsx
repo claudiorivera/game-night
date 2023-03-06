@@ -18,118 +18,69 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { Game, User } from "@prisma/client";
-import axios from "axios";
-import { AlertContext } from "~/context/Alert";
-import { eventSelect } from "~/lib/prismaHelpers";
+import { User } from "@prisma/client";
 import moment from "moment";
-import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-import { getServerSession, Session } from "next-auth";
-import { nextAuthOptions } from "pages/api/auth/[...nextauth]";
 import { useContext, useState } from "react";
-import { PopulatedEvent } from "types";
 
 import { GameDetails } from "~/components";
+import { AlertContext } from "~/context/Alert";
+import { api } from "~/lib/api";
 
-import prisma from "../../../lib/prisma";
-
-export const getServerSideProps: GetServerSideProps = async ({
-  req,
-  res,
-  params,
-}) => {
-  const session = await getServerSession(req, res, nextAuthOptions);
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/api/auth/signin",
-        permanent: false,
-      },
-    };
-  }
-
-  if (params?.id) {
-    const event = await prisma.event.findUnique({
-      where: { id: +params.id },
-      select: eventSelect,
-    });
-
-    const game = await prisma.game.findUnique({
-      where: { id: event?.game.id },
-    });
-
-    if (!game || !event) {
-      return {
-        redirect: {
-          destination: "/api/auth/signin",
-          permanent: false,
-        },
-      };
-    }
-
-    return {
-      props: {
-        session,
-        event: JSON.parse(JSON.stringify(event)),
-        game: JSON.parse(JSON.stringify(game)),
-      },
-    };
-  } else {
-    return {
-      props: {},
-    };
-  }
-};
-
-type EventDetailsPageProps = {
-  session: Session;
-  event: PopulatedEvent;
-  game: Game;
-};
-const EventDetailsPage = ({ session, event, game }: EventDetailsPageProps) => {
+const EventDetailsPage = () => {
   const router = useRouter();
   const { createAlertWithMessage } = useContext(AlertContext);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [disabled, setDisabled] = useState(false);
+
+  const { data: user } = api.user.getCurrentUser.useQuery();
+
+  const { data: event } = api.event.getById.useQuery({
+    id: router.query.id as string,
+  });
+
+  const { mutate: deleteEventById, isLoading: isDeletingEvent } =
+    api.event.deleteById.useMutation({
+      onSuccess: () => {
+        router.back();
+      },
+      onError: (error) => {
+        createAlertWithMessage(error.message);
+      },
+    });
+
+  const { mutate: leaveEventById, isLoading: isLeavingEvent } =
+    api.event.leaveById.useMutation({
+      onSuccess: () => {
+        router.back();
+      },
+      onError: (error) => {
+        createAlertWithMessage(error.message);
+      },
+    });
+
+  const { mutate: joinEventById, isLoading: isJoiningEvent } =
+    api.event.joinById.useMutation({
+      onSuccess: () => {
+        router.back();
+      },
+      onError: (error) => {
+        createAlertWithMessage(error.message);
+      },
+    });
+
+  const disabled = isDeletingEvent || isLeavingEvent || isJoiningEvent;
+
+  if (!event || !user) return null;
+
+  const { game } = event;
 
   // Delete confirm dialog
   const handleClose = () => {
     setIsDialogOpen(false);
   };
 
-  const handleDelete = async () => {
-    await deleteEventById(event.id);
-    router.back();
-  };
-
-  const deleteEventById = async (id: number) => {
-    try {
-      setDisabled(true);
-      await axios.delete(`/api/events/${id}`);
-    } catch (error) {
-      createAlertWithMessage(JSON.stringify(error, null, 2));
-      console.error(error);
-    }
-  };
-
-  const joinEventById = async (id: number) => {
-    try {
-      await axios.put(`/api/events/${id}?action=join`);
-    } catch (error) {
-      createAlertWithMessage(JSON.stringify(error, null, 2));
-      console.error(error);
-    }
-  };
-
-  const leaveEventById = async (id: number) => {
-    try {
-      await axios.put(`/api/events/${id}?action=leave`);
-    } catch (error) {
-      createAlertWithMessage(JSON.stringify(error, null, 2));
-      console.error(error);
-    }
+  const handleDelete = () => {
+    deleteEventById({ id: event.id });
   };
 
   return (
@@ -185,27 +136,23 @@ const EventDetailsPage = ({ session, event, game }: EventDetailsPageProps) => {
         </CardContent>
         <CardActions>
           {/* If user is already a guest, show the Leave button */}
-          {event.guests.some((guest) => guest.id === session.user.id) ? (
+          {event.guests.some((guest) => guest.id === user.id) ? (
             <LoadingButton
               disabled={disabled}
               loading={disabled}
-              onClick={async () => {
-                setDisabled(true);
-                await leaveEventById(event.id);
-                router.back();
+              onClick={() => {
+                leaveEventById({ id: event.id });
               }}
             >
               Leave
             </LoadingButton>
           ) : // Otherwise, as long as user isn't the host, show the Join loadingbutton
-          event.host.id !== session.user.id ? (
+          event.host.id !== user.id ? (
             <LoadingButton
               disabled={disabled}
               loading={disabled}
-              onClick={async () => {
-                setDisabled(true);
-                await joinEventById(event.id);
-                router.back();
+              onClick={() => {
+                joinEventById({ id: event.id });
               }}
             >
               Join
@@ -221,7 +168,7 @@ const EventDetailsPage = ({ session, event, game }: EventDetailsPageProps) => {
             </Button>
           )}
           {/* Show the Delete button to hosts and admins */}
-          {(event.host.id === session.user.id || !!session.user.isAdmin) && (
+          {(event.host.id === user.id || !!user.isAdmin) && (
             <Button
               onClick={async () => {
                 setIsDialogOpen(true);

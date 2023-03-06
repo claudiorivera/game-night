@@ -15,7 +15,9 @@ export const userRouter = createTRPCRouter({
         id: ctx.session.user.id,
       },
       select: {
+        id: true,
         name: true,
+        isAdmin: true,
         eventsHosting: {
           select: defaultEventSelect,
         },
