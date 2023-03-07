@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { NextApiRequest, NextApiResponse } from "next";
 
-import prisma from "../../lib/prisma";
+import { prisma } from "~/server/db";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { authorization } = req.headers;
