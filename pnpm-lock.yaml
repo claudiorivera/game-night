@@ -30,7 +30,7 @@ specifiers:
   fast-xml-parser: 4.1.3
   moment: 2.29.4
   next: 13.2.3
-  next-auth: 4.19.2
+  next-auth: 4.20.1
   next-connect: 0.13.0
   nodemailer: 6.9.1
   prisma: 4.10.1
@@ -50,7 +50,7 @@ dependencies:
   '@mui/lab': 5.0.0-alpha.122_buaezdclapb5fiedfif4i2kehi
   '@mui/material': 5.11.12_xqeqsl5kvjjtyxwyi3jhw3yuli
   '@mui/x-date-pickers': 5.0.20_knnjacqrwx2iowqng2j2s4ajhe
-  '@next-auth/prisma-adapter': 1.0.5_qpmskah7lm3ildf4stmwh4q42u
+  '@next-auth/prisma-adapter': 1.0.5_ouwcmbb7palpkwlagb7ozld3le
   '@next/font': 13.2.3
   '@prisma/client': 4.10.1_prisma@4.10.1
   axios: 1.3.4
@@ -58,7 +58,7 @@ dependencies:
   fast-xml-parser: 4.1.3
   moment: 2.29.4
   next: 13.2.3_6m24vuloj5ihw4zc5lbsktc4fu
-  next-auth: 4.19.2_nqfews3zxntugbnfuqgpde23my
+  next-auth: 4.20.1_nqfews3zxntugbnfuqgpde23my
   next-connect: 0.13.0
   nodemailer: 6.9.1
   react: 18.2.0
@@ -241,13 +241,6 @@ packages:
 
   /@babel/runtime/7.20.13:
     resolution: {integrity: sha512-gt3PKXs0DBoL9xCvOIIZ2NEqAGZqHjAnmVbfQtB620V0uReIQutpel14KcneZuer7UioY8ALKZ7iocavvzTNFA==}
-    engines: {node: '>=6.9.0'}
-    dependencies:
-      regenerator-runtime: 0.13.11
-    dev: false
-
-  /@babel/runtime/7.20.7:
-    resolution: {integrity: sha512-UF0tvkUtxwAgZ5W/KrkHf0Rn0fdnLDU9ScxBrEVNUprE/MzirjK4MJUX1/BVDv00Sv8cljtukVK1aky++X1SjQ==}
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.13.11
@@ -859,14 +852,14 @@ packages:
       rifm: 0.12.1_react@18.2.0
     dev: false
 
-  /@next-auth/prisma-adapter/1.0.5_qpmskah7lm3ildf4stmwh4q42u:
+  /@next-auth/prisma-adapter/1.0.5_ouwcmbb7palpkwlagb7ozld3le:
     resolution: {integrity: sha512-VqMS11IxPXrPGXw6Oul6jcyS/n8GLOWzRMrPr3EMdtD6eOalM6zz05j08PcNiis8QzkfuYnCv49OvufTuaEwYQ==}
     peerDependencies:
       '@prisma/client': '>=2.26.0 || >=3'
       next-auth: ^4
     dependencies:
       '@prisma/client': 4.10.1_prisma@4.10.1
-      next-auth: 4.19.2_nqfews3zxntugbnfuqgpde23my
+      next-auth: 4.20.1_nqfews3zxntugbnfuqgpde23my
     dev: false
 
   /@next/env/13.2.3:
@@ -2459,8 +2452,8 @@ packages:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
     dev: true
 
-  /jose/4.9.3:
-    resolution: {integrity: sha512-f8E/z+T3Q0kA9txzH2DKvH/ds2uggcw0m3vVPSB9HrSkrQ7mojjifvS7aR8cw+lQl2Fcmx9npwaHpM/M3GD8UQ==}
+  /jose/4.13.1:
+    resolution: {integrity: sha512-MSJQC5vXco5Br38mzaQKiq9mwt7lwj2eXpgpRyQYNHYt2lq1PjkWa7DLXX0WVcQLE9HhMh3jPiufS7fhJf+CLQ==}
     dev: false
 
   /js-sdsl/4.1.4:
@@ -2651,8 +2644,8 @@ packages:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
 
-  /next-auth/4.19.2_nqfews3zxntugbnfuqgpde23my:
-    resolution: {integrity: sha512-6V2YG3IJQVhgCAH7mvT3yopTW92gMdUrcwGX7NQ0dCreT/+axGua/JmVdarjec0C/oJukKpIYRgjMlV+L5ZQOQ==}
+  /next-auth/4.20.1_nqfews3zxntugbnfuqgpde23my:
+    resolution: {integrity: sha512-ZcTUN4qzzZ/zJYgOW0hMXccpheWtAol8QOMdMts+LYRcsPGsqf2hEityyaKyECQVw1cWInb9dF3wYwI5GZdEmQ==}
     peerDependencies:
       next: ^12.2.5 || ^13
       nodemailer: ^6.6.5
@@ -2662,14 +2655,14 @@ packages:
       nodemailer:
         optional: true
     dependencies:
-      '@babel/runtime': 7.20.7
+      '@babel/runtime': 7.21.0
       '@panva/hkdf': 1.0.2
       cookie: 0.5.0
-      jose: 4.9.3
+      jose: 4.13.1
       next: 13.2.3_6m24vuloj5ihw4zc5lbsktc4fu
       nodemailer: 6.9.1
       oauth: 0.9.15
-      openid-client: 5.1.6
+      openid-client: 5.4.0
       preact: 10.7.2
       preact-render-to-string: 5.2.0_preact@10.7.2
       react: 18.2.0
@@ -2838,11 +2831,10 @@ packages:
       is-wsl: 2.2.0
     dev: true
 
-  /openid-client/5.1.6:
-    resolution: {integrity: sha512-HTFaXWdUHvLFw4GaEMgC0jXYBgpjgzQQNHW1pZsSqJorSgrXzxJ+4u/LWCGaClDEse5HLjXRV+zU5Bn3OefiZw==}
-    engines: {node: ^12.19.0 || ^14.15.0 || ^16.13.0}
+  /openid-client/5.4.0:
+    resolution: {integrity: sha512-hgJa2aQKcM2hn3eyVtN12tEA45ECjTJPXCgUh5YzTzy9qwapCvmDTVPWOcWVL0d34zeQoQ/hbG9lJhl3AYxJlQ==}
     dependencies:
-      jose: 4.9.3
+      jose: 4.13.1
       lru-cache: 6.0.0
       object-hash: 2.2.0
       oidc-token-hash: 5.0.1
