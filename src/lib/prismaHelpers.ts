@@ -45,3 +45,6 @@ export const userSelect = {
 export const populatedUser = Prisma.validator<Prisma.UserArgs>()({
   select: userSelect,
 });
+
+export type PopulatedEvent = Prisma.EventGetPayload<typeof populatedEvent>;
+export type PopulatedUser = Prisma.UserGetPayload<typeof populatedUser>;

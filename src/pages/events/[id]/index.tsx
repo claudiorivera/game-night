@@ -19,7 +19,7 @@ import {
   Typography,
 } from "@mui/material";
 import { User } from "@prisma/client";
-import moment from "moment";
+import dayjs from "dayjs";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { getServerSession } from "next-auth";
@@ -126,7 +126,7 @@ const EventDetailsPage = () => {
         }}
       >
         <CardHeader
-          title={moment(event.dateTime).format("MMMM Do, YYYY [at] h:mma")}
+          title={dayjs(event.dateTime).format("MMMM Do, YYYY [at] h:mma")}
           subheader={game.name}
         />
         <CardContent>

@@ -5,10 +5,10 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
-import moment from "moment";
+import dayjs from "dayjs";
 
 import { Link } from "~/components";
-import { PopulatedEvent } from "~/types";
+import { PopulatedEvent } from "~/lib/prismaHelpers";
 
 type EventSummaryCardProps = {
   event: PopulatedEvent;
@@ -24,7 +24,7 @@ export const EventSummaryCard = ({
     <Link href={`/events/${event.id}`} sx={{ textDecoration: "none" }}>
       <Card>
         <CardHeader
-          title={moment(event.dateTime).format("MMMM Do, YYYY [at] h:mma")}
+          title={dayjs(event.dateTime).format("MMMM Do, YYYY [at] h:mma")}
           subheader={game.name}
           titleTypographyProps={{ variant: "subtitle2" }}
           subheaderTypographyProps={{ variant: "caption" }}
