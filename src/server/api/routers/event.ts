@@ -1,4 +1,3 @@
-import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
@@ -34,16 +33,10 @@ export const eventRouter = createTRPCRouter({
     .input(
       z.object({
         gameId: z.string(),
-        dateTime: z.date().nullish(),
+        dateTime: z.date(),
       })
     )
     .mutation(({ ctx, input }) => {
-      if (!input.dateTime)
-        throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: "Missing DateTime.",
-        });
-
       return ctx.prisma.event.create({
         data: {
           dateTime: input.dateTime,
@@ -163,7 +156,7 @@ export const eventRouter = createTRPCRouter({
         id: z.string(),
         data: z.object({
           gameId: z.string(),
-          dateTime: z.string(),
+          dateTime: z.date(),
         }),
       })
     )

@@ -2,7 +2,7 @@ import { CacheProvider, EmotionCache } from "@emotion/react";
 import { Container, CssBaseline } from "@mui/material";
 import { StyledEngineProvider, ThemeProvider } from "@mui/material/styles";
 import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { AppProps } from "next/app";
 import Head from "next/head";
 import { SessionProvider } from "next-auth/react";
@@ -34,7 +34,7 @@ function MyApp(props: MyAppProps) {
         <ThemeProvider theme={theme}>
           <AlertProvider>
             <SessionProvider session={pageProps.session}>
-              <LocalizationProvider dateAdapter={AdapterMoment}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <CssBaseline />
                 <MainAppBar />
                 <AlertDialog />

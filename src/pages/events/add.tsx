@@ -9,6 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import dayjs, { Dayjs } from "dayjs";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 
@@ -18,7 +19,7 @@ import { api } from "~/lib/api";
 const AddEventPage = () => {
   const router = useRouter();
   const { createAlertWithMessage } = useContext(AlertContext);
-  const [dateTime, setDateTime] = useState<Date | null>(new Date());
+  const [dateTime, setDateTime] = useState<Dayjs | null>(dayjs());
   const [gameId, setGameId] = useState("");
 
   const { data: games } = api.game.getAll.useQuery();
@@ -41,7 +42,7 @@ const AddEventPage = () => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          addEvent({ gameId, dateTime });
+          addEvent({ gameId, dateTime: dateTime?.toDate() || new Date() });
         }}
       >
         <Grid container spacing={3} mt={1}>
@@ -55,28 +56,26 @@ const AddEventPage = () => {
               />
             </FormControl>
           </Grid>
-          {!!games.length && (
-            <Grid item xs={12} sm={6}>
-              <FormControl sx={{ width: "100%" }}>
-                <InputLabel id="select-game-label">Select Game</InputLabel>
-                <Select
-                  id="select-game"
-                  value={gameId}
-                  label="Select Game"
-                  labelId="select-game-label"
-                  onChange={(e) => {
-                    setGameId(e.target.value as string);
-                  }}
-                >
-                  {games.map(({ id, name }) => (
-                    <MenuItem key={id} value={id}>
-                      {name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Grid>
-          )}
+          <Grid item xs={12} sm={6}>
+            <FormControl sx={{ width: "100%" }}>
+              <InputLabel id="select-game-label">Select Game</InputLabel>
+              <Select
+                id="select-game"
+                value={gameId}
+                label="Select Game"
+                labelId="select-game-label"
+                onChange={(e) => {
+                  setGameId(e.target.value);
+                }}
+              >
+                {games.map(({ id, name }) => (
+                  <MenuItem key={id} value={id}>
+                    {name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
           <Grid item xs={12}>
             <LoadingButton
               size="large"

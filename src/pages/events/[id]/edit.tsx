@@ -10,82 +10,44 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { Game } from "@prisma/client";
-import axios from "axios";
-import { eventSelect } from "~/lib/prismaHelpers";
-import { GetServerSideProps } from "next";
+import { DateTimePicker } from "@mui/x-date-pickers";
+import dayjs, { Dayjs } from "dayjs";
 import { useRouter } from "next/router";
-import { getServerSession } from "next-auth";
-import { nextAuthOptions } from "pages/api/auth/[...nextauth]";
 import { useState } from "react";
-import { PopulatedEvent } from "types";
 
-import prisma from "../../../lib/prisma";
+import { api } from "~/lib/api";
 
-export const getServerSideProps: GetServerSideProps = async ({
-  req,
-  res,
-  params,
-}) => {
-  const session = await getServerSession(req, res, nextAuthOptions);
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/api/auth/signin",
-        permanent: false,
-      },
-    };
-  }
-
-  if (params?.id) {
-    const event = await prisma.event.findUnique({
-      where: { id: +params.id },
-      select: eventSelect,
-    });
-
-    const games = await prisma.game.findMany();
-
-    if (!games || !event) {
-      return {
-        redirect: {
-          destination: "/api/auth/signin",
-          permanent: false,
-        },
-      };
-    }
-
-    return {
-      props: {
-        event: JSON.parse(JSON.stringify(event)),
-        games: JSON.parse(JSON.stringify(games)),
-      },
-    };
-  } else {
-    return {
-      props: {},
-    };
-  }
-};
-
-type EditEventPageProps = {
-  event: PopulatedEvent;
-  games: Game[];
-};
-const EditEventPage = ({ event, games }: EditEventPageProps) => {
+const EditEventPage = () => {
   const router = useRouter();
-  const [dateTime, setDateTime] = useState<Date | unknown>(new Date());
-  const [gameId, setGameId] = useState(event.game.id);
-  const [disabled, setDisabled] = useState(false);
 
-  const updateEvent = async () => {
-    await axios.put(`/api/events/${event.id}?action=edit`, {
-      gameId,
-      dateTime,
+  const { data: event } = api.event.getById.useQuery(
+    {
+      id: router.query.id as string,
+    },
+    {
+      enabled: !!router.query.id,
+      onSuccess: (data) => {
+        if (!data) return;
+
+        setDateTime(dayjs(data.dateTime));
+        setGameId(data.game.id);
+      },
+    }
+  );
+
+  const [dateTime, setDateTime] = useState<Dayjs | null>(dayjs(new Date()));
+  const [gameId, setGameId] = useState<string>("");
+
+  const { mutate: updateEvent, isLoading: disabled } =
+    api.event.updateById.useMutation({
+      onSuccess: () => {
+        router.back();
+      },
     });
-    router.back();
-  };
+
+  const { data: games } = api.game.getAll.useQuery();
+
+  if (!event || !games) return null;
 
   return (
     <Container>
@@ -96,61 +58,62 @@ const EditEventPage = ({ event, games }: EditEventPageProps) => {
       <Typography variant="h4" sx={{ mt: 2 }}>
         Edit Event
       </Typography>
-      {event && (
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            setDisabled(true);
-            updateEvent();
-            router.back();
-          }}
-        >
-          <Grid container spacing={3} mt={1}>
-            <Grid item xs={12} sm={6}>
-              <FormControl sx={{ width: "100%" }}>
-                <DatePicker
-                  renderInput={(props) => <TextField {...props} />}
-                  disablePast
-                  value={dateTime}
-                  onChange={setDateTime}
-                />
-              </FormControl>
-            </Grid>
-            {games && (
-              <Grid item xs={12} sm={6}>
-                <FormControl sx={{ width: "100%" }}>
-                  <Select
-                    id="game-select"
-                    value={gameId}
-                    onChange={(e) => {
-                      setGameId(+e.target.value);
-                    }}
-                  >
-                    {games.map(({ id, name }) => (
-                      <MenuItem key={id} value={id}>
-                        {name}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </Grid>
-            )}
-            <Grid item xs={12}>
-              <LoadingButton
-                size="large"
-                fullWidth
-                variant="contained"
-                color="primary"
-                type="submit"
-                disabled={disabled}
-                loading={disabled}
-              >
-                Save
-              </LoadingButton>
-            </Grid>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          updateEvent({
+            id: event.id,
+            data: {
+              dateTime: dateTime?.toDate() || new Date(),
+              gameId,
+            },
+          });
+        }}
+      >
+        <Grid container spacing={3} mt={1}>
+          <Grid item xs={12} sm={6}>
+            <FormControl sx={{ width: "100%" }}>
+              <DateTimePicker
+                renderInput={(props) => <TextField {...props} />}
+                disablePast
+                value={dateTime}
+                onChange={setDateTime}
+              />
+            </FormControl>
           </Grid>
-        </form>
-      )}
+          <Grid item xs={12} sm={6}>
+            <FormControl sx={{ width: "100%" }}>
+              <Select
+                id="game-select"
+                value={gameId}
+                onChange={(e) => {
+                  setGameId(e.target.value);
+                }}
+              >
+                <MenuItem value="">Select A Game</MenuItem>
+                {games.map(({ id, name }) => (
+                  <MenuItem key={id} value={id}>
+                    {name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12}>
+            <LoadingButton
+              size="large"
+              fullWidth
+              variant="contained"
+              color="primary"
+              type="submit"
+              disabled={disabled}
+              loading={disabled}
+            >
+              Save
+            </LoadingButton>
+          </Grid>
+        </Grid>
+      </form>
     </Container>
   );
 };
