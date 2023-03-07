@@ -69,12 +69,12 @@ export const authOptions: NextAuthOptions = {
       },
     }),
     GitHubProvider({
-      clientId: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      clientId: env.GITHUB_CLIENT_ID,
+      clientSecret: env.GITHUB_CLIENT_SECRET,
     }),
     EmailProvider({
-      server: process.env.EMAIL_SERVER,
-      from: process.env.EMAIL_FROM,
+      server: env.EMAIL_SERVER,
+      from: env.EMAIL_FROM,
       sendVerificationRequest: sendVerificationRequest,
     }),
   ],
