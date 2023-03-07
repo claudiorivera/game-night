@@ -7,8 +7,8 @@ import { AppProps } from "next/app";
 import Head from "next/head";
 import { SessionProvider } from "next-auth/react";
 
-import { AlertDialog, MainAppBar } from "~/components";
-import { AlertProvider } from "~/context/Alert";
+import { MainAppBar, Snackbar } from "~/components";
+import { SnackbarProvider } from "~/context/Snackbar";
 import { api } from "~/lib/api";
 import { createEmotionCache } from "~/lib/createEmotionCache";
 import theme from "~/styles/theme";
@@ -32,18 +32,18 @@ function MyApp(props: MyAppProps) {
       </Head>
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
-          <AlertProvider>
-            <SessionProvider session={pageProps.session}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <SessionProvider session={pageProps.session}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <SnackbarProvider>
                 <CssBaseline />
                 <MainAppBar />
-                <AlertDialog />
+                <Snackbar />
                 <Container maxWidth="lg">
                   <Component {...pageProps} />
                 </Container>
-              </LocalizationProvider>
-            </SessionProvider>
-          </AlertProvider>
+              </SnackbarProvider>
+            </LocalizationProvider>
+          </SessionProvider>
         </ThemeProvider>
       </StyledEngineProvider>
     </CacheProvider>

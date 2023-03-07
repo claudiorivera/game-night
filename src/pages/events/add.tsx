@@ -10,15 +10,36 @@ import {
 } from "@mui/material";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import dayjs, { Dayjs } from "dayjs";
+import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
+import { getServerSession } from "next-auth";
 import { useContext, useState } from "react";
 
-import { AlertContext } from "~/context/Alert";
+import { SnackbarContext } from "~/context/Snackbar";
 import { api } from "~/lib/api";
+import { authOptions } from "~/server/auth";
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getServerSession(req, res, authOptions);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/api/auth/signin",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
 
 const AddEventPage = () => {
   const router = useRouter();
-  const { createAlertWithMessage } = useContext(AlertContext);
+  const { createErrorMessage, createSuccessMessage } =
+    useContext(SnackbarContext);
   const [dateTime, setDateTime] = useState<Dayjs | null>(dayjs());
   const [gameId, setGameId] = useState("");
 
@@ -27,9 +48,10 @@ const AddEventPage = () => {
   const { mutate: addEvent, isLoading: disabled } =
     api.event.create.useMutation({
       onError: (error) => {
-        createAlertWithMessage(error.message);
+        createErrorMessage(error.message);
       },
       onSuccess: () => {
+        createSuccessMessage("Event created!");
         router.push("/events");
       },
     });

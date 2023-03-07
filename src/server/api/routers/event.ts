@@ -1,6 +1,10 @@
 import { z } from "zod";
 
-import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "~/server/api/trpc";
 
 const defaultEventSelect = {
   id: true,
@@ -74,12 +78,12 @@ export const eventRouter = createTRPCRouter({
       select: defaultEventSelect,
     });
   }),
-  getAll: protectedProcedure.query(({ ctx }) => {
+  getAll: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.event.findMany({
       select: defaultEventSelect,
     });
   }),
-  getById: protectedProcedure
+  getById: publicProcedure
     .input(z.object({ id: z.string() }))
     .query(({ ctx, input }) => {
       return ctx.prisma.event.findUnique({
@@ -109,7 +113,7 @@ export const eventRouter = createTRPCRouter({
         },
       });
     }),
-  deleteById: protectedProcedure
+  deleteById: publicProcedure
     .input(z.object({ id: z.string() }))
     .mutation(({ ctx, input }) => {
       return ctx.prisma.event.delete({
@@ -150,7 +154,7 @@ export const eventRouter = createTRPCRouter({
         },
       });
     }),
-  updateById: protectedProcedure
+  updateById: publicProcedure
     .input(
       z.object({
         id: z.string(),

@@ -12,13 +12,36 @@ import {
 } from "@mui/material";
 import { DateTimePicker } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
+import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { getServerSession } from "next-auth";
+import { useContext, useState } from "react";
 
+import { SnackbarContext } from "~/context/Snackbar";
 import { api } from "~/lib/api";
+import { authOptions } from "~/server/auth";
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getServerSession(req, res, authOptions);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/api/auth/signin",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
 
 const EditEventPage = () => {
   const router = useRouter();
+  const { createSuccessMessage, createErrorMessage } =
+    useContext(SnackbarContext);
 
   const { data: event } = api.event.getById.useQuery(
     {
@@ -41,6 +64,7 @@ const EditEventPage = () => {
   const { mutate: updateEvent, isLoading: disabled } =
     api.event.updateById.useMutation({
       onSuccess: () => {
+        createSuccessMessage("Event updated successfully");
         router.back();
       },
     });

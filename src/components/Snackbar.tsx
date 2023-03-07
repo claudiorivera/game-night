@@ -1,16 +1,15 @@
 import {
   Alert,
-  AlertTitle,
   Container,
-  Snackbar,
+  Snackbar as _Snackbar,
   useTheme,
 } from "@mui/material";
 import { useContext } from "react";
 
-import { AlertContext } from "~/context/Alert";
+import { SnackbarContext } from "~/context/Snackbar";
 
-export const AlertDialog = () => {
-  const { message, clearAlert } = useContext(AlertContext);
+export const Snackbar = () => {
+  const { message, clearSnackbar, severity } = useContext(SnackbarContext);
   const theme = useTheme();
 
   if (!message) return null;
@@ -24,24 +23,23 @@ export const AlertDialog = () => {
         },
       }}
     >
-      <Snackbar
+      <_Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open
         autoHideDuration={4000}
         onClose={() => {
-          clearAlert();
+          clearSnackbar();
         }}
       >
         <Alert
           onClose={() => {
-            clearAlert();
+            clearSnackbar();
           }}
-          severity="warning"
+          severity={severity}
         >
-          <AlertTitle>Alert</AlertTitle>
           {JSON.stringify(message)}
         </Alert>
-      </Snackbar>
+      </_Snackbar>
     </Container>
   );
 };

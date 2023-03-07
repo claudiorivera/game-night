@@ -8,28 +8,50 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
+import { getServerSession } from "next-auth";
 import { useContext, useState } from "react";
 
 import { GameDetails } from "~/components";
-import { AlertContext } from "~/context/Alert";
+import { SnackbarContext } from "~/context/Snackbar";
 import { api } from "~/lib/api";
 import { BGGGameResponse } from "~/lib/fetchBggGameById";
 import { fetchBggGamesByQuery } from "~/lib/fetchBggGamesByQuery";
+import { authOptions } from "~/server/auth";
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getServerSession(req, res, authOptions);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/api/auth/signin",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
 
 const AddGamePage = () => {
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [queryResults, setQueryResults] = useState<Array<BGGGameResponse>>([]);
   const [isFetching, setIsFetching] = useState(false);
-  const { createAlertWithMessage } = useContext(AlertContext);
+  const { createErrorMessage, createSuccessMessage } =
+    useContext(SnackbarContext);
 
   const { mutate: addGame, isLoading: disabled } = api.game.import.useMutation({
     onSuccess: () => {
+      createSuccessMessage("Game added successfully!");
       router.push("/games");
     },
     onError: (error) => {
-      createAlertWithMessage(error.message);
+      createErrorMessage(error.message);
     },
   });
 

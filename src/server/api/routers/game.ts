@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
+import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 const defaultGameSelect = {
   id: true,
@@ -22,12 +22,12 @@ const defaultGameSelect = {
 };
 
 export const gameRouter = createTRPCRouter({
-  getAll: protectedProcedure.query(({ ctx }) => {
+  getAll: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.game.findMany({
       select: defaultGameSelect,
     });
   }),
-  import: protectedProcedure
+  import: publicProcedure
     .input(
       z.object({
         name: z.string(),

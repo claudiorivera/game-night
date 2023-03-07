@@ -20,16 +20,37 @@ import {
 } from "@mui/material";
 import { User } from "@prisma/client";
 import moment from "moment";
+import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
+import { getServerSession } from "next-auth";
 import { useContext, useState } from "react";
 
 import { GameDetails } from "~/components";
-import { AlertContext } from "~/context/Alert";
+import { SnackbarContext } from "~/context/Snackbar";
 import { api } from "~/lib/api";
+import { authOptions } from "~/server/auth";
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getServerSession(req, res, authOptions);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/api/auth/signin",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
 
 const EventDetailsPage = () => {
   const router = useRouter();
-  const { createAlertWithMessage } = useContext(AlertContext);
+  const { createErrorMessage, createSuccessMessage } =
+    useContext(SnackbarContext);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const { data: user } = api.user.getCurrentUser.useQuery();
@@ -46,30 +67,33 @@ const EventDetailsPage = () => {
   const { mutate: deleteEventById, isLoading: isDeletingEvent } =
     api.event.deleteById.useMutation({
       onSuccess: () => {
+        createSuccessMessage("Event deleted!");
         router.back();
       },
       onError: (error) => {
-        createAlertWithMessage(error.message);
+        createErrorMessage(error.message);
       },
     });
 
   const { mutate: leaveEventById, isLoading: isLeavingEvent } =
     api.event.leaveById.useMutation({
       onSuccess: () => {
+        createSuccessMessage("You have left the event!");
         router.back();
       },
       onError: (error) => {
-        createAlertWithMessage(error.message);
+        createErrorMessage(error.message);
       },
     });
 
   const { mutate: joinEventById, isLoading: isJoiningEvent } =
     api.event.joinById.useMutation({
       onSuccess: () => {
+        createSuccessMessage("You have joined the event!");
         router.back();
       },
       onError: (error) => {
-        createAlertWithMessage(error.message);
+        createErrorMessage(error.message);
       },
     });
 
