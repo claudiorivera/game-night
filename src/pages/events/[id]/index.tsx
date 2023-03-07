@@ -34,9 +34,14 @@ const EventDetailsPage = () => {
 
   const { data: user } = api.user.getCurrentUser.useQuery();
 
-  const { data: event } = api.event.getById.useQuery({
-    id: router.query.id as string,
-  });
+  const { data: event } = api.event.getById.useQuery(
+    {
+      id: router.query.id as string,
+    },
+    {
+      enabled: !!router.query.id,
+    }
+  );
 
   const { mutate: deleteEventById, isLoading: isDeletingEvent } =
     api.event.deleteById.useMutation({

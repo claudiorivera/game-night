@@ -1,23 +1,9 @@
 import { faker } from "@faker-js/faker";
 import { NextApiRequest, NextApiResponse } from "next";
-import nextConnect from "next-connect";
 
 import prisma from "../../lib/prisma";
 
-const handler = nextConnect<NextApiRequest, NextApiResponse>({
-  onError: (error, _req, res) => {
-    if (error instanceof Error) {
-      console.error(error.message);
-      return res.status(500).end(error.message);
-    } else {
-      return res.status(500).end("Something went wrong");
-    }
-  },
-});
-
-// POST api/cron-handler
-// Clears and seeds the database
-handler.post(async (req, res) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { authorization } = req.headers;
 
   if (authorization === `Bearer ${process.env.API_SECRET_KEY}`) {
@@ -28,7 +14,7 @@ handler.post(async (req, res) => {
       const games = await prisma.game.findMany();
       const getRandomGameId = () => {
         const randomIndex = Math.floor(Math.random() * games.length);
-        return games[randomIndex].id;
+        return games[randomIndex]?.id;
       };
 
       const eventsToCreate = Array.from({
@@ -71,7 +57,7 @@ handler.post(async (req, res) => {
   } else {
     return res.status(401).end();
   }
-});
+};
 
 const wipeDatabase = async () => {
   await prisma.user.deleteMany();
