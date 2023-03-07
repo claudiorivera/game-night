@@ -68,10 +68,7 @@ export const authOptions: NextAuthOptions = {
         return null;
       },
     }),
-    GitHubProvider({
-      clientId: env.GITHUB_CLIENT_ID,
-      clientSecret: env.GITHUB_CLIENT_SECRET,
-    }),
+
     EmailProvider({
       server: env.EMAIL_SERVER,
       from: env.EMAIL_FROM,
@@ -79,6 +76,18 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
 };
+
+if (process.env.VERCEL_ENV !== "preview") {
+  if (!env.GITHUB_CLIENT_ID || !env.GITHUB_CLIENT_SECRET) {
+    throw new Error("Missing GitHub OAuth environment variables.");
+  }
+  authOptions.providers.push(
+    GitHubProvider({
+      clientId: env.GITHUB_CLIENT_ID,
+      clientSecret: env.GITHUB_CLIENT_SECRET,
+    })
+  );
+}
 
 /**
  * Wrapper for `getServerSession` so that you don't need to import the `authOptions` in every file.
