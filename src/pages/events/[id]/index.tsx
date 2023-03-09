@@ -126,7 +126,7 @@ const EventDetailsPage = () => {
         }}
       >
         <CardHeader
-          title={dayjs(event.dateTime).format("MMMM Do, YYYY [at] h:mma")}
+          title={dayjs(event.dateTime).format("MMMM D, YYYY [at] h:mma")}
           subheader={game.name}
         />
         <CardContent>

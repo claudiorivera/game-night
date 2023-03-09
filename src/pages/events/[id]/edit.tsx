@@ -7,7 +7,6 @@ import {
   Grid,
   MenuItem,
   Select,
-  TextField,
   Typography,
 } from "@mui/material";
 import { DateTimePicker } from "@mui/x-date-pickers";
@@ -98,7 +97,6 @@ const EditEventPage = () => {
           <Grid item xs={12} sm={6}>
             <FormControl sx={{ width: "100%" }}>
               <DateTimePicker
-                renderInput={(props) => <TextField {...props} />}
                 disablePast
                 value={dateTime}
                 onChange={setDateTime}

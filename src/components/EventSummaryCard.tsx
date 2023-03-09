@@ -24,7 +24,7 @@ export const EventSummaryCard = ({
     <Link href={`/events/${event.id}`} sx={{ textDecoration: "none" }}>
       <Card>
         <CardHeader
-          title={dayjs(event.dateTime).format("MMMM Do, YYYY [at] h:mma")}
+          title={dayjs(event.dateTime).format("MMMM D, YYYY [at] h:mma")}
           subheader={game.name}
           titleTypographyProps={{ variant: "subtitle2" }}
           subheaderTypographyProps={{ variant: "caption" }}

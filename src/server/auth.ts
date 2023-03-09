@@ -39,15 +39,6 @@ declare module "next-auth" {
  * @see https://next-auth.js.org/configuration/options
  */
 export const authOptions: NextAuthOptions = {
-  callbacks: {
-    session({ session, user }) {
-      if (session.user) {
-        session.user.id = user.id;
-        session.user.isAdmin = user.isAdmin;
-      }
-      return session;
-    },
-  },
   adapter: PrismaAdapter(prisma),
   secret: env.NEXTAUTH_SECRET,
   theme: {
@@ -75,6 +66,15 @@ export const authOptions: NextAuthOptions = {
       sendVerificationRequest: sendVerificationRequest,
     }),
   ],
+  callbacks: {
+    session({ session, user }) {
+      if (session.user) {
+        session.user.id = user.id;
+        session.user.isAdmin = user.isAdmin;
+      }
+      return session;
+    },
+  },
 };
 
 if (process.env.VERCEL_ENV !== "preview") {

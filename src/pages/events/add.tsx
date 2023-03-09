@@ -5,7 +5,6 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  TextField,
   Typography,
 } from "@mui/material";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
@@ -71,7 +70,6 @@ const AddEventPage = () => {
           <Grid item xs={12} sm={6}>
             <FormControl sx={{ width: "100%" }}>
               <DateTimePicker
-                renderInput={(props) => <TextField {...props} />}
                 label="Event Date and Time"
                 value={dateTime}
                 onChange={setDateTime}

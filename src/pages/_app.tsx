@@ -15,7 +15,7 @@ import theme from "~/styles/theme";
 
 const clientSideEmotionCache = createEmotionCache();
 
-interface MyAppProps extends AppProps {
+export interface MyAppProps extends AppProps {
   emotionCache?: EmotionCache;
 }
 
@@ -25,17 +25,14 @@ function MyApp(props: MyAppProps) {
     <CacheProvider value={emotionCache}>
       <Head>
         <title>Game Night</title>
-        <meta
-          name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width"
-        />
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
           <SessionProvider session={pageProps.session}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <SnackbarProvider>
-                <CssBaseline />
+                <CssBaseline enableColorScheme />
                 <MainAppBar />
                 <Snackbar />
                 <Container maxWidth="lg">
