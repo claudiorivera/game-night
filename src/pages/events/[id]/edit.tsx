@@ -11,8 +11,8 @@ import {
 import { DateTimePicker } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
 import { GetServerSideProps } from "next";
-import { getServerSession } from "next-auth";
 import { useRouter } from "next/router";
+import { getServerSession } from "next-auth";
 import { useContext, useState } from "react";
 
 import { SnackbarContext } from "~/context/Snackbar";

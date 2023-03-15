@@ -20,8 +20,8 @@ import {
 import { User } from "@prisma/client";
 import dayjs from "dayjs";
 import { GetServerSideProps } from "next";
-import { getServerSession } from "next-auth";
 import { useRouter } from "next/router";
+import { getServerSession } from "next-auth";
 import { useContext, useState } from "react";
 
 import { GameDetails } from "~/components";
