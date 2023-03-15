@@ -2,7 +2,6 @@ import { ArrowBack as ArrowBackIcon } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
 import {
   Button,
-  Container,
   FormControl,
   Grid,
   MenuItem,
@@ -12,8 +11,8 @@ import {
 import { DateTimePicker } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
 import { GetServerSideProps } from "next";
-import { useRouter } from "next/router";
 import { getServerSession } from "next-auth";
+import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 
 import { SnackbarContext } from "~/context/Snackbar";
@@ -73,7 +72,7 @@ const EditEventPage = () => {
   if (!event || !games) return null;
 
   return (
-    <Container>
+    <>
       <Button onClick={() => router.back()}>
         <ArrowBackIcon />
         Go Back
@@ -136,7 +135,7 @@ const EditEventPage = () => {
           </Grid>
         </Grid>
       </form>
-    </Container>
+    </>
   );
 };
 

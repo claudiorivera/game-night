@@ -4,7 +4,6 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Container,
   Typography,
 } from "@mui/material";
 import { GetServerSideProps } from "next";
@@ -36,39 +35,35 @@ const GamesListPage = () => {
 
   return (
     <>
-      <Container sx={{ mb: 2 }}>
-        <LoadingButton
-          fullWidth
-          color="secondary"
-          variant="contained"
-          size="large"
-          disabled={disabled}
-          loading={disabled}
-          component={NextLinkComposed}
-          to={{
-            pathname: "/games/add",
-          }}
-        >
-          Add Game
-        </LoadingButton>
-      </Container>
-      <Container>
-        {games?.map((game) => (
-          <Accordion key={game.bggId} square>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls={`panel-${game.bggId}-content`}
-            >
-              <Typography variant="h6">
-                {game.name} ({game.yearPublished})
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <GameDetails game={game} />
-            </AccordionDetails>
-          </Accordion>
-        ))}
-      </Container>
+      <LoadingButton
+        fullWidth
+        color="secondary"
+        variant="contained"
+        size="large"
+        disabled={disabled}
+        loading={disabled}
+        component={NextLinkComposed}
+        to={{
+          pathname: "/games/add",
+        }}
+      >
+        Add Game
+      </LoadingButton>
+      {games?.map((game) => (
+        <Accordion key={game.bggId} square>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls={`panel-${game.bggId}-content`}
+          >
+            <Typography variant="h6">
+              {game.name} ({game.yearPublished})
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <GameDetails game={game} />
+          </AccordionDetails>
+        </Accordion>
+      ))}
     </>
   );
 };

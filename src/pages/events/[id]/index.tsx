@@ -8,7 +8,6 @@ import {
   CardActions,
   CardContent,
   CardHeader,
-  Container,
   Dialog,
   DialogActions,
   DialogContent,
@@ -21,8 +20,8 @@ import {
 import { User } from "@prisma/client";
 import dayjs from "dayjs";
 import { GetServerSideProps } from "next";
-import { useRouter } from "next/router";
 import { getServerSession } from "next-auth";
+import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 
 import { GameDetails } from "~/components";
@@ -113,7 +112,7 @@ const EventDetailsPage = () => {
   };
 
   return (
-    <Container>
+    <>
       <Button onClick={() => router.back()}>
         <ArrowBackIcon />
         Go Back
@@ -137,31 +136,24 @@ const EventDetailsPage = () => {
               m: 4,
             }}
           />
-          <Container>
-            <Typography variant="body1">Host:</Typography>
-            <Tooltip title={event.host.name as string}>
-              <Avatar
-                alt={event.host.name as string}
-                src={event.host.image as string}
-              />
-            </Tooltip>
-          </Container>
-          <Container>
-            <Typography variant="subtitle1">Guests:</Typography>
-            <AvatarGroup max={8}>
-              {event.guests.map((guest: Pick<User, "name" | "image">) => (
-                <Tooltip
-                  key={guest.name as string}
-                  title={guest.name as string}
-                >
-                  <Avatar
-                    alt={guest.name as string}
-                    src={guest.image as string}
-                  />
-                </Tooltip>
-              ))}
-            </AvatarGroup>
-          </Container>
+          <Typography variant="body1">Host:</Typography>
+          <Tooltip title={event.host.name as string}>
+            <Avatar
+              alt={event.host.name as string}
+              src={event.host.image as string}
+            />
+          </Tooltip>
+          <Typography variant="subtitle1">Guests:</Typography>
+          <AvatarGroup max={8}>
+            {event.guests.map((guest: Pick<User, "name" | "image">) => (
+              <Tooltip key={guest.name as string} title={guest.name as string}>
+                <Avatar
+                  alt={guest.name as string}
+                  src={guest.image as string}
+                />
+              </Tooltip>
+            ))}
+          </AvatarGroup>
         </CardContent>
         <CardActions>
           {/* If user is already a guest, show the Leave button */}
@@ -235,7 +227,7 @@ const EventDetailsPage = () => {
           </LoadingButton>
         </DialogActions>
       </Dialog>
-    </Container>
+    </>
   );
 };
 

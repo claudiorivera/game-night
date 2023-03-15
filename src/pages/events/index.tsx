@@ -1,5 +1,4 @@
 import { LoadingButton } from "@mui/lab";
-import { Container } from "@mui/material";
 import { GetServerSideProps } from "next";
 import { getServerSession } from "next-auth";
 import { useState } from "react";
@@ -33,28 +32,24 @@ const EventsListPage = () => {
 
   return (
     <>
-      <Container sx={{ py: 2 }}>
-        <LoadingButton
-          fullWidth
-          color="secondary"
-          variant="contained"
-          size="large"
-          disabled={disabled}
-          loading={disabled}
-          component={NextLinkComposed}
-          to={{
-            pathname: "/events/add",
-          }}
-          onClick={() => {
-            setDisabled(true);
-          }}
-        >
-          Add Event
-        </LoadingButton>
-      </Container>
-      <Container sx={{ py: 2 }}>
-        <EventsListContainer events={events} />
-      </Container>
+      <LoadingButton
+        fullWidth
+        color="secondary"
+        variant="contained"
+        size="large"
+        disabled={disabled}
+        loading={disabled}
+        component={NextLinkComposed}
+        to={{
+          pathname: "/events/add",
+        }}
+        onClick={() => {
+          setDisabled(true);
+        }}
+      >
+        Add Event
+      </LoadingButton>
+      <EventsListContainer events={events} />
     </>
   );
 };
