@@ -12,5 +12,6 @@
       "automerge": true
     }
   ],
-  "commitMessagePrefix": "🤖"
+  "commitMessagePrefix": "🤖",
+  "enabled": false
 }
