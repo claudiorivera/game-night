@@ -1,34 +1,19 @@
-import { ArrowBack as ArrowBackIcon } from "@mui/icons-material";
-import { LoadingButton } from "@mui/lab";
-import {
-  Avatar,
-  AvatarGroup,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  Container,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Divider,
-  Tooltip,
-  Typography,
-} from "@mui/material";
+import { Dialog, Transition } from "@headlessui/react";
+import { ArrowLeftIcon } from "@heroicons/react/20/solid";
 import { Game, User } from "@prisma/client";
 import axios from "axios";
+import clsx from "clsx";
 import { GameDetails } from "components";
-import { AlertContext } from "context/Alert";
+import dayjs from "dayjs";
 import { eventSelect } from "lib/api";
-import moment from "moment";
 import { GetServerSideProps } from "next";
+import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
-import { getServerSession,Session } from "next-auth";
+import { getServerSession, Session } from "next-auth";
 import { nextAuthOptions } from "pages/api/auth/[...nextauth]";
-import { useContext, useState } from "react";
+import { Fragment, useState } from "react";
+import { toast } from "react-hot-toast";
 import { PopulatedEvent } from "types";
 
 import prisma from "../../../lib/prisma";
@@ -51,7 +36,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   if (params?.id) {
     const event = await prisma.event.findUnique({
-      where: { id: +params.id },
+      where: { id: params.id as string },
       select: eventSelect,
     });
 
@@ -89,7 +74,6 @@ type EventDetailsPageProps = {
 };
 const EventDetailsPage = ({ session, event, game }: EventDetailsPageProps) => {
   const router = useRouter();
-  const { createAlertWithMessage } = useContext(AlertContext);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [disabled, setDisabled] = useState(false);
 
@@ -103,91 +87,120 @@ const EventDetailsPage = ({ session, event, game }: EventDetailsPageProps) => {
     router.back();
   };
 
-  const deleteEventById = async (id: number) => {
+  const deleteEventById = async (id: string) => {
     try {
       setDisabled(true);
       await axios.delete(`/api/events/${id}`);
     } catch (error) {
-      createAlertWithMessage(JSON.stringify(error, null, 2));
+      toast.error(JSON.stringify(error, null, 2));
       console.error(error);
     }
   };
 
-  const joinEventById = async (id: number) => {
+  const joinEventById = async (id: string) => {
     try {
       await axios.put(`/api/events/${id}?action=join`);
+      toast.success("You have joined the event");
     } catch (error) {
-      createAlertWithMessage(JSON.stringify(error, null, 2));
+      toast.error(JSON.stringify(error, null, 2));
       console.error(error);
     }
   };
 
-  const leaveEventById = async (id: number) => {
+  const leaveEventById = async (id: string) => {
     try {
       await axios.put(`/api/events/${id}?action=leave`);
+      toast.success("You have left the event");
     } catch (error) {
-      createAlertWithMessage(JSON.stringify(error, null, 2));
+      toast.error(JSON.stringify(error, null, 2));
       console.error(error);
     }
   };
 
   return (
-    <Container>
-      <Button onClick={() => router.back()}>
-        <ArrowBackIcon />
-        Go Back
-      </Button>
-      <Card
-        sx={{
-          m: 2,
-          p: 4,
-          flexDirection: "column",
-        }}
-      >
-        <CardHeader
-          title={moment(event.dateTime).format("MMMM Do, YYYY [at] h:mma")}
-          subheader={game.name}
-        />
-        <CardContent>
+    <div className="container mx-auto">
+      <div className="pb-4">
+        <Link href="/events" className="btn-ghost btn">
+          <div className="flex items-center gap-2">
+            <ArrowLeftIcon className="h-5 w-5" />
+            Go Back
+          </div>
+        </Link>
+      </div>
+      <article className="rounded-lg border shadow-lg">
+        <div className="p-4">
+          <h4 className="font-bold">
+            {dayjs(event.dateTime).format("MMMM D, YYYY [at] h:mma")}
+          </h4>
+          <small>{game.name}</small>
+        </div>
+
+        <div className="p-4">
           <GameDetails game={game} />
-          <Divider
-            variant="middle"
-            sx={{
-              m: 4,
-            }}
-          />
-          <Container>
-            <Typography variant="body1">Host:</Typography>
-            <Tooltip title={event.host.name as string}>
-              <Avatar
-                alt={event.host.name as string}
-                src={event.host.image as string}
-              />
-            </Tooltip>
-          </Container>
-          <Container>
-            <Typography variant="subtitle1">Guests:</Typography>
-            <AvatarGroup max={8}>
+          <div className="divider" />
+          <div>
+            <p>Host:</p>
+            <div className="tooltip" data-tip={event.host.name}>
+              {event.host.image ? (
+                <div className="avatar">
+                  <div className="relative h-10 w-10 rounded-full">
+                    <Image
+                      src={event.host.image}
+                      fill
+                      alt={event.host.name ?? ""}
+                      className="object-cover"
+                    />
+                  </div>
+                </div>
+              ) : (
+                <div className="placeholder avatar">
+                  <div className="w-10 rounded-full">
+                    {event.host.name?.charAt(0)}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+          <div>
+            <p>Guests:</p>
+            <div className="avatar-group">
               {event.guests.map((guest: Pick<User, "name" | "image">) => (
-                <Tooltip
-                  key={guest.name as string}
-                  title={guest.name as string}
+                <div
+                  key={guest.name}
+                  className="tooltip"
+                  data-tip={guest.name || "A Guest"}
                 >
-                  <Avatar
-                    alt={guest.name as string}
-                    src={guest.image as string}
-                  />
-                </Tooltip>
+                  {guest.image ? (
+                    <div className="avatar">
+                      <div className="relative h-10 w-10 rounded-full">
+                        <Image
+                          src={guest.image}
+                          fill
+                          alt={guest.name ?? ""}
+                          className="object-cover"
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="placeholder avatar">
+                      <div className="w-10 rounded-full">
+                        {guest.name?.charAt(0)}
+                      </div>
+                    </div>
+                  )}
+                </div>
               ))}
-            </AvatarGroup>
-          </Container>
-        </CardContent>
-        <CardActions>
+            </div>
+          </div>
+        </div>
+        <div className="flex gap-4 p-4">
           {/* If user is already a guest, show the Leave button */}
           {event.guests.some((guest) => guest.id === session.user.id) ? (
-            <LoadingButton
+            <button
+              className={clsx("btn-secondary btn", {
+                "btn-disabled": disabled,
+              })}
               disabled={disabled}
-              loading={disabled}
               onClick={async () => {
                 setDisabled(true);
                 await leaveEventById(event.id);
@@ -195,12 +208,14 @@ const EventDetailsPage = ({ session, event, game }: EventDetailsPageProps) => {
               }}
             >
               Leave
-            </LoadingButton>
+            </button>
           ) : // Otherwise, as long as user isn't the host, show the Join loadingbutton
           event.host.id !== session.user.id ? (
-            <LoadingButton
+            <button
+              className={clsx("btn-secondary btn", {
+                "btn-disabled": disabled,
+              })}
               disabled={disabled}
-              loading={disabled}
               onClick={async () => {
                 setDisabled(true);
                 await joinEventById(event.id);
@@ -208,57 +223,88 @@ const EventDetailsPage = ({ session, event, game }: EventDetailsPageProps) => {
               }}
             >
               Join
-            </LoadingButton>
+            </button>
           ) : (
             // Otherwise, we're the host, so show the Edit button
-            <Button
+            <button
+              className={clsx("btn-secondary btn", {
+                "btn-disabled": disabled,
+              })}
               onClick={() => {
                 router.push(`/events/${router.query.id}/edit`);
               }}
             >
               Edit
-            </Button>
+            </button>
           )}
           {/* Show the Delete button to hosts and admins */}
           {(event.host.id === session.user.id || !!session.user.isAdmin) && (
-            <Button
+            <button
+              className="btn-error btn"
               onClick={async () => {
                 setIsDialogOpen(true);
               }}
             >
               Delete
-            </Button>
+            </button>
           )}
-        </CardActions>
-      </Card>
-      <Dialog
-        open={isDialogOpen}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{"Delete Event?"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Are you sure you want to delete this event?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <LoadingButton
-            disabled={disabled}
-            loading={disabled}
-            onClick={handleDelete}
-            color="primary"
-            autoFocus
+        </div>
+      </article>
+      <Transition appear show={isDialogOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={handleClose}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
           >
-            Yes
-          </LoadingButton>
-        </DialogActions>
-      </Dialog>
-    </Container>
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="flex w-full max-w-md transform flex-col gap-2 overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg font-medium leading-6 text-gray-900"
+                  >
+                    Delete Event
+                  </Dialog.Title>
+                  <p className="text-sm text-gray-500">
+                    Are you sure you want to delete this event?
+                  </p>
+
+                  <div className="flex justify-between">
+                    <button type="button" className="btn" onClick={handleClose}>
+                      Cancel
+                    </button>
+                    <button
+                      type="button"
+                      className="btn-error btn"
+                      onClick={handleDelete}
+                    >
+                      Yes
+                    </button>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+    </div>
   );
 };
 

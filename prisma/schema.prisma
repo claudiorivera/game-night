@@ -55,17 +55,17 @@ model User {
 }
 
 model Event {
-  id       Int      @id @default(autoincrement())
+  id       String   @id @default(cuid())
   dateTime DateTime
   host     User     @relation(fields: [hostId], references: [id], onDelete: Cascade)
   hostId   String
   guests   User[]   @relation("EventGuests")
   game     Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)
-  gameId   Int
+  gameId   String
 }
 
 model Game {
-  id            Int      @id @default(autoincrement())
+  id            String   @id @default(cuid())
   name          String
   imageSrc      String
   thumbnailSrc  String

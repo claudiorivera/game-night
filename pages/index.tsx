@@ -1,4 +1,3 @@
-import { Typography } from "@mui/material";
 import { EventsListContainer } from "components";
 import { eventSelect } from "lib/api";
 import { GetServerSideProps } from "next";
@@ -60,29 +59,11 @@ const HomePage = ({ user }: HomePageProps) => {
 
   return (
     <>
-      <Typography variant="body1" gutterBottom>
-        Hello, {name}.
-      </Typography>
-      {!!eventsHosting.length && (
-        <>
-          <Typography variant="h4" gutterBottom>
-            Events You Are Hosting:
-          </Typography>
-          <EventsListContainer
-            events={eventsHosting}
-            isHosting
-            sx={{ mb: 2 }}
-          />
-        </>
-      )}
-      {!!eventsAttending.length && (
-        <>
-          <Typography variant="h4" gutterBottom>
-            Events You Are Attending:
-          </Typography>
-          <EventsListContainer events={eventsAttending} sx={{ mb: 2 }} />
-        </>
-      )}
+      <p className="py-2">Hello, {name}.</p>
+      <h4 className="py-4 font-semibold">Events You Are Hosting:</h4>
+      <EventsListContainer events={eventsHosting} isHosting />
+      <h4 className="py-4 font-semibold">Events You Are Attending:</h4>
+      <EventsListContainer events={eventsAttending} />
     </>
   );
 };

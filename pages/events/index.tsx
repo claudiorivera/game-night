@@ -1,8 +1,8 @@
-import { LoadingButton } from "@mui/lab";
-import { Container } from "@mui/material";
-import { EventsListContainer, NextLinkComposed } from "components";
+import clsx from "clsx";
+import { EventsListContainer } from "components";
 import { eventSelect } from "lib/api";
 import { GetServerSideProps } from "next";
+import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { nextAuthOptions } from "pages/api/auth/[...nextauth]";
 import { useState } from "react";
@@ -48,28 +48,22 @@ const EventsListPage = ({ events }: EventsListPageProps) => {
 
   return (
     <>
-      <Container sx={{ py: 2 }}>
-        <LoadingButton
-          fullWidth
-          color="secondary"
-          variant="contained"
-          size="large"
-          disabled={disabled}
-          loading={disabled}
-          component={NextLinkComposed}
-          to={{
-            pathname: "/events/add",
-          }}
-          onClick={() => {
-            setDisabled(true);
-          }}
-        >
-          Add Event
-        </LoadingButton>
-      </Container>
-      <Container sx={{ py: 2 }}>
+      <div className="container mx-auto">
+        <div className="pb-4">
+          <Link
+            className={clsx("btn-secondary btn w-full disabled:disabled", {
+              "btn-disabled": disabled,
+            })}
+            href="/events/add"
+            onClick={() => {
+              setDisabled(true);
+            }}
+          >
+            Add Event
+          </Link>
+        </div>
         <EventsListContainer events={events} />
-      </Container>
+      </div>
     </>
   );
 };

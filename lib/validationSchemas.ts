@@ -3,22 +3,13 @@ import { z } from "zod";
 const numberValueSchema = z.object({ value: z.number() });
 
 const nameSchema = z.object({
-  type: z.enum(["primary", "alternate"]),
+  type: z.string(),
   sortindex: z.number(),
   value: z.string(),
 });
 
 const metaDataSchema = z.object({
-  type: z.enum([
-    "boardgamecategory",
-    "boardgamemechanic",
-    "boardgamefamily",
-    "boardgameexpansion",
-    "boardgamedesigner",
-    "boardgameartist",
-    "boardgamepublisher",
-    "boardgameimplementation",
-  ]),
+  type: z.string(),
   value: z.string(),
 });
 

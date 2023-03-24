@@ -39,7 +39,7 @@ handler.get(async (req, res) => {
 
   const event = await prisma.event.findUnique({
     where: {
-      id: +id,
+      id: id as string,
     },
     select: eventSelect,
   });
@@ -59,7 +59,7 @@ handler.delete(async (req, res) => {
 
   const event = await prisma.event.delete({
     where: {
-      id: +id,
+      id: id as string,
     },
   });
 
@@ -79,7 +79,7 @@ handler.put<ExtendedRequest>(async (req, res) => {
     case "join": {
       const event = await prisma.event.update({
         where: {
-          id: +id,
+          id: id as string,
         },
         data: {
           guests: {
@@ -100,7 +100,7 @@ handler.put<ExtendedRequest>(async (req, res) => {
     case "leave": {
       const event = await prisma.event.update({
         where: {
-          id: +id,
+          id: id as string,
         },
         data: {
           guests: {
@@ -121,7 +121,7 @@ handler.put<ExtendedRequest>(async (req, res) => {
     case "edit": {
       const event = await prisma.event.update({
         where: {
-          id: +id,
+          id: id as string,
         },
         data: {
           ...req.body,

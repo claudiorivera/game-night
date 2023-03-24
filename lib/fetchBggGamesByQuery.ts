@@ -44,5 +44,7 @@ const buildUrlForGameQuery = (query: string) => {
   url.searchParams.append("query", query);
   url.searchParams.append("type", "boardgame");
 
+  console.log({ url: url.toString() });
+
   return url.toString();
 };

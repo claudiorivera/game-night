@@ -1,22 +1,12 @@
-import { LoadingButton } from "@mui/lab";
-import {
-  FormControl,
-  Grid,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { Game } from "@prisma/client";
 import axios from "axios";
-import { AlertContext } from "context/Alert";
+import clsx from "clsx";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { getServerSession } from "next-auth";
 import { nextAuthOptions } from "pages/api/auth/[...nextauth]";
-import { useContext, useState } from "react";
+import { useState } from "react";
+import { toast } from "react-hot-toast";
 
 import prisma from "../../lib/prisma";
 
@@ -53,7 +43,6 @@ type AddEventPageProps = {
 };
 const AddEventPage = ({ games }: AddEventPageProps) => {
   const router = useRouter();
-  const { createAlertWithMessage } = useContext(AlertContext);
   const [dateTime, setDateTime] = useState<Date | null>(new Date());
   const [gameId, setGameId] = useState("");
   const [disabled, setDisabled] = useState(false);
@@ -65,71 +54,63 @@ const AddEventPage = ({ games }: AddEventPageProps) => {
         dateTime,
       });
     } catch (error) {
-      createAlertWithMessage(JSON.stringify(error, null, 2));
+      toast.error(JSON.stringify(error, null, 2));
       console.error(error);
     }
   };
 
   return (
-    <>
-      <Typography variant="h4">Add New Event</Typography>
-      <form
-        onSubmit={async (e) => {
-          e.preventDefault();
-          setDisabled(true);
-          await addEvent(gameId, dateTime);
-          router.push("/events");
+    <form
+      onSubmit={async (e) => {
+        e.preventDefault();
+        setDisabled(true);
+        await addEvent(gameId, dateTime);
+        router.push("/events");
+      }}
+      className="flex flex-col gap-4"
+    >
+      <label className="text-sm">
+        Event Date and Time
+        <input
+          className="input-bordered input w-full"
+          type="datetime-local"
+          defaultValue={new Date().toISOString().slice(0, 16)}
+          pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}"
+          onChange={(e) => setDateTime(new Date(e.target.value))}
+        />
+        <input
+          type="hidden"
+          name="utcOffset"
+          value={new Date().getTimezoneOffset()}
+        />
+      </label>
+      <select
+        className="select-bordered select w-full"
+        id="select-game"
+        defaultValue={-1}
+        onChange={(e) => {
+          setGameId(e.target.value as string);
         }}
       >
-        <Grid container spacing={3} mt={1}>
-          <Grid item xs={12} sm={6}>
-            <FormControl sx={{ width: "100%" }}>
-              <DateTimePicker
-                renderInput={(props) => <TextField {...props} />}
-                label="Event Date and Time"
-                value={dateTime}
-                onChange={setDateTime}
-              />
-            </FormControl>
-          </Grid>
-          {!!games.length && (
-            <Grid item xs={12} sm={6}>
-              <FormControl sx={{ width: "100%" }}>
-                <InputLabel id="select-game-label">Select Game</InputLabel>
-                <Select
-                  id="select-game"
-                  value={gameId}
-                  label="Select Game"
-                  labelId="select-game-label"
-                  onChange={(e) => {
-                    setGameId(e.target.value as string);
-                  }}
-                >
-                  {games.map(({ id, name }) => (
-                    <MenuItem key={id} value={id}>
-                      {name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Grid>
-          )}
-          <Grid item xs={12}>
-            <LoadingButton
-              size="large"
-              fullWidth
-              variant="contained"
-              color="secondary"
-              type="submit"
-              disabled={disabled}
-              loading={disabled}
-            >
-              Add Event
-            </LoadingButton>
-          </Grid>
-        </Grid>
-      </form>
-    </>
+        <option disabled value={-1}>
+          Select Game
+        </option>
+        {games.map(({ id, name }) => (
+          <option key={id} value={id}>
+            {name}
+          </option>
+        ))}
+      </select>
+      <button
+        className={clsx("btn-secondary btn w-full", {
+          "btn-disabled": disabled,
+        })}
+        type="submit"
+        disabled={disabled}
+      >
+        Add Event
+      </button>
+    </form>
   );
 };
 

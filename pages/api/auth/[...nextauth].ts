@@ -13,7 +13,7 @@ export const nextAuthOptions: NextAuthOptions = {
   theme: {
     colorScheme: "auto", // "auto" | "dark" | "light"
     brandColor: "#2A9D8F", // Hex color code
-    logo: "https://game-night.claudiorivera.com/android-chrome-512x512.png", // Absolute URL to image
+    logo: "/android-chrome-512x512.png", // Absolute URL to image
     buttonText: "#FFFFFF", // Hex color code
   },
   session: {
