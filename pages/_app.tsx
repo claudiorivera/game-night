@@ -1,7 +1,6 @@
 import "../styles/globals.css";
 
 import { CacheProvider, EmotionCache } from "@emotion/react";
-import { Container, CssBaseline } from "@mui/material";
 import { StyledEngineProvider, ThemeProvider } from "@mui/material/styles";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
@@ -35,12 +34,11 @@ export default function MyApp(props: MyAppProps) {
           <AlertProvider>
             <SessionProvider session={pageProps.session}>
               <LocalizationProvider dateAdapter={AdapterMoment}>
-                <CssBaseline />
                 <MainAppBar />
                 <AlertDialog />
-                <Container maxWidth="lg">
+                <div className="container mx-auto px-4">
                   <Component {...pageProps} />
-                </Container>
+                </div>
               </LocalizationProvider>
             </SessionProvider>
           </AlertProvider>

@@ -4,8 +4,6 @@ import Link from "next/link";
 import { ReactNode } from "react";
 import { PopulatedEvent } from "types";
 
-import { TypographyH4, TypographySmall, TypographyTiny } from "~/components";
-
 type EventSummaryCardProps = {
   event: PopulatedEvent;
   isHosting?: boolean;
@@ -26,9 +24,9 @@ type CardHeaderProps = {
 
 const CardHeader = ({ title, subheader }: CardHeaderProps) => {
   return (
-    <div className="px-4 py-2">
-      <TypographyH4>{title}</TypographyH4>
-      <TypographyTiny>{subheader}</TypographyTiny>
+    <div className="p-4">
+      <h4 className="font-bold">{title}</h4>
+      <small>{subheader}</small>
     </div>
   );
 };
@@ -51,7 +49,7 @@ type CardContentProps = {
 };
 
 const CardContent = ({ children }: CardContentProps) => {
-  return <div className="px-4 py-2">{children}</div>;
+  return <div className="p-4">{children}</div>;
 };
 
 export const EventSummaryCard = ({
@@ -69,8 +67,8 @@ export const EventSummaryCard = ({
         />
         <CardMedia image={game.imageSrc} title={game.name} />
         <CardContent>
-          {!isHosting && <TypographySmall>Host: {host.name}</TypographySmall>}
-          <TypographyTiny>Guests: {event.guests.length}</TypographyTiny>
+          {!isHosting && <small>Host: {host.name}</small>}
+          <small>Guests: {event.guests.length}</small>
         </CardContent>
       </Card>
     </Link>

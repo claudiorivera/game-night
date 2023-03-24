@@ -1,5 +1,5 @@
 import { Box, Grid } from "@mui/material";
-import { GameMetaData, TypographyP } from "components";
+import { GameMetaData } from "components";
 import { BGGGameResponse } from "lib/fetchBggGameById";
 import Image from "next/image";
 
@@ -26,7 +26,7 @@ export const GameDetails = ({ game }: Props) => {
         <GameMetaData game={game} />
       </Grid>
       <Grid item md={7} sm={8} xs={12}>
-        <TypographyP>{game.description}</TypographyP>
+        <p>{game.description}</p>
       </Grid>
     </Grid>
   );

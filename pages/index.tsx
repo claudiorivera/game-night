@@ -1,4 +1,4 @@
-import { EventsListContainer, TypographyH4, TypographyP } from "components";
+import { EventsListContainer } from "components";
 import { eventSelect } from "lib/api";
 import { GetServerSideProps } from "next";
 import { getServerSession } from "next-auth";
@@ -59,21 +59,20 @@ const HomePage = ({ user }: HomePageProps) => {
 
   return (
     <>
-      <TypographyP>Hello, {name}.</TypographyP>
+      <p className="pb-2">Hello, {name}.</p>
       {!!eventsHosting.length && (
         <>
-          <TypographyH4>Events You Are Hosting:</TypographyH4>
+          <h4 className="pb-4 font-semibold">Events You Are Hosting:</h4>
           <EventsListContainer
             events={[...eventsHosting, ...eventsHosting, ...eventsHosting]}
             isHosting
-            sx={{ mb: 2 }}
           />
         </>
       )}
       {!!eventsAttending.length && (
         <>
-          <TypographyH4>Events You Are Attending:</TypographyH4>
-          <EventsListContainer events={eventsAttending} sx={{ mb: 2 }} />
+          <h4 className="pb-4 font-semibold">Events You Are Attending:</h4>
+          <EventsListContainer events={eventsAttending} />
         </>
       )}
     </>
