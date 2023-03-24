@@ -1,3 +1,5 @@
+import "../styles/globals.css";
+
 import { CacheProvider, EmotionCache } from "@emotion/react";
 import { Container, CssBaseline } from "@mui/material";
 import { StyledEngineProvider, ThemeProvider } from "@mui/material/styles";

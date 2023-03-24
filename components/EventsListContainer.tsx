@@ -1,4 +1,3 @@
-import { Grid } from "@mui/material";
 import { EventSummaryCard } from "components";
 import { PopulatedEvent } from "types";
 
@@ -14,12 +13,12 @@ export const EventsListContainer = ({
   ...props
 }: EventsListContainerProps) => {
   return (
-    <Grid container spacing={2} {...props}>
+    <div className="grid gap-4 sm:grid-cols-2" {...props}>
       {events.map((event) => (
-        <Grid item key={event.id} xs={12} sm={6} md={3}>
+        <div key={event.id}>
           <EventSummaryCard event={event} isHosting={isHosting} />
-        </Grid>
+        </div>
       ))}
-    </Grid>
+    </div>
   );
 };

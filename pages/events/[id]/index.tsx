@@ -20,13 +20,13 @@ import {
 } from "@mui/material";
 import { Game, User } from "@prisma/client";
 import axios from "axios";
-import { GameDetails } from "components";
+import { GameDetails, TypographyP } from "components";
 import { AlertContext } from "context/Alert";
 import { eventSelect } from "lib/api";
 import moment from "moment";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-import { getServerSession,Session } from "next-auth";
+import { getServerSession, Session } from "next-auth";
 import { nextAuthOptions } from "pages/api/auth/[...nextauth]";
 import { useContext, useState } from "react";
 import { PopulatedEvent } from "types";
@@ -157,7 +157,7 @@ const EventDetailsPage = ({ session, event, game }: EventDetailsPageProps) => {
             }}
           />
           <Container>
-            <Typography variant="body1">Host:</Typography>
+            <TypographyP>Host:</TypographyP>
             <Tooltip title={event.host.name as string}>
               <Avatar
                 alt={event.host.name as string}

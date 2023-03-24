@@ -1,5 +1,4 @@
-import { Typography } from "@mui/material";
-import { EventsListContainer } from "components";
+import { EventsListContainer, TypographyH4, TypographyP } from "components";
 import { eventSelect } from "lib/api";
 import { GetServerSideProps } from "next";
 import { getServerSession } from "next-auth";
@@ -60,16 +59,12 @@ const HomePage = ({ user }: HomePageProps) => {
 
   return (
     <>
-      <Typography variant="body1" gutterBottom>
-        Hello, {name}.
-      </Typography>
+      <TypographyP>Hello, {name}.</TypographyP>
       {!!eventsHosting.length && (
         <>
-          <Typography variant="h4" gutterBottom>
-            Events You Are Hosting:
-          </Typography>
+          <TypographyH4>Events You Are Hosting:</TypographyH4>
           <EventsListContainer
-            events={eventsHosting}
+            events={[...eventsHosting, ...eventsHosting, ...eventsHosting]}
             isHosting
             sx={{ mb: 2 }}
           />
@@ -77,9 +72,7 @@ const HomePage = ({ user }: HomePageProps) => {
       )}
       {!!eventsAttending.length && (
         <>
-          <Typography variant="h4" gutterBottom>
-            Events You Are Attending:
-          </Typography>
+          <TypographyH4>Events You Are Attending:</TypographyH4>
           <EventsListContainer events={eventsAttending} sx={{ mb: 2 }} />
         </>
       )}
