@@ -51,11 +51,13 @@ const GamesListPage = ({ games }: GamesListPageProps) => {
     <div className="min-h-screen">
       <div className="pb-4">
         <Link
-          onClick={() => setDisabled(true)}
-          href="/games/add"
-          className={clsx("btn-secondary btn w-full", {
-            "cursor-not-allowed opacity-50": disabled,
+          className={clsx("btn-secondary btn w-full disabled:disabled", {
+            "btn-disabled": disabled,
           })}
+          href="/games/add"
+          onClick={() => {
+            setDisabled(true);
+          }}
         >
           Add Game
         </Link>
