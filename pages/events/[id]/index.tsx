@@ -4,8 +4,8 @@ import { Game, User } from "@prisma/client";
 import axios from "axios";
 import clsx from "clsx";
 import { GameDetails } from "components";
+import dayjs from "dayjs";
 import { eventSelect } from "lib/api";
-import moment from "moment";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -128,7 +128,7 @@ const EventDetailsPage = ({ session, event, game }: EventDetailsPageProps) => {
       <article className="rounded-lg border shadow-lg">
         <div className="p-4">
           <h4 className="font-bold">
-            {moment(event.dateTime).format("MMMM Do, YYYY [at] h:mma")}
+            {dayjs(event.dateTime).format("MMMM D, YYYY [at] h:mma")}
           </h4>
           <small>{game.name}</small>
         </div>

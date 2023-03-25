@@ -1,4 +1,4 @@
-import moment from "moment";
+import dayjs from "dayjs";
 import Image from "next/image";
 import Link from "next/link";
 import { ReactNode } from "react";
@@ -62,7 +62,7 @@ export const EventSummaryCard = ({
     <Link href={`/events/${event.id}`}>
       <Card>
         <CardHeader
-          title={moment(event.dateTime).format("MMMM Do, YYYY [at] h:mma")}
+          title={dayjs(event.dateTime).format("MMMM D, YYYY [at] h:mma")}
           subheader={game.name}
         />
         <CardMedia image={game.imageSrc} title={game.name} />

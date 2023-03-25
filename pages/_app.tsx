@@ -1,27 +1,25 @@
 import "../styles/globals.css";
 
-import { CacheProvider, EmotionCache } from "@emotion/react";
-import { StyledEngineProvider, ThemeProvider } from "@mui/material/styles";
-import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import { Roboto } from "@next/font/google";
+import clsx from "clsx";
 import { MainAppBar } from "components";
-import { createEmotionCache } from "lib/createEmotionCache";
 import { AppProps } from "next/app";
 import Head from "next/head";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "react-hot-toast";
-import theme from "styles/theme";
 
-const clientSideEmotionCache = createEmotionCache();
+export const roboto = Roboto({
+  weight: ["300", "400", "500", "700"],
+  subsets: ["latin"],
+  display: "swap",
+  fallback: ["Helvetica", "Arial", "sans-serif"],
+  variable: "--font-inter",
+});
 
-interface MyAppProps extends AppProps {
-  emotionCache?: EmotionCache;
-}
-
-export default function MyApp(props: MyAppProps) {
-  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+export default function MyApp(props: AppProps) {
+  const { Component, pageProps } = props;
   return (
-    <CacheProvider value={emotionCache}>
+    <>
       <Head>
         <title>Game Night</title>
         <meta
@@ -29,19 +27,13 @@ export default function MyApp(props: MyAppProps) {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Head>
-      <StyledEngineProvider injectFirst>
-        <ThemeProvider theme={theme}>
-          <SessionProvider session={pageProps.session}>
-            <LocalizationProvider dateAdapter={AdapterMoment}>
-              <MainAppBar />
-              <Toaster />
-              <div className="container mx-auto px-4">
-                <Component {...pageProps} />
-              </div>
-            </LocalizationProvider>
-          </SessionProvider>
-        </ThemeProvider>
-      </StyledEngineProvider>
-    </CacheProvider>
+      <SessionProvider session={pageProps.session}>
+        <MainAppBar />
+        <Toaster />
+        <div className={clsx("container mx-auto px-4", roboto.variable)}>
+          <Component {...pageProps} />
+        </div>
+      </SessionProvider>
+    </>
   );
 }

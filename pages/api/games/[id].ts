@@ -35,7 +35,7 @@ handler.get(async (req, res) => {
   if (!id) return res.status(400).end("No id provided");
 
   const game = await prisma.game.findUnique({
-    where: { id: +id },
+    where: { id: id as string },
   });
 
   if (!game) return res.status(404).send("Game not found");
