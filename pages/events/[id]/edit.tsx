@@ -1,20 +1,10 @@
-import { ArrowBack as ArrowBackIcon } from "@mui/icons-material";
-import { LoadingButton } from "@mui/lab";
-import {
-  Button,
-  Container,
-  FormControl,
-  Grid,
-  MenuItem,
-  Select,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { ArrowLeftIcon } from "@heroicons/react/20/solid";
 import { Game } from "@prisma/client";
 import axios from "axios";
+import clsx from "clsx";
 import { eventSelect } from "lib/api";
 import { GetServerSideProps } from "next";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { getServerSession } from "next-auth";
 import { nextAuthOptions } from "pages/api/auth/[...nextauth]";
@@ -39,34 +29,30 @@ export const getServerSideProps: GetServerSideProps = async ({
     };
   }
 
-  if (params?.id) {
-    const event = await prisma.event.findUnique({
-      where: { id: +params.id },
-      select: eventSelect,
-    });
+  if (!params) return { props: {} };
 
-    const games = await prisma.game.findMany();
+  const event = await prisma.event.findUnique({
+    where: { id: params.id as string },
+    select: eventSelect,
+  });
 
-    if (!games || !event) {
-      return {
-        redirect: {
-          destination: "/api/auth/signin",
-          permanent: false,
-        },
-      };
-    }
+  const games = await prisma.game.findMany();
 
+  if (!games || !event) {
     return {
-      props: {
-        event: JSON.parse(JSON.stringify(event)),
-        games: JSON.parse(JSON.stringify(games)),
+      redirect: {
+        destination: "/events",
+        permanent: false,
       },
     };
-  } else {
-    return {
-      props: {},
-    };
   }
+
+  return {
+    props: {
+      event: JSON.parse(JSON.stringify(event)),
+      games: JSON.parse(JSON.stringify(games)),
+    },
+  };
 };
 
 type EditEventPageProps = {
@@ -75,7 +61,7 @@ type EditEventPageProps = {
 };
 const EditEventPage = ({ event, games }: EditEventPageProps) => {
   const router = useRouter();
-  const [dateTime, setDateTime] = useState<Date | unknown>(new Date());
+  const [dateTime, setDateTime] = useState<Date>(new Date());
   const [gameId, setGameId] = useState(event.game.id);
   const [disabled, setDisabled] = useState(false);
 
@@ -88,70 +74,61 @@ const EditEventPage = ({ event, games }: EditEventPageProps) => {
   };
 
   return (
-    <Container>
-      <Button onClick={() => router.back()}>
-        <ArrowBackIcon />
-        Go Back
-      </Button>
-      <Typography variant="h4" sx={{ mt: 2 }}>
-        Edit Event
-      </Typography>
-      {event && (
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            setDisabled(true);
-            updateEvent();
-            router.back();
+    <div className="container mx-auto">
+      <Link href={`/events/${event.id}`} className="btn-ghost btn">
+        <div className="flex items-center gap-2">
+          <ArrowLeftIcon className="h-5 w-5" />
+          Go Back
+        </div>
+      </Link>
+
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          setDisabled(true);
+          updateEvent();
+        }}
+        className="flex flex-col gap-4"
+      >
+        <input
+          className="input-bordered input"
+          type="datetime-local"
+          defaultValue={dateTime.toISOString().slice(0, 16)}
+          pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}"
+          onChange={(e) => setDateTime(new Date(e.target.value))}
+        />
+        <input
+          type="hidden"
+          name="utcOffset"
+          value={new Date().getTimezoneOffset()}
+        />
+        <select
+          className="select-bordered select w-full"
+          id="game-select"
+          value={gameId}
+          onChange={(e) => {
+            setGameId(e.target.value);
           }}
         >
-          <Grid container spacing={3} mt={1}>
-            <Grid item xs={12} sm={6}>
-              <FormControl sx={{ width: "100%" }}>
-                <DatePicker
-                  renderInput={(props) => <TextField {...props} />}
-                  disablePast
-                  value={dateTime}
-                  onChange={setDateTime}
-                />
-              </FormControl>
-            </Grid>
-            {games && (
-              <Grid item xs={12} sm={6}>
-                <FormControl sx={{ width: "100%" }}>
-                  <Select
-                    id="game-select"
-                    value={gameId}
-                    onChange={(e) => {
-                      setGameId(+e.target.value);
-                    }}
-                  >
-                    {games.map(({ id, name }) => (
-                      <MenuItem key={id} value={id}>
-                        {name}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </Grid>
-            )}
-            <Grid item xs={12}>
-              <LoadingButton
-                size="large"
-                fullWidth
-                variant="contained"
-                color="primary"
-                type="submit"
-                disabled={disabled}
-                loading={disabled}
-              >
-                Save
-              </LoadingButton>
-            </Grid>
-          </Grid>
-        </form>
-      )}
-    </Container>
+          {games.map(({ id, name }) => (
+            <option key={id} value={id}>
+              {name}
+            </option>
+          ))}
+        </select>
+        <div>
+          <button
+            className={clsx("btn-secondary btn w-full", {
+              "btn-disabled": disabled,
+            })}
+            type="submit"
+            disabled={disabled}
+          >
+            Save
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 

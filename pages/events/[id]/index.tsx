@@ -1,4 +1,5 @@
-import { ArrowBack as ArrowBackIcon } from "@mui/icons-material";
+import { Dialog, Transition } from "@headlessui/react";
+import { ArrowLeftIcon } from "@heroicons/react/20/solid";
 import { LoadingButton } from "@mui/lab";
 import {
   Avatar,
@@ -9,26 +10,22 @@ import {
   CardContent,
   CardHeader,
   Container,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
   Divider,
   Tooltip,
   Typography,
 } from "@mui/material";
 import { Game, User } from "@prisma/client";
 import axios from "axios";
-import { GameDetails, TypographyP } from "components";
+import { GameDetails } from "components";
 import { AlertContext } from "context/Alert";
 import { eventSelect } from "lib/api";
 import moment from "moment";
 import { GetServerSideProps } from "next";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { getServerSession, Session } from "next-auth";
 import { nextAuthOptions } from "pages/api/auth/[...nextauth]";
-import { useContext, useState } from "react";
+import { Fragment, useContext, useState } from "react";
 import { PopulatedEvent } from "types";
 
 import prisma from "../../../lib/prisma";
@@ -51,7 +48,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   if (params?.id) {
     const event = await prisma.event.findUnique({
-      where: { id: +params.id },
+      where: { id: params.id as string },
       select: eventSelect,
     });
 
@@ -103,7 +100,7 @@ const EventDetailsPage = ({ session, event, game }: EventDetailsPageProps) => {
     router.back();
   };
 
-  const deleteEventById = async (id: number) => {
+  const deleteEventById = async (id: string) => {
     try {
       setDisabled(true);
       await axios.delete(`/api/events/${id}`);
@@ -113,7 +110,7 @@ const EventDetailsPage = ({ session, event, game }: EventDetailsPageProps) => {
     }
   };
 
-  const joinEventById = async (id: number) => {
+  const joinEventById = async (id: string) => {
     try {
       await axios.put(`/api/events/${id}?action=join`);
     } catch (error) {
@@ -122,7 +119,7 @@ const EventDetailsPage = ({ session, event, game }: EventDetailsPageProps) => {
     }
   };
 
-  const leaveEventById = async (id: number) => {
+  const leaveEventById = async (id: string) => {
     try {
       await axios.put(`/api/events/${id}?action=leave`);
     } catch (error) {
@@ -132,11 +129,13 @@ const EventDetailsPage = ({ session, event, game }: EventDetailsPageProps) => {
   };
 
   return (
-    <Container>
-      <Button onClick={() => router.back()}>
-        <ArrowBackIcon />
-        Go Back
-      </Button>
+    <div className="container mx-auto">
+      <Link href="/events" className="btn-ghost btn">
+        <div className="flex items-center gap-2">
+          <ArrowLeftIcon className="h-5 w-5" />
+          Go Back
+        </div>
+      </Link>
       <Card
         sx={{
           m: 2,
@@ -157,7 +156,7 @@ const EventDetailsPage = ({ session, event, game }: EventDetailsPageProps) => {
             }}
           />
           <Container>
-            <TypographyP>Host:</TypographyP>
+            <p>Host:</p>
             <Tooltip title={event.host.name as string}>
               <Avatar
                 alt={event.host.name as string}
@@ -231,34 +230,61 @@ const EventDetailsPage = ({ session, event, game }: EventDetailsPageProps) => {
           )}
         </CardActions>
       </Card>
-      <Dialog
-        open={isDialogOpen}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{"Delete Event?"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Are you sure you want to delete this event?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <LoadingButton
-            disabled={disabled}
-            loading={disabled}
-            onClick={handleDelete}
-            color="primary"
-            autoFocus
+      <Transition appear show={isDialogOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={handleClose}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
           >
-            Yes
-          </LoadingButton>
-        </DialogActions>
-      </Dialog>
-    </Container>
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="flex w-full max-w-md transform flex-col gap-2 overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg font-medium leading-6 text-gray-900"
+                  >
+                    Delete Event
+                  </Dialog.Title>
+                  <p className="text-sm text-gray-500">
+                    Are you sure you want to delete this event?
+                  </p>
+
+                  <div className="flex justify-between">
+                    <button type="button" className="btn" onClick={handleClose}>
+                      Cancel
+                    </button>
+                    <button
+                      type="button"
+                      className="btn-error btn"
+                      onClick={handleDelete}
+                    >
+                      Yes
+                    </button>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+    </div>
   );
 };
 

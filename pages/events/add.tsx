@@ -1,9 +1,8 @@
-import { TextField } from "@mui/material";
-import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { Game } from "@prisma/client";
 import axios from "axios";
 import clsx from "clsx";
 import { AlertContext } from "context/Alert";
+import dayjs from "dayjs";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { getServerSession } from "next-auth";
@@ -72,21 +71,23 @@ const AddEventPage = ({ games }: AddEventPageProps) => {
       }}
       className="flex flex-col gap-4"
     >
-      <DateTimePicker
-        renderInput={(props) => <TextField {...props} />}
-        label="Event Date and Time"
-        value={dateTime}
-        onChange={setDateTime}
-      />
+      <label>
+        Event Date and Time
+        <input
+          type="datetime-local"
+          value={dayjs(dateTime).format("YYYY-MM-DDTh:mma")}
+          onChange={(e) => setDateTime(new Date(e.target.value))}
+        />
+      </label>
       <select
         className="select-bordered select w-full"
         id="select-game"
-        value={gameId}
+        defaultValue={-1}
         onChange={(e) => {
           setGameId(e.target.value as string);
         }}
       >
-        <option disabled selected>
+        <option disabled value={-1}>
           Select Game
         </option>
         {games.map(({ id, name }) => (

@@ -59,22 +59,14 @@ const HomePage = ({ user }: HomePageProps) => {
 
   return (
     <>
-      <p className="pb-2">Hello, {name}.</p>
-      {!!eventsHosting.length && (
-        <>
-          <h4 className="pb-4 font-semibold">Events You Are Hosting:</h4>
-          <EventsListContainer
-            events={[...eventsHosting, ...eventsHosting, ...eventsHosting]}
-            isHosting
-          />
-        </>
-      )}
-      {!!eventsAttending.length && (
-        <>
-          <h4 className="pb-4 font-semibold">Events You Are Attending:</h4>
-          <EventsListContainer events={eventsAttending} />
-        </>
-      )}
+      <p className="py-2">Hello, {name}.</p>
+      <h4 className="py-4 font-semibold">Events You Are Hosting:</h4>
+      <EventsListContainer
+        events={[...eventsHosting, ...eventsHosting, ...eventsHosting]}
+        isHosting
+      />
+      <h4 className="py-4 font-semibold">Events You Are Attending:</h4>
+      <EventsListContainer events={eventsAttending} />
     </>
   );
 };

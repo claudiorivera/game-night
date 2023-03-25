@@ -14,7 +14,7 @@ type CardProps = {
 };
 
 const Card = ({ children }: CardProps) => {
-  return <div className="rounded-lg border shadow-lg">{children}</div>;
+  return <article className="rounded-lg border shadow-lg">{children}</article>;
 };
 
 type CardHeaderProps = {
@@ -67,8 +67,12 @@ export const EventSummaryCard = ({
         />
         <CardMedia image={game.imageSrc} title={game.name} />
         <CardContent>
-          {!isHosting && <small>Host: {host.name}</small>}
-          <small>Guests: {event.guests.length}</small>
+          <div className="flex flex-col">
+            {!isHosting && (
+              <small className="font-semibold">Host: {host.name}</small>
+            )}
+            <small>Guests: {event.guests.length}</small>
+          </div>
         </CardContent>
       </Card>
     </Link>
