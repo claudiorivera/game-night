@@ -51,7 +51,7 @@ const GamesListPage = ({ games }: GamesListPageProps) => {
     <div className="min-h-screen">
       <div className="pb-4">
         <Link
-          className={clsx("btn-secondary btn w-full disabled:disabled", {
+          className={clsx("btn-secondary btn w-full", {
             "btn-disabled": disabled,
           })}
           href="/games/add"

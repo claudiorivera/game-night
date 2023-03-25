@@ -1,26 +1,14 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { ArrowLeftIcon } from "@heroicons/react/20/solid";
-import { LoadingButton } from "@mui/lab";
-import {
-  Avatar,
-  AvatarGroup,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  Container,
-  Divider,
-  Tooltip,
-  Typography,
-} from "@mui/material";
 import { Game, User } from "@prisma/client";
 import axios from "axios";
+import clsx from "clsx";
 import { GameDetails } from "components";
 import { AlertContext } from "context/Alert";
 import { eventSelect } from "lib/api";
 import moment from "moment";
 import { GetServerSideProps } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { getServerSession, Session } from "next-auth";
@@ -136,57 +124,80 @@ const EventDetailsPage = ({ session, event, game }: EventDetailsPageProps) => {
           Go Back
         </div>
       </Link>
-      <Card
-        sx={{
-          m: 2,
-          p: 4,
-          flexDirection: "column",
-        }}
-      >
-        <CardHeader
-          title={moment(event.dateTime).format("MMMM Do, YYYY [at] h:mma")}
-          subheader={game.name}
-        />
-        <CardContent>
+      <article className="rounded-lg border shadow-lg">
+        <div className="p-4">
+          <h4 className="font-bold">
+            {moment(event.dateTime).format("MMMM Do, YYYY [at] h:mma")}
+          </h4>
+          <small>{game.name}</small>
+        </div>
+
+        <div className="p-4">
           <GameDetails game={game} />
-          <Divider
-            variant="middle"
-            sx={{
-              m: 4,
-            }}
-          />
-          <Container>
+          <div className="divider" />
+          <div>
             <p>Host:</p>
-            <Tooltip title={event.host.name as string}>
-              <Avatar
-                alt={event.host.name as string}
-                src={event.host.image as string}
-              />
-            </Tooltip>
-          </Container>
-          <Container>
-            <Typography variant="subtitle1">Guests:</Typography>
-            <AvatarGroup max={8}>
+            <div className="tooltip" data-tip={event.host.name}>
+              {event.host.image ? (
+                <div className="avatar">
+                  <div className="relative h-10 w-10 rounded-full">
+                    <Image
+                      src={event.host.image}
+                      fill
+                      alt={event.host.name ?? ""}
+                      className="object-cover"
+                    />
+                  </div>
+                </div>
+              ) : (
+                <div className="placeholder avatar">
+                  <div className="w-10 rounded-full">
+                    {event.host.name?.charAt(0)}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+          <div>
+            <p>Guests:</p>
+            <div className="avatar-group">
               {event.guests.map((guest: Pick<User, "name" | "image">) => (
-                <Tooltip
-                  key={guest.name as string}
-                  title={guest.name as string}
+                <div
+                  key={guest.name}
+                  className="tooltip"
+                  data-tip={guest.name || "A Guest"}
                 >
-                  <Avatar
-                    alt={guest.name as string}
-                    src={guest.image as string}
-                  />
-                </Tooltip>
+                  {guest.image ? (
+                    <div className="avatar">
+                      <div className="relative h-10 w-10 rounded-full">
+                        <Image
+                          src={guest.image}
+                          fill
+                          alt={guest.name ?? ""}
+                          className="object-cover"
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="placeholder avatar">
+                      <div className="w-10 rounded-full">
+                        {guest.name?.charAt(0)}
+                      </div>
+                    </div>
+                  )}
+                </div>
               ))}
-            </AvatarGroup>
-          </Container>
-        </CardContent>
-        <CardActions>
+            </div>
+          </div>
+        </div>
+        <div className="flex gap-4 p-4">
           {/* If user is already a guest, show the Leave button */}
           {event.guests.some((guest) => guest.id === session.user.id) ? (
-            <LoadingButton
+            <button
+              className={clsx("btn-secondary btn", {
+                "btn-disabled": disabled,
+              })}
               disabled={disabled}
-              loading={disabled}
               onClick={async () => {
                 setDisabled(true);
                 await leaveEventById(event.id);
@@ -194,12 +205,14 @@ const EventDetailsPage = ({ session, event, game }: EventDetailsPageProps) => {
               }}
             >
               Leave
-            </LoadingButton>
+            </button>
           ) : // Otherwise, as long as user isn't the host, show the Join loadingbutton
           event.host.id !== session.user.id ? (
-            <LoadingButton
+            <button
+              className={clsx("btn-secondary btn", {
+                "btn-disabled": disabled,
+              })}
               disabled={disabled}
-              loading={disabled}
               onClick={async () => {
                 setDisabled(true);
                 await joinEventById(event.id);
@@ -207,29 +220,33 @@ const EventDetailsPage = ({ session, event, game }: EventDetailsPageProps) => {
               }}
             >
               Join
-            </LoadingButton>
+            </button>
           ) : (
             // Otherwise, we're the host, so show the Edit button
-            <Button
+            <button
+              className={clsx("btn-secondary btn", {
+                "btn-disabled": disabled,
+              })}
               onClick={() => {
                 router.push(`/events/${router.query.id}/edit`);
               }}
             >
               Edit
-            </Button>
+            </button>
           )}
           {/* Show the Delete button to hosts and admins */}
           {(event.host.id === session.user.id || !!session.user.isAdmin) && (
-            <Button
+            <button
+              className="btn-error btn"
               onClick={async () => {
                 setIsDialogOpen(true);
               }}
             >
               Delete
-            </Button>
+            </button>
           )}
-        </CardActions>
-      </Card>
+        </div>
+      </article>
       <Transition appear show={isDialogOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={handleClose}>
           <Transition.Child
