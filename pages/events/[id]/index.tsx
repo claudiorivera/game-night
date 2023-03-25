@@ -4,7 +4,6 @@ import { Game, User } from "@prisma/client";
 import axios from "axios";
 import clsx from "clsx";
 import { GameDetails } from "components";
-import { AlertContext } from "context/Alert";
 import { eventSelect } from "lib/api";
 import moment from "moment";
 import { GetServerSideProps } from "next";
@@ -13,7 +12,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { getServerSession, Session } from "next-auth";
 import { nextAuthOptions } from "pages/api/auth/[...nextauth]";
-import { Fragment, useContext, useState } from "react";
+import { Fragment, useState } from "react";
+import { toast } from "react-hot-toast";
 import { PopulatedEvent } from "types";
 
 import prisma from "../../../lib/prisma";
@@ -74,7 +74,6 @@ type EventDetailsPageProps = {
 };
 const EventDetailsPage = ({ session, event, game }: EventDetailsPageProps) => {
   const router = useRouter();
-  const { createAlertWithMessage } = useContext(AlertContext);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [disabled, setDisabled] = useState(false);
 
@@ -93,7 +92,7 @@ const EventDetailsPage = ({ session, event, game }: EventDetailsPageProps) => {
       setDisabled(true);
       await axios.delete(`/api/events/${id}`);
     } catch (error) {
-      createAlertWithMessage(JSON.stringify(error, null, 2));
+      toast.error(JSON.stringify(error, null, 2));
       console.error(error);
     }
   };
@@ -101,8 +100,9 @@ const EventDetailsPage = ({ session, event, game }: EventDetailsPageProps) => {
   const joinEventById = async (id: string) => {
     try {
       await axios.put(`/api/events/${id}?action=join`);
+      toast.success("You have joined the event");
     } catch (error) {
-      createAlertWithMessage(JSON.stringify(error, null, 2));
+      toast.error(JSON.stringify(error, null, 2));
       console.error(error);
     }
   };
@@ -110,8 +110,9 @@ const EventDetailsPage = ({ session, event, game }: EventDetailsPageProps) => {
   const leaveEventById = async (id: string) => {
     try {
       await axios.put(`/api/events/${id}?action=leave`);
+      toast.success("You have left the event");
     } catch (error) {
-      createAlertWithMessage(JSON.stringify(error, null, 2));
+      toast.error(JSON.stringify(error, null, 2));
       console.error(error);
     }
   };

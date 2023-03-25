@@ -1,13 +1,13 @@
 import { Game } from "@prisma/client";
 import axios from "axios";
 import clsx from "clsx";
-import { AlertContext } from "context/Alert";
 import dayjs from "dayjs";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { getServerSession } from "next-auth";
 import { nextAuthOptions } from "pages/api/auth/[...nextauth]";
-import { useContext, useState } from "react";
+import { useState } from "react";
+import { toast } from "react-hot-toast";
 
 import prisma from "../../lib/prisma";
 
@@ -44,7 +44,6 @@ type AddEventPageProps = {
 };
 const AddEventPage = ({ games }: AddEventPageProps) => {
   const router = useRouter();
-  const { createAlertWithMessage } = useContext(AlertContext);
   const [dateTime, setDateTime] = useState<Date | null>(new Date());
   const [gameId, setGameId] = useState("");
   const [disabled, setDisabled] = useState(false);
@@ -56,7 +55,7 @@ const AddEventPage = ({ games }: AddEventPageProps) => {
         dateTime,
       });
     } catch (error) {
-      createAlertWithMessage(JSON.stringify(error, null, 2));
+      toast.error(JSON.stringify(error, null, 2));
       console.error(error);
     }
   };
