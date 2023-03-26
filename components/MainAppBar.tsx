@@ -1,8 +1,11 @@
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 import { userLinks } from "~/config";
 
 export function MainAppBar() {
+  const { data } = useSession();
+
   function handleDropdownItemClick() {
     document.activeElement instanceof HTMLElement &&
       document.activeElement.blur();
@@ -44,6 +47,11 @@ export function MainAppBar() {
                 </Link>
               </li>
             ))}
+            {!!data && (
+              <li>
+                <Link href="/api/auth/signout">Sign Out</Link>
+              </li>
+            )}
           </ul>
         </div>
       </div>
