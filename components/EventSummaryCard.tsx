@@ -26,7 +26,7 @@ const CardHeader = ({ title, subheader }: CardHeaderProps) => {
   return (
     <div className="p-4">
       <h4 className="font-bold">{title}</h4>
-      <small>{subheader}</small>
+      <small className="text-slate-500">{subheader}</small>
     </div>
   );
 };
@@ -67,12 +67,12 @@ export const EventSummaryCard = ({
         />
         <CardMedia image={game.imageSrc} title={game.name} />
         <CardContent>
-          <div className="flex flex-col">
-            {!isHosting && (
-              <small className="font-semibold">Host: {host.name}</small>
-            )}
-            <small>Guests: {event.guests.length}</small>
-          </div>
+          {!isHosting && (
+            <h4 className="font-semibold">Host: {host.name || "Anonymous"}</h4>
+          )}
+          <small className="text-slate-500">
+            Guests: {event.guests.length}
+          </small>
         </CardContent>
       </Card>
     </Link>

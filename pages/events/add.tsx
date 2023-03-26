@@ -1,7 +1,6 @@
 import { Game } from "@prisma/client";
 import axios from "axios";
 import clsx from "clsx";
-import dayjs from "dayjs";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { getServerSession } from "next-auth";
@@ -70,12 +69,19 @@ const AddEventPage = ({ games }: AddEventPageProps) => {
       }}
       className="flex flex-col gap-4"
     >
-      <label>
+      <label className="text-sm">
         Event Date and Time
         <input
+          className="input-bordered input w-full"
           type="datetime-local"
-          value={dayjs(dateTime).format("YYYY-MM-DDTh:mma")}
+          defaultValue={new Date().toISOString().slice(0, 16)}
+          pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}"
           onChange={(e) => setDateTime(new Date(e.target.value))}
+        />
+        <input
+          type="hidden"
+          name="utcOffset"
+          value={new Date().getTimezoneOffset()}
         />
       </label>
       <select

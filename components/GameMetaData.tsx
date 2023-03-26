@@ -16,31 +16,31 @@ const Description = ({ term, definition }: DescriptionProps) => (
   </div>
 );
 
+type BadgesDisplayProps = {
+  label: string;
+  badges: string[];
+};
+
+const BadgesDisplay = ({ label, badges }: BadgesDisplayProps) => (
+  <div className="flex flex-wrap gap-2">
+    <span>{label}: </span>
+    <div className="flex flex-wrap gap-1">
+      {badges.map((badge) => (
+        <div className="badge-neutral badge" key={badge}>
+          {badge}
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
 export const GameMetaData = ({ game }: GameMetaDataProps) => {
   if (!game) return null;
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex flex-wrap gap-2">
-        <span>Authors: </span>
-        <div className="flex flex-wrap gap-1">
-          {game.authors.map((author) => (
-            <div className="badge" key={author}>
-              {author}
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="flex flex-wrap gap-2">
-        <span>Categories: </span>
-        <div className="flex flex-wrap gap-1">
-          {game.categories.map((category) => (
-            <div className="badge" key={category}>
-              {category}
-            </div>
-          ))}
-        </div>
-      </div>
+      <BadgesDisplay label="Authors" badges={game.authors} />
+      <BadgesDisplay label="Categories" badges={game.categories} />
       <Description
         term="Average BGG Rating"
         definition={`${game.rating.toFixed(2)} (${game.numOfRatings} ratings)`}

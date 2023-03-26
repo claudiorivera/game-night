@@ -4,15 +4,23 @@ module.exports = {
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
-  theme: {},
+  theme: {
+    extend: {},
+  },
   daisyui: {
     themes: [
       {
         mytheme: {
           primary: "#2a9d8f",
+          "primary-content": "#ffffff",
           secondary: "#e9c46a",
-          accent: "#f4a261",
-          neutral: "#264653",
+          accent: "#46237A",
+          neutral: "#1f1f1f",
+          "base-100": "#effbf9",
+          info: "#485696",
+          success: "#2a9d8f",
+          warning: "#ff9f1c",
+          error: "#a52422",
         },
       },
     ],

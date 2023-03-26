@@ -9,14 +9,14 @@ export function MainAppBar() {
   }
 
   return (
-    <div className="navbar mb-4 bg-primary p-4 shadow">
+    <div className="navbar mb-4 bg-primary p-4 text-primary-content shadow">
       <div className="flex-1">
         <Link href="/" className="text-2xl font-bold hover:text-primary-focus">
           Game Night
         </Link>
       </div>
       <div className="flex-none">
-        <div className="dropdown dropdown-end">
+        <div className="dropdown-end dropdown">
           <label tabIndex={0} className="btn-ghost btn-circle btn">
             <svg
               xmlns="http://www.w3.org/2000/svg"
