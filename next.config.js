@@ -5,6 +5,7 @@ module.exports = {
       "cf.geekdo-images.com",
       "avatars.githubusercontent.com",
       "picsum.photos",
+      "cloudflare-ipfs.com",
     ],
   },
 };
