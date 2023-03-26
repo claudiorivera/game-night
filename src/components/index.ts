@@ -1,3 +1,4 @@
+export * from "./Card";
 export * from "./EventSummaryCard";
 export * from "./GameDetails";
 export * from "./GameMetaData";

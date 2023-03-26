@@ -1,6 +1,6 @@
 import { ArrowLeftIcon } from "@heroicons/react/20/solid";
 import clsx from "clsx";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -40,13 +40,13 @@ const EditEventPage = () => {
 			onSuccess: (data) => {
 				if (!data) return;
 
-				setDateTime(dayjs(data.dateTime));
+				setDateTime(data.dateTime);
 				setGameId(data.game.id);
 			},
 		},
 	);
 
-	const [dateTime, setDateTime] = useState<Dayjs | null>(dayjs(new Date()));
+	const [dateTime, setDateTime] = useState<Date>(event?.dateTime ?? new Date());
 	const [gameId, setGameId] = useState<string>("");
 
 	const { mutate: updateEvent, isLoading: disabled } =
@@ -78,7 +78,7 @@ const EditEventPage = () => {
 					updateEvent({
 						id: event.id,
 						data: {
-							dateTime: dateTime?.toDate() || new Date(),
+							dateTime,
 							gameId,
 						},
 					});
@@ -88,9 +88,8 @@ const EditEventPage = () => {
 				<input
 					className="input-bordered input"
 					type="datetime-local"
-					defaultValue={(dateTime ?? new Date()).toISOString().slice(0, 16)}
-					pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}"
-					onChange={(e) => setDateTime(dayjs(e.target.value))}
+					defaultValue={dayjs(event.dateTime).format("YYYY-MM-DDTHH:mm")}
+					onChange={(e) => setDateTime(new Date(e.target.value))}
 				/>
 				<input
 					type="hidden"
