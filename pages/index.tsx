@@ -61,10 +61,7 @@ const HomePage = ({ user }: HomePageProps) => {
     <>
       <p className="py-2">Hello, {name}.</p>
       <h4 className="py-4 font-semibold">Events You Are Hosting:</h4>
-      <EventsListContainer
-        events={[...eventsHosting, ...eventsHosting, ...eventsHosting]}
-        isHosting
-      />
+      <EventsListContainer events={eventsHosting} isHosting />
       <h4 className="py-4 font-semibold">Events You Are Attending:</h4>
       <EventsListContainer events={eventsAttending} />
     </>
