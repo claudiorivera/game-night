@@ -1,14 +1,12 @@
-import { EventsListContainer } from "~/components";
-import { eventSelect } from "~/lib/api";
 import { GetServerSideProps } from "next";
 import { getServerSession } from "next-auth";
-import { PopulatedEvent } from "~/types";
 
-import prisma from "../lib/prisma";
-import { nextAuthOptions } from "./api/auth/[...nextauth]";
+import { EventSummaryCard } from "~/components";
+import { api } from "~/lib/api";
+import { authOptions } from "~/server/auth";
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-	const session = await getServerSession(req, res, nextAuthOptions);
+	const session = await getServerSession(req, res, authOptions);
 
 	if (!session) {
 		return {
@@ -19,51 +17,39 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 		};
 	}
 
-	const user = await prisma.user.findFirst({
-		where: { id: session.user.id },
-		select: {
-			id: true,
-			name: true,
-			eventsHosting: {
-				select: eventSelect,
-			},
-			eventsAttending: {
-				select: eventSelect,
-			},
-		},
-	});
-
-	if (!user) {
-		return {
-			redirect: {
-				destination: "/api/auth/signin",
-				permanent: false,
-			},
-		};
-	}
-
 	return {
-		props: { user: JSON.parse(JSON.stringify(user)) },
+		props: {},
 	};
 };
 
-type HomePageProps = {
-	user: {
-		name: string;
-		eventsHosting: PopulatedEvent[];
-		eventsAttending: PopulatedEvent[];
-	};
-};
-const HomePage = ({ user }: HomePageProps) => {
+const HomePage = () => {
+	const { data: user } = api.user.getCurrentUser.useQuery();
+
+	if (!user) return null;
+
 	const { name, eventsHosting, eventsAttending } = user;
 
 	return (
 		<>
 			<p className="py-2">Hello, {name}.</p>
+
 			<h4 className="py-4 font-semibold">Events You Are Hosting:</h4>
-			<EventsListContainer events={eventsHosting} isHosting />
+			<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+				{eventsHosting.map((event) => (
+					<div key={event.id}>
+						<EventSummaryCard event={event} />
+					</div>
+				))}
+			</div>
+
 			<h4 className="py-4 font-semibold">Events You Are Attending:</h4>
-			<EventsListContainer events={eventsAttending} />
+			<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+				{eventsAttending.map((event) => (
+					<div key={event.id}>
+						<EventSummaryCard event={event} />
+					</div>
+				))}
+			</div>
 		</>
 	);
 };

@@ -1,19 +1,20 @@
 import { Disclosure } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/20/solid";
-import { Prisma } from "@prisma/client";
-import axios from "axios";
 import clsx from "clsx";
-import { GameDetails } from "~/components";
-import { BGGGameResponse } from "~/lib/fetchBggGameById";
-import { fetchBggGamesByQuery } from "~/lib/fetchBggGamesByQuery";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { getServerSession } from "next-auth";
-import { nextAuthOptions } from "pages/api/auth/[...nextauth]";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
+
+import { GameDetails } from "~/components";
+import { api } from "~/lib/api";
+import { BGGGameResponse } from "~/lib/fetchBggGameById";
+import { fetchBggGamesByQuery } from "~/lib/fetchBggGamesByQuery";
+import { authOptions } from "~/server/auth";
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-	const session = await getServerSession(req, res, nextAuthOptions);
+	const session = await getServerSession(req, res, authOptions);
 
 	if (!session) {
 		return {
@@ -23,6 +24,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 			},
 		};
 	}
+
 	return {
 		props: {},
 	};
@@ -33,7 +35,16 @@ const AddGamePage = () => {
 	const [query, setQuery] = useState("");
 	const [queryResults, setQueryResults] = useState<Array<BGGGameResponse>>([]);
 	const [isFetching, setIsFetching] = useState(false);
-	const [disabled, setDisabled] = useState(false);
+
+	const { mutate: addGame, isLoading: disabled } = api.game.import.useMutation({
+		onSuccess: () => {
+			toast.success("Game added successfully!");
+			router.push("/games");
+		},
+		onError: (error) => {
+			toast.error(error.message);
+		},
+	});
 
 	const handleSearch = async (e: React.SyntheticEvent) => {
 		e.preventDefault();
@@ -47,14 +58,6 @@ const AddGamePage = () => {
 		e,
 	) => {
 		setQuery(e.target.value);
-	};
-
-	const addGame = async (gameToAdd: Prisma.GameCreateInput) => {
-		try {
-			await axios.post("/api/games", gameToAdd);
-		} catch (error) {
-			console.error(error);
-		}
 	};
 
 	return (
@@ -101,9 +104,8 @@ const AddGamePage = () => {
 										<button
 											className="btn-secondary btn w-full"
 											disabled={disabled}
-											onClick={async () => {
-												setDisabled(true);
-												await addGame({
+											onClick={() => {
+												addGame({
 													bggId: result.bggId,
 													imageSrc: result.imageSrc,
 													thumbnailSrc: result.thumbnailSrc,
@@ -120,8 +122,6 @@ const AddGamePage = () => {
 													categories: result.categories,
 													mechanics: result.mechanics,
 												});
-												setDisabled(false);
-												router.push("/games");
 											}}
 										>
 											Add This Game

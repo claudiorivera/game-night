@@ -1,29 +1,22 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { ArrowLeftIcon } from "@heroicons/react/20/solid";
-import { Game, User } from "@prisma/client";
-import axios from "axios";
+import { User } from "@prisma/client";
 import clsx from "clsx";
-import { GameDetails } from "~/components";
 import dayjs from "dayjs";
-import { eventSelect } from "~/lib/api";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { getServerSession, Session } from "next-auth";
-import { nextAuthOptions } from "pages/api/auth/[...nextauth]";
+import { getServerSession } from "next-auth";
 import { Fragment, useState } from "react";
 import { toast } from "react-hot-toast";
-import { PopulatedEvent } from "~/types";
 
-import prisma from "../../../lib/prisma";
+import { GameDetails } from "~/components";
+import { api } from "~/lib/api";
+import { authOptions } from "~/server/auth";
 
-export const getServerSideProps: GetServerSideProps = async ({
-	req,
-	res,
-	params,
-}) => {
-	const session = await getServerSession(req, res, nextAuthOptions);
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+	const session = await getServerSession(req, res, authOptions);
 
 	if (!session) {
 		return {
@@ -34,87 +27,71 @@ export const getServerSideProps: GetServerSideProps = async ({
 		};
 	}
 
-	if (params?.id) {
-		const event = await prisma.event.findUnique({
-			where: { id: params.id as string },
-			select: eventSelect,
-		});
-
-		const game = await prisma.game.findUnique({
-			where: { id: event?.game.id },
-		});
-
-		if (!game || !event) {
-			return {
-				redirect: {
-					destination: "/api/auth/signin",
-					permanent: false,
-				},
-			};
-		}
-
-		return {
-			props: {
-				session,
-				event: JSON.parse(JSON.stringify(event)),
-				game: JSON.parse(JSON.stringify(game)),
-			},
-		};
-	} else {
-		return {
-			props: {},
-		};
-	}
+	return {
+		props: {},
+	};
 };
 
-type EventDetailsPageProps = {
-	session: Session;
-	event: PopulatedEvent;
-	game: Game;
-};
-const EventDetailsPage = ({ session, event, game }: EventDetailsPageProps) => {
+const EventDetailsPage = () => {
 	const router = useRouter();
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
-	const [disabled, setDisabled] = useState(false);
+	const { data: user } = api.user.getCurrentUser.useQuery();
+
+	const { data: event } = api.event.getById.useQuery(
+		{
+			id: router.query.id as string,
+		},
+		{
+			enabled: !!router.query.id,
+		},
+	);
+
+	const { mutate: deleteEventById, isLoading: isDeletingEvent } =
+		api.event.deleteById.useMutation({
+			onSuccess: () => {
+				toast.success("Event deleted!");
+				router.back();
+			},
+			onError: (error) => {
+				toast.error(error.message);
+			},
+		});
+
+	const { mutate: leaveEventById, isLoading: isLeavingEvent } =
+		api.event.leaveById.useMutation({
+			onSuccess: () => {
+				toast.success("You have left the event!");
+				router.back();
+			},
+			onError: (error) => {
+				toast.error(error.message);
+			},
+		});
+
+	const { mutate: joinEventById, isLoading: isJoiningEvent } =
+		api.event.joinById.useMutation({
+			onSuccess: () => {
+				toast.success("You have joined the event!");
+				router.back();
+			},
+			onError: (error) => {
+				toast.error(error.message);
+			},
+		});
+
+	const disabled = isDeletingEvent || isLeavingEvent || isJoiningEvent;
+
+	if (!event || !user) return null;
+
+	const { game } = event;
 
 	// Delete confirm dialog
 	const handleClose = () => {
 		setIsDialogOpen(false);
 	};
 
-	const handleDelete = async () => {
-		await deleteEventById(event.id);
-		router.back();
-	};
-
-	const deleteEventById = async (id: string) => {
-		try {
-			setDisabled(true);
-			await axios.delete(`/api/events/${id}`);
-		} catch (error) {
-			toast.error(JSON.stringify(error, null, 2));
-			console.error(error);
-		}
-	};
-
-	const joinEventById = async (id: string) => {
-		try {
-			await axios.put(`/api/events/${id}?action=join`);
-			toast.success("You have joined the event");
-		} catch (error) {
-			toast.error(JSON.stringify(error, null, 2));
-			console.error(error);
-		}
-	};
-
-	const leaveEventById = async (id: string) => {
-		try {
-			await axios.put(`/api/events/${id}?action=leave`);
-			toast.success("You have left the event");
-		} catch (error) {
-			toast.error(JSON.stringify(error, null, 2));
-			console.error(error);
-		}
+	const handleDelete = () => {
+		deleteEventById({ id: event.id });
 	};
 
 	return (
@@ -195,31 +172,27 @@ const EventDetailsPage = ({ session, event, game }: EventDetailsPageProps) => {
 				</div>
 				<div className="flex gap-4 p-4">
 					{/* If user is already a guest, show the Leave button */}
-					{event.guests.some((guest) => guest.id === session.user.id) ? (
+					{event.guests.some((guest) => guest.id === user.id) ? (
 						<button
 							className={clsx("btn-secondary btn", {
 								"btn-disabled": disabled,
 							})}
 							disabled={disabled}
-							onClick={async () => {
-								setDisabled(true);
-								await leaveEventById(event.id);
-								router.back();
+							onClick={() => {
+								leaveEventById({ id: event.id });
 							}}
 						>
 							Leave
 						</button>
 					) : // Otherwise, as long as user isn't the host, show the Join loadingbutton
-					event.host.id !== session.user.id ? (
+					event.host.id !== user.id ? (
 						<button
 							className={clsx("btn-secondary btn", {
 								"btn-disabled": disabled,
 							})}
 							disabled={disabled}
-							onClick={async () => {
-								setDisabled(true);
-								await joinEventById(event.id);
-								router.back();
+							onClick={() => {
+								joinEventById({ id: event.id });
 							}}
 						>
 							Join
@@ -238,7 +211,7 @@ const EventDetailsPage = ({ session, event, game }: EventDetailsPageProps) => {
 						</button>
 					)}
 					{/* Show the Delete button to hosts and admins */}
-					{(event.host.id === session.user.id || !!session.user.isAdmin) && (
+					{(event.host.id === user.id || !!user.isAdmin) && (
 						<button
 							className="btn-error btn"
 							onClick={async () => {

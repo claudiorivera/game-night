@@ -3,10 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { ReactNode } from "react";
 
-import { PopulatedEvent } from "~/types";
+import { RouterOutputs } from "~/lib/api";
 
 type EventSummaryCardProps = {
-	event: PopulatedEvent;
+	event: RouterOutputs["event"]["getAll"][number];
 	isHosting?: boolean;
 };
 

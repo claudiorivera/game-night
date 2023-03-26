@@ -2,11 +2,13 @@ import "../styles/globals.css";
 
 import { Roboto } from "@next/font/google";
 import clsx from "clsx";
-import { MainAppBar } from "~/components";
 import { AppProps } from "next/app";
 import Head from "next/head";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "react-hot-toast";
+
+import { MainAppBar } from "~/components";
+import { api } from "~/lib/api";
 
 export const roboto = Roboto({
 	weight: ["300", "400", "500", "700"],
@@ -16,7 +18,7 @@ export const roboto = Roboto({
 	variable: "--font-inter",
 });
 
-export default function MyApp(props: AppProps) {
+function MyApp(props: AppProps) {
 	const { Component, pageProps } = props;
 	return (
 		<>
@@ -37,3 +39,5 @@ export default function MyApp(props: AppProps) {
 		</>
 	);
 }
+
+export default api.withTRPC(MyApp);

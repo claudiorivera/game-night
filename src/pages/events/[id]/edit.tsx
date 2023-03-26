@@ -1,24 +1,18 @@
 import { ArrowLeftIcon } from "@heroicons/react/20/solid";
-import { Game } from "@prisma/client";
-import axios from "axios";
 import clsx from "clsx";
-import { eventSelect } from "~/lib/api";
+import dayjs, { Dayjs } from "dayjs";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { getServerSession } from "next-auth";
-import { nextAuthOptions } from "pages/api/auth/[...nextauth]";
 import { useState } from "react";
-import { PopulatedEvent } from "~/types";
+import { toast } from "react-hot-toast";
 
-import prisma from "../../../lib/prisma";
+import { api } from "~/lib/api";
+import { authOptions } from "~/server/auth";
 
-export const getServerSideProps: GetServerSideProps = async ({
-	req,
-	res,
-	params,
-}) => {
-	const session = await getServerSession(req, res, nextAuthOptions);
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+	const session = await getServerSession(req, res, authOptions);
 
 	if (!session) {
 		return {
@@ -29,49 +23,43 @@ export const getServerSideProps: GetServerSideProps = async ({
 		};
 	}
 
-	if (!params) return { props: {} };
-
-	const event = await prisma.event.findUnique({
-		where: { id: params.id as string },
-		select: eventSelect,
-	});
-
-	const games = await prisma.game.findMany();
-
-	if (!games || !event) {
-		return {
-			redirect: {
-				destination: "/events",
-				permanent: false,
-			},
-		};
-	}
-
 	return {
-		props: {
-			event: JSON.parse(JSON.stringify(event)),
-			games: JSON.parse(JSON.stringify(games)),
-		},
+		props: {},
 	};
 };
 
-type EditEventPageProps = {
-	event: PopulatedEvent;
-	games: Game[];
-};
-const EditEventPage = ({ event, games }: EditEventPageProps) => {
+const EditEventPage = () => {
 	const router = useRouter();
-	const [dateTime, setDateTime] = useState<Date>(new Date());
-	const [gameId, setGameId] = useState(event.game.id);
-	const [disabled, setDisabled] = useState(false);
 
-	const updateEvent = async () => {
-		await axios.put(`/api/events/${event.id}?action=edit`, {
-			gameId,
-			dateTime,
+	const { data: event } = api.event.getById.useQuery(
+		{
+			id: router.query.id as string,
+		},
+		{
+			enabled: !!router.query.id,
+			onSuccess: (data) => {
+				if (!data) return;
+
+				setDateTime(dayjs(data.dateTime));
+				setGameId(data.game.id);
+			},
+		},
+	);
+
+	const [dateTime, setDateTime] = useState<Dayjs | null>(dayjs(new Date()));
+	const [gameId, setGameId] = useState<string>("");
+
+	const { mutate: updateEvent, isLoading: disabled } =
+		api.event.updateById.useMutation({
+			onSuccess: () => {
+				toast.success("Event updated successfully");
+				router.back();
+			},
 		});
-		router.back();
-	};
+
+	const { data: games } = api.game.getAll.useQuery();
+
+	if (!event || !games) return null;
 
 	return (
 		<div className="container mx-auto">
@@ -87,17 +75,22 @@ const EditEventPage = ({ event, games }: EditEventPageProps) => {
 			<form
 				onSubmit={(e) => {
 					e.preventDefault();
-					setDisabled(true);
-					updateEvent();
+					updateEvent({
+						id: event.id,
+						data: {
+							dateTime: dateTime?.toDate() || new Date(),
+							gameId,
+						},
+					});
 				}}
 				className="flex flex-col gap-4"
 			>
 				<input
 					className="input-bordered input"
 					type="datetime-local"
-					defaultValue={dateTime.toISOString().slice(0, 16)}
+					defaultValue={(dateTime ?? new Date()).toISOString().slice(0, 16)}
 					pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}"
-					onChange={(e) => setDateTime(new Date(e.target.value))}
+					onChange={(e) => setDateTime(dayjs(e.target.value))}
 				/>
 				<input
 					type="hidden"

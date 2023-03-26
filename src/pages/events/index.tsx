@@ -1,17 +1,15 @@
 import clsx from "clsx";
-import { EventsListContainer } from "~/components";
-import { eventSelect } from "~/lib/api";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
 import { getServerSession } from "next-auth";
-import { nextAuthOptions } from "pages/api/auth/[...nextauth]";
 import { useState } from "react";
-import { PopulatedEvent } from "~/types";
 
-import prisma from "../../lib/prisma";
+import { EventSummaryCard } from "~/components";
+import { api } from "~/lib/api";
+import { authOptions } from "~/server/auth";
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-	const session = await getServerSession(req, res, nextAuthOptions);
+	const session = await getServerSession(req, res, authOptions);
 
 	if (!session) {
 		return {
@@ -22,29 +20,17 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 		};
 	}
 
-	const events = await prisma.event.findMany({
-		select: eventSelect,
-	});
-
-	if (!events) {
-		return {
-			redirect: {
-				destination: "/api/auth/signin",
-				permanent: false,
-			},
-		};
-	}
-
 	return {
-		props: { events: JSON.parse(JSON.stringify(events)) },
+		props: {},
 	};
 };
 
-type EventsListPageProps = {
-	events: PopulatedEvent[];
-};
-const EventsListPage = ({ events }: EventsListPageProps) => {
+const EventsListPage = () => {
 	const [disabled, setDisabled] = useState(false);
+
+	const { data: events } = api.event.getAll.useQuery();
+
+	if (!events) return null;
 
 	return (
 		<>
@@ -62,7 +48,13 @@ const EventsListPage = ({ events }: EventsListPageProps) => {
 						Add Event
 					</Link>
 				</div>
-				<EventsListContainer events={events} />
+				<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+					{events.map((event) => (
+						<div key={event.id}>
+							<EventSummaryCard event={event} />
+						</div>
+					))}
+				</div>
 			</div>
 		</>
 	);
