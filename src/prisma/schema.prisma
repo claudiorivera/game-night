@@ -52,6 +52,7 @@ model User {
   eventsAttending Event[]   @relation("EventGuests")
   eventsHosting   Event[]
   isAdmin         Boolean   @default(false)
+  isDemo          Boolean   @default(false)
 }
 
 model Event {

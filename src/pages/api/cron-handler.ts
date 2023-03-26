@@ -36,6 +36,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 							image: faker.image.avatar(),
 							email: faker.internet.email(),
 							isAdmin: false,
+							isDemo: true,
 						},
 					},
 				},
@@ -73,6 +74,7 @@ const randomGuestsToCreate = () =>
 			image: faker.image.avatar(),
 			email: faker.internet.email(),
 			isAdmin: false,
+			isDemo: true,
 		},
 	}));
 

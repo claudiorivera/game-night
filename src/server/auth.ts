@@ -1,9 +1,9 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { type GetServerSidePropsContext } from "next";
 import {
-  type DefaultSession,
-  getServerSession,
-  type NextAuthOptions,
+	type DefaultSession,
+	getServerSession,
+	type NextAuthOptions,
 } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import EmailProvider from "next-auth/providers/email";
@@ -21,16 +21,16 @@ import { prisma } from "~/server/db";
  * @see https://next-auth.js.org/getting-started/typescript#module-augmentation
  */
 declare module "next-auth" {
-  interface Session extends DefaultSession {
-    user: {
-      id: string;
-      isAdmin: boolean;
-    } & DefaultSession["user"];
-  }
+	interface Session extends DefaultSession {
+		user: {
+			id: string;
+			isAdmin: boolean;
+		} & DefaultSession["user"];
+	}
 
-  interface User {
-    isAdmin: boolean;
-  }
+	interface User {
+		isAdmin: boolean;
+	}
 }
 
 /**
@@ -39,54 +39,58 @@ declare module "next-auth" {
  * @see https://next-auth.js.org/configuration/options
  */
 export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(prisma),
-  secret: env.NEXTAUTH_SECRET,
-  theme: {
-    colorScheme: "auto", // "auto" | "dark" | "light"
-    brandColor: primaryColor, // Hex color code
-    logo: "/android-chrome-512x512.png", // Absolute URL to image
-    buttonText: "#FFFFFF", // Hex color code
-  },
-  providers: [
-    CredentialsProvider({
-      name: "Demo User",
-      credentials: {},
-      async authorize() {
-        const user = await prisma.user.findFirst();
+	adapter: PrismaAdapter(prisma),
+	secret: env.NEXTAUTH_SECRET,
+	theme: {
+		colorScheme: "auto", // "auto" | "dark" | "light"
+		brandColor: primaryColor, // Hex color code
+		logo: "/android-chrome-512x512.png", // Absolute URL to image
+		buttonText: "#FFFFFF", // Hex color code
+	},
+	providers: [
+		CredentialsProvider({
+			name: "Demo User",
+			credentials: {},
+			async authorize() {
+				const user = await prisma.user.findFirst({
+					where: {
+						isDemo: true,
+					},
+				});
 
-        if (user) return user;
+				if (user) return user;
 
-        return null;
-      },
-    }),
+				return null;
+			},
+		}),
 
-    EmailProvider({
-      server: env.EMAIL_SERVER,
-      from: env.EMAIL_FROM,
-      sendVerificationRequest: sendVerificationRequest,
-    }),
-  ],
-  callbacks: {
-    session({ session, user }) {
-      if (session.user) {
-        session.user.id = user.id;
-        session.user.isAdmin = user.isAdmin;
-      }
-      return session;
-    },
-  },
+		EmailProvider({
+			server: env.EMAIL_SERVER,
+			from: env.EMAIL_FROM,
+			sendVerificationRequest: sendVerificationRequest,
+		}),
+	],
+	callbacks: {
+		session({ session, user }) {
+			if (session.user) {
+				session.user.id = user.id;
+				session.user.isAdmin = user.isAdmin;
+			}
+			return session;
+		},
+	},
 };
 
 if (process.env.VERCEL_ENV !== "preview") {
-  if (!env.GITHUB_CLIENT_ID || !env.GITHUB_CLIENT_SECRET) {
-    throw new Error("Missing GitHub OAuth environment variables.");
-  }
-  authOptions.providers.push(
-    GitHubProvider({
-      clientId: env.GITHUB_CLIENT_ID,
-      clientSecret: env.GITHUB_CLIENT_SECRET,
-    })
-  );
+	if (!env.GITHUB_CLIENT_ID || !env.GITHUB_CLIENT_SECRET) {
+		throw new Error("Missing GitHub OAuth environment variables.");
+	}
+	authOptions.providers.push(
+		GitHubProvider({
+			clientId: env.GITHUB_CLIENT_ID,
+			clientSecret: env.GITHUB_CLIENT_SECRET,
+		}),
+	);
 }
 
 /**
@@ -95,8 +99,8 @@ if (process.env.VERCEL_ENV !== "preview") {
  * @see https://next-auth.js.org/configuration/nextjs
  */
 export const getServerAuthSession = (ctx: {
-  req: GetServerSidePropsContext["req"];
-  res: GetServerSidePropsContext["res"];
+	req: GetServerSidePropsContext["req"];
+	res: GetServerSidePropsContext["res"];
 }) => {
-  return getServerSession(ctx.req, ctx.res, authOptions);
+	return getServerSession(ctx.req, ctx.res, authOptions);
 };
