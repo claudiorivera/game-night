@@ -3,9 +3,9 @@ import Image from "next/image";
 import { GameMetaData } from "~/components";
 import { BGGGameResponse } from "~/lib/fetchBggGameById";
 
-interface Props {
+type Props = {
 	game: BGGGameResponse;
-}
+};
 
 export const GameDetails = ({ game }: Props) => {
 	if (!game) return null;

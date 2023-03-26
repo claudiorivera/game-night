@@ -8,6 +8,7 @@ type SendVerificationRequestProps = {
 	url: string;
 	provider: EmailConfig;
 };
+
 const sendVerificationRequest = async ({
 	identifier: email,
 	url,
@@ -28,6 +29,7 @@ type HtmlProps = {
 	url: string;
 	email: string;
 };
+
 const html = ({ url, email }: HtmlProps) => {
 	// Insert invisible space into domains and email address to prevent both the
 	// email address and the domain from being turned into a hyperlink by email
@@ -81,6 +83,7 @@ const html = ({ url, email }: HtmlProps) => {
 type TextProps = {
 	url: string;
 };
+
 const text = ({ url }: TextProps) => `Sign in to ${appTitle}\n${url}\n\n`;
 
 export default sendVerificationRequest;

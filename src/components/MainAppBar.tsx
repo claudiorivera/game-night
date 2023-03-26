@@ -3,13 +3,13 @@ import { useSession } from "next-auth/react";
 
 import { userLinks } from "~/constants";
 
-export function MainAppBar() {
+export const MainAppBar = () => {
 	const { data } = useSession();
 
-	function handleDropdownItemClick() {
+	const handleDropdownItemClick = () => {
 		document.activeElement instanceof HTMLElement &&
 			document.activeElement.blur();
-	}
+	};
 
 	return (
 		<div className="navbar mb-4 bg-primary p-4 text-primary-content shadow">
@@ -57,4 +57,4 @@ export function MainAppBar() {
 			</div>
 		</div>
 	);
-}
+};
