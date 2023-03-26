@@ -119,12 +119,14 @@ const EventDetailsPage = ({ session, event, game }: EventDetailsPageProps) => {
 
   return (
     <div className="container mx-auto">
-      <Link href="/events" className="btn-ghost btn">
-        <div className="flex items-center gap-2">
-          <ArrowLeftIcon className="h-5 w-5" />
-          Go Back
-        </div>
-      </Link>
+      <div className="pb-4">
+        <Link href="/events" className="btn-ghost btn">
+          <div className="flex items-center gap-2">
+            <ArrowLeftIcon className="h-5 w-5" />
+            Go Back
+          </div>
+        </Link>
+      </div>
       <article className="rounded-lg border shadow-lg">
         <div className="p-4">
           <h4 className="font-bold">

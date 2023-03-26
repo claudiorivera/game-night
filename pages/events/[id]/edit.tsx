@@ -75,12 +75,14 @@ const EditEventPage = ({ event, games }: EditEventPageProps) => {
 
   return (
     <div className="container mx-auto">
-      <Link href={`/events/${event.id}`} className="btn-ghost btn">
-        <div className="flex items-center gap-2">
-          <ArrowLeftIcon className="h-5 w-5" />
-          Go Back
-        </div>
-      </Link>
+      <div className="pb-4">
+        <Link href={`/events/${event.id}`} className="btn-ghost btn">
+          <div className="flex items-center gap-2">
+            <ArrowLeftIcon className="h-5 w-5" />
+            Go Back
+          </div>
+        </Link>
+      </div>
 
       <form
         onSubmit={(e) => {
