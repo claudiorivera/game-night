@@ -163,7 +163,7 @@ const EventDetailsPage = ({ session, event, game }: EventDetailsPageProps) => {
           </div>
           <div>
             <p>Guests:</p>
-            <div className="avatar-group">
+            <div className="avatar-group -space-x-6">
               {event.guests.map((guest: Pick<User, "name" | "image">) => (
                 <div
                   key={guest.name}
