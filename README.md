@@ -24,7 +24,7 @@ Uses the [BoardGameGeek API2](https://boardgamegeek.com/wiki/page/BGG_XML_API2) 
 
 # Config
 
-Add a `.env.local` file with environmental variables as shown in the example `.example.env.local` file.
+Add a `.env` file with environmental variables as shown in the example `.env.example` file.
 
 # Dev
 
