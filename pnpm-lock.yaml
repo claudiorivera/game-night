@@ -15,7 +15,7 @@ specifiers:
   '@trpc/react-query': 10.18.0
   '@trpc/server': 10.18.0
   '@types/nodemailer': 6.4.7
-  '@types/react': 18.0.29
+  '@types/react': 18.0.30
   '@types/react-dom': 18.0.11
   '@types/uuid': 9.0.1
   autoprefixer: 10.4.14
@@ -77,7 +77,7 @@ dependencies:
 devDependencies:
   '@tailwindcss/forms': 0.5.3_tailwindcss@3.2.7
   '@types/nodemailer': 6.4.7
-  '@types/react': 18.0.29
+  '@types/react': 18.0.30
   '@types/react-dom': 18.0.11
   '@types/uuid': 9.0.1
   autoprefixer: 10.4.14_postcss@8.4.21
@@ -507,11 +507,11 @@ packages:
   /@types/react-dom/18.0.11:
     resolution: {integrity: sha512-O38bPbI2CWtgw/OoQoY+BRelw7uysmXbWvw3nLWO21H1HSh+GOlqPuXshJfjmpNlKiiSDG9cc1JZAaMmVdcTlw==}
     dependencies:
-      '@types/react': 18.0.29
+      '@types/react': 18.0.30
     dev: true
 
-  /@types/react/18.0.29:
-    resolution: {integrity: sha512-wXHktgUABxplw1+UnljseDq4+uztQyp2tlWZRIxHlpchsCFqiYkvaDS8JR7eKOQm8wziTH/el5qL7D6gYNkYcw==}
+  /@types/react/18.0.30:
+    resolution: {integrity: sha512-AnME2cHDH11Pxt/yYX6r0w448BfTwQOLEhQEjCdwB7QskEI7EKtxhGUsExTQe/MsY3D9D5rMtu62WRocw9A8FA==}
     dependencies:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.2
