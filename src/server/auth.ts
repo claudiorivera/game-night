@@ -1,3 +1,4 @@
+import { faker } from "@faker-js/faker";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { type GetServerSidePropsContext } from "next";
 import {
@@ -52,8 +53,12 @@ export const authOptions: NextAuthOptions = {
 			name: "Demo User",
 			credentials: {},
 			async authorize() {
-				const user = await prisma.user.findFirst({
-					where: {
+				const user = await prisma.user.create({
+					data: {
+						name: faker.name.fullName(),
+						image: faker.image.avatar(),
+						email: faker.internet.email(),
+						isAdmin: false,
 						isDemo: true,
 					},
 				});
