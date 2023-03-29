@@ -1,32 +1,12 @@
 import { ArrowLeftIcon } from "@heroicons/react/20/solid";
 import clsx from "clsx";
 import dayjs from "dayjs";
-import { GetServerSideProps } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { getServerSession } from "next-auth";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 
 import { api } from "~/lib/api";
-import { authOptions } from "~/server/auth";
-
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-	const session = await getServerSession(req, res, authOptions);
-
-	if (!session) {
-		return {
-			redirect: {
-				destination: "/api/auth/signin",
-				permanent: false,
-			},
-		};
-	}
-
-	return {
-		props: {},
-	};
-};
 
 const EditEventPage = () => {
 	const router = useRouter();

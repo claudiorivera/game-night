@@ -1,26 +1,5 @@
-import { GetServerSideProps } from "next";
-import { getServerSession } from "next-auth";
-
 import { EventSummaryCard } from "~/components";
 import { api } from "~/lib/api";
-import { authOptions } from "~/server/auth";
-
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-	const session = await getServerSession(req, res, authOptions);
-
-	if (!session) {
-		return {
-			redirect: {
-				destination: "/api/auth/signin",
-				permanent: false,
-			},
-		};
-	}
-
-	return {
-		props: {},
-	};
-};
 
 const HomePage = () => {
 	const { data: user } = api.user.getCurrentUser.useQuery();

@@ -1,30 +1,10 @@
 import { Disclosure } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/20/solid";
 import clsx from "clsx";
-import { GetServerSideProps } from "next";
 import Link from "next/link";
-import { getServerSession } from "next-auth";
 
 import { GameDetails } from "~/components";
 import { api } from "~/lib/api";
-import { authOptions } from "~/server/auth";
-
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-	const session = await getServerSession(req, res, authOptions);
-
-	if (!session) {
-		return {
-			redirect: {
-				destination: "/api/auth/signin",
-				permanent: false,
-			},
-		};
-	}
-
-	return {
-		props: {},
-	};
-};
 
 const GamesListPage = () => {
 	const { data: games, isLoading: disabled } = api.game.getAll.useQuery();

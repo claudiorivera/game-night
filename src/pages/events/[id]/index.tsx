@@ -3,34 +3,14 @@ import { ArrowLeftIcon } from "@heroicons/react/20/solid";
 import { User } from "@prisma/client";
 import clsx from "clsx";
 import dayjs from "dayjs";
-import { GetServerSideProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { getServerSession } from "next-auth";
 import { Fragment, useState } from "react";
 import { toast } from "react-hot-toast";
 
 import { GameDetails } from "~/components";
 import { api } from "~/lib/api";
-import { authOptions } from "~/server/auth";
-
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-	const session = await getServerSession(req, res, authOptions);
-
-	if (!session) {
-		return {
-			redirect: {
-				destination: "/api/auth/signin",
-				permanent: false,
-			},
-		};
-	}
-
-	return {
-		props: {},
-	};
-};
 
 const EventDetailsPage = () => {
 	const router = useRouter();

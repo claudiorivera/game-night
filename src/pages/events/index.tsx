@@ -1,29 +1,9 @@
 import clsx from "clsx";
-import { GetServerSideProps } from "next";
 import Link from "next/link";
-import { getServerSession } from "next-auth";
 import { useState } from "react";
 
 import { EventSummaryCard } from "~/components";
 import { api } from "~/lib/api";
-import { authOptions } from "~/server/auth";
-
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-	const session = await getServerSession(req, res, authOptions);
-
-	if (!session) {
-		return {
-			redirect: {
-				destination: "/api/auth/signin",
-				permanent: false,
-			},
-		};
-	}
-
-	return {
-		props: {},
-	};
-};
 
 const EventsListPage = () => {
 	const [disabled, setDisabled] = useState(false);
