@@ -6,9 +6,9 @@ import {
 	SignedIn,
 	SignedOut,
 } from "@clerk/nextjs";
-import { Roboto } from "@next/font/google";
 import clsx from "clsx";
 import { AppProps } from "next/app";
+import { Roboto } from "next/font/google";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { Fragment } from "react";
