@@ -29,12 +29,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 				host: {
 					connectOrCreate: {
 						where: {
-							email: faker.internet.email(),
+							id: faker.datatype.uuid(),
 						},
 						create: {
-							name: faker.name.fullName(),
-							image: faker.image.avatar(),
-							email: faker.internet.email(),
+							clerkId: faker.datatype.uuid(),
 							isAdmin: false,
 							isDemo: true,
 						},
@@ -61,18 +59,16 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 const wipeDatabase = async () => {
-	await prisma.user.deleteMany();
+	await prisma.profile.deleteMany();
 };
 
 const randomGuestsToCreate = () =>
 	Array.from({ length: faker.datatype.number({ max: 4 }) }).map(() => ({
 		where: {
-			email: faker.internet.email(),
+			id: faker.datatype.uuid(),
 		},
 		create: {
-			name: faker.name.fullName(),
-			image: faker.image.avatar(),
-			email: faker.internet.email(),
+			clerkId: faker.datatype.uuid(),
 			isAdmin: false,
 			isDemo: true,
 		},

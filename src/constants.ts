@@ -20,6 +20,10 @@ const userLinks: Link[] = [
 		title: "Games",
 		url: "/games",
 	},
+	{
+		title: "Profile",
+		url: "/profile",
+	},
 ];
 
 export { appTitle, primaryColor, secondaryColor, userLinks };

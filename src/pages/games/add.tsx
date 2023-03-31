@@ -1,9 +1,7 @@
 import { Disclosure } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/20/solid";
 import clsx from "clsx";
-import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-import { getServerSession } from "next-auth";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 
@@ -11,24 +9,6 @@ import { GameDetails } from "~/components";
 import { api } from "~/lib/api";
 import { BGGGameResponse } from "~/lib/fetchBggGameById";
 import { fetchBggGamesByQuery } from "~/lib/fetchBggGamesByQuery";
-import { authOptions } from "~/server/auth";
-
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-	const session = await getServerSession(req, res, authOptions);
-
-	if (!session) {
-		return {
-			redirect: {
-				destination: "/api/auth/signin",
-				permanent: false,
-			},
-		};
-	}
-
-	return {
-		props: {},
-	};
-};
 
 const AddGamePage = () => {
 	const router = useRouter();

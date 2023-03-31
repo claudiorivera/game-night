@@ -1,10 +1,17 @@
 import "../styles/globals.css";
 
-import { Roboto } from "@next/font/google";
+import {
+	ClerkProvider,
+	RedirectToSignIn,
+	SignedIn,
+	SignedOut,
+} from "@clerk/nextjs";
 import clsx from "clsx";
 import { AppProps } from "next/app";
+import { Roboto } from "next/font/google";
 import Head from "next/head";
-import { SessionProvider } from "next-auth/react";
+import { useRouter } from "next/router";
+import { Fragment } from "react";
 import { Toaster } from "react-hot-toast";
 
 import { MainAppBar } from "~/components";
@@ -18,8 +25,12 @@ export const roboto = Roboto({
 	variable: "--font-inter",
 });
 
+const publicPages = ["/sign-in/[[...index]]", "/sign-up/[[...index]]"];
+
 function MyApp(props: AppProps) {
 	const { Component, pageProps } = props;
+	const router = useRouter();
+
 	return (
 		<>
 			<Head>
@@ -29,13 +40,30 @@ function MyApp(props: AppProps) {
 					content="minimum-scale=1, initial-scale=1, width=device-width"
 				/>
 			</Head>
-			<SessionProvider session={pageProps.session}>
-				<MainAppBar />
-				<Toaster />
-				<div className={clsx("container mx-auto px-4", roboto.variable)}>
-					<Component {...pageProps} />
-				</div>
-			</SessionProvider>
+			<ClerkProvider {...pageProps}>
+				{publicPages.includes(router.pathname) ? (
+					<Fragment>
+						<MainAppBar />
+						<Toaster />
+						<div className={clsx("container mx-auto px-4", roboto.variable)}>
+							<Component {...pageProps} />
+						</div>
+					</Fragment>
+				) : (
+					<Fragment>
+						<SignedIn>
+							<MainAppBar />
+							<Toaster />
+							<div className={clsx("container mx-auto px-4", roboto.variable)}>
+								<Component {...pageProps} />
+							</div>
+						</SignedIn>
+						<SignedOut>
+							<RedirectToSignIn />
+						</SignedOut>
+					</Fragment>
+				)}
+			</ClerkProvider>
 		</>
 	);
 }

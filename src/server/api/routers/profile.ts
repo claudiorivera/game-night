@@ -1,0 +1,26 @@
+import { Prisma } from "@prisma/client";
+
+import { defaultEventSelect } from "~/server/api/routers/event";
+import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
+
+const defaultProfileSelect = Prisma.validator<Prisma.ProfileSelect>()({
+	id: true,
+	isAdmin: true,
+	eventsHosting: {
+		select: defaultEventSelect,
+	},
+	eventsAttending: {
+		select: defaultEventSelect,
+	},
+});
+
+export const profileRouter = createTRPCRouter({
+	getMine: protectedProcedure.query(({ ctx }) => {
+		return ctx.prisma.profile.findUnique({
+			where: {
+				clerkId: ctx.auth.userId,
+			},
+			select: defaultProfileSelect,
+		});
+	}),
+});
