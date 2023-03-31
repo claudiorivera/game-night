@@ -2,7 +2,6 @@ import { Dialog, Transition } from "@headlessui/react";
 import { ArrowLeftIcon } from "@heroicons/react/20/solid";
 import clsx from "clsx";
 import dayjs from "dayjs";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { Fragment, useState } from "react";
 import { toast } from "react-hot-toast";
@@ -73,12 +72,12 @@ const EventDetailsPage = () => {
 	return (
 		<div className="container mx-auto">
 			<div className="pb-4">
-				<Link href="/events" className="btn-ghost btn">
+				<button onClick={() => router.back()} className="btn-ghost btn">
 					<div className="flex items-center gap-2">
 						<ArrowLeftIcon className="h-5 w-5" />
 						Go Back
 					</div>
-				</Link>
+				</button>
 			</div>
 			<article className="rounded-lg border shadow-lg">
 				<div className="p-4">
