@@ -26,6 +26,7 @@ const config = {
 			"avatars.githubusercontent.com",
 			"picsum.photos",
 			"cloudflare-ipfs.com",
+			"images.clerk.dev",
 		],
 	},
 };

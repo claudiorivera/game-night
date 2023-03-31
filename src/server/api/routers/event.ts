@@ -121,8 +121,13 @@ export const eventRouter = createTRPCRouter({
 				},
 				data: {
 					guests: {
-						connect: {
-							clerkId: ctx.auth.userId,
+						connectOrCreate: {
+							where: {
+								clerkId: ctx.auth.userId,
+							},
+							create: {
+								clerkId: ctx.auth.userId,
+							},
 						},
 					},
 				},

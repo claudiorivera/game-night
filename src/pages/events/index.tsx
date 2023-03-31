@@ -10,33 +10,30 @@ const EventsListPage = () => {
 
 	const { data: events } = api.event.getAll.useQuery();
 
-	if (!events) return null;
-
 	return (
-		<>
-			<div className="container mx-auto">
-				<div className="pb-4">
-					<Link
-						className={clsx("btn-secondary btn w-full disabled:disabled", {
-							"btn-disabled": disabled,
-						})}
-						href="/events/add"
-						onClick={() => {
-							setDisabled(true);
-						}}
-					>
-						Add Event
-					</Link>
-				</div>
-				<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-					{events.map((event) => (
-						<div key={event.id}>
-							<EventSummaryCard event={event} />
-						</div>
-					))}
-				</div>
+		<div className="container mx-auto">
+			<div className="pb-4">
+				<Link
+					className={clsx("btn-secondary btn w-full disabled:disabled", {
+						"btn-disabled": disabled,
+					})}
+					href="/events/add"
+					onClick={() => {
+						setDisabled(true);
+					}}
+				>
+					Add Event
+				</Link>
 			</div>
-		</>
+
+			<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+				{events?.map((event) => (
+					<div key={event.id}>
+						<EventSummaryCard event={event} />
+					</div>
+				))}
+			</div>
+		</div>
 	);
 };
 

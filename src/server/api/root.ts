@@ -1,3 +1,4 @@
+import { clerkRouter } from "~/server/api/routers/clerk";
 import { eventRouter } from "~/server/api/routers/event";
 import { gameRouter } from "~/server/api/routers/game";
 import { profileRouter } from "~/server/api/routers/profile";
@@ -12,6 +13,7 @@ export const appRouter = createTRPCRouter({
 	profile: profileRouter,
 	event: eventRouter,
 	game: gameRouter,
+	clerk: clerkRouter,
 });
 
 // export type definition of API

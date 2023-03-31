@@ -53,4 +53,14 @@ export const gameRouter = createTRPCRouter({
 				data: input,
 			});
 		}),
+	getById: publicProcedure
+		.input(z.object({ id: z.string() }))
+		.query(({ ctx, input }) => {
+			return ctx.prisma.game.findUnique({
+				where: {
+					id: input.id,
+				},
+				select: defaultGameSelect,
+			});
+		}),
 });

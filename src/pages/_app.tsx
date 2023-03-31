@@ -25,7 +25,7 @@ export const roboto = Roboto({
 	variable: "--font-inter",
 });
 
-const publicPages = ["/", "/sign-in/[[...index]]", "/sign-up/[[...index]]"];
+const publicPages = ["/sign-in/[[...index]]", "/sign-up/[[...index]]"];
 
 function MyApp(props: AppProps) {
 	const { Component, pageProps } = props;

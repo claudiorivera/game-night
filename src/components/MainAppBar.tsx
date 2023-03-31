@@ -1,8 +1,11 @@
+import { useClerk } from "@clerk/nextjs";
 import Link from "next/link";
 
 import { userLinks } from "~/constants";
 
 export const MainAppBar = () => {
+	const { signOut } = useClerk();
+
 	const handleDropdownItemClick = () => {
 		document.activeElement instanceof HTMLElement &&
 			document.activeElement.blur();
@@ -44,6 +47,9 @@ export const MainAppBar = () => {
 								</Link>
 							</li>
 						))}
+						<li>
+							<div onClick={() => signOut()}>Sign Out</div>
+						</li>
 					</ul>
 				</div>
 			</div>

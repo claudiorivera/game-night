@@ -1,21 +1,20 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { ArrowLeftIcon } from "@heroicons/react/20/solid";
-import { User } from "@prisma/client";
 import clsx from "clsx";
 import dayjs from "dayjs";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Fragment, useState } from "react";
 import { toast } from "react-hot-toast";
 
-import { GameDetails } from "~/components";
+import { Avatar, GameDetails } from "~/components";
 import { api } from "~/lib/api";
 
 const EventDetailsPage = () => {
 	const router = useRouter();
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
-	const { data: user } = api.user.getCurrentUser.useQuery();
+
+	const { data: currentUserProfile } = api.profile.getMine.useQuery();
 
 	const { data: event } = api.event.getById.useQuery(
 		{
@@ -61,16 +60,13 @@ const EventDetailsPage = () => {
 
 	const disabled = isDeletingEvent || isLeavingEvent || isJoiningEvent;
 
-	if (!event || !user) return null;
-
-	const { game } = event;
-
-	// Delete confirm dialog
 	const handleClose = () => {
 		setIsDialogOpen(false);
 	};
 
 	const handleDelete = () => {
+		if (!event) return;
+
 		deleteEventById({ id: event.id });
 	};
 
@@ -87,72 +83,32 @@ const EventDetailsPage = () => {
 			<article className="rounded-lg border shadow-lg">
 				<div className="p-4">
 					<h4 className="font-bold">
-						{dayjs(event.dateTime).format("MMMM D, YYYY [at] h:mma")}
+						{dayjs(event?.dateTime).format("MMMM D, YYYY [at] h:mma")}
 					</h4>
-					<small>{game.name}</small>
+					<small>{event?.game.name}</small>
 				</div>
 
 				<div className="p-4">
-					<GameDetails game={game} />
+					<GameDetails game={event?.game} />
 					<div className="divider" />
 					<div>
 						<p>Host:</p>
-						<div className="tooltip" data-tip={event.host.name}>
-							{event.host.image ? (
-								<div className="avatar">
-									<div className="relative h-10 w-10 rounded-full">
-										<Image
-											src={event.host.image}
-											fill
-											alt={event.host.name ?? ""}
-											className="object-cover"
-										/>
-									</div>
-								</div>
-							) : (
-								<div className="placeholder avatar">
-									<div className="w-10 rounded-full">
-										{event.host.name?.charAt(0)}
-									</div>
-								</div>
-							)}
-						</div>
+						{!!event?.host.clerkId && <Avatar clerkId={event.host.clerkId} />}
 					</div>
 					<div>
 						<p>Guests:</p>
 						<div className="avatar-group -space-x-6">
-							{event.guests.map((guest: Pick<User, "name" | "image">) => (
-								<div
-									key={guest.name}
-									className="tooltip"
-									data-tip={guest.name || "A Guest"}
-								>
-									{guest.image ? (
-										<div className="avatar">
-											<div className="relative h-10 w-10 rounded-full">
-												<Image
-													src={guest.image}
-													fill
-													alt={guest.name ?? ""}
-													className="object-cover"
-												/>
-											</div>
-										</div>
-									) : (
-										<div className="placeholder avatar">
-											<div className="w-10 rounded-full">
-												{guest.name?.charAt(0)}
-											</div>
-										</div>
-									)}
-								</div>
+							{event?.guests.map((guest) => (
+								<Avatar clerkId={guest.clerkId} key={guest.id} />
 							))}
 						</div>
 					</div>
 				</div>
 				<div className="flex gap-4 p-4">
 					{/* If user is already a guest, show the Leave button */}
-					{event.guests.some((guest) => guest.id === user.id) ? (
+					{event?.guests.some(
+						(guest) => guest.id === currentUserProfile?.id,
+					) ? (
 						<button
 							className={clsx("btn-secondary btn", {
 								"btn-disabled": disabled,
@@ -165,13 +121,15 @@ const EventDetailsPage = () => {
 							Leave
 						</button>
 					) : // Otherwise, as long as user isn't the host, show the Join loadingbutton
-					event.host.id !== user.id ? (
+					event?.host.id !== currentUserProfile?.id ? (
 						<button
 							className={clsx("btn-secondary btn", {
 								"btn-disabled": disabled,
 							})}
 							disabled={disabled}
 							onClick={() => {
+								if (!event?.id) return;
+
 								joinEventById({ id: event.id });
 							}}
 						>
@@ -191,7 +149,8 @@ const EventDetailsPage = () => {
 						</button>
 					)}
 					{/* Show the Delete button to hosts and admins */}
-					{(event.host.id === user.id || !!user.isAdmin) && (
+					{(event?.host.id === currentUserProfile?.id ||
+						currentUserProfile?.isAdmin) && (
 						<button
 							className="btn-error btn"
 							onClick={async () => {
