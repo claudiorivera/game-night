@@ -11,10 +11,9 @@ import { AppProps } from "next/app";
 import { Roboto } from "next/font/google";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { Fragment } from "react";
 import { Toaster } from "react-hot-toast";
 
-import { MainAppBar } from "~/components";
+import { ConditionalWrapper, MainAppBar } from "~/components";
 import { api } from "~/lib/api";
 
 export const roboto = Roboto({
@@ -31,6 +30,8 @@ function MyApp(props: AppProps) {
 	const { Component, pageProps } = props;
 	const router = useRouter();
 
+	const isProtectedPage = !publicPages.includes(router.pathname);
+
 	return (
 		<>
 			<Head>
@@ -41,28 +42,23 @@ function MyApp(props: AppProps) {
 				/>
 			</Head>
 			<ClerkProvider {...pageProps}>
-				{publicPages.includes(router.pathname) ? (
-					<Fragment>
-						<MainAppBar />
-						<Toaster />
-						<div className={clsx("container mx-auto px-4", roboto.variable)}>
-							<Component {...pageProps} />
-						</div>
-					</Fragment>
-				) : (
-					<Fragment>
-						<SignedIn>
-							<MainAppBar />
-							<Toaster />
-							<div className={clsx("container mx-auto px-4", roboto.variable)}>
-								<Component {...pageProps} />
-							</div>
-						</SignedIn>
-						<SignedOut>
-							<RedirectToSignIn />
-						</SignedOut>
-					</Fragment>
-				)}
+				<ConditionalWrapper
+					condition={isProtectedPage}
+					wrapper={(children) => (
+						<>
+							<SignedIn>{children}</SignedIn>
+							<SignedOut>
+								<RedirectToSignIn />
+							</SignedOut>
+						</>
+					)}
+				>
+					<MainAppBar />
+					<Toaster />
+					<div className={clsx("container mx-auto px-4", roboto.variable)}>
+						<Component {...pageProps} />
+					</div>
+				</ConditionalWrapper>
 			</ClerkProvider>
 		</>
 	);
