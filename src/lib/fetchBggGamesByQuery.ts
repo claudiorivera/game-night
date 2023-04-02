@@ -1,50 +1,45 @@
 import axios from "axios";
 
-import { fetchBggGameById } from "./fetchBggGameById";
-import { parsedBggQueryResultsSchema } from "./validationSchemas";
-import { xmlParser } from "./xmlParser";
+import { buildUrl, xmlParser } from "~/lib/bggUtils";
+import { fetchBggGameById } from "~/lib/fetchBggGameById";
+import { parsedBggQueryResultsSchema } from "~/lib/validationSchemas";
 
 const API_CALL_LIMIT = 10;
 
 export const fetchBggGamesByQuery = async (query: string) => {
-  const url = buildUrlForGameQuery(query);
+	const url = buildUrlForGameQuery(query);
 
-  const { data: xml } = await axios.get(url);
+	const { data: xml } = await axios.get(url);
 
-  const parsedData = xmlParser.parse(xml);
+	const parsedData = xmlParser.parse(xml);
 
-  const validation = parsedBggQueryResultsSchema.safeParse(parsedData);
+	const validation = parsedBggQueryResultsSchema.safeParse(parsedData);
 
-  if (!validation.success) return [];
+	if (!validation.success) return [];
 
-  const { item: gameList } = validation.data.items;
+	const { item: gameList } = validation.data.items;
 
-  const results = [];
+	const results = [];
 
-  if (Array.isArray(gameList)) {
-    // Limit the number of calls to the BGG API, so it doesn't yell at us
-    for (const game of gameList.slice(0, API_CALL_LIMIT)) {
-      const bggGame = await fetchBggGameById(game.id);
+	if (Array.isArray(gameList)) {
+		// Limit the number of calls to the BGG API, so it doesn't yell at us
+		for (const game of gameList.slice(0, API_CALL_LIMIT)) {
+			const bggGame = await fetchBggGameById(game.id);
 
-      if (bggGame) results.push(bggGame);
-    }
-  } else {
-    const bggGame = await fetchBggGameById(gameList.id);
+			if (bggGame) results.push(bggGame);
+		}
+	} else {
+		const bggGame = await fetchBggGameById(gameList.id);
 
-    if (bggGame) results.push(bggGame);
-  }
+		if (bggGame) results.push(bggGame);
+	}
 
-  return results;
+	return results;
 };
 
 // https://boardgamegeek.com/wiki/page/BGG_XML_API2
-const buildUrlForGameQuery = (query: string) => {
-  const url = new URL("https://api.geekdo.com/xmlapi2/search");
-
-  url.searchParams.append("query", query);
-  url.searchParams.append("type", "boardgame");
-
-  console.log({ url: url.toString() });
-
-  return url.toString();
-};
+const buildUrlForGameQuery = (query: string) =>
+	buildUrl("https://api.geekdo.com/xmlapi2/search", [
+		{ query },
+		{ type: "boardgame" },
+	]);
