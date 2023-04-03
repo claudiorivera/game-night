@@ -2,8 +2,8 @@ lockfileVersion: '6.0'
 
 dependencies:
   '@clerk/nextjs':
-    specifier: 4.14.0
-    version: 4.14.0(next@13.2.4)(react-dom@18.2.0)(react@18.2.0)
+    specifier: 4.14.1
+    version: 4.14.1(next@13.2.4)(react-dom@18.2.0)(react@18.2.0)
   '@faker-js/faker':
     specifier: 7.6.0
     version: 7.6.0
@@ -176,8 +176,8 @@ packages:
       tslib: 2.4.1
     dev: false
 
-  /@clerk/nextjs@4.14.0(next@13.2.4)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-hOWakX4FfgDHiMNz23YgzUqwvC/LcrLKaKw92G3F6CupsSt/VVZxwFcZPwX2H1b7ePUEuYUbArP/WdgBhwXpSQ==}
+  /@clerk/nextjs@4.14.1(next@13.2.4)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-rkAizbZ0z/3FWTGGyXqXJKMHy4zY1tPD8zCN1+U+r4XuXz1XBczbG/SqP7UeUcYarGC8FAaDkc1ft4n13LZxQw==}
     engines: {node: '>=14'}
     peerDependencies:
       next: '>=10'
