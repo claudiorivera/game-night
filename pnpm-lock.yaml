@@ -2,8 +2,8 @@ lockfileVersion: '6.0'
 
 dependencies:
   '@clerk/nextjs':
-    specifier: 4.14.1
-    version: 4.14.1(next@13.2.4)(react-dom@18.2.0)(react@18.2.0)
+    specifier: 4.14.2
+    version: 4.14.2(next@13.2.4)(react-dom@18.2.0)(react@18.2.0)
   '@faker-js/faker':
     specifier: 7.6.0
     version: 7.6.0
@@ -148,8 +148,8 @@ packages:
       tslib: 2.4.1
     dev: false
 
-  /@clerk/clerk-react@4.14.1(react@18.2.0):
-    resolution: {integrity: sha512-ecgIj6qrkdaLQjtRQd1O38RIGFlwiPp1g/E7y6+8q7pNsFfQQh53swqHE6J7P/yt4BUpTuIdFEJwajQrspqAUg==}
+  /@clerk/clerk-react@4.14.2(react@18.2.0):
+    resolution: {integrity: sha512-xsmsUQRNce9Vm+sp9ocz0j4hd6Oc3wzyteXDaW5qL8nNduujPlbuWPfAh2OfvSRsPg9OLjeQjehsDysVEtESlQ==}
     engines: {node: '>=14'}
     peerDependencies:
       react: '>=16'
@@ -176,8 +176,8 @@ packages:
       tslib: 2.4.1
     dev: false
 
-  /@clerk/nextjs@4.14.1(next@13.2.4)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-rkAizbZ0z/3FWTGGyXqXJKMHy4zY1tPD8zCN1+U+r4XuXz1XBczbG/SqP7UeUcYarGC8FAaDkc1ft4n13LZxQw==}
+  /@clerk/nextjs@4.14.2(next@13.2.4)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-i4Bcg9XibPzwQaREheFYmVMuT0UPvg3FJxwHag7LclSLDv+ABWGwvtpa6cHyyqLQKSxTeF8Qhf1/RDgas07XCw==}
     engines: {node: '>=14'}
     peerDependencies:
       next: '>=10'
@@ -185,7 +185,7 @@ packages:
       react-dom: ^17.0.2 || ^18.0.0-0
     dependencies:
       '@clerk/backend': 0.16.0
-      '@clerk/clerk-react': 4.14.1(react@18.2.0)
+      '@clerk/clerk-react': 4.14.2(react@18.2.0)
       '@clerk/clerk-sdk-node': 4.8.1
       '@clerk/types': 3.33.0
       next: 13.2.4(react-dom@18.2.0)(react@18.2.0)
