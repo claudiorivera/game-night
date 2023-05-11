@@ -11,7 +11,7 @@
 		"postinstall": "prisma generate"
 	},
 	"dependencies": {
-		"@clerk/nextjs": "4.16.4",
+		"@clerk/nextjs": "4.17.3",
 		"@faker-js/faker": "7.6.0",
 		"@headlessui/react": "1.7.14",
 		"@headlessui/tailwindcss": "0.1.3",
