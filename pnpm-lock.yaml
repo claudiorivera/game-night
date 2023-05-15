@@ -5,8 +5,8 @@ dependencies:
     specifier: 4.17.4
     version: 4.17.4(next@13.4.2)(react-dom@18.2.0)(react@18.2.0)
   '@faker-js/faker':
-    specifier: 8.0.0
-    version: 8.0.0
+    specifier: 8.0.1
+    version: 8.0.1
   '@headlessui/react':
     specifier: 1.7.14
     version: 1.7.14(react-dom@18.2.0)(react@18.2.0)
@@ -251,8 +251,8 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
 
-  /@faker-js/faker@8.0.0:
-    resolution: {integrity: sha512-XDR8sApuf78GHx8mLXl3KL/q7eB52A963UGejVbdbj3OZtfGlNwp0J78b7apVzqRi0GF8l9g3eSkkaL2UmU9Aw==}
+  /@faker-js/faker@8.0.1:
+    resolution: {integrity: sha512-kbh5MenpTN9U0B4QcOI1NoTPlZHniSYQ3BHbhAnPjJGAmmFqxoxTE4sGdpy7ZOO9038DPGCuhXyMkjOr05uVwA==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0, npm: '>=6.14.13'}
     dev: false
 
