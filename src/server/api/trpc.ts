@@ -57,10 +57,10 @@ export const createTRPCContext = async (opts: CreateNextContextOptions) => {
  * This is where the tRPC API is initialized, connecting the context and transformer.
  */
 import {
+	getAuth,
 	SignedInAuthObject,
 	SignedOutAuthObject,
-} from "@clerk/nextjs/dist/api";
-import { getAuth } from "@clerk/nextjs/server";
+} from "@clerk/nextjs/server";
 import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 
