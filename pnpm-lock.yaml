@@ -45,8 +45,8 @@ dependencies:
     specifier: 1.2.1
     version: 1.2.1
   daisyui:
-    specifier: 3.0.22
-    version: 3.0.22(postcss@8.4.24)
+    specifier: 3.1.0
+    version: 3.1.0(postcss@8.4.24)
   dayjs:
     specifier: 1.11.8
     version: 1.11.8
@@ -1124,8 +1124,8 @@ packages:
   /csstype@3.1.1:
     resolution: {integrity: sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==}
 
-  /daisyui@3.0.22(postcss@8.4.24):
-    resolution: {integrity: sha512-2xdRxQUUB+O0Mcww65QMwwo0fjnos4JmyLhX6F4WxWTngjy9eYyxdQChtsJB3GUl0jNYdZfmnK48gJNyhMBX8Q==}
+  /daisyui@3.1.0(postcss@8.4.24):
+    resolution: {integrity: sha512-G4dz/bRZVvlhQ/FtezXSg0rXOXzDJ0PcnMqeLSwCYNWXxf46fNJ8LWeV5qwsYOdJbXiXoZLnwyy+BsNoWZ+Bjg==}
     engines: {node: '>=16.9.0'}
     peerDependencies:
       postcss: ^8
