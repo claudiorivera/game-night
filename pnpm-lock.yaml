@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@clerk/nextjs':
-    specifier: 4.21.1
-    version: 4.21.1(next@13.4.5)(react-dom@18.2.0)(react@18.2.0)
+    specifier: 4.21.2
+    version: 4.21.2(next@13.4.5)(react-dom@18.2.0)(react@18.2.0)
   '@faker-js/faker':
     specifier: 8.0.2
     version: 8.0.2
@@ -143,8 +143,8 @@ packages:
       regenerator-runtime: 0.13.11
     dev: true
 
-  /@clerk/backend@0.23.0:
-    resolution: {integrity: sha512-2s8tRAL9nB+aQQUofrFCDGlz2Kv7pP+lR5CvQdMKTL9nPTlUBcvYFinjO3s6q3A7dwSk81erLKwYEXZEKA8R1w==}
+  /@clerk/backend@0.23.1:
+    resolution: {integrity: sha512-2y0QRkPoGSJf/fcgRmOMY0hz7DfZpo/4kUObwaDuDz3B0OUi7NnyuN3FVDdFw2cPKikusXeJo4V4r/HcjX0teg==}
     engines: {node: '>=14'}
     dependencies:
       '@clerk/types': 3.42.0
@@ -169,11 +169,11 @@ packages:
       tslib: 2.4.1
     dev: false
 
-  /@clerk/clerk-sdk-node@4.10.6:
-    resolution: {integrity: sha512-62nk65yRBXvuOv28eTAq3Gs/9b/+S3gQAVmyDO/67QqGETw+d5TAEUvFrOtLg/EyP7tpGQKthP8xeH2bii7OIg==}
+  /@clerk/clerk-sdk-node@4.10.7:
+    resolution: {integrity: sha512-s1X+pJIJrWTrA/VxUEmjkuhQcMgl0h9AqGFl3JlHj1DYktb0jKQoGkB0sOBVoY3AV6YLLllgN0l2raXAC47zMQ==}
     engines: {node: '>=14'}
     dependencies:
-      '@clerk/backend': 0.23.0
+      '@clerk/backend': 0.23.1
       '@clerk/types': 3.42.0
       '@types/cookies': 0.7.7
       '@types/express': 4.17.14
@@ -184,17 +184,17 @@ packages:
       tslib: 2.4.1
     dev: false
 
-  /@clerk/nextjs@4.21.1(next@13.4.5)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-Kkx8rp48jm0kWrFhMtFUTolitA4PVd2OEjxanhfmzlIhYcnH2ji/8UnH8U/dG3BvFcSeRwM1QO9wM4RsdXIKQg==}
+  /@clerk/nextjs@4.21.2(next@13.4.5)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-UqGpAHQEBoBQY1xPX1fCNZwFcRk7w7UAGd2x5EYZZCxfy/dakFzYoS4QkjclewhovAUrA9mDfsTAjuay2sSZiA==}
     engines: {node: '>=14'}
     peerDependencies:
       next: '>=10'
       react: ^17.0.2 || ^18.0.0-0
       react-dom: ^17.0.2 || ^18.0.0-0
     dependencies:
-      '@clerk/backend': 0.23.0
+      '@clerk/backend': 0.23.1
       '@clerk/clerk-react': 4.20.0(react@18.2.0)
-      '@clerk/clerk-sdk-node': 4.10.6
+      '@clerk/clerk-sdk-node': 4.10.7
       '@clerk/types': 3.42.0
       next: 13.4.5(react-dom@18.2.0)(react@18.2.0)
       path-to-regexp: 6.2.1
