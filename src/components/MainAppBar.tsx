@@ -19,7 +19,7 @@ export const MainAppBar = () => {
 				</Link>
 			</div>
 			<div className="flex-none">
-				<div className="dropdown-end dropdown">
+				<div className="dropdown-end dropdown z-10">
 					<label tabIndex={0} className="btn-ghost btn-circle btn">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
