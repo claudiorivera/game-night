@@ -1,19 +1,13 @@
 import "../styles/globals.css";
 
-import {
-	ClerkProvider,
-	RedirectToSignIn,
-	SignedIn,
-	SignedOut,
-} from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
 import clsx from "clsx";
 import { AppProps } from "next/app";
 import { Roboto } from "next/font/google";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { Toaster } from "react-hot-toast";
 
-import { ConditionalWrapper, MainAppBar } from "~/components";
+import { MainAppBar } from "~/components";
 import { api } from "~/lib/api";
 
 export const roboto = Roboto({
@@ -24,14 +18,7 @@ export const roboto = Roboto({
 	variable: "--font-inter",
 });
 
-const publicPages = ["/sign-in/[[...index]]", "/sign-up/[[...index]]"];
-
-function MyApp(props: AppProps) {
-	const { Component, pageProps } = props;
-	const router = useRouter();
-
-	const isProtectedPage = !publicPages.includes(router.pathname);
-
+function MyApp({ Component, pageProps }: AppProps) {
 	return (
 		<>
 			<Head>
@@ -42,23 +29,11 @@ function MyApp(props: AppProps) {
 				/>
 			</Head>
 			<ClerkProvider {...pageProps}>
-				<ConditionalWrapper
-					condition={isProtectedPage}
-					wrapper={(children) => (
-						<>
-							<SignedIn>{children}</SignedIn>
-							<SignedOut>
-								<RedirectToSignIn />
-							</SignedOut>
-						</>
-					)}
-				>
-					<MainAppBar />
-					<Toaster />
-					<div className={clsx("container mx-auto px-4", roboto.variable)}>
-						<Component {...pageProps} />
-					</div>
-				</ConditionalWrapper>
+				<MainAppBar />
+				<Toaster />
+				<div className={clsx("container mx-auto px-4", roboto.variable)}>
+					<Component {...pageProps} />
+				</div>
 			</ClerkProvider>
 		</>
 	);
