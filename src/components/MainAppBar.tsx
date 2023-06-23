@@ -48,7 +48,7 @@ export const MainAppBar = () => {
 							</li>
 						))}
 						<li>
-							<button onClick={() => signOut()}>Sign Out</button>
+							<button onClick={() => void signOut()}>Sign Out</button>
 						</li>
 					</ul>
 				</div>

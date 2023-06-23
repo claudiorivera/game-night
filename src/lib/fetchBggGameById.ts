@@ -7,9 +7,9 @@ import { parsedBggGameSchema } from "~/lib/validationSchemas";
 export const fetchBggGameById = async (id: number) => {
 	const url = buildUrlForGameId(id);
 
-	const { data: xml } = await axios.get(url);
+	const { data: xml } = await axios.get<string>(url);
 
-	const parsedData = xmlParser.parse(xml);
+	const parsedData = xmlParser.parse(xml) as unknown;
 
 	const validation = parsedBggGameSchema.safeParse(parsedData);
 
