@@ -2,7 +2,7 @@ import "../styles/globals.css";
 
 import { ClerkProvider } from "@clerk/nextjs";
 import clsx from "clsx";
-import { AppProps } from "next/app";
+import { type AppProps } from "next/app";
 import { Roboto } from "next/font/google";
 import Head from "next/head";
 import { Toaster } from "react-hot-toast";

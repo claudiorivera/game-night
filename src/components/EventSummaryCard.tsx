@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import Link from "next/link";
 
 import { Card } from "~/components";
-import { api, RouterOutputs } from "~/lib/api";
+import { api, type RouterOutputs } from "~/lib/api";
 
 type EventSummaryCardProps = {
 	event: RouterOutputs["event"]["getAll"][number];

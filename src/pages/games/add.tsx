@@ -7,7 +7,7 @@ import { toast } from "react-hot-toast";
 
 import { GameDetails } from "~/components";
 import { api } from "~/lib/api";
-import { BGGGameResponse } from "~/lib/fetchBggGameById";
+import { type BGGGameResponse } from "~/lib/fetchBggGameById";
 import { fetchBggGamesByQuery } from "~/lib/fetchBggGamesByQuery";
 
 const AddGamePage = () => {
@@ -79,7 +79,7 @@ const AddGamePage = () => {
 										})}
 									/>
 								</Disclosure.Button>
-								<Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500">
+								<Disclosure.Panel className="px-4 pb-2 pt-4 text-sm text-gray-500">
 									<div className="pb-2">
 										<button
 											className="btn-secondary btn w-full"

@@ -48,7 +48,7 @@ const AddEventPage = () => {
 				id="select-game"
 				defaultValue={-1}
 				onChange={(e) => {
-					setGameId(e.target.value as string);
+					setGameId(e.target.value);
 				}}
 			>
 				<option disabled value={-1}>

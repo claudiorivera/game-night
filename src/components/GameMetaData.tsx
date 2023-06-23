@@ -1,4 +1,4 @@
-import { BGGGameResponse } from "~/lib/fetchBggGameById";
+import { type BGGGameResponse } from "~/lib/fetchBggGameById";
 
 type GameMetaDataProps = {
 	game: BGGGameResponse;
@@ -26,7 +26,7 @@ const BadgesDisplay = ({ label, badges }: BadgesDisplayProps) => (
 		<span>{label}: </span>
 		<div className="flex flex-wrap gap-1">
 			{badges.map((badge) => (
-				<div className="badge-neutral badge" key={badge}>
+				<div className="badge badge-neutral" key={badge}>
 					{badge}
 				</div>
 			))}

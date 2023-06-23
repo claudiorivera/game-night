@@ -1,5 +1,5 @@
 import axios from "axios";
-import { z } from "zod";
+import { type z } from "zod";
 
 import { buildUrl, xmlParser } from "~/lib/bggUtils";
 import { parsedBggGameSchema } from "~/lib/validationSchemas";

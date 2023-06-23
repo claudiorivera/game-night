@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import { GameMetaData } from "~/components";
-import { BGGGameResponse } from "~/lib/fetchBggGameById";
+import { type BGGGameResponse } from "~/lib/fetchBggGameById";
 
 type Props = {
 	game: BGGGameResponse;
