@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@clerk/nextjs':
-    specifier: 4.21.9
-    version: 4.21.9(next@13.4.7)(react-dom@18.2.0)(react@18.2.0)
+    specifier: 4.21.10
+    version: 4.21.10(next@13.4.7)(react-dom@18.2.0)(react@18.2.0)
   '@faker-js/faker':
     specifier: 8.0.2
     version: 8.0.2
@@ -184,8 +184,8 @@ packages:
       tslib: 2.4.1
     dev: false
 
-  /@clerk/nextjs@4.21.9(next@13.4.7)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-3O931nVnLo1CFUj2MjMzXvLz+mH9XReRiM/jdkrecjrX6k1thjeunScCyGa0Tn4Q4YOgc7RS5AeqKO2phxuFVQ==}
+  /@clerk/nextjs@4.21.10(next@13.4.7)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-5G02qZOBwbYvBxbHVPKpINyhZ1a3TLZ3noBExx5JHo8+UbpEp7ENd1TyFF/oO0EWG/VTbloP1Gegjm2XG9KeKw==}
     engines: {node: '>=14'}
     peerDependencies:
       next: '>=10'
