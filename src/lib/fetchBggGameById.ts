@@ -15,20 +15,20 @@ export const fetchBggGameById = async (id: number) => {
 
 	if (!validation.success) return;
 
-	const { item: game } = validation.data.items;
+	const game = validation.data.items.item;
 
 	const parsedGame = {
 		bggId: game.id,
 		imageSrc: game.image,
 		thumbnailSrc: game.thumbnail,
 		description: game.description,
-		yearPublished: game.yearpublished.value,
-		minPlayers: game.minplayers.value,
-		maxPlayers: game.maxplayers.value,
-		playingTime: game.playingtime.value,
-		minAge: game.minage.value,
-		rating: game.statistics.ratings.average.value,
-		numOfRatings: game.statistics.ratings.usersrated.value,
+		yearPublished: game.yearpublished,
+		minPlayers: game.minplayers,
+		maxPlayers: game.maxplayers,
+		playingTime: game.playingtime,
+		minAge: game.minage,
+		rating: game.statistics.ratings.average,
+		numOfRatings: game.statistics.ratings.usersrated,
 		name: game.name,
 		...parseMetaData(game.link),
 	};

@@ -1,6 +1,8 @@
 import { z } from "zod";
 
-const numberValueSchema = z.object({ value: z.number() });
+const numberValueSchema = z
+	.object({ value: z.number() })
+	.transform((data) => data.value);
 
 const nameSchema = z.object({
 	type: z.string(),
