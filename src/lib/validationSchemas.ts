@@ -17,11 +17,16 @@ const gameResultSchema = z.object({
 	id: z.number(),
 });
 
-const itemSchema = z.array(gameResultSchema).or(gameResultSchema);
-
 export const parsedBggQueryResultsSchema = z.object({
 	items: z.object({
-		item: itemSchema,
+		item: z
+			.array(gameResultSchema)
+			.or(gameResultSchema)
+			.transform((data) => {
+				if (Array.isArray(data)) return data;
+
+				return [data];
+			}),
 	}),
 });
 

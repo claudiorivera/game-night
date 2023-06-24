@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import { buildUrl, xmlParser } from "~/lib/bggUtils";
-import { fetchBggGameById } from "~/lib/fetchBggGameById";
+import { type BGGGameResponse,fetchBggGameById } from "~/lib/fetchBggGameById";
 import { parsedBggQueryResultsSchema } from "~/lib/validationSchemas";
 
 const API_CALL_LIMIT = 10;
@@ -9,32 +9,39 @@ const API_CALL_LIMIT = 10;
 export const fetchBggGamesByQuery = async (query: string) => {
 	const url = buildUrlForGameQuery(query);
 
-	const { data: xml } = await axios.get(url);
+	const { data: xml } = await axios.get<string>(url);
 
-	const parsedData = xmlParser.parse(xml);
+	const parsedData = xmlParser.parse(xml) as unknown;
 
 	const validation = parsedBggQueryResultsSchema.safeParse(parsedData);
 
 	if (!validation.success) return [];
 
-	const { item: gameList } = validation.data.items;
+	const gamesList = validation.data.items.item;
 
-	const results = [];
+	const results: Array<BGGGameResponse> = [];
 
-	if (Array.isArray(gameList)) {
-		// Limit the number of calls to the BGG API, so it doesn't yell at us
-		for (const game of gameList.slice(0, API_CALL_LIMIT)) {
-			const bggGame = await fetchBggGameById(game.id);
-
-			if (bggGame) results.push(bggGame);
-		}
-	} else {
-		const bggGame = await fetchBggGameById(gameList.id);
-
-		if (bggGame) results.push(bggGame);
+	for (const game of gamesList.slice(0, API_CALL_LIMIT)) {
+		await fetchGameByIdAndPushToResults({
+			id: game.id,
+			results,
+		});
 	}
 
 	return results;
+};
+
+type FetchGameByIdAndPushToResults = {
+	id: number;
+	results: Array<unknown>;
+};
+const fetchGameByIdAndPushToResults = async ({
+	id,
+	results,
+}: FetchGameByIdAndPushToResults) => {
+	const bggGame = await fetchBggGameById(id);
+
+	if (bggGame) results.push(bggGame);
 };
 
 // https://boardgamegeek.com/wiki/page/BGG_XML_API2
