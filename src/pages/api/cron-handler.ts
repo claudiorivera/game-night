@@ -1,12 +1,13 @@
 import { faker } from "@faker-js/faker";
 import { type NextApiRequest, type NextApiResponse } from "next";
 
+import { env } from "~/env.mjs";
 import { prisma } from "~/server/db";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	const { authorization } = req.headers;
 
-	if (authorization === `Bearer ${process.env.API_SECRET_KEY}`) {
+	if (authorization === `Bearer ${env.API_SECRET_KEY}`) {
 		try {
 			await wipeDatabase();
 

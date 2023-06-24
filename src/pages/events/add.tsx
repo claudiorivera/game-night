@@ -17,7 +17,7 @@ const AddEventPage = () => {
 		api.event.create.useMutation({
 			onSuccess: () => {
 				toast.success("Event created!");
-				router.push("/events");
+				void router.push("/events");
 			},
 			onError: (error) => {
 				toast.error(error.message);

@@ -11,16 +11,18 @@ import { api } from "~/lib/api";
 
 const EventDetailsPage = () => {
 	const router = useRouter();
+	const eventId = router.query.id as string;
+
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
 
 	const { data: currentUserProfile } = api.profile.getMine.useQuery();
 
 	const { data: event } = api.event.getById.useQuery(
 		{
-			id: router.query.id as string,
+			id: eventId,
 		},
 		{
-			enabled: !!router.query.id,
+			enabled: !!eventId,
 		},
 	);
 
@@ -141,7 +143,7 @@ const EventDetailsPage = () => {
 								"btn-disabled": disabled,
 							})}
 							onClick={() => {
-								router.push(`/events/${router.query.id}/edit`);
+								void router.push(`/events/${eventId}/edit`);
 							}}
 						>
 							Edit
@@ -152,7 +154,7 @@ const EventDetailsPage = () => {
 						currentUserProfile?.isAdmin) && (
 						<button
 							className="btn-error btn"
-							onClick={async () => {
+							onClick={() => {
 								setIsDialogOpen(true);
 							}}
 						>

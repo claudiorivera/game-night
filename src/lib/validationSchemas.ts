@@ -23,9 +23,9 @@ export const parsedBggQueryResultsSchema = z.object({
 			.array(gameResultSchema)
 			.or(gameResultSchema)
 			.transform((data) => {
-				if (Array.isArray(data)) return [data];
+				if (Array.isArray(data)) return data;
 
-				return data;
+				return [data];
 			}),
 	}),
 });
@@ -36,11 +36,20 @@ export const parsedBggGameSchema = z.object({
 			id: z.number(),
 			image: z.string().url(),
 			thumbnail: z.string().url(),
-			name: nameSchema.or(z.array(nameSchema)).transform((data) => {
-				if (Array.isArray(data)) return [data];
+			name: nameSchema
+				.or(z.array(nameSchema))
+				.transform((data) => {
+					if (Array.isArray(data)) return data;
 
-				return data;
-			}),
+					return [data];
+				})
+				.transform((data) => {
+					const nameData = data[0];
+
+					if (nameData?.type === "primary") return nameData.value;
+
+					return "[Name unavailable]";
+				}),
 			description: z.string(),
 			yearpublished: numberValueSchema,
 			minplayers: numberValueSchema,

@@ -19,7 +19,7 @@ const AddGamePage = () => {
 	const { mutate: addGame, isLoading: disabled } = api.game.import.useMutation({
 		onSuccess: () => {
 			toast.success("Game added successfully!");
-			router.push("/games");
+			void router.push("/games");
 		},
 		onError: (error) => {
 			toast.error(error.message);
@@ -34,16 +34,15 @@ const AddGamePage = () => {
 		setIsFetching(false);
 	};
 
-	const handleQueryChange: React.ChangeEventHandler<HTMLInputElement> = async (
-		e,
-	) => {
-		setQuery(e.target.value);
-	};
-
 	return (
 		<>
 			<div className="container mx-auto">
-				<form onSubmit={handleSearch} className="flex flex-col gap-2 pb-4">
+				<form
+					onSubmit={(e) => {
+						void handleSearch(e);
+					}}
+					className="flex flex-col gap-2 pb-4"
+				>
 					<input
 						name="query"
 						id="query"
@@ -51,7 +50,9 @@ const AddGamePage = () => {
 						placeholder="Enter a boardgame name to search for"
 						className="input-bordered input"
 						value={query}
-						onChange={handleQueryChange}
+						onChange={(e) => {
+							setQuery(e.target.value);
+						}}
 					/>
 					<button
 						className="btn-secondary btn"
