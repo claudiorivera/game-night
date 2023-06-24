@@ -23,9 +23,9 @@ export const parsedBggQueryResultsSchema = z.object({
 			.array(gameResultSchema)
 			.or(gameResultSchema)
 			.transform((data) => {
-				if (Array.isArray(data)) return data;
+				if (Array.isArray(data)) return [data];
 
-				return [data];
+				return data;
 			}),
 	}),
 });
@@ -36,7 +36,11 @@ export const parsedBggGameSchema = z.object({
 			id: z.number(),
 			image: z.string().url(),
 			thumbnail: z.string().url(),
-			name: nameSchema.or(z.array(nameSchema)),
+			name: nameSchema.or(z.array(nameSchema)).transform((data) => {
+				if (Array.isArray(data)) return [data];
+
+				return data;
+			}),
 			description: z.string(),
 			yearpublished: numberValueSchema,
 			minplayers: numberValueSchema,

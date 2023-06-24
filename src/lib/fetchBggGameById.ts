@@ -29,7 +29,7 @@ export const fetchBggGameById = async (id: number) => {
 		minAge: game.minage.value,
 		rating: game.statistics.ratings.average.value,
 		numOfRatings: game.statistics.ratings.usersrated.value,
-		name: parseGameName(game.name),
+		name: game.name,
 		...parseMetaData(game.link),
 	};
 
@@ -43,17 +43,6 @@ const buildUrlForGameId = (id: number) =>
 			stats: 1,
 		},
 	]);
-
-// If there's alternate names, `game.name` will be an array
-// Otherwise, it will be just the object with the `value` we want
-const parseGameName = (gameName: Game["name"]) => {
-	if (!Array.isArray(gameName)) return gameName.value;
-
-	return (
-		gameName.find((nameResponse) => nameResponse.type === "primary")?.value ??
-		`${gameName}`
-	);
-};
 
 type MetaData = Record<"categories" | "mechanics" | "authors", Array<string>>;
 
