@@ -1,4 +1,4 @@
-import { type BGGGameResponse } from "~/lib/fetchBggGameById";
+import { type BGGGameResponse } from "~/server/api/routers/bgg";
 
 type GameMetaDataProps = {
 	game: BGGGameResponse;
