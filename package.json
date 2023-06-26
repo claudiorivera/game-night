@@ -33,7 +33,7 @@
 		"react-dom": "18.2.0",
 		"react-hot-toast": "2.4.1",
 		"sharp": "0.32.1",
-		"superjson": "1.12.3",
+		"superjson": "1.12.4",
 		"zod": "3.21.4"
 	},
 	"devDependencies": {
