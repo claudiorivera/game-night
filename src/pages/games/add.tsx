@@ -12,7 +12,6 @@ import { type BGGGameResponse } from "~/server/api/routers/bgg";
 const AddGamePage = () => {
 	const router = useRouter();
 	const [query, setQuery] = useState("");
-	const [shouldFetch, setShouldFetch] = useState(false);
 
 	const { mutate: addGame, isLoading: disabled } = api.game.import.useMutation({
 		onSuccess: () => {
@@ -25,22 +24,22 @@ const AddGamePage = () => {
 	});
 
 	const { data: games, isFetching } = api.bgg.gamesByQuery.useQuery(query, {
-		enabled: shouldFetch,
+		enabled: !!query,
 	});
-
-	const handleSearch = (e: React.SyntheticEvent) => {
-		e.preventDefault();
-		setShouldFetch(true);
-	};
 
 	return (
 		<>
 			<div className="container mx-auto">
 				<form
-					onSubmit={(e) => {
-						void handleSearch(e);
-					}}
 					className="flex flex-col gap-2 pb-4"
+					onSubmit={(e) => {
+						e.preventDefault();
+						const q = new FormData(e.currentTarget).get("query");
+
+						if (typeof q === "string") {
+							setQuery(q);
+						}
+					}}
 				>
 					<input
 						name="query"
@@ -48,10 +47,7 @@ const AddGamePage = () => {
 						type="text"
 						placeholder="Enter a boardgame name to search for"
 						className="input-bordered input"
-						value={query}
-						onChange={(e) => {
-							setQuery(e.target.value);
-						}}
+						defaultValue=""
 					/>
 					<button
 						className="btn-secondary btn"
