@@ -16,8 +16,12 @@ export const bggRouter = createTRPCRouter({
 		const results = [];
 
 		for (const game of games.slice(0, API_CALL_LIMIT)) {
-			const result = await fetchBggGameById(game.id);
-			results.push(result);
+			try {
+				const result = await fetchBggGameById(game.id);
+				results.push(result);
+			} catch (error) {
+				continue;
+			}
 		}
 
 		return results;
