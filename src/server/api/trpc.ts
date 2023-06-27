@@ -12,7 +12,7 @@ import {
 	type SignedOutAuthObject,
 } from "@clerk/nextjs/dist/types/server";
 import { getAuth } from "@clerk/nextjs/server";
-import { initTRPC,TRPCError } from "@trpc/server";
+import { initTRPC, TRPCError } from "@trpc/server";
 import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
 import superjson from "superjson";
 import { ZodError } from "zod";

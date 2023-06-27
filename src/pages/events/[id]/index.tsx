@@ -71,6 +71,8 @@ const EventDetailsPage = () => {
 		deleteEventById({ id: event.id });
 	};
 
+	if (!event) return null;
+
 	return (
 		<div className="container mx-auto">
 			<div className="pb-4">
@@ -84,22 +86,22 @@ const EventDetailsPage = () => {
 			<article className="rounded-lg border shadow-lg">
 				<div className="p-4">
 					<h4 className="font-bold">
-						{dayjs(event?.dateTime).format("MMMM D, YYYY [at] h:mma")}
+						{dayjs(event.dateTime).format("MMMM D, YYYY [at] h:mma")}
 					</h4>
-					<small>{event?.game.name}</small>
+					<small>{event.game.name}</small>
 				</div>
 
 				<div className="p-4">
-					<GameDetails game={event?.game} />
+					<GameDetails game={event.game} />
 					<div className="divider" />
 					<div>
 						<p>Host:</p>
-						{!!event?.host.clerkId && <Avatar clerkId={event.host.clerkId} />}
+						{!!event.host.clerkId && <Avatar clerkId={event.host.clerkId} />}
 					</div>
 					<div>
 						<p>Guests:</p>
 						<div className="avatar-group -space-x-6">
-							{event?.guests.map((guest) => (
+							{event.guests.map((guest) => (
 								<Avatar clerkId={guest.clerkId} key={guest.id} />
 							))}
 						</div>
@@ -107,9 +109,7 @@ const EventDetailsPage = () => {
 				</div>
 				<div className="flex gap-4 p-4">
 					{/* If user is already a guest, show the Leave button */}
-					{event?.guests.some(
-						(guest) => guest.id === currentUserProfile?.id,
-					) ? (
+					{event.guests.some((guest) => guest.id === currentUserProfile?.id) ? (
 						<button
 							className={clsx("btn-secondary btn", {
 								"btn-disabled": disabled,
@@ -122,14 +122,14 @@ const EventDetailsPage = () => {
 							Leave
 						</button>
 					) : // Otherwise, as long as user isn't the host, show the Join loadingbutton
-					event?.host.id !== currentUserProfile?.id ? (
+					event.host.id !== currentUserProfile?.id ? (
 						<button
 							className={clsx("btn-secondary btn", {
 								"btn-disabled": disabled,
 							})}
 							disabled={disabled}
 							onClick={() => {
-								if (!event?.id) return;
+								if (!event.id) return;
 
 								joinEventById({ id: event.id });
 							}}
@@ -150,7 +150,7 @@ const EventDetailsPage = () => {
 						</button>
 					)}
 					{/* Show the Delete button to hosts and admins */}
-					{(event?.host.id === currentUserProfile?.id ||
+					{(event.host.id === currentUserProfile?.id ||
 						currentUserProfile?.isAdmin) && (
 						<button
 							className="btn-error btn"
