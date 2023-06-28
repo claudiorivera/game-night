@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { SkeletonRow } from "~/components";
 
 import { type BGGGameResponse } from "~/server/api/routers/bgg";
 
@@ -91,8 +92,4 @@ const SkeletonRows = () => (
 				<SkeletonRow key={i} />
 			))}
 	</div>
-);
-
-const SkeletonRow = () => (
-	<div className="h-4 w-full animate-pulse rounded-md bg-gray-300" />
 );

@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { Fragment, useState } from "react";
 import { toast } from "react-hot-toast";
 
-import { Avatar, GameDetails } from "~/components";
+import { Avatar, GameDetails, SkeletonRow } from "~/components";
 import { api } from "~/lib/api";
 
 const EventDetailsPage = () => {
@@ -236,7 +236,3 @@ const EventDetailsPage = () => {
 };
 
 export default EventDetailsPage;
-
-const SkeletonRow = () => (
-	<div className="my-2 h-4 animate-pulse rounded-md bg-gray-300" />
-);
