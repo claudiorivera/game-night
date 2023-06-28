@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 
 import { ClerkProvider } from "@clerk/nextjs";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import clsx from "clsx";
 import { type AppProps } from "next/app";
 import { Roboto } from "next/font/google";
@@ -35,6 +36,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 					<Component {...pageProps} />
 				</div>
 			</ClerkProvider>
+			<ReactQueryDevtools initialIsOpen={false} />
 		</>
 	);
 }
