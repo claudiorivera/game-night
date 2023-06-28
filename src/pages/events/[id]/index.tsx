@@ -71,8 +71,6 @@ const EventDetailsPage = () => {
 		deleteEventById({ id: event.id });
 	};
 
-	if (!event) return null;
-
 	return (
 		<div className="container mx-auto">
 			<div className="pb-4">
@@ -86,82 +84,98 @@ const EventDetailsPage = () => {
 			<article className="rounded-lg border shadow-lg">
 				<div className="p-4">
 					<h4 className="font-bold">
-						{dayjs(event.dateTime).format("MMMM D, YYYY [at] h:mma")}
+						{event?.dateTime ? (
+							dayjs(event.dateTime).format("MMMM D, YYYY [at] h:mma")
+						) : (
+							<SkeletonRow />
+						)}
 					</h4>
-					<small>{event.game.name}</small>
+					<small>{event?.game.name ? event.game.name : <SkeletonRow />}</small>
 				</div>
 
 				<div className="p-4">
-					<GameDetails game={event.game} />
+					<GameDetails game={event?.game} />
 					<div className="divider" />
 					<div>
 						<p>Host:</p>
-						{!!event.host.clerkId && <Avatar clerkId={event.host.clerkId} />}
+						{!!event?.host.clerkId ? (
+							<Avatar clerkId={event.host.clerkId} />
+						) : (
+							<SkeletonRow />
+						)}
 					</div>
 					<div>
 						<p>Guests:</p>
-						<div className="avatar-group -space-x-6">
-							{event.guests.map((guest) => (
-								<Avatar clerkId={guest.clerkId} key={guest.id} />
-							))}
-						</div>
+						{!!event?.guests ? (
+							<div className="avatar-group -space-x-6">
+								{event.guests.map((guest) => (
+									<Avatar clerkId={guest.clerkId} key={guest.id} />
+								))}
+							</div>
+						) : (
+							<SkeletonRow />
+						)}
 					</div>
 				</div>
-				<div className="flex gap-4 p-4">
-					{/* If user is already a guest, show the Leave button */}
-					{event.guests.some((guest) => guest.id === currentUserProfile?.id) ? (
-						<button
-							className={clsx("btn-secondary btn", {
-								"btn-disabled": disabled,
-							})}
-							disabled={disabled}
-							onClick={() => {
-								leaveEventById({ id: event.id });
-							}}
-						>
-							Leave
-						</button>
-					) : // Otherwise, as long as user isn't the host, show the Join loadingbutton
-					event.host.id !== currentUserProfile?.id ? (
-						<button
-							className={clsx("btn-secondary btn", {
-								"btn-disabled": disabled,
-							})}
-							disabled={disabled}
-							onClick={() => {
-								if (!event.id) return;
+				{!!event && (
+					<div className="flex gap-4 p-4">
+						{/* If user is already a guest, show the Leave button */}
+						{event.guests.some(
+							(guest) => guest.id === currentUserProfile?.id,
+						) ? (
+							<button
+								className={clsx("btn-secondary btn", {
+									"btn-disabled": disabled,
+								})}
+								disabled={disabled}
+								onClick={() => {
+									leaveEventById({ id: event.id });
+								}}
+							>
+								Leave
+							</button>
+						) : // Otherwise, as long as user isn't the host, show the Join loadingbutton
+						event.host.id !== currentUserProfile?.id ? (
+							<button
+								className={clsx("btn-secondary btn", {
+									"btn-disabled": disabled,
+								})}
+								disabled={disabled}
+								onClick={() => {
+									if (!event.id) return;
 
-								joinEventById({ id: event.id });
-							}}
-						>
-							Join
-						</button>
-					) : (
-						// Otherwise, we're the host, so show the Edit button
-						<button
-							className={clsx("btn-secondary btn", {
-								"btn-disabled": disabled,
-							})}
-							onClick={() => {
-								void router.push(`/events/${eventId}/edit`);
-							}}
-						>
-							Edit
-						</button>
-					)}
-					{/* Show the Delete button to hosts and admins */}
-					{(event.host.id === currentUserProfile?.id ||
-						currentUserProfile?.isAdmin) && (
-						<button
-							className="btn-error btn"
-							onClick={() => {
-								setIsDialogOpen(true);
-							}}
-						>
-							Delete
-						</button>
-					)}
-				</div>
+									joinEventById({ id: event.id });
+								}}
+							>
+								Join
+							</button>
+						) : (
+							// Otherwise, we're the host, so show the Edit button
+							<button
+								className={clsx("btn-secondary btn", {
+									"btn-disabled": disabled,
+								})}
+								onClick={() => {
+									void router.push(`/events/${eventId}/edit`);
+								}}
+							>
+								Edit
+							</button>
+						)}
+						{/* Show the Delete button to hosts and admins */}
+						{(event.host.id === currentUserProfile?.id ||
+							currentUserProfile?.isAdmin) && (
+							<button
+								className="btn-error btn"
+								onClick={() => {
+									setIsDialogOpen(true);
+								}}
+							>
+								Delete
+							</button>
+						)}
+					</div>
+				)}
 			</article>
 			<Transition appear show={isDialogOpen} as={Fragment}>
 				<Dialog as="div" className="relative z-10" onClose={handleClose}>
@@ -222,3 +236,7 @@ const EventDetailsPage = () => {
 };
 
 export default EventDetailsPage;
+
+const SkeletonRow = () => (
+	<div className="my-2 h-4 animate-pulse rounded-md bg-gray-300" />
+);
