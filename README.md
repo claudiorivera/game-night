@@ -20,25 +20,18 @@ Uses the [BoardGameGeek API2](https://boardgamegeek.com/wiki/page/BGG_XML_API2) 
 - [Fast XML Parser](https://github.com/NaturalIntelligence/fast-xml-parser)
 - [BoardGameGeek API2](https://boardgamegeek.com/wiki/page/BGG_XML_API2)
 
+# Prerequisites
+
+- [pnpm](https://pnpm.io)
+
 # Install
 
 `pnpm i`
 
-# Config
+# Prepare
 
-Add a `.env` file with environmental variables as shown in the example `.env.example` file.
+- `cp .env.example .env` and update values
 
-# Dev
+# Develop
 
 `pnpm dev`
-
-# Future Improvement Ideas
-
-- Allow users to update name and profile pic
-- Move old events into a "past events" section on the dashboard and events page.
-- Implement the game search into the event creation process.
-- Add Facebook login.
-
-# Known Bugs
-
-- The Board Game Geek API [has an issue](https://boardgamegeek.com/wiki/page/XML_API_Enhancements#) where the game descriptions output escaped character sequences instead of the characters.
