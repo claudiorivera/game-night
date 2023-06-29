@@ -1,15 +1,9 @@
 import { UserProfile } from "@clerk/nextjs";
 
 const UserProfilePage = () => (
-	<UserProfile
-		path="/profile"
-		routing="path"
-		appearance={{
-			elements: {
-				rootBox: "mx-auto p-4",
-			},
-		}}
-	/>
+	<div className="flex justify-center p-4">
+		<UserProfile path="/profile" routing="path" />
+	</div>
 );
 
 export default UserProfilePage;
