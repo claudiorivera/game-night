@@ -1,9 +1,9 @@
-import { ArrowLeftIcon } from "@heroicons/react/20/solid";
 import clsx from "clsx";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
+import { BackButton } from "~/components";
 
 import { api } from "~/lib/api";
 
@@ -40,14 +40,7 @@ const EditEventPage = () => {
 
 	return (
 		<div className="container mx-auto">
-			<div className="pb-4">
-				<button onClick={() => router.back()} className="btn-ghost btn">
-					<div className="flex items-center gap-2">
-						<ArrowLeftIcon className="h-5 w-5" />
-						Go Back
-					</div>
-				</button>
-			</div>
+			<BackButton />
 
 			<form
 				onSubmit={(e) => {

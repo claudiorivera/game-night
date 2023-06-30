@@ -1,4 +1,5 @@
 export * from "./Avatar";
+export * from "./BackButton";
 export * from "./Card";
 export * from "./EventSummaryCard";
 export * from "./GameDetails";
