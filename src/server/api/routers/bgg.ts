@@ -247,4 +247,5 @@ const parseSpecialCharacters = (str: string) =>
 		.replace(/&#225;/g, "á")
 		.replace(/&#191;/g, "¿")
 		.replace(/&#150;/g, "–")
-		.replace(/&eacute;/g, "é");
+		.replace(/&eacute;/g, "é")
+		.replace(/&ndash;/g, "–");
