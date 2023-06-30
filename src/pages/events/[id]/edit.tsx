@@ -38,8 +38,6 @@ const EditEventPage = () => {
 
 	const { data: games } = api.game.getAll.useQuery();
 
-	if (!event || !games) return null;
-
 	return (
 		<div className="container mx-auto">
 			<div className="pb-4">
@@ -54,6 +52,8 @@ const EditEventPage = () => {
 			<form
 				onSubmit={(e) => {
 					e.preventDefault();
+					if (!event) return;
+
 					updateEvent({
 						id: event.id,
 						data: {
@@ -67,7 +67,9 @@ const EditEventPage = () => {
 				<input
 					className="input-bordered input"
 					type="datetime-local"
-					defaultValue={dayjs(event.dateTime).format("YYYY-MM-DDTHH:mm")}
+					defaultValue={dayjs(event?.dateTime ?? new Date()).format(
+						"YYYY-MM-DDTHH:mm",
+					)}
 					onChange={(e) => setDateTime(new Date(e.target.value))}
 				/>
 				<input
@@ -83,7 +85,10 @@ const EditEventPage = () => {
 						setGameId(e.target.value);
 					}}
 				>
-					{games.map(({ id, name }) => (
+					<option value="" disabled>
+						Select a game
+					</option>
+					{(games ?? []).map(({ id, name }) => (
 						<option key={id} value={id}>
 							{name}
 						</option>
