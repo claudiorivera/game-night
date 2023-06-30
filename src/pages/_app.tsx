@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 
 import { ClerkProvider } from "@clerk/nextjs";
+import * as Tooltip from "@radix-ui/react-tooltip";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import clsx from "clsx";
 import { type AppProps } from "next/app";
@@ -32,9 +33,11 @@ function MyApp({ Component, pageProps }: AppProps) {
 			<ClerkProvider {...pageProps}>
 				<MainAppBar />
 				<Toaster />
-				<div className={clsx("container mx-auto px-4", roboto.variable)}>
-					<Component {...pageProps} />
-				</div>
+				<Tooltip.Provider>
+					<div className={clsx("container mx-auto px-4", roboto.variable)}>
+						<Component {...pageProps} />
+					</div>
+				</Tooltip.Provider>
 			</ClerkProvider>
 			<ReactQueryDevtools initialIsOpen={false} />
 		</>

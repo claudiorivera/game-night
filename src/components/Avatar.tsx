@@ -1,4 +1,5 @@
-import Image from "next/image";
+import * as _Avatar from "@radix-ui/react-avatar";
+import * as Tooltip from "@radix-ui/react-tooltip";
 
 import { api } from "~/lib/api";
 
@@ -11,29 +12,32 @@ export const Avatar = ({ clerkId }: Props) => {
 		clerkId: clerkId,
 	});
 
-	if (!clerkUser) return null;
-
 	return (
-		<div className="tooltip" data-tip={clerkUser.firstName}>
-			{clerkUser.profileImageUrl ? (
-				<div className="avatar">
-					<div className="relative h-10 w-10 rounded-full">
-						<Image
-							src={clerkUser.profileImageUrl}
-							width={960}
-							height={960}
-							alt={clerkUser.firstName ?? ""}
-							className="object-cover"
-						/>
-					</div>
-				</div>
-			) : (
-				<div className="placeholder avatar">
-					<div className="w-10 rounded-full">
-						{clerkUser.firstName?.charAt(0)}
-					</div>
-				</div>
-			)}
-		</div>
+		<Tooltip.Root>
+			<Tooltip.Trigger asChild>
+				<_Avatar.Root className="inline-flex h-10 w-10 select-none items-center justify-center overflow-hidden rounded-full bg-black align-middle">
+					<_Avatar.Image
+						className="h-full w-full rounded-[inherit] object-cover"
+						src={clerkUser?.profileImageUrl}
+						alt={clerkUser?.firstName ?? ""}
+					/>
+					<_Avatar.Fallback
+						className="leading-1 flex h-full w-full cursor-default items-center justify-center bg-primary text-sm font-medium text-primary-content"
+						delayMs={600}
+					>
+						{clerkUser?.firstName?.charAt(0) || "A"}
+					</_Avatar.Fallback>
+				</_Avatar.Root>
+			</Tooltip.Trigger>
+			<Tooltip.Portal>
+				<Tooltip.Content
+					className="rounded bg-gray-100 px-2 py-1 text-sm"
+					sideOffset={5}
+				>
+					{clerkUser?.firstName ?? "Anonymous"}
+					<Tooltip.Arrow className="fill-gray-100" />
+				</Tooltip.Content>
+			</Tooltip.Portal>
+		</Tooltip.Root>
 	);
 };
