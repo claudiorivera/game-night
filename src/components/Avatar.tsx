@@ -15,7 +15,7 @@ export const Avatar = ({ clerkId }: Props) => {
 	return (
 		<Tooltip.Root>
 			<Tooltip.Trigger asChild>
-				<_Avatar.Root className="inline-flex h-10 w-10 select-none items-center justify-center overflow-hidden rounded-full bg-black align-middle">
+				<_Avatar.Root className="inline-flex h-10 w-10 select-none items-center justify-center overflow-hidden rounded-full bg-black align-middle shadow">
 					<_Avatar.Image
 						className="h-full w-full rounded-[inherit] object-cover"
 						src={clerkUser?.profileImageUrl}
