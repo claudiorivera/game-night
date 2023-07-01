@@ -5,26 +5,26 @@ export default function MyDocument() {
 		<Html lang="en">
 			<Head>
 				{/* PWA primary color */}
-				<meta name="theme-color" content="#2a9d8f" />
-				<link rel="shortcut icon" href="/favicon.ico" />
+				<meta content="#2a9d8f" name="theme-color" />
+				<link href="/favicon.ico" rel="shortcut icon" />
 				<link
+					href="/apple-touch-icon.png"
 					rel="apple-touch-icon"
 					sizes="180x180"
-					href="/apple-touch-icon.png"
 				/>
 				<link
-					rel="icon"
-					type="image/png"
-					sizes="32x32"
 					href="/favicon-32x32.png"
+					rel="icon"
+					sizes="32x32"
+					type="image/png"
 				/>
 				<link
-					rel="icon"
-					type="image/png"
-					sizes="16x16"
 					href="/favicon-16x16.png"
+					rel="icon"
+					sizes="16x16"
+					type="image/png"
 				/>
-				<link rel="manifest" href="/site.webmanifest" />
+				<link href="/site.webmanifest" rel="manifest" />
 			</Head>
 			<body>
 				<Main />

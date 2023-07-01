@@ -18,8 +18,8 @@ export const EventSummaryCard = ({ event }: EventSummaryCardProps) => {
 		<Link href={`/events/${event.id}`}>
 			<Card>
 				<Card.CardHeader
-					title={dayjs(event.dateTime).format("MMMM D, YYYY [at] h:mma")}
 					subheader={game.name}
+					title={dayjs(event.dateTime).format("MMMM D, YYYY [at] h:mma")}
 				/>
 				<Card.CardMedia image={game.imageSrc} title={game.name} />
 				<Card.CardContent>

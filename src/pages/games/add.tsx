@@ -17,7 +17,7 @@ const AddGamePage = () => {
 
 	return (
 		<div className="container mx-auto">
-			<QueryInput setQuery={setQuery} disabled={isFetching} />
+			<QueryInput disabled={isFetching} setQuery={setQuery} />
 			<QueryResults results={results} />
 		</div>
 	);
@@ -43,14 +43,14 @@ const QueryInput = ({ setQuery, disabled }: QueryInputProps) => (
 		}}
 	>
 		<input
-			name="query"
-			id="query"
-			type="text"
-			placeholder="Enter a boardgame name to search for"
 			className="input-bordered input"
 			defaultValue=""
+			id="query"
+			name="query"
+			placeholder="Enter a boardgame name to search for"
+			type="text"
 		/>
-		<button className="btn-secondary btn" type="submit" disabled={disabled}>
+		<button className="btn-secondary btn" disabled={disabled} type="submit">
 			Search
 		</button>
 	</form>

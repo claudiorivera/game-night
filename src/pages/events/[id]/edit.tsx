@@ -43,6 +43,7 @@ const EditEventPage = () => {
 			<BackButton />
 
 			<form
+				className="flex flex-col gap-4"
 				onSubmit={(e) => {
 					e.preventDefault();
 					if (!event) return;
@@ -55,30 +56,29 @@ const EditEventPage = () => {
 						},
 					});
 				}}
-				className="flex flex-col gap-4"
 			>
 				<input
 					className="input-bordered input"
-					type="datetime-local"
 					defaultValue={dayjs(event?.dateTime ?? new Date()).format(
 						"YYYY-MM-DDTHH:mm",
 					)}
 					onChange={(e) => setDateTime(new Date(e.target.value))}
+					type="datetime-local"
 				/>
 				<input
-					type="hidden"
 					name="utcOffset"
+					type="hidden"
 					value={new Date().getTimezoneOffset()}
 				/>
 				<select
 					className="select-bordered select w-full"
 					id="game-select"
-					value={gameId}
 					onChange={(e) => {
 						setGameId(e.target.value);
 					}}
+					value={gameId}
 				>
-					<option value="" disabled>
+					<option disabled value="">
 						Select a game
 					</option>
 					{(games ?? []).map(({ id, name }) => (
@@ -92,8 +92,8 @@ const EditEventPage = () => {
 						className={clsx("btn-secondary btn w-full", {
 							"btn-disabled": disabled,
 						})}
-						type="submit"
 						disabled={disabled}
+						type="submit"
 					>
 						Save
 					</button>

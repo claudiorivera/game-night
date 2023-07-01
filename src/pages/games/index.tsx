@@ -55,7 +55,7 @@ const SkeletonRows = () => (
 		{Array(5)
 			.fill(null)
 			.map((_, i) => (
-				<div key={i} className="border-b p-4">
+				<div className="border-b p-4" key={i}>
 					<div className="h-4 w-full rounded-xl bg-gray-400" />
 				</div>
 			))}

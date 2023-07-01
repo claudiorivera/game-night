@@ -15,28 +15,28 @@ const HomePage = () => {
 
 			<Title>Events You Are Hosting:</Title>
 			<Events
-				events={profile?.eventsHosting}
 				ListEmptyComponent={
 					<p className="text-gray-500">
 						You are not hosting any events.&nbsp;
-						<Link href="/events/add" className="hover:text-primary">
+						<Link className="hover:text-primary" href="/events/add">
 							Create one now!
 						</Link>
 					</p>
 				}
+				events={profile?.eventsHosting}
 			/>
 
 			<Title>Events You Are Attending:</Title>
 			<Events
-				events={profile?.eventsAttending}
 				ListEmptyComponent={
 					<p className="text-gray-500">
 						You are not attending any events.&nbsp;
-						<Link href="/events" className="hover:text-primary">
+						<Link className="hover:text-primary" href="/events">
 							Go find some!
 						</Link>
 					</p>
 				}
+				events={profile?.eventsAttending}
 			/>
 		</>
 	);

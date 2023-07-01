@@ -13,10 +13,10 @@ export const GameDetails = ({ game }: Props) => (
 			<div className="relative aspect-square">
 				{game?.imageSrc ? (
 					<Image
-						src={game.imageSrc}
 						alt={game.name}
-						fill
 						className="object-contain"
+						fill
+						src={game.imageSrc}
 					/>
 				) : (
 					<div className="h-full w-full bg-slate-300 object-cover" />
@@ -27,23 +27,23 @@ export const GameDetails = ({ game }: Props) => (
 					<SkeletonRows />
 				) : (
 					<>
-						<BadgesDisplay label="Authors" badges={game.authors} />
-						<BadgesDisplay label="Categories" badges={game.categories} />
+						<BadgesDisplay badges={game.authors} label="Authors" />
+						<BadgesDisplay badges={game.categories} label="Categories" />
 						<Description
-							term="Average BGG Rating"
 							definition={`${game.rating.toFixed(2)} (${
 								game.numOfRatings
 							} ratings)`}
+							term="Average BGG Rating"
 						/>
 						<Description
-							term="Players"
 							definition={`${game.minPlayers} to ${game.maxPlayers}`}
+							term="Players"
 						/>
 						<Description
-							term="Playing Time"
 							definition={`${game.playingTime} minutes`}
+							term="Playing Time"
 						/>
-						<Description term="Ages" definition={`${game.minAge}+`} />
+						<Description definition={`${game.minAge}+`} term="Ages" />
 					</>
 				)}
 			</div>

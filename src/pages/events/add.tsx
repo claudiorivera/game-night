@@ -28,25 +28,25 @@ const AddEventPage = () => {
 
 	return (
 		<form
+			className="flex flex-col gap-4"
 			onSubmit={(e) => {
 				e.preventDefault();
 				addEvent({ gameId, dateTime });
 			}}
-			className="flex flex-col gap-4"
 		>
 			<label className="text-sm">
 				Event Date and Time
 				<input
 					className="input-bordered input w-full"
-					type="datetime-local"
 					defaultValue={dayjs().format("YYYY-MM-DDTHH:mm")}
 					onChange={(e) => setDateTime(new Date(e.target.value))}
+					type="datetime-local"
 				/>
 			</label>
 			<select
 				className="select-bordered select w-full"
-				id="select-game"
 				defaultValue={-1}
+				id="select-game"
 				onChange={(e) => {
 					setGameId(e.target.value);
 				}}
@@ -64,8 +64,8 @@ const AddEventPage = () => {
 				className={clsx("btn-secondary btn w-full", {
 					"btn-disabled": disabled,
 				})}
-				type="submit"
 				disabled={disabled}
+				type="submit"
 			>
 				Add Event
 			</button>

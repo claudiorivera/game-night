@@ -33,7 +33,7 @@ type CardMediaProps = {
 const CardMedia = ({ image, title }: CardMediaProps) => {
 	return (
 		<div className="relative aspect-video">
-			<Image className="object-cover" fill src={image} alt={title} />
+			<Image alt={title} className="object-cover" fill src={image} />
 		</div>
 	);
 };
