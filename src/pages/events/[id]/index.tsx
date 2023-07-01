@@ -1,159 +1,87 @@
-import { Dialog, Transition } from "@headlessui/react";
-import { ArrowLeftIcon } from "@heroicons/react/20/solid";
+import { type Event } from "@prisma/client";
 import clsx from "clsx";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
-import { Fragment, useState } from "react";
-import { toast } from "react-hot-toast";
+import { useState } from "react";
 
-import { Avatar, GameDetails, SkeletonRow } from "~/components";
+import {
+	Avatar,
+	BackButton,
+	Dialog,
+	GameDetails,
+	SkeletonEvent,
+} from "~/components";
+import { useEventDetailsPage } from "~/hooks";
 import { api } from "~/lib/api";
 
 const EventDetailsPage = () => {
 	const router = useRouter();
 	const eventId = router.query.id as string;
-
-	const [isDialogOpen, setIsDialogOpen] = useState(false);
-
+	const [isDeleteEventDialogOpen, setIsDeleteEventDialogOpen] = useState(false);
 	const { data: currentUserProfile } = api.profile.getMine.useQuery();
+	const { event, isLoading, leaveEventById, joinEventById } =
+		useEventDetailsPage(eventId);
 
-	const { data: event } = api.event.getById.useQuery(
-		{
-			id: eventId,
-		},
-		{
-			enabled: !!eventId,
-		},
-	);
+	const isCurrentUserGuest =
+		!!event &&
+		event.guests.some((guest) => guest.id === currentUserProfile?.id);
 
-	const { mutate: deleteEventById, isLoading: isDeletingEvent } =
-		api.event.deleteById.useMutation({
-			onSuccess: () => {
-				toast.success("Event deleted!");
-				router.back();
-			},
-			onError: (error) => {
-				toast.error(error.message);
-			},
-		});
-
-	const { mutate: leaveEventById, isLoading: isLeavingEvent } =
-		api.event.leaveById.useMutation({
-			onSuccess: () => {
-				toast.success("You have left the event!");
-				router.back();
-			},
-			onError: (error) => {
-				toast.error(error.message);
-			},
-		});
-
-	const { mutate: joinEventById, isLoading: isJoiningEvent } =
-		api.event.joinById.useMutation({
-			onSuccess: () => {
-				toast.success("You have joined the event!");
-				router.back();
-			},
-			onError: (error) => {
-				toast.error(error.message);
-			},
-		});
-
-	const disabled = isDeletingEvent || isLeavingEvent || isJoiningEvent;
-
-	const handleClose = () => {
-		setIsDialogOpen(false);
-	};
-
-	const handleDelete = () => {
-		if (!event) return;
-
-		deleteEventById({ id: event.id });
-	};
+	const isCurrentUserHost = !!event && event.host.id === currentUserProfile?.id;
 
 	return (
-		<div className="container mx-auto">
-			<div className="pb-4">
-				<button onClick={() => router.back()} className="btn-ghost btn">
-					<div className="flex items-center gap-2">
-						<ArrowLeftIcon className="h-5 w-5" />
-						Go Back
-					</div>
-				</button>
-			</div>
-			<article className="rounded-lg border shadow-lg">
-				<div className="p-4">
-					<h4 className="font-bold">
-						{event?.dateTime ? (
-							dayjs(event.dateTime).format("MMMM D, YYYY [at] h:mma")
-						) : (
-							<SkeletonRow />
-						)}
-					</h4>
-					<small>{event?.game.name ? event.game.name : <SkeletonRow />}</small>
-				</div>
+		<>
+			<BackButton />
 
-				<div className="p-4">
-					<GameDetails game={event?.game} />
-					<div className="divider" />
-					<div>
-						<p>Host:</p>
-						{!!event?.host.clerkId ? (
-							<Avatar clerkId={event.host.clerkId} />
-						) : (
-							<SkeletonRow />
-						)}
+			{!event ? (
+				<SkeletonEvent />
+			) : (
+				<article className="rounded-lg border shadow-lg">
+					<div className="p-4">
+						<h4 className="font-bold">
+							{dayjs(event.dateTime).format("MMMM D, YYYY [at] h:mma")}
+						</h4>
+						<small>{event.game.name}</small>
 					</div>
-					<div>
-						<p>Guests:</p>
-						{!!event?.guests ? (
+
+					<div className="p-4">
+						<GameDetails game={event.game} />
+
+						<div className="divider" />
+
+						<div>
+							<p>Host:</p>
+							{!!currentUserProfile?.clerkId && (
+								<Avatar clerkId={currentUserProfile.clerkId} />
+							)}
+						</div>
+
+						<div>
+							<p>Guests:</p>
 							<div className="avatar-group -space-x-6">
 								{event.guests.map((guest) => (
-									<Avatar clerkId={guest.clerkId} key={guest.id} />
+									<Avatar clerkId={guest.clerkId} key={guest.clerkId} />
 								))}
 							</div>
-						) : (
-							<SkeletonRow />
-						)}
+						</div>
 					</div>
-				</div>
-				{!!event && (
+
 					<div className="flex gap-4 p-4">
-						{/* If user is already a guest, show the Leave button */}
-						{event.guests.some(
-							(guest) => guest.id === currentUserProfile?.id,
-						) ? (
+						{isCurrentUserGuest ? (
 							<button
 								className={clsx("btn-secondary btn", {
-									"btn-disabled": disabled,
+									"btn-disabled": isLoading,
 								})}
-								disabled={disabled}
+								disabled={isLoading}
 								onClick={() => {
 									leaveEventById({ id: event.id });
 								}}
 							>
 								Leave
 							</button>
-						) : // Otherwise, as long as user isn't the host, show the Join loadingbutton
-						event.host.id !== currentUserProfile?.id ? (
+						) : isCurrentUserHost ? (
 							<button
 								className={clsx("btn-secondary btn", {
-									"btn-disabled": disabled,
-								})}
-								disabled={disabled}
-								onClick={() => {
-									if (!event.id) return;
-
-									joinEventById({ id: event.id });
-								}}
-							>
-								Join
-							</button>
-						) : (
-							// Otherwise, we're the host, so show the Edit button
-							<button
-								className={clsx("btn-secondary btn", {
-									"btn-disabled": disabled,
+									"btn-disabled": isLoading,
 								})}
 								onClick={() => {
 									void router.push(`/events/${eventId}/edit`);
@@ -161,78 +89,72 @@ const EventDetailsPage = () => {
 							>
 								Edit
 							</button>
+						) : (
+							<button
+								className={clsx("btn-secondary btn", {
+									"btn-disabled": isLoading,
+								})}
+								disabled={isLoading}
+								onClick={() => {
+									if (!event?.id) return;
+
+									joinEventById({ id: event.id });
+								}}
+							>
+								Join
+							</button>
 						)}
-						{/* Show the Delete button to hosts and admins */}
-						{(event.host.id === currentUserProfile?.id ||
-							currentUserProfile?.isAdmin) && (
+
+						{(isCurrentUserHost || currentUserProfile?.isAdmin) && (
 							<button
 								className="btn-error btn"
-								onClick={() => {
-									setIsDialogOpen(true);
-								}}
+								onClick={() => setIsDeleteEventDialogOpen(true)}
 							>
 								Delete
 							</button>
 						)}
 					</div>
-				)}
-			</article>
-			<Transition appear show={isDialogOpen} as={Fragment}>
-				<Dialog as="div" className="relative z-10" onClose={handleClose}>
-					<Transition.Child
-						as={Fragment}
-						enter="ease-out duration-300"
-						enterFrom="opacity-0"
-						enterTo="opacity-100"
-						leave="ease-in duration-200"
-						leaveFrom="opacity-100"
-						leaveTo="opacity-0"
-					>
-						<div className="fixed inset-0 bg-black bg-opacity-25" />
-					</Transition.Child>
+				</article>
+			)}
 
-					<div className="fixed inset-0 overflow-y-auto">
-						<div className="flex min-h-full items-center justify-center p-4 text-center">
-							<Transition.Child
-								as={Fragment}
-								enter="ease-out duration-300"
-								enterFrom="opacity-0 scale-95"
-								enterTo="opacity-100 scale-100"
-								leave="ease-in duration-200"
-								leaveFrom="opacity-100 scale-100"
-								leaveTo="opacity-0 scale-95"
-							>
-								<Dialog.Panel className="flex w-full max-w-md transform flex-col gap-2 overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-									<Dialog.Title
-										as="h3"
-										className="text-lg font-medium leading-6 text-gray-900"
-									>
-										Delete Event
-									</Dialog.Title>
-									<p className="text-sm text-gray-500">
-										Are you sure you want to delete this event?
-									</p>
-
-									<div className="flex justify-between">
-										<button type="button" className="btn" onClick={handleClose}>
-											Cancel
-										</button>
-										<button
-											type="button"
-											className="btn-error btn"
-											onClick={handleDelete}
-										>
-											Yes
-										</button>
-									</div>
-								</Dialog.Panel>
-							</Transition.Child>
-						</div>
-					</div>
-				</Dialog>
-			</Transition>
-		</div>
+			<EventDeleteDialog
+				eventId={eventId}
+				isOpen={isDeleteEventDialogOpen}
+				onClose={() => setIsDeleteEventDialogOpen(false)}
+			/>
+		</>
 	);
 };
 
 export default EventDetailsPage;
+
+type EventDeleteDialogProps = {
+	isOpen: boolean;
+	onClose: () => void;
+	eventId: Event["id"];
+};
+
+const EventDeleteDialog = ({
+	isOpen,
+	onClose,
+	eventId,
+}: EventDeleteDialogProps) => {
+	const { handleDelete } = useEventDetailsPage(eventId);
+
+	return (
+		<Dialog isOpen={isOpen} onClose={onClose} title={"Delete Event"}>
+			<p className="text-sm text-gray-500">
+				Are you sure you want to delete this event?
+			</p>
+
+			<div className="flex justify-between">
+				<button className="btn" onClick={onClose} type="button">
+					Cancel
+				</button>
+				<button className="btn-error btn" onClick={handleDelete} type="button">
+					Yes
+				</button>
+			</div>
+		</Dialog>
+	);
+};
