@@ -103,7 +103,7 @@ export const eventRouter = createTRPCRouter({
 				},
 			});
 		}),
-	deleteById: publicProcedure
+	deleteById: protectedProcedure
 		.input(z.object({ id: z.string() }))
 		.mutation(({ ctx, input }) => {
 			return ctx.prisma.event.delete({
@@ -149,7 +149,7 @@ export const eventRouter = createTRPCRouter({
 				},
 			});
 		}),
-	updateById: publicProcedure
+	updateById: protectedProcedure
 		.input(
 			z.object({
 				id: z.string(),
