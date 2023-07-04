@@ -2,7 +2,7 @@ import { type Event } from "@prisma/client";
 import clsx from "clsx";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
-import { ComponentProps, useState } from "react";
+import { useState, type ComponentProps } from "react";
 
 import {
 	Avatar,
@@ -50,9 +50,7 @@ const EventDetailsPage = () => {
 
 						<div>
 							<p>Host:</p>
-							{!!currentUserProfile?.clerkId && (
-								<Avatar clerkId={currentUserProfile.clerkId} />
-							)}
+							{event.host.clerkId && <Avatar clerkId={event.host.clerkId} />}
 						</div>
 
 						<div>
