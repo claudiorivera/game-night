@@ -55,11 +55,15 @@ const EventDetailsPage = () => {
 
 						<div>
 							<p>Guests:</p>
-							<div className="avatar-group -space-x-6">
-								{event.guests.map((guest) => (
-									<Avatar clerkId={guest.clerkId} key={guest.clerkId} />
-								))}
-							</div>
+							{!!event.guests.length ? (
+								<div className="avatar-group -space-x-6">
+									{event.guests.map((guest) => (
+										<Avatar clerkId={guest.clerkId} key={guest.clerkId} />
+									))}
+								</div>
+							) : (
+								<small>None yet. Be the first!</small>
+							)}
 						</div>
 					</div>
 
