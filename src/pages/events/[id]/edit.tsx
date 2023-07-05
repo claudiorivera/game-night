@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { BackButton } from "~/components";
 
@@ -9,6 +9,7 @@ import { api } from "~/lib/api";
 
 const EditEventPage = () => {
 	const router = useRouter();
+	const { data: currentUserProfile } = api.profile.getMine.useQuery();
 
 	const { data: event } = api.event.getById.useQuery(
 		{
@@ -37,6 +38,14 @@ const EditEventPage = () => {
 		});
 
 	const { data: games } = api.game.getAll.useQuery();
+
+	useEffect(() => {
+		if (!!currentUserProfile && !!event) {
+			if (currentUserProfile.clerkId !== event.host.clerkId) {
+				void router.push("/events");
+			}
+		}
+	}, [currentUserProfile, event, router]);
 
 	return (
 		<div className="container mx-auto">
