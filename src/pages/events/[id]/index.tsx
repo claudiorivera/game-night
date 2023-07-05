@@ -2,7 +2,7 @@ import { type Event } from "@prisma/client";
 import clsx from "clsx";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState, type ComponentProps } from "react";
 
 import {
 	Avatar,
@@ -69,33 +69,25 @@ const EventDetailsPage = () => {
 
 					<div className="flex gap-4 p-4">
 						{isCurrentUserGuest ? (
-							<button
-								className={clsx("btn-secondary btn", {
-									"btn-disabled": isLoading,
-								})}
+							<Button
 								disabled={isLoading}
 								onClick={() => {
 									leaveEventById({ id: event.id });
 								}}
 							>
 								Leave
-							</button>
+							</Button>
 						) : isCurrentUserHost ? (
-							<button
-								className={clsx("btn-secondary btn", {
-									"btn-disabled": isLoading,
-								})}
+							<Button
+								disabled={isLoading}
 								onClick={() => {
 									void router.push(`/events/${eventId}/edit`);
 								}}
 							>
 								Edit
-							</button>
+							</Button>
 						) : (
-							<button
-								className={clsx("btn-secondary btn", {
-									"btn-disabled": isLoading,
-								})}
+							<Button
 								disabled={isLoading}
 								onClick={() => {
 									if (!event?.id) return;
@@ -104,7 +96,7 @@ const EventDetailsPage = () => {
 								}}
 							>
 								Join
-							</button>
+							</Button>
 						)}
 
 						{(isCurrentUserHost || currentUserProfile?.isAdmin) && (
@@ -129,6 +121,22 @@ const EventDetailsPage = () => {
 };
 
 export default EventDetailsPage;
+
+const Button = ({
+	disabled = false,
+	children,
+	...buttonProps
+}: ComponentProps<"button">) => (
+	<button
+		className={clsx("btn-secondary btn", {
+			"btn-disabled": disabled,
+		})}
+		disabled={disabled}
+		{...buttonProps}
+	>
+		{children}
+	</button>
+);
 
 type EventDeleteDialogProps = {
 	isOpen: boolean;
