@@ -28,7 +28,7 @@
 		"@trpc/server": "10.34.0",
 		"axios": "1.4.0",
 		"clsx": "1.2.1",
-		"daisyui": "3.1.10",
+		"daisyui": "3.1.11",
 		"dayjs": "1.11.9",
 		"fast-xml-parser": "4.2.5",
 		"next": "13.4.9",
