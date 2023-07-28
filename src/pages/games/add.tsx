@@ -1,6 +1,6 @@
 import { Disclosure } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/20/solid";
-import clsx from "clsx";
+import { clsx } from "clsx";
 import { useRouter } from "next/router";
 import { useState, type Dispatch, type SetStateAction } from "react";
 import { toast } from "react-hot-toast";
@@ -43,14 +43,14 @@ const QueryInput = ({ setQuery, disabled }: QueryInputProps) => (
 		}}
 	>
 		<input
-			className="input-bordered input"
+			className="input input-bordered"
 			defaultValue=""
 			id="query"
 			name="query"
 			placeholder="Enter a boardgame name to search for"
 			type="text"
 		/>
-		<button className="btn-secondary btn" disabled={disabled} type="submit">
+		<button className="btn btn-secondary" disabled={disabled} type="submit">
 			Search
 		</button>
 	</form>
@@ -102,7 +102,7 @@ const QueryResult = ({ result }: QueryResultProps) => {
 					<Disclosure.Panel className="px-4 pb-2 pt-4 text-sm text-gray-500">
 						<div className="pb-2">
 							<button
-								className="btn-secondary btn w-full"
+								className="btn btn-secondary w-full"
 								disabled={disabled}
 								onClick={() => {
 									addGame({

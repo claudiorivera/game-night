@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import { clsx } from "clsx";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -37,14 +37,14 @@ const AddEventPage = () => {
 			<label className="text-sm">
 				Event Date and Time
 				<input
-					className="input-bordered input w-full"
+					className="input input-bordered w-full"
 					defaultValue={dayjs().format("YYYY-MM-DDTHH:mm")}
 					onChange={(e) => setDateTime(new Date(e.target.value))}
 					type="datetime-local"
 				/>
 			</label>
 			<select
-				className="select-bordered select w-full"
+				className="select select-bordered w-full"
 				defaultValue={-1}
 				id="select-game"
 				onChange={(e) => {
@@ -61,7 +61,7 @@ const AddEventPage = () => {
 				))}
 			</select>
 			<button
-				className={clsx("btn-secondary btn w-full", {
+				className={clsx("btn btn-secondary w-full", {
 					"btn-disabled": disabled,
 				})}
 				disabled={disabled}

@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import { clsx } from "clsx";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -14,7 +14,7 @@ const EventsListPage = () => {
 		<div className="container mx-auto">
 			<div className="pb-4">
 				<Link
-					className={clsx("btn-secondary btn w-full disabled:disabled", {
+					className={clsx("btn btn-secondary w-full disabled:disabled", {
 						"btn-disabled": disabled,
 					})}
 					href="/events/add"

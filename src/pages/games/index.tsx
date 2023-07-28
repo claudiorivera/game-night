@@ -1,6 +1,6 @@
 import { Disclosure } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/20/solid";
-import clsx from "clsx";
+import { clsx } from "clsx";
 import Link from "next/link";
 
 import { GameDetails } from "~/components";
@@ -12,7 +12,7 @@ const GamesListPage = () => {
 	return (
 		<div className="min-h-screen">
 			<div className="pb-4">
-				<Link className="btn-secondary btn w-full" href="/games/add">
+				<Link className="btn btn-secondary w-full" href="/games/add">
 					Add Game
 				</Link>
 			</div>

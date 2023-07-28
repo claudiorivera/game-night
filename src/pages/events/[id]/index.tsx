@@ -1,5 +1,5 @@
 import { type Event } from "@prisma/client";
-import clsx from "clsx";
+import { clsx } from "clsx";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import { useState, type ComponentProps } from "react";
@@ -101,7 +101,7 @@ const EventDetailsPage = () => {
 
 						{(isCurrentUserHost || currentUserProfile?.isAdmin) && (
 							<button
-								className="btn-error btn"
+								className="btn btn-error"
 								onClick={() => setIsDeleteEventDialogOpen(true)}
 							>
 								Delete
@@ -128,7 +128,7 @@ const Button = ({
 	...buttonProps
 }: ComponentProps<"button">) => (
 	<button
-		className={clsx("btn-secondary btn", {
+		className={clsx("btn btn-secondary", {
 			"btn-disabled": disabled,
 		})}
 		disabled={disabled}
@@ -161,7 +161,7 @@ const EventDeleteDialog = ({
 				<button className="btn" onClick={onClose} type="button">
 					Cancel
 				</button>
-				<button className="btn-error btn" onClick={handleDelete} type="button">
+				<button className="btn btn-error" onClick={handleDelete} type="button">
 					Yes
 				</button>
 			</div>

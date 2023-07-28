@@ -3,7 +3,7 @@ import "../styles/globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import clsx from "clsx";
+import { clsx } from "clsx";
 import { type AppProps } from "next/app";
 import { Roboto } from "next/font/google";
 import Head from "next/head";
