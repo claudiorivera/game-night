@@ -13,7 +13,7 @@
 	"dependencies": {
 		"@clerk/nextjs": "4.23.2",
 		"@faker-js/faker": "8.0.2",
-		"@headlessui/react": "1.7.16",
+		"@headlessui/react": "1.7.17",
 		"@headlessui/tailwindcss": "0.2.0",
 		"@heroicons/react": "2.0.18",
 		"@prisma/client": "5.1.1",
