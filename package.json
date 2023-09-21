@@ -30,7 +30,7 @@
 		"clsx": "2.0.0",
 		"daisyui": "3.7.6",
 		"dayjs": "1.11.10",
-		"fast-xml-parser": "4.2.7",
+		"fast-xml-parser": "4.3.0",
 		"next": "13.4.19",
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
