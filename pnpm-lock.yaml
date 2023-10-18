@@ -92,8 +92,8 @@ devDependencies:
     specifier: 0.5.6
     version: 0.5.6(tailwindcss@3.3.3)
   '@types/eslint':
-    specifier: 8.44.4
-    version: 8.44.4
+    specifier: 8.44.5
+    version: 8.44.5
   '@types/prettier':
     specifier: 2.7.3
     version: 2.7.3
@@ -1089,8 +1089,8 @@ packages:
       '@types/node': 17.0.35
     dev: false
 
-  /@types/eslint@8.44.4:
-    resolution: {integrity: sha512-lOzjyfY/D9QR4hY9oblZ76B90MYTB3RrQ4z2vBIJKj9ROCRqdkYl2gSUx1x1a4IWPjKJZLL4Aw1Zfay7eMnmnA==}
+  /@types/eslint@8.44.5:
+    resolution: {integrity: sha512-Ol2eio8LtD/tGM4Ga7Jb83NuFwEv3NqvssSlifXL9xuFpSyQZw0ecmm2Kux6iU0KxQmp95hlPmGCzGJ0TCFeRA==}
     dependencies:
       '@types/estree': 1.0.1
       '@types/json-schema': 7.0.12
