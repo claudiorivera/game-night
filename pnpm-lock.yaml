@@ -16,7 +16,7 @@ dependencies:
     version: 1.7.17(react-dom@18.2.0)(react@18.2.0)
   '@headlessui/tailwindcss':
     specifier: 0.2.0
-    version: 0.2.0(tailwindcss@3.3.4)
+    version: 0.2.0(tailwindcss@3.3.5)
   '@heroicons/react':
     specifier: 2.0.18
     version: 2.0.18(react@18.2.0)
@@ -90,7 +90,7 @@ dependencies:
 devDependencies:
   '@tailwindcss/forms':
     specifier: 0.5.6
-    version: 0.5.6(tailwindcss@3.3.4)
+    version: 0.5.6(tailwindcss@3.3.5)
   '@types/eslint':
     specifier: 8.44.6
     version: 8.44.6
@@ -134,8 +134,8 @@ devDependencies:
     specifier: 5.4.2
     version: 5.4.2
   tailwindcss:
-    specifier: 3.3.4
-    version: 3.3.4
+    specifier: 3.3.5
+    version: 3.3.5
   typescript:
     specifier: 5.2.2
     version: 5.2.2
@@ -319,13 +319,13 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@headlessui/tailwindcss@0.2.0(tailwindcss@3.3.4):
+  /@headlessui/tailwindcss@0.2.0(tailwindcss@3.3.5):
     resolution: {integrity: sha512-fpL830Fln1SykOCboExsWr3JIVeQKieLJ3XytLe/tt1A0XzqUthOftDmjcCYLW62w7mQI7wXcoPXr3tZ9QfGxw==}
     engines: {node: '>=10'}
     peerDependencies:
       tailwindcss: ^3.0
     dependencies:
-      tailwindcss: 3.3.4
+      tailwindcss: 3.3.5
     dev: false
 
   /@heroicons/react@2.0.18(react@18.2.0):
@@ -965,13 +965,13 @@ packages:
       zod: 3.22.4
     dev: false
 
-  /@tailwindcss/forms@0.5.6(tailwindcss@3.3.4):
+  /@tailwindcss/forms@0.5.6(tailwindcss@3.3.5):
     resolution: {integrity: sha512-Fw+2BJ0tmAwK/w01tEFL5TiaJBX1NLT1/YbWgvm7ws3Qcn11kiXxzNTEQDMs5V3mQemhB56l3u0i9dwdzSQldA==}
     peerDependencies:
       tailwindcss: '>=3.0.0 || >= 3.0.0-alpha.1'
     dependencies:
       mini-svg-data-uri: 1.4.4
-      tailwindcss: 3.3.4
+      tailwindcss: 3.3.5
     dev: true
 
   /@tanstack/match-sorter-utils@8.8.4:
@@ -1742,7 +1742,7 @@ packages:
       css-selector-tokenizer: 0.8.0
       postcss: 8.4.31
       postcss-js: 4.0.1(postcss@8.4.31)
-      tailwindcss: 3.3.4
+      tailwindcss: 3.3.5
     transitivePeerDependencies:
       - ts-node
     dev: false
@@ -3885,8 +3885,8 @@ packages:
       tslib: 2.4.1
     dev: true
 
-  /tailwindcss@3.3.4:
-    resolution: {integrity: sha512-JXZNOkggUAc9T5E7nCrimoXHcSf9h3NWFe5sh36CGD/3M5TRLuQeFnQoDsit2uVTqgoOZHLx5rTykLUu16vsMQ==}
+  /tailwindcss@3.3.5:
+    resolution: {integrity: sha512-5SEZU4J7pxZgSkv7FP1zY8i2TIAOooNZ1e/OGtxIEv6GltpoiXUqWvLy89+a10qYTB1N5Ifkuw9lqQkN9sscvA==}
     engines: {node: '>=14.0.0'}
     hasBin: true
     dependencies:
