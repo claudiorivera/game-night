@@ -17,19 +17,13 @@ const EditEventPage = () => {
 		},
 		{
 			enabled: !!router.query.id,
-			onSuccess: (data) => {
-				if (!data) return;
-
-				setDateTime(data.dateTime);
-				setGameId(data.game.id);
-			},
 		},
 	);
 
 	const [dateTime, setDateTime] = useState<Date>(event?.dateTime ?? new Date());
-	const [gameId, setGameId] = useState<string>("");
+	const [gameId, setGameId] = useState<string>(event?.game.id ?? "");
 
-	const { mutate: updateEvent, isLoading: disabled } =
+	const { mutate: updateEvent, isPending: disabled } =
 		api.event.updateById.useMutation({
 			onSuccess: () => {
 				toast.success("Event updated successfully");
