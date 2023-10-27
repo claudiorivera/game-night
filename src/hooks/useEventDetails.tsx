@@ -21,19 +21,19 @@ export const useEventDetailsPage = (eventId: Event["id"]) => {
 		},
 	);
 
-	const { mutate: deleteEventById, isLoading: isDeletingEvent } =
+	const { mutate: deleteEventById, isPending: isDeletingEvent } =
 		api.event.deleteById.useMutation({
 			onSuccess: () => handleSuccessWithMessage("Event deleted!"),
 			onError: (error) => toast.error(error.message),
 		});
 
-	const { mutate: leaveEventById, isLoading: isLeavingEvent } =
+	const { mutate: leaveEventById, isPending: isLeavingEvent } =
 		api.event.leaveById.useMutation({
 			onSuccess: () => handleSuccessWithMessage("You have left the event!"),
 			onError: (error) => toast.error(error.message),
 		});
 
-	const { mutate: joinEventById, isLoading: isJoiningEvent } =
+	const { mutate: joinEventById, isPending: isJoiningEvent } =
 		api.event.joinById.useMutation({
 			onSuccess: () => handleSuccessWithMessage("You have joined the event!"),
 			onError: (error) => toast.error(error.message),

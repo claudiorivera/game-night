@@ -75,7 +75,7 @@ type QueryResultProps = {
 const QueryResult = ({ result }: QueryResultProps) => {
 	const router = useRouter();
 
-	const { mutate: addGame, isLoading: disabled } = api.game.import.useMutation({
+	const { mutate: addGame, isPending: disabled } = api.game.import.useMutation({
 		onSuccess: () => {
 			toast.success("Game added successfully!");
 			void router.push("/games");

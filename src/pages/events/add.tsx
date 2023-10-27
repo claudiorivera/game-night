@@ -13,7 +13,7 @@ const AddEventPage = () => {
 
 	const { data: games } = api.game.getAll.useQuery();
 
-	const { mutate: addEvent, isLoading: disabled } =
+	const { mutate: addEvent, isPending: disabled } =
 		api.event.create.useMutation({
 			onSuccess: () => {
 				toast.success("Event created!");
