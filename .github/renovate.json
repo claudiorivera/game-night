@@ -1,6 +1,6 @@
 {
 	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
-	"extends": ["config:base", ":rebaseStalePrs"],
+	"extends": ["config:base"],
 	"packageRules": [
 		{
 			"matchUpdateTypes": ["patch", "pin", "digest"],
@@ -16,5 +16,6 @@
 			"groupName": "trpc"
 		}
 	],
+	"schedule": ["after 9pm and before 9am every weekday", "every weekend"],
 	"commitMessagePrefix": "🤖"
 }
