@@ -26,7 +26,7 @@
 		"@trpc/next": "next",
 		"@trpc/react-query": "next",
 		"@trpc/server": "next",
-		"axios": "1.6.2",
+		"axios": "1.6.3",
 		"clsx": "2.0.0",
 		"daisyui": "4.4.24",
 		"dayjs": "1.11.10",
