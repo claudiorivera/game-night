@@ -13,6 +13,8 @@ const defaultProfileSelect = Prisma.validator<Prisma.ProfileSelect>()({
 		select: defaultEventSelect,
 	},
 	clerkId: true,
+	avatarUrl: true,
+	username: true,
 });
 
 export const profileRouter = createTRPCRouter({
