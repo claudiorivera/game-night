@@ -1,21 +1,21 @@
-import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { type ReactNode } from "react";
-
-import { EventSummaryCard, SkeletonCard } from "~/components";
+import { EventSummaryCard } from "~/components/EventSummaryCard";
+import { SkeletonCard } from "~/components/SkeletonCard";
 import { api } from "~/lib/api";
+import { renderProfileName } from "~/lib/renderProfileName";
+import { type EventGetAllOutput } from "~/server/api/routers/event";
 
-const HomePage = () => {
+export default function HomePage() {
 	const { data: profile } = api.profile.getMine.useQuery();
-	const { user } = useUser();
 
 	return (
 		<>
-			<p className="py-2">Hello, {user?.firstName ?? "there"}.</p>
+			<p className="py-2">Hello, {renderProfileName(profile)}.</p>
 
 			<Title>Events You Are Hosting:</Title>
 			<Events
-				ListEmptyComponent={
+				emptyComponent={
 					<p className="text-gray-500">
 						You are not hosting any events.&nbsp;
 						<Link className="hover:text-primary" href="/events/add">
@@ -28,7 +28,7 @@ const HomePage = () => {
 
 			<Title>Events You Are Attending:</Title>
 			<Events
-				ListEmptyComponent={
+				emptyComponent={
 					<p className="text-gray-500">
 						You are not attending any events.&nbsp;
 						<Link className="hover:text-primary" href="/events">
@@ -40,49 +40,32 @@ const HomePage = () => {
 			/>
 		</>
 	);
-};
+}
 
-export default HomePage;
+function Title({ children }: { children: ReactNode }) {
+	return <h4 className="py-4 font-semibold">{children}</h4>;
+}
 
-const Title = ({ children }: { children: ReactNode }) => (
-	<h4 className="py-4 font-semibold">{children}</h4>
-);
-
-type EventsProps = {
-	events?:
-		| {
-				id: string;
-				dateTime: Date;
-				game: {
-					id: string;
-					name: string;
-					imageSrc: string;
-				};
-				host: {
-					id: string;
-					clerkId: string;
-				};
-				guests: {
-					id: string;
-					clerkId: string;
-				}[];
-		  }[]
-		| undefined;
-	ListEmptyComponent: ReactNode;
-};
-
-const Events = ({ events, ListEmptyComponent }: EventsProps) => (
-	<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-		{!events ? (
-			<SkeletonCard />
-		) : !events.length ? (
-			ListEmptyComponent
-		) : (
-			events.map((event) => (
-				<div key={event.id}>
-					<EventSummaryCard event={event} />
-				</div>
-			))
-		)}
-	</div>
-);
+function Events({
+	events,
+	emptyComponent,
+}: {
+	events?: EventGetAllOutput;
+	emptyComponent: ReactNode;
+}) {
+	return (
+		<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+			{!events ? (
+				<SkeletonCard />
+			) : !events.length ? (
+				emptyComponent
+			) : (
+				events.map((event) => (
+					<div key={event.id}>
+						<EventSummaryCard event={event} />
+					</div>
+				))
+			)}
+		</div>
+	);
+}

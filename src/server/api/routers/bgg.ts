@@ -28,43 +28,45 @@ export const bggRouter = createTRPCRouter({
 	}),
 });
 
-const buildUrlForGameId = (id: number) =>
-	buildUrl("https://api.geekdo.com/xmlapi2/thing", [
+function buildUrlForGameId(id: number) {
+	return buildUrl("https://api.geekdo.com/xmlapi2/thing", [
 		{
 			id,
 			stats: 1,
 		},
 	]);
+}
 
-const buildUrlForGameQuery = (query: string) =>
-	buildUrl("https://api.geekdo.com/xmlapi2/search", [
+function buildUrlForGameQuery(query: string) {
+	return buildUrl("https://api.geekdo.com/xmlapi2/search", [
 		{ query },
 		{ type: "boardgame" },
 	]);
+}
 
-const fetchBggGameById = async (id: number) => {
+async function fetchBggGameById(id: number) {
 	const url = buildUrlForGameId(id);
 
 	const response = await bggFetch(url);
 
 	return parsedBggGameSchema.parse(response);
-};
+}
 
-const fetchBggIdsByQuery = async (query: string) => {
+async function fetchBggIdsByQuery(query: string) {
 	const url = buildUrlForGameQuery(query);
 
 	const response = await bggFetch(url);
 
 	return parsedBggQueryResultsSchema.parse(response);
-};
+}
 
-const bggFetch = async (url: string) => {
+async function bggFetch(url: string) {
 	const { data: xml } = await axios.get<string>(url);
 
 	return xmlParser.parse(xml) as unknown;
-};
+}
 
-const buildUrl = (url: string, queries: Array<Record<string, unknown>>) => {
+function buildUrl(url: string, queries: Array<Record<string, unknown>>) {
 	const _url = new URL(url);
 
 	queries.forEach((arg) => {
@@ -74,7 +76,7 @@ const buildUrl = (url: string, queries: Array<Record<string, unknown>>) => {
 	});
 
 	return _url.toString();
-};
+}
 
 const xmlParser = new XMLParser({
 	attributeNamePrefix: "",
@@ -214,8 +216,8 @@ type MetaData = Record<"categories" | "mechanics" | "authors", Array<string>>;
 
 export type BGGGameResponse = RouterOutputs["bgg"]["gameById"];
 
-const parseSpecialCharacters = (str: string) =>
-	str
+function parseSpecialCharacters(str: string) {
+	return str
 		.replace(/&#10;/g, "\n")
 		.replace(/&nbsp;/g, " ")
 		.replace(/&mdash;/, "—")
@@ -249,3 +251,4 @@ const parseSpecialCharacters = (str: string) =>
 		.replace(/&#150;/g, "–")
 		.replace(/&eacute;/g, "é")
 		.replace(/&ndash;/g, "–");
+}

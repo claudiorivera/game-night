@@ -3,18 +3,15 @@ import { clsx } from "clsx";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import { useState, type ComponentProps } from "react";
-
-import {
-	Avatar,
-	BackButton,
-	Dialog,
-	GameDetails,
-	SkeletonEvent,
-} from "~/components";
-import { useEventDetailsPage } from "~/hooks";
+import { Avatar } from "~/components/Avatar";
+import { BackButton } from "~/components/BackButton";
+import { Dialog } from "~/components/Dialog";
+import { GameDetails } from "~/components/GameDetails";
+import { SkeletonEvent } from "~/components/SkeletonEvent";
+import { useEventDetailsPage } from "~/hooks/useEventDetails";
 import { api } from "~/lib/api";
 
-const EventDetailsPage = () => {
+export default function EventDetailsPage() {
 	const router = useRouter();
 	const eventId = router.query.id as string;
 	const [isDeleteEventDialogOpen, setIsDeleteEventDialogOpen] = useState(false);
@@ -50,7 +47,7 @@ const EventDetailsPage = () => {
 
 						<div>
 							<p>Host:</p>
-							{event.host.clerkId && <Avatar clerkId={event.host.clerkId} />}
+							<Avatar user={event.host} />
 						</div>
 
 						<div>
@@ -58,7 +55,7 @@ const EventDetailsPage = () => {
 							{!!event.guests.length ? (
 								<div className="avatar-group -space-x-6">
 									{event.guests.map((guest) => (
-										<Avatar clerkId={guest.clerkId} key={guest.clerkId} />
+										<Avatar key={guest.clerkId} user={guest} />
 									))}
 								</div>
 							) : (
@@ -118,37 +115,35 @@ const EventDetailsPage = () => {
 			/>
 		</>
 	);
-};
+}
 
-export default EventDetailsPage;
-
-const Button = ({
+function Button({
 	disabled = false,
 	children,
 	...buttonProps
-}: ComponentProps<"button">) => (
-	<button
-		className={clsx("btn btn-secondary", {
-			"btn-disabled": disabled,
-		})}
-		disabled={disabled}
-		{...buttonProps}
-	>
-		{children}
-	</button>
-);
+}: ComponentProps<"button">) {
+	return (
+		<button
+			className={clsx("btn btn-secondary", {
+				"btn-disabled": disabled,
+			})}
+			disabled={disabled}
+			{...buttonProps}
+		>
+			{children}
+		</button>
+	);
+}
 
-type EventDeleteDialogProps = {
-	isOpen: boolean;
-	onClose: () => void;
-	eventId: Event["id"];
-};
-
-const EventDeleteDialog = ({
+function EventDeleteDialog({
 	isOpen,
 	onClose,
 	eventId,
-}: EventDeleteDialogProps) => {
+}: {
+	isOpen: boolean;
+	onClose: () => void;
+	eventId: Event["id"];
+}) {
 	const { handleDelete } = useEventDetailsPage(eventId);
 
 	return (
@@ -167,4 +162,4 @@ const EventDeleteDialog = ({
 			</div>
 		</Dialog>
 	);
-};
+}

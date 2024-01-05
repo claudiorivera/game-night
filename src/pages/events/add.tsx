@@ -3,15 +3,14 @@ import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-
 import { api } from "~/lib/api";
 
-const AddEventPage = () => {
+export default function AddEventPage() {
 	const router = useRouter();
-	const [dateTime, setDateTime] = useState<Date>(new Date());
+	const [dateTime, setDateTime] = useState(new Date());
 	const [gameId, setGameId] = useState("");
 
-	const { data: games } = api.game.getAll.useQuery();
+	const { data: games = [] } = api.game.getAll.useQuery();
 
 	const { mutate: addEvent, isPending: disabled } =
 		api.event.create.useMutation({
@@ -23,8 +22,6 @@ const AddEventPage = () => {
 				toast.error(error.message);
 			},
 		});
-
-	if (!games) return null;
 
 	return (
 		<form
@@ -71,6 +68,4 @@ const AddEventPage = () => {
 			</button>
 		</form>
 	);
-};
-
-export default AddEventPage;
+}

@@ -8,12 +8,19 @@ generator client {
 }
 
 model Profile {
-  id              String  @id @default(cuid())
-  clerkId         String  @unique
+  id String @id @default(cuid())
+
+  clerkId   String? @unique
+  avatarUrl String?
+  username  String?
+  firstName String?
+  lastName  String?
+
+  isAdmin Boolean @default(false)
+  isDemo  Boolean @default(false)
+
   eventsAttending Event[] @relation("EventGuests")
   eventsHosting   Event[]
-  isAdmin         Boolean @default(false)
-  isDemo          Boolean @default(false)
 }
 
 model Event {

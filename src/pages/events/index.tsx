@@ -1,14 +1,13 @@
 import { clsx } from "clsx";
 import Link from "next/link";
 import { useState } from "react";
-
-import { EventSummaryCard, SkeletonCard } from "~/components";
+import { EventSummaryCard } from "~/components/EventSummaryCard";
 import { api } from "~/lib/api";
 
-const EventsListPage = () => {
+export default function EventsListPage() {
 	const [disabled, setDisabled] = useState(false);
 
-	const { data: events } = api.event.getAll.useQuery();
+	const { data: events = [] } = api.event.getAll.useQuery();
 
 	return (
 		<div className="container mx-auto">
@@ -27,18 +26,12 @@ const EventsListPage = () => {
 			</div>
 
 			<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-				{!events
-					? Array(5)
-							.fill(null)
-							.map((_, i) => <SkeletonCard key={i} />)
-					: events.map((event) => (
-							<div key={event.id}>
-								<EventSummaryCard event={event} />
-							</div>
-					  ))}
+				{events.map((event) => (
+					<div key={event.id}>
+						<EventSummaryCard event={event} />
+					</div>
+				))}
 			</div>
 		</div>
 	);
-};
-
-export default EventsListPage;
+}

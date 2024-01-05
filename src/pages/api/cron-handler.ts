@@ -1,78 +1,67 @@
 import { faker } from "@faker-js/faker";
 import { type NextApiRequest, type NextApiResponse } from "next";
-
 import { env } from "~/env.mjs";
-import { prisma } from "~/server/db";
+import { db } from "~/server/db";
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+export default async function handler(
+	req: NextApiRequest,
+	res: NextApiResponse,
+) {
 	const { authorization } = req.headers;
 
 	if (authorization === `Bearer ${env.API_SECRET_KEY}`) {
 		try {
-			await wipeDatabase();
+			await db.profile.deleteMany({
+				where: {
+					isAdmin: false,
+				},
+			});
 
-			// get a random existing game id
-			const games = await prisma.game.findMany();
-			const getRandomGameId = () => {
-				const randomIndex = Math.floor(Math.random() * games.length);
-				return games[randomIndex]?.id;
-			};
+			const games = await db.game.findMany();
 
-			const eventsToCreate = Array.from({
-				length: 6,
-			}).map(() => ({
-				dateTime: faker.date.soon(90),
+			const eventsToCreate = [...Array<unknown>(6)].map(() => ({
+				dateTime: faker.date.soon({
+					days: 90,
+				}),
 				game: {
 					connect: {
-						id: getRandomGameId(),
+						id: faker.helpers.arrayElement(games).id,
 					},
 				},
 				host: {
-					connectOrCreate: {
-						where: {
-							id: faker.datatype.uuid(),
-						},
-						create: {
-							clerkId: faker.datatype.uuid(),
-							isAdmin: false,
-							isDemo: true,
-						},
+					create: {
+						firstName: faker.person.firstName(),
+						lastName: faker.person.lastName(),
+						avatarUrl: faker.image.avatar(),
+						isAdmin: false,
+						isDemo: true,
 					},
 				},
 				guests: {
-					connectOrCreate: randomGuestsToCreate(),
+					create: [...Array<unknown>(faker.number.int({ max: 4 }))].map(() => ({
+						firstName: faker.person.firstName(),
+						lastName: faker.person.lastName(),
+						avatarUrl: faker.image.avatar(),
+						isAdmin: false,
+						isDemo: true,
+					})),
 				},
 			}));
 
-			for (const event of eventsToCreate) {
-				await prisma.event.create({
-					data: event,
-				});
-			}
+			await Promise.allSettled(
+				eventsToCreate.map((event) =>
+					db.event.create({
+						data: event,
+					}),
+				),
+			);
 
 			return res.status(200).end("Database cleared and seeded");
 		} catch (error) {
+			console.error(error);
 			throw error;
 		}
 	} else {
 		return res.status(401).end();
 	}
-};
-
-const wipeDatabase = async () => {
-	await prisma.profile.deleteMany();
-};
-
-const randomGuestsToCreate = () =>
-	Array.from({ length: faker.datatype.number({ max: 4 }) }).map(() => ({
-		where: {
-			id: faker.datatype.uuid(),
-		},
-		create: {
-			clerkId: faker.datatype.uuid(),
-			isAdmin: false,
-			isDemo: true,
-		},
-	}));
-
-export default handler;
+}

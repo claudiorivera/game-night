@@ -1,4 +1,4 @@
-export const Loading = () => {
+export function Loading() {
 	return (
 		// By Sam Herbert (@sherb), for everyone. More @ http://goo.gl/7AJzbL
 		<div className="flex w-full items-center justify-center pt-16 text-primary">
@@ -76,4 +76,4 @@ export const Loading = () => {
 			</div>
 		</div>
 	);
-};
+}

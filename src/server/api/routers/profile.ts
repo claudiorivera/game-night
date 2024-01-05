@@ -1,5 +1,4 @@
 import { Prisma } from "@prisma/client";
-
 import { defaultEventSelect } from "~/server/api/routers/event";
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 
@@ -13,6 +12,11 @@ const defaultProfileSelect = Prisma.validator<Prisma.ProfileSelect>()({
 		select: defaultEventSelect,
 	},
 	clerkId: true,
+	avatarUrl: true,
+	username: true,
+	firstName: true,
+	lastName: true,
+	isDemo: true,
 });
 
 export const profileRouter = createTRPCRouter({

@@ -1,31 +1,25 @@
+import { type Profile } from "@prisma/client";
 import * as _Avatar from "@radix-ui/react-avatar";
 import * as Tooltip from "@radix-ui/react-tooltip";
+import { renderProfileName } from "~/lib/renderProfileName";
 
-import { api } from "~/lib/api";
-
-type Props = {
-	clerkId: string;
-};
-
-export const Avatar = ({ clerkId }: Props) => {
-	const { data: clerkUser } = api.clerk.clerkUserById.useQuery({
-		clerkId: clerkId,
-	});
+export function Avatar({ user }: { user: Profile }) {
+	const profileName = renderProfileName(user);
 
 	return (
 		<Tooltip.Root>
 			<Tooltip.Trigger asChild>
 				<_Avatar.Root className="inline-flex h-10 w-10 select-none items-center justify-center overflow-hidden rounded-full bg-black align-middle shadow">
 					<_Avatar.Image
-						alt={clerkUser?.firstName ?? ""}
+						alt={`profile image for ${profileName}`}
 						className="h-full w-full rounded-[inherit] object-cover"
-						src={clerkUser?.profileImageUrl}
+						src={user.avatarUrl || undefined}
 					/>
 					<_Avatar.Fallback
 						className="leading-1 flex h-full w-full cursor-default items-center justify-center bg-primary text-sm font-medium text-primary-content"
 						delayMs={600}
 					>
-						{clerkUser?.firstName?.charAt(0) || "A"}
+						{profileName.charAt(0) || "A"}
 					</_Avatar.Fallback>
 				</_Avatar.Root>
 			</Tooltip.Trigger>
@@ -34,10 +28,10 @@ export const Avatar = ({ clerkId }: Props) => {
 					className="rounded bg-gray-100 px-2 py-1 text-sm"
 					sideOffset={5}
 				>
-					{clerkUser?.firstName ?? "Anonymous"}
+					{profileName}
 					<Tooltip.Arrow className="fill-gray-100" />
 				</Tooltip.Content>
 			</Tooltip.Portal>
 		</Tooltip.Root>
 	);
-};
+}
