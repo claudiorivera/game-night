@@ -8,8 +8,7 @@ import { type AppProps } from "next/app";
 import { Roboto } from "next/font/google";
 import Head from "next/head";
 import { Toaster } from "react-hot-toast";
-
-import { MainAppBar } from "~/components";
+import { MainAppBar } from "~/components/MainAppBar";
 import { api } from "~/lib/api";
 
 export const roboto = Roboto({
@@ -20,7 +19,7 @@ export const roboto = Roboto({
 	variable: "--font-inter",
 });
 
-function MyApp({ Component, pageProps }: AppProps) {
+export default api.withTRPC(function MyApp({ Component, pageProps }: AppProps) {
 	return (
 		<>
 			<Head>
@@ -42,6 +41,4 @@ function MyApp({ Component, pageProps }: AppProps) {
 			<ReactQueryDevtools initialIsOpen={false} />
 		</>
 	);
-}
-
-export default api.withTRPC(MyApp);
+});

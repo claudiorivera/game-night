@@ -3,12 +3,14 @@ import { headers } from "next/headers";
 import { Webhook } from "svix";
 import { z } from "zod";
 import { env } from "~/env.mjs";
-import { prisma } from "~/server/db";
+import { db } from "~/server/db";
 
 const clerkUserSchema = z.object({
 	id: z.string(),
 	image_url: z.string().url().nullish(),
 	username: z.string().nullish(),
+	first_name: z.string().nullish(),
+	last_name: z.string().nullish(),
 });
 
 export async function POST(req: Request) {
@@ -63,15 +65,18 @@ export async function POST(req: Request) {
 		);
 	}
 
-	const { id, username, image_url } = validation.data;
+	const { id, username, image_url, first_name, last_name } = validation.data;
 
 	const eventType = evt.type;
 
 	if (eventType === "user.created") {
-		const profile = await prisma.profile.create({
+		const profile = await db.profile.create({
 			data: {
 				clerkId: id,
 				avatarUrl: image_url,
+				username,
+				firstName: first_name,
+				lastName: last_name,
 			},
 		});
 
@@ -79,7 +84,7 @@ export async function POST(req: Request) {
 	}
 
 	if (eventType === "user.updated") {
-		const profile = await prisma.profile.upsert({
+		const profile = await db.profile.upsert({
 			where: {
 				clerkId: id,
 			},
@@ -87,11 +92,15 @@ export async function POST(req: Request) {
 				clerkId: id,
 				avatarUrl: image_url,
 				username,
+				firstName: first_name,
+				lastName: last_name,
 			},
 			create: {
 				clerkId: id,
 				avatarUrl: image_url,
 				username,
+				firstName: first_name,
+				lastName: last_name,
 			},
 		});
 
@@ -99,7 +108,7 @@ export async function POST(req: Request) {
 	}
 
 	if (eventType === "user.deleted") {
-		const profile = await prisma.profile.delete({
+		const profile = await db.profile.delete({
 			where: {
 				clerkId: id,
 			},

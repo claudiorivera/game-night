@@ -1,9 +1,8 @@
 import { useClerk } from "@clerk/nextjs";
 import Link from "next/link";
-
 import { userLinks } from "~/constants";
 
-export const MainAppBar = () => {
+export function MainAppBar() {
 	const { signOut } = useClerk();
 
 	const handleDropdownItemClick = () => {
@@ -14,13 +13,13 @@ export const MainAppBar = () => {
 	return (
 		<div className="navbar mb-4 bg-primary p-4 text-primary-content shadow">
 			<div className="flex-1">
-				<Link className="text-2xl font-bold hover:text-primary-focus" href="/">
+				<Link className="hover:text-primary-focus text-2xl font-bold" href="/">
 					Game Night
 				</Link>
 			</div>
 			<div className="flex-none">
-				<div className="dropdown-end dropdown z-10">
-					<label className="btn-ghost btn-circle btn" tabIndex={0}>
+				<div className="dropdown dropdown-end z-10">
+					<label className="btn btn-circle btn-ghost" tabIndex={0}>
 						<svg
 							className="h-6 w-6"
 							fill="none"
@@ -37,7 +36,7 @@ export const MainAppBar = () => {
 						</svg>
 					</label>
 					<ul
-						className="dropdown-content menu rounded-box w-52 bg-base-100 p-2 text-base-content shadow"
+						className="menu dropdown-content w-52 rounded-box bg-base-100 p-2 text-base-content shadow"
 						tabIndex={0}
 					>
 						{userLinks.map((link) => (
@@ -55,4 +54,4 @@ export const MainAppBar = () => {
 			</div>
 		</div>
 	);
-};
+}

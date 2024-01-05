@@ -1,30 +1,25 @@
 import dayjs from "dayjs";
 import Link from "next/link";
+import { Card } from "~/components/Card";
+import { type RouterOutputs } from "~/lib/api";
+import { renderProfileName } from "~/lib/renderProfileName";
 
-import { Card } from "~/components";
-import { api, type RouterOutputs } from "~/lib/api";
-
-type EventSummaryCardProps = {
+export function EventSummaryCard({
+	event,
+}: {
 	event: RouterOutputs["event"]["getAll"][number];
-};
-
-export const EventSummaryCard = ({ event }: EventSummaryCardProps) => {
-	const { game, host } = event;
-	const { data: hostUser } = api.clerk.clerkUserById.useQuery({
-		clerkId: host.clerkId,
-	});
-
+}) {
 	return (
 		<Link href={`/events/${event.id}`}>
 			<Card>
 				<Card.CardHeader
-					subheader={game.name}
+					subheader={event.game.name}
 					title={dayjs(event.dateTime).format("MMMM D, YYYY [at] h:mma")}
 				/>
-				<Card.CardMedia image={game.imageSrc} title={game.name} />
+				<Card.CardMedia image={event.game.imageSrc} title={event.game.name} />
 				<Card.CardContent>
 					<h4 className="font-semibold">
-						Host: {hostUser?.firstName || "Anonymous"}
+						Host: {renderProfileName(event.host)}
 					</h4>
 					<small className="text-slate-500">
 						Guests: {event.guests.length}
@@ -33,4 +28,4 @@ export const EventSummaryCard = ({ event }: EventSummaryCardProps) => {
 			</Card>
 		</Link>
 	);
-};
+}

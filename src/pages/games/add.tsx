@@ -4,16 +4,18 @@ import { clsx } from "clsx";
 import { useRouter } from "next/router";
 import { useState, type Dispatch, type SetStateAction } from "react";
 import { toast } from "react-hot-toast";
-
-import { GameDetails } from "~/components";
+import { GameDetails } from "~/components/GameDetails";
 import { api } from "~/lib/api";
 import { type BGGGameResponse } from "~/server/api/routers/bgg";
 
-const AddGamePage = () => {
+export default function AddGamePage() {
 	const [query, setQuery] = useState("");
-	const { data: results, isFetching } = api.bgg.gamesByQuery.useQuery(query, {
-		enabled: !!query,
-	});
+	const { data: results = [], isFetching } = api.bgg.gamesByQuery.useQuery(
+		query,
+		{
+			enabled: !!query,
+		},
+	);
 
 	return (
 		<div className="container mx-auto">
@@ -21,58 +23,49 @@ const AddGamePage = () => {
 			<QueryResults results={results} />
 		</div>
 	);
-};
+}
 
-export default AddGamePage;
-
-type QueryInputProps = {
+function QueryInput({
+	setQuery,
+	disabled,
+}: {
 	setQuery: Dispatch<SetStateAction<string>>;
 	disabled: boolean;
-};
+}) {
+	return (
+		<form
+			className="flex flex-col gap-2 pb-4"
+			onSubmit={(e) => {
+				e.preventDefault();
+				const q = new FormData(e.currentTarget).get("query");
 
-const QueryInput = ({ setQuery, disabled }: QueryInputProps) => (
-	<form
-		className="flex flex-col gap-2 pb-4"
-		onSubmit={(e) => {
-			e.preventDefault();
-			const q = new FormData(e.currentTarget).get("query");
+				if (typeof q === "string") {
+					setQuery(q);
+				}
+			}}
+		>
+			<input
+				className="input input-bordered"
+				defaultValue=""
+				id="query"
+				name="query"
+				placeholder="Enter a boardgame name to search for"
+				type="text"
+			/>
+			<button className="btn btn-secondary" disabled={disabled} type="submit">
+				Search
+			</button>
+		</form>
+	);
+}
 
-			if (typeof q === "string") {
-				setQuery(q);
-			}
-		}}
-	>
-		<input
-			className="input input-bordered"
-			defaultValue=""
-			id="query"
-			name="query"
-			placeholder="Enter a boardgame name to search for"
-			type="text"
-		/>
-		<button className="btn btn-secondary" disabled={disabled} type="submit">
-			Search
-		</button>
-	</form>
-);
-
-type QueryResultsProps = {
-	results?: Array<BGGGameResponse>;
-};
-
-const QueryResults = ({ results }: QueryResultsProps) => {
-	if (!results) return null;
-
+function QueryResults({ results }: { results: Array<BGGGameResponse> }) {
 	return results.map((result) => (
 		<QueryResult key={result.bggId} result={result} />
 	));
-};
+}
 
-type QueryResultProps = {
-	result: BGGGameResponse;
-};
-
-const QueryResult = ({ result }: QueryResultProps) => {
+function QueryResult({ result }: { result: BGGGameResponse }) {
 	const router = useRouter();
 
 	const { mutate: addGame, isPending: disabled } = api.game.import.useMutation({
@@ -133,4 +126,4 @@ const QueryResult = ({ result }: QueryResultProps) => {
 			)}
 		</Disclosure>
 	);
-};
+}

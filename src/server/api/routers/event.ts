@@ -1,5 +1,6 @@
 import { Prisma } from "@prisma/client";
 import { z } from "zod";
+import { type RouterOutputs } from "~/lib/api";
 
 import { defaultGameSelect } from "~/server/api/routers/game";
 import {
@@ -18,18 +19,8 @@ export const defaultEventSelect = Prisma.validator<Prisma.EventSelect>()({
 			imageSrc: true,
 		},
 	},
-	host: {
-		select: {
-			id: true,
-			clerkId: true,
-		},
-	},
-	guests: {
-		select: {
-			id: true,
-			clerkId: true,
-		},
-	},
+	host: true,
+	guests: true,
 });
 
 export const eventRouter = createTRPCRouter({
@@ -159,7 +150,24 @@ export const eventRouter = createTRPCRouter({
 				}),
 			}),
 		)
-		.mutation(({ ctx, input }) => {
+		.mutation(async ({ ctx, input }) => {
+			const event = await ctx.prisma.event.findUniqueOrThrow({
+				where: {
+					id: input.id,
+				},
+				select: {
+					host: {
+						select: {
+							clerkId: true,
+						},
+					},
+				},
+			});
+
+			if (event.host.clerkId !== ctx.auth.userId) {
+				throw new Error("You are not the host of this event");
+			}
+
 			return ctx.prisma.event.update({
 				where: {
 					id: input.id,
@@ -175,3 +183,6 @@ export const eventRouter = createTRPCRouter({
 			});
 		}),
 });
+
+export type EventGetByIdOutput = RouterOutputs["event"]["getById"];
+export type EventGetAllOutput = RouterOutputs["event"]["getAll"];

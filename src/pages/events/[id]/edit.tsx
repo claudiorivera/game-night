@@ -1,15 +1,13 @@
 import { clsx } from "clsx";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "react-hot-toast";
-import { BackButton } from "~/components";
-
+import { BackButton } from "~/components/BackButton";
 import { api } from "~/lib/api";
 
-const EditEventPage = () => {
+export default function EditEventPage() {
 	const router = useRouter();
-	const { data: currentUserProfile } = api.profile.getMine.useQuery();
 
 	const { data: event } = api.event.getById.useQuery(
 		{
@@ -29,17 +27,10 @@ const EditEventPage = () => {
 				toast.success("Event updated successfully");
 				router.back();
 			},
+			onError: (error) => toast.error(error.message),
 		});
 
-	const { data: games } = api.game.getAll.useQuery();
-
-	useEffect(() => {
-		if (!!currentUserProfile && !!event) {
-			if (currentUserProfile.clerkId !== event.host.clerkId) {
-				void router.push("/events");
-			}
-		}
-	}, [currentUserProfile, event, router]);
+	const { data: games = [] } = api.game.getAll.useQuery();
 
 	return (
 		<div className="container mx-auto">
@@ -84,7 +75,7 @@ const EditEventPage = () => {
 					<option disabled value="">
 						Select a game
 					</option>
-					{(games ?? []).map(({ id, name }) => (
+					{games.map(({ id, name }) => (
 						<option key={id} value={id}>
 							{name}
 						</option>
@@ -104,6 +95,4 @@ const EditEventPage = () => {
 			</form>
 		</div>
 	);
-};
-
-export default EditEventPage;
+}

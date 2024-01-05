@@ -12,12 +12,11 @@ import {
 	type SignedOutAuthObject,
 } from "@clerk/nextjs/dist/types/server";
 import { getAuth } from "@clerk/nextjs/server";
-import { initTRPC, TRPCError } from "@trpc/server";
+import { TRPCError, initTRPC } from "@trpc/server";
 import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
 import superjson from "superjson";
 import { ZodError } from "zod";
-
-import { prisma } from "~/server/db";
+import { db } from "~/server/db";
 
 /**
  * 1. CONTEXT
@@ -41,12 +40,12 @@ type CreateContextOptions = {
  *
  * @see https://create.t3.gg/en/usage/trpc#-serverapitrpcts
  */
-const createInnerTRPCContext = ({ auth }: CreateContextOptions) => {
+function createInnerTRPCContext({ auth }: CreateContextOptions) {
 	return {
 		auth,
-		prisma,
+		prisma: db,
 	};
-};
+}
 
 /**
  * This is the actual context you will use in your router. It will be used to process every request
@@ -54,13 +53,13 @@ const createInnerTRPCContext = ({ auth }: CreateContextOptions) => {
  *
  * @see https://trpc.io/docs/context
  */
-export const createTRPCContext = (opts: CreateNextContextOptions) => {
+export function createTRPCContext(opts: CreateNextContextOptions) {
 	const { req } = opts;
 
 	return createInnerTRPCContext({
 		auth: getAuth(req),
 	});
-};
+}
 
 /**
  * 2. INITIALIZATION
@@ -108,14 +107,21 @@ export const createTRPCRouter = t.router;
 export const publicProcedure = t.procedure;
 
 /** Reusable middleware that enforces users are logged in before running the procedure. */
-const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
+const enforceUserIsAuthed = t.middleware(async ({ ctx, next }) => {
 	if (!ctx.auth.userId) {
 		throw new TRPCError({ code: "UNAUTHORIZED" });
 	}
 
+	const profile = await ctx.prisma.profile.findUnique({
+		where: {
+			clerkId: ctx.auth.userId,
+		},
+	});
+
 	return next({
 		ctx: {
 			auth: ctx.auth,
+			isAdmin: !!profile?.isAdmin,
 		},
 	});
 });

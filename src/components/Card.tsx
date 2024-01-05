@@ -1,51 +1,39 @@
 import Image from "next/image";
 import { type ReactNode } from "react";
 
-type CardProps = {
-	children: ReactNode;
-};
-
-export const Card = ({ children }: CardProps) => {
+export function Card({ children }: { children: ReactNode }) {
 	return <article className="rounded-lg border shadow-lg">{children}</article>;
-};
+}
 
-type CardHeaderProps = {
+function CardHeader({
+	title,
+	subheader,
+}: {
 	title: string;
 	subheader: string;
-};
-
-const CardHeader = ({ title, subheader }: CardHeaderProps) => {
+}) {
 	return (
 		<div className="p-4">
 			<h4 className="font-bold">{title}</h4>
 			<small className="text-slate-500">{subheader}</small>
 		</div>
 	);
-};
+}
 
 Card.CardHeader = CardHeader;
 
-type CardMediaProps = {
-	image: string;
-	title: string;
-};
-
-const CardMedia = ({ image, title }: CardMediaProps) => {
+function CardMedia({ image, title }: { image: string; title: string }) {
 	return (
 		<div className="relative aspect-video">
 			<Image alt={title} className="object-cover" fill src={image} />
 		</div>
 	);
-};
+}
 
 Card.CardMedia = CardMedia;
 
-type CardContentProps = {
-	children: ReactNode;
-};
-
-const CardContent = ({ children }: CardContentProps) => {
+function CardContent({ children }: { children: ReactNode }) {
 	return <div className="p-4">{children}</div>;
-};
+}
 
 Card.CardContent = CardContent;

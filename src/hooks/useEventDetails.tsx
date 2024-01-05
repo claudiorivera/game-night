@@ -1,10 +1,9 @@
 import { type Event } from "@prisma/client";
 import { useRouter } from "next/router";
 import { toast } from "react-hot-toast";
-
 import { api } from "~/lib/api";
 
-export const useEventDetailsPage = (eventId: Event["id"]) => {
+export function useEventDetailsPage(eventId: Event["id"]) {
 	const router = useRouter();
 
 	const handleSuccessWithMessage = (message: string) => {
@@ -54,4 +53,4 @@ export const useEventDetailsPage = (eventId: Event["id"]) => {
 		joinEventById,
 		leaveEventById,
 	};
-};
+}
