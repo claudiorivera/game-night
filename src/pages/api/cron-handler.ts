@@ -1,5 +1,6 @@
 import { faker } from "@faker-js/faker";
 import { type NextApiRequest, type NextApiResponse } from "next";
+import { env } from "~/env.mjs";
 import { db } from "~/server/db";
 
 export default async function handler(
@@ -8,7 +9,7 @@ export default async function handler(
 ) {
 	const { authorization } = req.headers;
 
-	if (authorization === `Bearer ${process.env.API_SECRET_KEY}`) {
+	if (authorization === `Bearer ${env.API_SECRET_KEY}`) {
 		try {
 			await db.profile.deleteMany({
 				where: {
