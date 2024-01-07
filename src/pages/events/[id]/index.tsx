@@ -47,7 +47,7 @@ export default function EventDetailsPage() {
 
 						<div>
 							<p>Host:</p>
-							<Avatar user={event.host} />
+							<Avatar profile={event.host} />
 						</div>
 
 						<div>
@@ -55,7 +55,7 @@ export default function EventDetailsPage() {
 							{!!event.guests.length ? (
 								<div className="avatar-group -space-x-6">
 									{event.guests.map((guest) => (
-										<Avatar key={guest.clerkId} user={guest} />
+										<Avatar key={guest.clerkId} profile={guest} />
 									))}
 								</div>
 							) : (

@@ -3,8 +3,8 @@ import * as _Avatar from "@radix-ui/react-avatar";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { renderProfileName } from "~/lib/renderProfileName";
 
-export function Avatar({ user }: { user: Profile }) {
-	const profileName = renderProfileName(user);
+export function Avatar({ profile }: { profile: Profile }) {
+	const profileName = renderProfileName(profile);
 
 	return (
 		<Tooltip.Root>
@@ -13,13 +13,13 @@ export function Avatar({ user }: { user: Profile }) {
 					<_Avatar.Image
 						alt={`profile image for ${profileName}`}
 						className="h-full w-full rounded-[inherit] object-cover"
-						src={user.avatarUrl || undefined}
+						src={profile.avatarUrl || undefined}
 					/>
 					<_Avatar.Fallback
 						className="leading-1 flex h-full w-full cursor-default items-center justify-center bg-primary text-sm font-medium text-primary-content"
 						delayMs={600}
 					>
-						{profileName.charAt(0) || "A"}
+						{profileName.charAt(0)}
 					</_Avatar.Fallback>
 				</_Avatar.Root>
 			</Tooltip.Trigger>

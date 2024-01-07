@@ -10,12 +10,17 @@ import { type BGGGameResponse } from "~/server/api/routers/bgg";
 
 export default function AddGamePage() {
 	const [query, setQuery] = useState("");
-	const { data: results = [], isFetching } = api.bgg.gamesByQuery.useQuery(
-		query,
-		{
-			enabled: !!query,
-		},
-	);
+	const {
+		data: results = [],
+		isFetching,
+		error,
+	} = api.bgg.gamesByQuery.useQuery(query, {
+		enabled: !!query,
+	});
+
+	if (error) {
+		toast.error(error.message);
+	}
 
 	return (
 		<div className="container mx-auto">

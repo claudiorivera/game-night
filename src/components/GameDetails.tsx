@@ -1,51 +1,41 @@
 import Image from "next/image";
-import { SkeletonRow } from "~/components/SkeletonRow";
 import { type BGGGameResponse } from "~/server/api/routers/bgg";
 
-export function GameDetails({ game }: { game?: BGGGameResponse }) {
+export function GameDetails({ game }: { game: BGGGameResponse }) {
 	return (
 		<div className="grid grid-cols-12 gap-4">
 			<div className="col-span-12 flex flex-col gap-4 sm:col-span-4">
 				<div className="relative aspect-square">
-					{game?.imageSrc ? (
-						<Image
-							alt={game.name}
-							className="object-contain"
-							fill
-							src={game.imageSrc}
-						/>
-					) : (
-						<div className="h-full w-full bg-slate-300 object-cover" />
-					)}
+					<Image
+						alt={game.name}
+						className="object-contain"
+						fill
+						sizes="(min-width: 1200px) 33vw, 100vw"
+						src={game.imageSrc}
+					/>
 				</div>
 				<div className="flex flex-col gap-2">
-					{!game ? (
-						<SkeletonRows />
-					) : (
-						<>
-							<BadgesDisplay badges={game.authors} label="Authors" />
-							<BadgesDisplay badges={game.categories} label="Categories" />
-							<Description
-								definition={`${game.rating.toFixed(2)} (${
-									game.numOfRatings
-								} ratings)`}
-								term="Average BGG Rating"
-							/>
-							<Description
-								definition={`${game.minPlayers} to ${game.maxPlayers}`}
-								term="Players"
-							/>
-							<Description
-								definition={`${game.playingTime} minutes`}
-								term="Playing Time"
-							/>
-							<Description definition={`${game.minAge}+`} term="Ages" />
-						</>
-					)}
+					<BadgesDisplay badges={game.authors} label="Authors" />
+					<BadgesDisplay badges={game.categories} label="Categories" />
+					<Description
+						definition={`${game.rating.toFixed(2)} (${
+							game.numOfRatings
+						} ratings)`}
+						term="Average BGG Rating"
+					/>
+					<Description
+						definition={`${game.minPlayers} to ${game.maxPlayers}`}
+						term="Players"
+					/>
+					<Description
+						definition={`${game.playingTime} minutes`}
+						term="Playing Time"
+					/>
+					<Description definition={`${game.minAge}+`} term="Ages" />
 				</div>
 			</div>
 			<div className="col-span-12 sm:col-span-8">
-				{game?.description ? <p>{game.description}</p> : <SkeletonRows />}
+				<p>{game.description}</p>
 			</div>
 		</div>
 	);
@@ -77,16 +67,6 @@ function BadgesDisplay({ label, badges }: { label: string; badges: string[] }) {
 					</div>
 				))}
 			</div>
-		</div>
-	);
-}
-
-function SkeletonRows() {
-	return (
-		<div className="flex flex-col gap-1">
-			{[...Array<unknown>(4)].map((_, i) => (
-				<SkeletonRow key={i} />
-			))}
 		</div>
 	);
 }

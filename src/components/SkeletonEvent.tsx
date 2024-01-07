@@ -1,4 +1,4 @@
-import { GameDetails } from "~/components/GameDetails";
+import { SkeletonGameDetails } from "~/components/SkeletonGameDetails";
 import { SkeletonRow } from "~/components/SkeletonRow";
 
 export function SkeletonEvent() {
@@ -14,7 +14,7 @@ export function SkeletonEvent() {
 			</div>
 
 			<div className="p-4">
-				<GameDetails />
+				<SkeletonGameDetails />
 
 				<div className="divider" />
 
