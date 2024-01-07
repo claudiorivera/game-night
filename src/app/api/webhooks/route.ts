@@ -1,16 +1,19 @@
-import { type WebhookEvent } from "@clerk/nextjs/server";
 import { headers } from "next/headers";
 import { Webhook } from "svix";
 import { z } from "zod";
 import { env } from "~/env.mjs";
 import { db } from "~/server/db";
 
-const clerkUserSchema = z.object({
-	id: z.string(),
-	image_url: z.string().url().nullish(),
-	username: z.string().nullish(),
-	first_name: z.string().nullish(),
-	last_name: z.string().nullish(),
+const clerkWebhookUserEvent = z.object({
+	data: z.object({
+		id: z.string(),
+		image_url: z.string().url().nullish(),
+		username: z.string().nullish(),
+		first_name: z.string().nullish(),
+		last_name: z.string().nullish(),
+	}),
+	object: z.literal("event"),
+	type: z.enum(["user.created", "user.updated", "user.deleted"]),
 });
 
 export async function POST(req: Request) {
@@ -19,7 +22,6 @@ export async function POST(req: Request) {
 	const svixTimestamp = headerPayload.get("svix-timestamp");
 	const svixSignature = headerPayload.get("svix-signature");
 
-	// If there are no headers, error out
 	if (!svixId || !svixTimestamp || !svixSignature) {
 		return Response.json(
 			{ message: "Error occured -- no svix headers" },
@@ -29,98 +31,79 @@ export async function POST(req: Request) {
 		);
 	}
 
-	const payload = (await req.json()) as unknown;
+	const requestBody = (await req.json()) as unknown;
 
-	const body = JSON.stringify(payload);
-
-	const wh = new Webhook(env.WEBHOOK_SECRET);
-
-	let evt: WebhookEvent;
-
-	try {
-		evt = wh.verify(body, {
+	const webhookEvent = new Webhook(env.WEBHOOK_SECRET).verify(
+		JSON.stringify(requestBody),
+		{
 			"svix-id": svixId,
 			"svix-timestamp": svixTimestamp,
 			"svix-signature": svixSignature,
-		}) as WebhookEvent;
-	} catch (err) {
-		console.error("Error verifying webhook:", err);
-		return Response.json(
-			{ message: "Error occured" },
-			{
-				status: 400,
-			},
-		);
-	}
-
-	const validation = clerkUserSchema.safeParse(evt.data);
-
-	if (!validation.success) {
-		console.error("Error validating webhook:", validation.error);
-		return Response.json(
-			{ message: "Error occured" },
-			{
-				status: 400,
-			},
-		);
-	}
-
-	const { id, username, image_url, first_name, last_name } = validation.data;
-
-	const eventType = evt.type;
-
-	if (eventType === "user.created") {
-		const profile = await db.profile.create({
-			data: {
-				clerkId: id,
-				avatarUrl: image_url,
-				username,
-				firstName: first_name,
-				lastName: last_name,
-			},
-		});
-
-		return Response.json(profile);
-	}
-
-	if (eventType === "user.updated") {
-		const profile = await db.profile.upsert({
-			where: {
-				clerkId: id,
-			},
-			update: {
-				clerkId: id,
-				avatarUrl: image_url,
-				username,
-				firstName: first_name,
-				lastName: last_name,
-			},
-			create: {
-				clerkId: id,
-				avatarUrl: image_url,
-				username,
-				firstName: first_name,
-				lastName: last_name,
-			},
-		});
-
-		return Response.json(profile);
-	}
-
-	if (eventType === "user.deleted") {
-		const profile = await db.profile.delete({
-			where: {
-				clerkId: id,
-			},
-		});
-
-		return Response.json(profile);
-	}
-
-	return Response.json(
-		{ message: "Error occured -- no webhook event" },
-		{
-			status: 400,
 		},
 	);
+
+	const validation = clerkWebhookUserEvent.safeParse(webhookEvent);
+
+	if (!validation.success) {
+		return Response.json(
+			{ message: validation.error },
+			{
+				status: 400,
+			},
+		);
+	}
+
+	const {
+		data: { id, username, image_url, first_name, last_name },
+		type,
+	} = validation.data;
+
+	switch (type) {
+		case "user.created":
+			await db.profile.create({
+				data: {
+					clerkId: id,
+					avatarUrl: image_url,
+					username,
+					firstName: first_name,
+					lastName: last_name,
+				},
+			});
+
+			return Response.json(null, { status: 201 });
+		case "user.updated":
+			await db.profile.upsert({
+				where: {
+					clerkId: id,
+				},
+				update: {
+					clerkId: id,
+					avatarUrl: image_url,
+					username,
+					firstName: first_name,
+					lastName: last_name,
+				},
+				create: {
+					clerkId: id,
+					avatarUrl: image_url,
+					username,
+					firstName: first_name,
+					lastName: last_name,
+				},
+			});
+
+			return Response.json(null, {
+				status: 204,
+			});
+		case "user.deleted":
+			await db.profile.delete({
+				where: {
+					clerkId: id,
+				},
+			});
+
+			return Response.json(null, {
+				status: 204,
+			});
+	}
 }
