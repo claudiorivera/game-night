@@ -8,6 +8,7 @@ export function Loading() {
 					viewBox="0 0 57 57"
 					xmlns="http://www.w3.org/2000/svg"
 				>
+					<title>Loading</title>
 					<g fill="none" fillRule="evenodd">
 						<g strokeWidth="2" transform="translate(1 1)">
 							<circle cx="5" cy="50" r="5">

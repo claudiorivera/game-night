@@ -2,7 +2,7 @@ import { type Event } from "@prisma/client";
 import { clsx } from "clsx";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
-import { useState, type ComponentProps } from "react";
+import { type ComponentProps, useState } from "react";
 import { Avatar } from "~/components/Avatar";
 import { BackButton } from "~/components/BackButton";
 import { Dialog } from "~/components/Dialog";
@@ -52,7 +52,7 @@ export default function EventDetailsPage() {
 
 						<div>
 							<p>Guests:</p>
-							{!!event.guests.length ? (
+							{event.guests.length ? (
 								<div className="avatar-group -space-x-6">
 									{event.guests.map((guest) => (
 										<Avatar key={guest.clerkId} profile={guest} />
@@ -98,6 +98,7 @@ export default function EventDetailsPage() {
 
 						{(isCurrentUserHost || currentUserProfile?.isAdmin) && (
 							<button
+								type="button"
 								className="btn btn-error"
 								onClick={() => setIsDeleteEventDialogOpen(true)}
 							>
@@ -124,6 +125,7 @@ function Button({
 }: ComponentProps<"button">) {
 	return (
 		<button
+			type="button"
 			className={clsx("btn btn-secondary", {
 				"btn-disabled": disabled,
 			})}

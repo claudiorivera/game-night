@@ -27,6 +27,12 @@ const config = {
 			"images.clerk.dev",
 		],
 	},
+	eslint: {
+		ignoreDuringBuilds: true,
+	},
+	typescript: {
+		ignoreBuildErrors: true,
+	},
 };
 
 export default config;

@@ -2,7 +2,7 @@ import { Disclosure } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/20/solid";
 import { clsx } from "clsx";
 import { useRouter } from "next/router";
-import { useState, type Dispatch, type SetStateAction } from "react";
+import { type Dispatch, type SetStateAction, useState } from "react";
 import { toast } from "react-hot-toast";
 import { GameDetails } from "~/components/GameDetails";
 import { api } from "~/lib/api";
@@ -100,6 +100,7 @@ function QueryResult({ result }: { result: BGGGameResponse }) {
 					<Disclosure.Panel className="px-4 pb-2 pt-4 text-sm text-gray-500">
 						<div className="pb-2">
 							<button
+								type="button"
 								className="btn btn-secondary w-full"
 								disabled={disabled}
 								onClick={() => {

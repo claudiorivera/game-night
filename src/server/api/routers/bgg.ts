@@ -20,7 +20,7 @@ export const bggRouter = createTRPCRouter({
 				const result = await fetchBggGameById(game.id);
 				results.push(result);
 			} catch (error) {
-				continue;
+				console.error(error);
 			}
 		}
 
@@ -69,11 +69,11 @@ async function bggFetch(url: string) {
 function buildUrl(url: string, queries: Array<Record<string, unknown>>) {
 	const _url = new URL(url);
 
-	queries.forEach((arg) => {
-		Object.entries(arg).forEach(([key, value]) => {
+	for (const query of queries) {
+		for (const [key, value] of Object.entries(query)) {
 			_url.searchParams.append(key, String(value));
-		});
-	});
+		}
+	}
 
 	return _url.toString();
 }
@@ -158,29 +158,19 @@ export const parsedBggGameSchema = z
 						(acc, cur) => {
 							switch (cur.type) {
 								case "boardgamecategory":
-									return {
-										...acc,
-										categories: [...acc.categories, cur.value],
-									};
-
+									acc.categories = [...acc.categories, cur.value];
+									break;
 								case "boardgamemechanic":
-									return {
-										...acc,
-										mechanics: [...acc.mechanics, cur.value],
-									};
-
+									acc.mechanics = [...acc.mechanics, cur.value];
+									break;
 								case "boardgamedesigner":
-									return {
-										...acc,
-										authors: [
-											...acc.authors,
-											parseSpecialCharacters(cur.value),
-										],
-									};
-
-								default:
-									return acc;
+									acc.authors = [
+										...acc.authors,
+										parseSpecialCharacters(cur.value),
+									];
 							}
+
+							return acc;
 						},
 						{
 							categories: [],

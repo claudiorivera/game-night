@@ -21,7 +21,7 @@ export function SkeletonGameDetails() {
 function SkeletonRows() {
 	return (
 		<div className="flex flex-col gap-1">
-			{[...Array<unknown>(4)].map((_, i) => (
+			{[...Array(4).map((_, i) => i)].map((i) => (
 				<SkeletonRow key={i} />
 			))}
 		</div>
