@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { type ReactNode } from "react";
-import { EventSummaryCard } from "~/components/EventSummaryCard";
-import { SkeletonCard } from "~/components/SkeletonCard";
+import { EventSummaryCard } from "~/components/event-summary-card";
+import { SkeletonCard } from "~/components/skeleton-card";
 import { api } from "~/lib/api";
-import { renderProfileName } from "~/lib/renderProfileName";
+import { renderProfileName } from "~/lib/render-profile-name";
 import { type EventGetAllOutput } from "~/server/api/routers/event";
 
 export default function HomePage() {

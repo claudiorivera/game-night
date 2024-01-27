@@ -2,7 +2,7 @@ import { Disclosure } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/20/solid";
 import { clsx } from "clsx";
 import Link from "next/link";
-import { GameDetails } from "~/components/GameDetails";
+import { GameDetails } from "~/components/game-details";
 import { api } from "~/lib/api";
 
 export default function GamesListPage() {

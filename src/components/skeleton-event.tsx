@@ -1,5 +1,5 @@
-import { SkeletonGameDetails } from "~/components/SkeletonGameDetails";
-import { SkeletonRow } from "~/components/SkeletonRow";
+import { SkeletonGameDetails } from "~/components/skeleton-game-details";
+import { SkeletonRow } from "~/components/skeleton-row";
 
 export function SkeletonEvent() {
 	return (

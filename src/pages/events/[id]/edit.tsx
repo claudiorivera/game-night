@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import { BackButton } from "~/components/BackButton";
+import { BackButton } from "~/components/back-button";
 import { api } from "~/lib/api";
 
 export default function EditEventPage() {

@@ -1,7 +1,7 @@
 import { clsx } from "clsx";
 import Link from "next/link";
 import { useState } from "react";
-import { EventSummaryCard } from "~/components/EventSummaryCard";
+import { EventSummaryCard } from "~/components/event-summary-card";
 import { api } from "~/lib/api";
 
 export default function EventsListPage() {

@@ -1,4 +1,4 @@
-import { SkeletonRow } from "~/components/SkeletonRow";
+import { SkeletonRow } from "~/components/skeleton-row";
 
 export function SkeletonGameDetails() {
 	return (
