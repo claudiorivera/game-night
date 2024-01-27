@@ -19,7 +19,7 @@ export function MainAppBar() {
 			</div>
 			<div className="flex-none">
 				<div className="dropdown dropdown-end z-10">
-					<label className="btn btn-circle btn-ghost" tabIndex={0}>
+					<div className="btn btn-circle btn-ghost" tabIndex={0} role="button">
 						<svg
 							className="h-6 w-6"
 							fill="none"
@@ -28,16 +28,18 @@ export function MainAppBar() {
 							viewBox="0 0 24 24"
 							xmlns="http://www.w3.org/2000/svg"
 						>
+							<title>Menu</title>
 							<path
 								d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
 								strokeLinecap="round"
 								strokeLinejoin="round"
 							/>
 						</svg>
-					</label>
+					</div>
 					<ul
-						className="menu dropdown-content w-52 rounded-box bg-base-100 p-2 text-base-content shadow"
+						// biome-ignore lint/a11y/noNoninteractiveTabindex: TODO: FIX THIS
 						tabIndex={0}
+						className="menu dropdown-content w-52 rounded-box bg-base-100 p-2 text-base-content shadow"
 					>
 						{userLinks.map((link) => (
 							<li key={link.url}>
@@ -47,7 +49,9 @@ export function MainAppBar() {
 							</li>
 						))}
 						<li>
-							<button onClick={() => void signOut()}>Sign Out</button>
+							<button type="button" onClick={() => void signOut()}>
+								Sign Out
+							</button>
 						</li>
 					</ul>
 				</div>
