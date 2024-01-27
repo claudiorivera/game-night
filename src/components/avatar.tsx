@@ -1,7 +1,7 @@
 import { type Profile } from "@prisma/client";
 import * as _Avatar from "@radix-ui/react-avatar";
 import * as Tooltip from "@radix-ui/react-tooltip";
-import { renderProfileName } from "~/lib/renderProfileName";
+import { renderProfileName } from "~/lib/render-profile-name";
 
 export function Avatar({ profile }: { profile: Profile }) {
 	const profileName = renderProfileName(profile);

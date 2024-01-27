@@ -3,12 +3,12 @@ import { clsx } from "clsx";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import { type ComponentProps, useState } from "react";
-import { Avatar } from "~/components/Avatar";
-import { BackButton } from "~/components/BackButton";
-import { Dialog } from "~/components/Dialog";
-import { GameDetails } from "~/components/GameDetails";
-import { SkeletonEvent } from "~/components/SkeletonEvent";
-import { useEventDetailsPage } from "~/hooks/useEventDetails";
+import { Avatar } from "~/components/avatar";
+import { BackButton } from "~/components/back-button";
+import { Dialog } from "~/components/dialog";
+import { GameDetails } from "~/components/game-details";
+import { SkeletonEvent } from "~/components/skeleton-event";
+import { useEventDetailsPage } from "~/hooks/use-event-details";
 import { api } from "~/lib/api";
 
 export default function EventDetailsPage() {

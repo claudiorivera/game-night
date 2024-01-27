@@ -8,7 +8,7 @@ import { type AppProps } from "next/app";
 import { Roboto } from "next/font/google";
 import Head from "next/head";
 import { Toaster } from "react-hot-toast";
-import { MainAppBar } from "~/components/MainAppBar";
+import { MainAppBar } from "~/components/main-app-bar";
 import { api } from "~/lib/api";
 
 export const roboto = Roboto({
