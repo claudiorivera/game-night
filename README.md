@@ -22,11 +22,11 @@ Uses the [BoardGameGeek API2](https://boardgamegeek.com/wiki/page/BGG_XML_API2) 
 
 # Prerequisites
 
-- [pnpm](https://pnpm.io)
+- [bun](https://bun.sh)
 
 # Install
 
-`pnpm i`
+`bun i`
 
 # Prepare
 
@@ -34,4 +34,4 @@ Uses the [BoardGameGeek API2](https://boardgamegeek.com/wiki/page/BGG_XML_API2) 
 
 # Develop
 
-`pnpm dev`
+`bun dev`
