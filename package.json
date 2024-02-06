@@ -45,7 +45,7 @@
 	"devDependencies": {
 		"@biomejs/biome": "1.5.3",
 		"@tailwindcss/forms": "0.5.7",
-		"@types/bun": "1.0.4",
+		"@types/bun": "1.0.5",
 		"@types/react": "18.2.54",
 		"@types/react-dom": "18.2.18",
 		"@types/uuid": "9.0.8",
