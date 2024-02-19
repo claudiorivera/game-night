@@ -8,10 +8,10 @@
  */
 
 import {
-	type SignedInAuthObject,
-	type SignedOutAuthObject,
-} from "@clerk/nextjs/dist/types/server";
-import { getAuth } from "@clerk/nextjs/server";
+	SignedInAuthObject,
+	SignedOutAuthObject,
+	getAuth,
+} from "@clerk/nextjs/server";
 import { TRPCError, initTRPC } from "@trpc/server";
 import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
 import superjson from "superjson";
