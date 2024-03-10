@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import Link from "next/link";
 import { Card } from "~/components/card";
-import { type RouterOutputs } from "~/lib/api";
+import type { RouterOutputs } from "~/lib/api";
 import { renderProfileName } from "~/lib/render-profile-name";
 
 export function EventSummaryCard({

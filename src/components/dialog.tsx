@@ -1,4 +1,4 @@
-import { Dialog as _Dialog, Transition } from "@headlessui/react";
+import { Transition, Dialog as _Dialog } from "@headlessui/react";
 import { Fragment, type ReactNode } from "react";
 
 export function Dialog({

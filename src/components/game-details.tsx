@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { type BGGGameResponse } from "~/server/api/routers/bgg";
+import type { BGGGameResponse } from "~/server/api/routers/bgg";
 
 export function GameDetails({ game }: { game: BGGGameResponse }) {
 	return (

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { XMLParser } from "fast-xml-parser";
 import { z } from "zod";
-import { type RouterOutputs } from "~/lib/api";
+import type { RouterOutputs } from "~/lib/api";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 const API_CALL_LIMIT = 10;

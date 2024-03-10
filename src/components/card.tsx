@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { type ReactNode } from "react";
+import type { ReactNode } from "react";
 
 export function Card({ children }: { children: ReactNode }) {
 	return <article className="rounded-lg border shadow-lg">{children}</article>;

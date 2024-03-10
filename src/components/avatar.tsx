@@ -1,4 +1,4 @@
-import { type Profile } from "@prisma/client";
+import type { Profile } from "@prisma/client";
 import * as _Avatar from "@radix-ui/react-avatar";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { renderProfileName } from "~/lib/render-profile-name";

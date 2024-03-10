@@ -1,4 +1,4 @@
-import { type Event } from "@prisma/client";
+import type { Event } from "@prisma/client";
 import { useRouter } from "next/router";
 import { toast } from "react-hot-toast";
 import { api } from "~/lib/api";

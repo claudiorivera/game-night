@@ -6,7 +6,7 @@ import { type Dispatch, type SetStateAction, useState } from "react";
 import { toast } from "react-hot-toast";
 import { GameDetails } from "~/components/game-details";
 import { api } from "~/lib/api";
-import { type BGGGameResponse } from "~/server/api/routers/bgg";
+import type { BGGGameResponse } from "~/server/api/routers/bgg";
 
 export default function AddGamePage() {
 	const [query, setQuery] = useState("");

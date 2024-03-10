@@ -1,6 +1,6 @@
 import { Prisma } from "@prisma/client";
 import { z } from "zod";
-import { type RouterOutputs } from "~/lib/api";
+import type { RouterOutputs } from "~/lib/api";
 
 import { defaultGameSelect } from "~/server/api/routers/game";
 import {

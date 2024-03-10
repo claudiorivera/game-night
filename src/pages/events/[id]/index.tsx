@@ -1,4 +1,4 @@
-import { type Event } from "@prisma/client";
+import type { Event } from "@prisma/client";
 import { clsx } from "clsx";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
