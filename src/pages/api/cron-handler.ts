@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { type NextApiRequest, type NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from "next";
 import { env } from "~/env.mjs";
 import { db } from "~/server/db";
 

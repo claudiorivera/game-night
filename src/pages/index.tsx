@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { type ReactNode } from "react";
+import type { ReactNode } from "react";
 import { EventSummaryCard } from "~/components/event-summary-card";
 import { SkeletonCard } from "~/components/skeleton-card";
 import { api } from "~/lib/api";
 import { renderProfileName } from "~/lib/render-profile-name";
-import { type EventGetAllOutput } from "~/server/api/routers/event";
+import type { EventGetAllOutput } from "~/server/api/routers/event";
 
 export default function HomePage() {
 	const { data: profile } = api.profile.getMine.useQuery();

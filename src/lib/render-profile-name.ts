@@ -1,4 +1,4 @@
-import { type Profile } from "@prisma/client";
+import type { Profile } from "@prisma/client";
 
 export function renderProfileName(profile?: Profile | null) {
 	switch (true) {
