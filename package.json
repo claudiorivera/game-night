@@ -37,7 +37,7 @@
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
 		"react-hot-toast": "2.4.1",
-		"sharp": "0.33.2",
+		"sharp": "0.33.3",
 		"superjson": "2.2.1",
 		"svix": "^1.15.0",
 		"zod": "3.22.4"
