@@ -29,7 +29,7 @@
 		"@trpc/server": "next",
 		"axios": "1.6.8",
 		"clsx": "2.1.0",
-		"daisyui": "4.7.3",
+		"daisyui": "4.8.0",
 		"dayjs": "1.11.10",
 		"fast-xml-parser": "4.3.6",
 		"micro": "^10.0.1",
