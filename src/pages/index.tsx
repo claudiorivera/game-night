@@ -1,17 +1,39 @@
+import type { GetServerSideProps } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { EventSummaryCard } from "~/components/event-summary-card";
 import { SkeletonCard } from "~/components/skeleton-card";
 import { api } from "~/lib/api";
-import { renderProfileName } from "~/lib/render-profile-name";
 import type { EventGetAllOutput } from "~/server/api/routers/event";
+import { getServerAuthSession } from "~/server/auth";
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+	const session = await getServerAuthSession({ req, res });
+
+	if (!session) {
+		return {
+			redirect: {
+				destination: "/api/auth/signin",
+				permanent: false,
+			},
+		};
+	}
+
+	return {
+		props: {},
+	};
+};
 
 export default function HomePage() {
-	const { data: profile } = api.profile.getMine.useQuery();
+	const { data: user } = api.user.getCurrentUser.useQuery();
+
+	if (!user) return null;
+
+	const { name, eventsHosting, eventsAttending } = user;
 
 	return (
 		<>
-			<p className="py-2">Hello, {renderProfileName(profile)}.</p>
+			<p className="py-2">Hello, {name}.</p>
 
 			<Title>Events You Are Hosting:</Title>
 			<Events
@@ -23,7 +45,7 @@ export default function HomePage() {
 						</Link>
 					</p>
 				}
-				events={profile?.eventsHosting}
+				events={eventsHosting}
 			/>
 
 			<Title>Events You Are Attending:</Title>
@@ -36,7 +58,7 @@ export default function HomePage() {
 						</Link>
 					</p>
 				}
-				events={profile?.eventsAttending}
+				events={eventsAttending}
 			/>
 		</>
 	);

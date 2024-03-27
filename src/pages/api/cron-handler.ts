@@ -1,6 +1,5 @@
 import { faker } from "@faker-js/faker";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { env } from "~/env.mjs";
 import { db } from "~/server/db";
 
 export default async function handler(
@@ -9,59 +8,70 @@ export default async function handler(
 ) {
 	const { authorization } = req.headers;
 
-	if (authorization === `Bearer ${env.API_SECRET_KEY}`) {
-		try {
-			await db.profile.deleteMany({
-				where: {
-					isAdmin: false,
+	if (authorization === `Bearer ${process.env.API_SECRET_KEY}`) {
+		await wipeDatabase();
+
+		// get a random existing game id
+		const games = await db.game.findMany();
+		const getRandomGameId = () => {
+			const randomIndex = Math.floor(Math.random() * games.length);
+			return games[randomIndex]?.id;
+		};
+
+		const eventsToCreate = Array.from({
+			length: 6,
+		}).map(() => ({
+			dateTime: faker.date.soon({ days: 90 }),
+			game: {
+				connect: {
+					id: getRandomGameId(),
 				},
-			});
-
-			const games = await db.game.findMany();
-
-			const eventsToCreate = [...Array<unknown>(6)].map(() => ({
-				dateTime: faker.date.soon({
-					days: 90,
-				}),
-				game: {
-					connect: {
-						id: faker.helpers.arrayElement(games).id,
+			},
+			host: {
+				connectOrCreate: {
+					where: {
+						email: faker.internet.email(),
 					},
-				},
-				host: {
 					create: {
-						firstName: faker.person.firstName(),
-						lastName: faker.person.lastName(),
-						avatarUrl: faker.image.avatar(),
+						name: faker.person.fullName(),
+						image: faker.image.avatar(),
+						email: faker.internet.email(),
 						isAdmin: false,
 						isDemo: true,
 					},
 				},
-				guests: {
-					create: [...Array<unknown>(faker.number.int({ max: 4 }))].map(() => ({
-						firstName: faker.person.firstName(),
-						lastName: faker.person.lastName(),
-						avatarUrl: faker.image.avatar(),
-						isAdmin: false,
-						isDemo: true,
-					})),
-				},
-			}));
+			},
+			guests: {
+				connectOrCreate: randomGuestsToCreate(),
+			},
+		}));
 
-			await Promise.allSettled(
-				eventsToCreate.map((event) =>
-					db.event.create({
-						data: event,
-					}),
-				),
-			);
-
-			return res.status(200).end("Database cleared and seeded");
-		} catch (error) {
-			console.error(error);
-			throw error;
+		for (const event of eventsToCreate) {
+			await db.event.create({
+				data: event,
+			});
 		}
-	} else {
-		return res.status(401).end();
+
+		return res.status(200).end("Database cleared and seeded");
 	}
+
+	return res.status(401).end();
 }
+
+const wipeDatabase = async () => {
+	await db.user.deleteMany();
+};
+
+const randomGuestsToCreate = () =>
+	Array.from({ length: faker.number.int({ max: 4 }) }).map(() => ({
+		where: {
+			email: faker.internet.email(),
+		},
+		create: {
+			name: faker.person.fullName(),
+			image: faker.image.avatar(),
+			email: faker.internet.email(),
+			isAdmin: false,
+			isDemo: true,
+		},
+	}));

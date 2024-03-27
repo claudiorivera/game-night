@@ -1,9 +1,12 @@
-import { useClerk } from "@clerk/nextjs";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
+
 import { userLinks } from "~/constants";
 
 export function MainAppBar() {
-	const { signOut } = useClerk();
+	const { status } = useSession();
+
+	const isSignedIn = status === "authenticated";
 
 	const handleDropdownItemClick = () => {
 		document.activeElement instanceof HTMLElement &&
@@ -48,11 +51,11 @@ export function MainAppBar() {
 								</Link>
 							</li>
 						))}
-						<li>
-							<button type="button" onClick={() => void signOut()}>
-								Sign Out
-							</button>
-						</li>
+						{isSignedIn && (
+							<li>
+								<Link href="/api/auth/signout">Sign Out</Link>
+							</li>
+						)}
 					</ul>
 				</div>
 			</div>

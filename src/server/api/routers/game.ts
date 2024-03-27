@@ -2,7 +2,7 @@ import { Prisma } from "@prisma/client";
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
-export const defaultGameSelect = Prisma.validator<Prisma.GameSelect>()({
+const defaultGameSelect = Prisma.validator<Prisma.GameSelect>()({
 	id: true,
 	name: true,
 	imageSrc: true,
@@ -23,7 +23,7 @@ export const defaultGameSelect = Prisma.validator<Prisma.GameSelect>()({
 
 export const gameRouter = createTRPCRouter({
 	getAll: publicProcedure.query(({ ctx }) => {
-		return ctx.prisma.game.findMany({
+		return ctx.db.game.findMany({
 			select: defaultGameSelect,
 		});
 	}),
@@ -48,18 +48,8 @@ export const gameRouter = createTRPCRouter({
 			}),
 		)
 		.mutation(({ ctx, input }) => {
-			return ctx.prisma.game.create({
+			return ctx.db.game.create({
 				data: input,
-			});
-		}),
-	getById: publicProcedure
-		.input(z.object({ id: z.string() }))
-		.query(({ ctx, input }) => {
-			return ctx.prisma.game.findUnique({
-				where: {
-					id: input.id,
-				},
-				select: defaultGameSelect,
 			});
 		}),
 });

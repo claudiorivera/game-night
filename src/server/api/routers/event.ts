@@ -1,15 +1,13 @@
 import { Prisma } from "@prisma/client";
 import { z } from "zod";
 import type { RouterOutputs } from "~/lib/api";
-
-import { defaultGameSelect } from "~/server/api/routers/game";
 import {
 	createTRPCRouter,
 	protectedProcedure,
 	publicProcedure,
 } from "~/server/api/trpc";
 
-export const defaultEventSelect = Prisma.validator<Prisma.EventSelect>()({
+const defaultEventSelect = Prisma.validator<Prisma.EventSelect>()({
 	id: true,
 	dateTime: true,
 	game: {
@@ -19,8 +17,20 @@ export const defaultEventSelect = Prisma.validator<Prisma.EventSelect>()({
 			imageSrc: true,
 		},
 	},
-	host: true,
-	guests: true,
+	host: {
+		select: {
+			id: true,
+			name: true,
+			image: true,
+		},
+	},
+	guests: {
+		select: {
+			id: true,
+			name: true,
+			image: true,
+		},
+	},
 });
 
 export const eventRouter = createTRPCRouter({
@@ -32,7 +42,7 @@ export const eventRouter = createTRPCRouter({
 			}),
 		)
 		.mutation(({ ctx, input }) => {
-			return ctx.prisma.event.create({
+			return ctx.db.event.create({
 				data: {
 					dateTime: input.dateTime,
 					game: {
@@ -41,13 +51,8 @@ export const eventRouter = createTRPCRouter({
 						},
 					},
 					host: {
-						connectOrCreate: {
-							where: {
-								clerkId: ctx.auth.userId,
-							},
-							create: {
-								clerkId: ctx.auth.userId,
-							},
+						connect: {
+							id: ctx.session.user.id,
 						},
 					},
 				},
@@ -55,11 +60,11 @@ export const eventRouter = createTRPCRouter({
 			});
 		}),
 	getAttending: protectedProcedure.query(({ ctx }) => {
-		return ctx.prisma.event.findMany({
+		return ctx.db.event.findMany({
 			where: {
 				guests: {
 					some: {
-						clerkId: ctx.auth.userId,
+						id: ctx.session.user.id,
 					},
 				},
 			},
@@ -67,37 +72,52 @@ export const eventRouter = createTRPCRouter({
 		});
 	}),
 	getHosting: protectedProcedure.query(({ ctx }) => {
-		return ctx.prisma.event.findMany({
+		return ctx.db.event.findMany({
 			where: {
-				hostId: ctx.auth.userId,
+				hostId: ctx.session.user.id,
 			},
 			select: defaultEventSelect,
 		});
 	}),
 	getAll: publicProcedure.query(({ ctx }) => {
-		return ctx.prisma.event.findMany({
+		return ctx.db.event.findMany({
 			select: defaultEventSelect,
 		});
 	}),
 	getById: publicProcedure
 		.input(z.object({ id: z.string() }))
 		.query(({ ctx, input }) => {
-			return ctx.prisma.event.findUnique({
+			return ctx.db.event.findUnique({
 				where: {
 					id: input.id,
 				},
 				select: {
 					...defaultEventSelect,
 					game: {
-						select: defaultGameSelect,
+						select: {
+							...defaultEventSelect.game.select,
+							authors: true,
+							categories: true,
+							mechanics: true,
+							bggId: true,
+							thumbnailSrc: true,
+							description: true,
+							yearPublished: true,
+							minPlayers: true,
+							maxPlayers: true,
+							playingTime: true,
+							minAge: true,
+							rating: true,
+							numOfRatings: true,
+						},
 					},
 				},
 			});
 		}),
-	deleteById: protectedProcedure
+	deleteById: publicProcedure
 		.input(z.object({ id: z.string() }))
 		.mutation(({ ctx, input }) => {
-			return ctx.prisma.event.delete({
+			return ctx.db.event.delete({
 				where: {
 					id: input.id,
 				},
@@ -106,19 +126,14 @@ export const eventRouter = createTRPCRouter({
 	joinById: protectedProcedure
 		.input(z.object({ id: z.string() }))
 		.mutation(({ ctx, input }) => {
-			return ctx.prisma.event.update({
+			return ctx.db.event.update({
 				where: {
 					id: input.id,
 				},
 				data: {
 					guests: {
-						connectOrCreate: {
-							where: {
-								clerkId: ctx.auth.userId,
-							},
-							create: {
-								clerkId: ctx.auth.userId,
-							},
+						connect: {
+							id: ctx.session.user.id,
 						},
 					},
 				},
@@ -127,20 +142,20 @@ export const eventRouter = createTRPCRouter({
 	leaveById: protectedProcedure
 		.input(z.object({ id: z.string() }))
 		.mutation(({ ctx, input }) => {
-			return ctx.prisma.event.update({
+			return ctx.db.event.update({
 				where: {
 					id: input.id,
 				},
 				data: {
 					guests: {
 						disconnect: {
-							clerkId: ctx.auth.userId,
+							id: ctx.session.user.id,
 						},
 					},
 				},
 			});
 		}),
-	updateById: protectedProcedure
+	updateById: publicProcedure
 		.input(
 			z.object({
 				id: z.string(),
@@ -150,25 +165,8 @@ export const eventRouter = createTRPCRouter({
 				}),
 			}),
 		)
-		.mutation(async ({ ctx, input }) => {
-			const event = await ctx.prisma.event.findUniqueOrThrow({
-				where: {
-					id: input.id,
-				},
-				select: {
-					host: {
-						select: {
-							clerkId: true,
-						},
-					},
-				},
-			});
-
-			if (event.host.clerkId !== ctx.auth.userId) {
-				throw new Error("You are not the host of this event");
-			}
-
-			return ctx.prisma.event.update({
+		.mutation(({ ctx, input }) => {
+			return ctx.db.event.update({
 				where: {
 					id: input.id,
 				},

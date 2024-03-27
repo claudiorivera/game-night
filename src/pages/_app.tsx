@@ -1,11 +1,10 @@
 import "../styles/globals.css";
 
-import { ClerkProvider } from "@clerk/nextjs";
-import * as Tooltip from "@radix-ui/react-tooltip";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Roboto } from "@next/font/google";
+import { TooltipProvider } from "@radix-ui/react-tooltip";
 import { clsx } from "clsx";
+import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
-import { Roboto } from "next/font/google";
 import Head from "next/head";
 import { Toaster } from "react-hot-toast";
 import { MainAppBar } from "~/components/main-app-bar";
@@ -19,7 +18,8 @@ export const roboto = Roboto({
 	variable: "--font-inter",
 });
 
-export default api.withTRPC(function MyApp({ Component, pageProps }: AppProps) {
+function MyApp(props: AppProps) {
+	const { Component, pageProps } = props;
 	return (
 		<>
 			<Head>
@@ -29,16 +29,17 @@ export default api.withTRPC(function MyApp({ Component, pageProps }: AppProps) {
 					name="viewport"
 				/>
 			</Head>
-			<ClerkProvider {...pageProps}>
-				<MainAppBar />
-				<Toaster />
-				<Tooltip.Provider>
+			<SessionProvider session={pageProps.session}>
+				<TooltipProvider>
+					<MainAppBar />
+					<Toaster />
 					<div className={clsx("container mx-auto px-4", roboto.variable)}>
 						<Component {...pageProps} />
 					</div>
-				</Tooltip.Provider>
-			</ClerkProvider>
-			<ReactQueryDevtools initialIsOpen={false} />
+				</TooltipProvider>
+			</SessionProvider>
 		</>
 	);
-});
+}
+
+export default api.withTRPC(MyApp);

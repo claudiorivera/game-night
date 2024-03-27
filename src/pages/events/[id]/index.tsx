@@ -15,15 +15,14 @@ export default function EventDetailsPage() {
 	const router = useRouter();
 	const eventId = router.query.id as string;
 	const [isDeleteEventDialogOpen, setIsDeleteEventDialogOpen] = useState(false);
-	const { data: currentUserProfile } = api.profile.getMine.useQuery();
+	const { data: currentUser } = api.user.getCurrentUser.useQuery();
 	const { event, isLoading, leaveEventById, joinEventById } =
 		useEventDetailsPage(eventId);
 
 	const isCurrentUserGuest =
-		!!event &&
-		event.guests.some((guest) => guest.id === currentUserProfile?.id);
+		!!event && event.guests.some((guest) => guest.id === currentUser?.id);
 
-	const isCurrentUserHost = !!event && event.host.id === currentUserProfile?.id;
+	const isCurrentUserHost = !!event && event.host.id === currentUser?.id;
 
 	return (
 		<>
@@ -47,7 +46,7 @@ export default function EventDetailsPage() {
 
 						<div>
 							<p>Host:</p>
-							<Avatar profile={event.host} />
+							<Avatar user={event.host} />
 						</div>
 
 						<div>
@@ -55,7 +54,7 @@ export default function EventDetailsPage() {
 							{event.guests.length ? (
 								<div className="avatar-group -space-x-6">
 									{event.guests.map((guest) => (
-										<Avatar key={guest.clerkId} profile={guest} />
+										<Avatar key={guest.id} user={guest} />
 									))}
 								</div>
 							) : (
@@ -96,7 +95,7 @@ export default function EventDetailsPage() {
 							</Button>
 						)}
 
-						{(isCurrentUserHost || currentUserProfile?.isAdmin) && (
+						{(isCurrentUserHost || currentUser?.isAdmin) && (
 							<button
 								type="button"
 								className="btn btn-error"

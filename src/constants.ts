@@ -15,8 +15,4 @@ export const userLinks = [
 		title: "Games",
 		url: "/games",
 	},
-	{
-		title: "Profile",
-		url: "/profile",
-	},
 ] as const;
