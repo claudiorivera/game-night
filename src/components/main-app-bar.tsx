@@ -1,7 +1,9 @@
+"use client";
+
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 
-import { userLinks } from "~/constants";
+import { userLinks } from "~/lib/constants";
 
 export function MainAppBar() {
 	const { status } = useSession();
@@ -14,13 +16,13 @@ export function MainAppBar() {
 	};
 
 	return (
-		<div className="navbar mb-4 bg-primary p-4 text-primary-content shadow">
+		<nav className="navbar bg-primary p-4 text-primary-content shadow">
 			<div className="flex-1">
 				<Link className="hover:text-primary-focus text-2xl font-bold" href="/">
 					Game Night
 				</Link>
 			</div>
-			<div className="flex-none">
+			<div>
 				<div className="dropdown dropdown-end z-10">
 					<div className="btn btn-circle btn-ghost" tabIndex={0} role="button">
 						<svg
@@ -59,6 +61,6 @@ export function MainAppBar() {
 					</ul>
 				</div>
 			</div>
-		</div>
+		</nav>
 	);
 }

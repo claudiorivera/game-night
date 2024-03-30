@@ -10,10 +10,6 @@
 			"matchDepTypes": ["devDependencies"],
 			"matchUpdateTypes": ["minor", "patch", "pin", "digest"],
 			"automerge": true
-		},
-		{
-			"matchPackagePatterns": ["@trpc"],
-			"groupName": "trpc"
 		}
 	],
 	"schedule": ["after 9pm and before 9am every weekday", "every weekend"],

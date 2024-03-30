@@ -1,7 +1,6 @@
 import Image from "next/image";
-import type { ReactNode } from "react";
 
-export function Card({ children }: { children: ReactNode }) {
+export function Card({ children }: { children: React.ReactNode }) {
 	return <article className="rounded-lg border shadow-lg">{children}</article>;
 }
 
@@ -32,7 +31,7 @@ function CardMedia({ image, title }: { image: string; title: string }) {
 
 Card.CardMedia = CardMedia;
 
-function CardContent({ children }: { children: ReactNode }) {
+function CardContent({ children }: { children: React.ReactNode }) {
 	return <div className="p-4">{children}</div>;
 }
 

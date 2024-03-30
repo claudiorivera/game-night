@@ -1,12 +1,12 @@
 import dayjs from "dayjs";
 import Link from "next/link";
+import type { GetAll } from "~/app/events/api";
 import { Card } from "~/components/card";
-import type { RouterOutputs } from "~/lib/api";
 
 export function EventSummaryCard({
 	event,
 }: {
-	event: RouterOutputs["event"]["getAll"][number];
+	event: GetAll[number];
 }) {
 	return (
 		<Link href={`/events/${event.id}`}>

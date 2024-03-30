@@ -1,3 +1,5 @@
+"use client";
+
 import type { User } from "@prisma/client";
 import * as _Avatar from "@radix-ui/react-avatar";
 import * as Tooltip from "@radix-ui/react-tooltip";

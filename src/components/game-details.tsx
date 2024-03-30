@@ -1,26 +1,31 @@
 import Image from "next/image";
-import type { BGGGameResponse } from "~/server/api/routers/bgg";
+import type { GetById } from "~/app/events/api";
+import type { GamesByQuery } from "~/app/games/bgg";
 
-export function GameDetails({ game }: { game: BGGGameResponse }) {
+export function GameDetails({
+	game,
+}: { game: GetById["game"] | GamesByQuery[number] }) {
 	return (
 		<div className="grid grid-cols-12 gap-4">
-			<div className="col-span-12 flex flex-col gap-4 sm:col-span-4">
-				<div className="relative aspect-square">
-					<Image
-						alt={game.name}
-						className="object-contain"
-						fill
-						sizes="(min-width: 1200px) 33vw, 100vw"
-						src={game.imageSrc}
-					/>
+			<div className="col-span-12 flex flex-col gap-4 sm:col-span-5">
+				<div className="p-4 bg-gradient-to-t from-primary via-secondary to-primary">
+					<div className="relative aspect-square w-full">
+						{!!game.imageSrc && (
+							<Image
+								alt={game.name}
+								className="object-contain"
+								fill
+								sizes="(min-width: 1200px) 33vw, 100vw"
+								src={game.imageSrc}
+							/>
+						)}
+					</div>
 				</div>
-				<div className="flex flex-col gap-2">
+				<div className="flex flex-col gap-2 text-xs">
 					<BadgesDisplay badges={game.authors} label="Authors" />
 					<BadgesDisplay badges={game.categories} label="Categories" />
 					<Description
-						definition={`${game.rating.toFixed(2)} (${
-							game.numOfRatings
-						} ratings)`}
+						definition={`${game.rating.toFixed(2)} (${game.numOfRatings})`}
 						term="Average BGG Rating"
 					/>
 					<Description
@@ -34,7 +39,7 @@ export function GameDetails({ game }: { game: BGGGameResponse }) {
 					<Description definition={`${game.minAge}+`} term="Ages" />
 				</div>
 			</div>
-			<div className="col-span-12 sm:col-span-8">
+			<div className="col-span-12 sm:col-span-7">
 				<p>{game.description}</p>
 			</div>
 		</div>
@@ -49,9 +54,9 @@ function Description({
 	definition: string;
 }) {
 	return (
-		<div className="flex items-center gap-2">
+		<div className="flex items-center gap-2 justify-between">
 			<dt>{term}:</dt>
-			<dd>{definition}</dd>
+			<dd className="text-nowrap truncate">{definition}</dd>
 		</div>
 	);
 }
@@ -62,7 +67,7 @@ function BadgesDisplay({ label, badges }: { label: string; badges: string[] }) {
 			<span>{label}: </span>
 			<div className="flex flex-wrap gap-1">
 				{badges.map((badge) => (
-					<div className="badge badge-neutral" key={badge}>
+					<div className="badge-sm badge badge-neutral truncate" key={badge}>
 						{badge}
 					</div>
 				))}
