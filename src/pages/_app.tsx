@@ -1,6 +1,6 @@
 import "../styles/globals.css";
 
-import { Roboto } from "@next/font/google";
+import { Roboto } from "next/font/google";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
 import { clsx } from "clsx";
 import { SessionProvider } from "next-auth/react";

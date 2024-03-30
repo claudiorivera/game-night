@@ -19,11 +19,19 @@ const config = {
 		defaultLocale: "en",
 	},
 	images: {
-		domains: [
-			"cf.geekdo-images.com",
-			"avatars.githubusercontent.com",
-			"picsum.photos",
-			"cloudflare-ipfs.com",
+		remotePatterns: [
+			{
+				hostname: "cf.geekdo-images.com",
+			},
+			{
+				hostname: "avatars.githubusercontent.com",
+			},
+			{
+				hostname: "picsum.photos",
+			},
+			{
+				hostname: "cloudflare-ipfs.com",
+			},
 		],
 	},
 	eslint: {

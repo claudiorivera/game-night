@@ -26,13 +26,6 @@ declare module "next-auth" {
 	}
 }
 
-declare module "next-auth/jwt" {
-	interface JWT {
-		id: string;
-		isAdmin: boolean;
-	}
-}
-
 /**
  * Options for NextAuth.js used to configure adapters, providers, callbacks, etc.
  *
@@ -40,7 +33,7 @@ declare module "next-auth/jwt" {
  */
 export const authOptions: NextAuthOptions = {
 	adapter: PrismaAdapter(db) as Adapter,
-	secret: env.AUTH_SECRET,
+	secret: env.NEXTAUTH_SECRET,
 	theme: {
 		colorScheme: "auto", // "auto" | "dark" | "light"
 		brandColor: primaryColor, // Hex color code
@@ -67,28 +60,14 @@ export const authOptions: NextAuthOptions = {
 			clientSecret: env.AUTH_GITHUB_SECRET,
 		}),
 	],
-	session: {
-		strategy: "jwt",
-	},
 	callbacks: {
-		jwt: async ({ token, user }) => {
-			if (user) {
-				token.id = user.id;
-				token.isAdmin = user.isAdmin;
-			}
-
-			return token;
-		},
-		session: ({ session, token }) => {
-			return {
-				...session,
-				user: {
-					...session.user,
-					id: token.id,
-					isAdmin: token.isAdmin,
-				},
-			};
-		},
+		session: ({ session, user }) => ({
+			...session,
+			user: {
+				...session.user,
+				id: user.id,
+			},
+		}),
 	},
 };
 
