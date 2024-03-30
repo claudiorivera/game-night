@@ -59,6 +59,7 @@
 		"typescript": "5.4.5"
 	},
 	"prisma": {
-		"schema": "prisma/schema.prisma"
+		"schema": "prisma/schema.prisma",
+		"seed": "bun run prisma/seed.ts"
 	}
 }
