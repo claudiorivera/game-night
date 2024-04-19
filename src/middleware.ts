@@ -1,9 +1,7 @@
-import { authMiddleware } from "@clerk/nextjs/server";
+export { auth as middleware } from "~/lib/auth";
 
-export default authMiddleware({
-	publicRoutes: ["/api/webhooks(.*)", "/api/cron-handler"],
-});
-
+// Optionally, don't invoke Middleware on some paths
+// Read more: https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
 export const config = {
-	matcher: ["/((?!.*\\..*|_next).*)", "/", "/(api|trpc)(.*)"],
+	matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };

@@ -1,5 +1,5 @@
 import { Transition, Dialog as _Dialog } from "@headlessui/react";
-import { Fragment, type ReactNode } from "react";
+import { Fragment } from "react";
 
 export function Dialog({
 	children,
@@ -7,7 +7,7 @@ export function Dialog({
 	onClose,
 	title,
 }: {
-	children: ReactNode;
+	children: React.ReactNode;
 	isOpen: boolean;
 	onClose: () => void;
 	title: string;

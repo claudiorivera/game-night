@@ -1,9 +1,14 @@
-import { useClerk } from "@clerk/nextjs";
+"use client";
+
+import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { userLinks } from "~/constants";
+
+import { userLinks } from "~/lib/constants";
 
 export function MainAppBar() {
-	const { signOut } = useClerk();
+	const { status } = useSession();
+
+	const isSignedIn = status === "authenticated";
 
 	const handleDropdownItemClick = () => {
 		document.activeElement instanceof HTMLElement &&
@@ -11,13 +16,13 @@ export function MainAppBar() {
 	};
 
 	return (
-		<div className="navbar mb-4 bg-primary p-4 text-primary-content shadow">
+		<nav className="navbar bg-primary p-4 text-primary-content shadow">
 			<div className="flex-1">
 				<Link className="hover:text-primary-focus text-2xl font-bold" href="/">
 					Game Night
 				</Link>
 			</div>
-			<div className="flex-none">
+			<div>
 				<div className="dropdown dropdown-end z-10">
 					<div className="btn btn-circle btn-ghost" tabIndex={0} role="button">
 						<svg
@@ -48,14 +53,14 @@ export function MainAppBar() {
 								</Link>
 							</li>
 						))}
-						<li>
-							<button type="button" onClick={() => void signOut()}>
-								Sign Out
-							</button>
-						</li>
+						{isSignedIn && (
+							<li>
+								<Link href="/api/auth/signout">Sign Out</Link>
+							</li>
+						)}
 					</ul>
 				</div>
 			</div>
-		</div>
+		</nav>
 	);
 }

@@ -1,13 +1,12 @@
 import dayjs from "dayjs";
 import Link from "next/link";
+import type { GetAll } from "~/app/events/api";
 import { Card } from "~/components/card";
-import type { RouterOutputs } from "~/lib/api";
-import { renderProfileName } from "~/lib/render-profile-name";
 
 export function EventSummaryCard({
 	event,
 }: {
-	event: RouterOutputs["event"]["getAll"][number];
+	event: GetAll[number];
 }) {
 	return (
 		<Link href={`/events/${event.id}`}>
@@ -19,7 +18,7 @@ export function EventSummaryCard({
 				<Card.CardMedia image={event.game.imageSrc} title={event.game.name} />
 				<Card.CardContent>
 					<h4 className="font-semibold">
-						Host: {renderProfileName(event.host)}
+						Host: {event.host.name || "Anonymous"}
 					</h4>
 					<small className="text-slate-500">
 						Guests: {event.guests.length}
