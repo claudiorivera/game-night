@@ -28,7 +28,7 @@
 		"@tanstack/react-query-devtools": "5.29.2",
 		"axios": "1.6.8",
 		"clsx": "2.1.0",
-		"daisyui": "4.8.0",
+		"daisyui": "4.10.2",
 		"dayjs": "1.11.10",
 		"fast-xml-parser": "4.3.6",
 		"micro": "10.0.1",
