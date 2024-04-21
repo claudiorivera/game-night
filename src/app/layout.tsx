@@ -3,7 +3,7 @@ import { Roboto } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import { Providers } from "~/app/providers";
 import { MainAppBar } from "~/components/main-app-bar";
-import { cn } from "~/lib/cn";
+import { cn } from "~/lib/utils";
 import "~/styles/globals.css";
 
 export const roboto = Roboto({

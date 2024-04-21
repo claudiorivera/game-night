@@ -4,7 +4,7 @@ import { Disclosure } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/20/solid";
 import type { GetAll } from "~/app/games/api";
 import { GameDetails } from "~/components/game-details";
-import { cn } from "~/lib/cn";
+import { cn } from "~/lib/utils";
 
 export function GameInfo({ game }: { game: GetAll[number] }) {
 	return (

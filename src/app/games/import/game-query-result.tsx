@@ -5,7 +5,7 @@ import { ChevronUpIcon } from "@heroicons/react/20/solid";
 import type { GamesByQuery } from "~/app/games/bgg";
 import { ImportGameForm } from "~/app/games/import/import-game-form";
 import { GameDetails } from "~/components/game-details";
-import { cn } from "~/lib/cn";
+import { cn } from "~/lib/utils";
 
 export function GameQueryResult({ game }: { game: GamesByQuery[number] }) {
 	return (

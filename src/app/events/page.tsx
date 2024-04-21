@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getAll } from "~/app/events/api";
 import { EventSummaryCard } from "~/components/event-summary-card";
-import { cn } from "~/lib/cn";
+import { cn } from "~/lib/utils";
 
 export default async function EventsListPage() {
 	const events = await getAll();

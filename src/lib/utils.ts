@@ -1,4 +1,10 @@
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 import type { ZodError, ZodIssue, ZodTypeAny, z } from "zod";
+
+export function cn(...inputs: ClassValue[]) {
+	return twMerge(clsx(inputs));
+}
 
 export function getRandomElement<T>(array: T[]) {
 	if (array.length === 0) {
