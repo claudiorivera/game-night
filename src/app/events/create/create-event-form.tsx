@@ -25,7 +25,9 @@ export function CreateEventForm({
 	useEffect(() => {
 		if (state?.message) {
 			toast.success(state.message);
-			router.back();
+			if (state.eventId) {
+				router.push(`/events/${state.eventId}`);
+			}
 		}
 	}, [state, router]);
 

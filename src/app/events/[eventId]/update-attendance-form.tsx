@@ -27,7 +27,7 @@ export function UpdateAttendanceForm({
 	useEffect(() => {
 		if (state?.message) {
 			toast.success(state.message);
-			router.back();
+			router.refresh();
 		}
 	}, [state, router]);
 

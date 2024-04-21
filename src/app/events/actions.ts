@@ -19,6 +19,7 @@ import {
 export type CreateEventFormState = PossiblyUndefined<{
 	errors?: InferFlattenedErrors<typeof createEventSchema>;
 	message?: string;
+	eventId?: string;
 }>;
 
 export async function createEvent(
@@ -53,9 +54,9 @@ export async function createEvent(
 	});
 
 	if (event) {
-		revalidatePath("/events");
 		return {
 			message: "You have successfully created an event!",
+			eventId: event.id,
 		} satisfies CreateEventFormState;
 	}
 }
@@ -154,7 +155,6 @@ export async function updateAttendance(
 	});
 
 	if (event) {
-		revalidatePath("/events/[eventId]");
 		return {
 			message: `You have successfully ${
 				validation.data.action === "JOIN" ? "joined" : "left"

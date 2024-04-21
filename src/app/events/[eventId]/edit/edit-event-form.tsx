@@ -16,7 +16,6 @@ import type { GetAll } from "~/app/games/api";
 import { Input } from "~/components/input";
 import { Select } from "~/components/select";
 import { SubmitButton } from "~/components/submit-button";
-import { auth } from "~/lib/auth";
 
 export function EditEventForm({
 	event,
@@ -96,6 +95,7 @@ export function EditEventForm({
 							className="btn btn-error"
 							onClick={async () => {
 								await deleteEvent(event.id);
+								toast.success("Event deleted!");
 							}}
 						>
 							Delete Event
