@@ -5,7 +5,6 @@ import { UpdateAttendanceForm } from "~/app/events/[eventId]/update-attendance-f
 import { getById } from "~/app/events/api";
 import { Avatar } from "~/components/avatar";
 import { BackButton } from "~/components/back-button";
-import { Button } from "~/components/button";
 import { GameDetails } from "~/components/game-details";
 import { auth } from "~/lib/auth";
 
