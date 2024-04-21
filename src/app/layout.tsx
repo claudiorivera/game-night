@@ -1,17 +1,14 @@
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
+import { Inter as FontSans } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import { Providers } from "~/app/providers";
 import { MainAppBar } from "~/components/main-app-bar";
 import { cn } from "~/lib/utils";
 import "~/styles/globals.css";
 
-export const roboto = Roboto({
-	weight: ["300", "400", "500", "700"],
+const fontSans = FontSans({
 	subsets: ["latin"],
-	display: "swap",
-	fallback: ["Helvetica", "Arial", "sans-serif"],
-	variable: "--font-inter",
+	variable: "--font-sans",
 });
 
 export const metadata: Metadata = {
@@ -25,18 +22,16 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en">
-			<body>
+			<body
+				className={cn(
+					"min-h-screen bg-background font-sans antialiased",
+					fontSans.variable,
+				)}
+			>
 				<Providers>
 					<Toaster />
 					<MainAppBar />
-					<main
-						className={cn(
-							"container mx-auto p-4 min-h-screen",
-							roboto.variable,
-						)}
-					>
-						{children}
-					</main>
+					<main className="container mx-auto p-4">{children}</main>
 				</Providers>
 			</body>
 		</html>
