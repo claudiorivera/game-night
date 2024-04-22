@@ -5,6 +5,8 @@ import {
 	type InputHTMLAttributes,
 	forwardRef,
 } from "react";
+import { Input as _Input } from "~/components/ui/input";
+import { Label } from "~/components/ui/label";
 import { cn } from "~/lib/utils";
 import type { InferFlattenedErrors } from "~/lib/utils";
 
@@ -14,28 +16,19 @@ type Props = {
 } & DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
 export const Input = forwardRef<HTMLInputElement, Props>(function Input(
-	{ label, fieldErrors, type, name, ...rest },
+	{ label, fieldErrors, name, ...rest },
 	ref,
 ) {
 	return (
-		<label className="flex flex-col gap-1">
-			{!!label && <span className="label-text">{label}</span>}
-			<input
+		<div className="flex flex-col gap-1">
+			{!!label && <Label htmlFor={name}>{label}</Label>}
+			<_Input
 				{...rest}
 				name={name}
 				ref={ref}
-				type={type ?? "text"}
-				className={cn(
-					{
-						"input input-bordered": type !== "checkbox" && type !== "file",
-					},
-					{
-						toggle: type === "checkbox",
-					},
-					{
-						"input-error": fieldErrors,
-					},
-				)}
+				className={cn({
+					"border-red-500": fieldErrors,
+				})}
 			/>
 			{!!fieldErrors &&
 				fieldErrors.map((error) => (
@@ -43,6 +36,6 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
 						{error.message}
 					</div>
 				))}
-		</label>
+		</div>
 	);
 });

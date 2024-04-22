@@ -1,18 +1,20 @@
 "use client";
 
 import { useFormStatus } from "react-dom";
+import { Button } from "~/components/ui/button";
 
 export function SubmitButton({ children }: { children: React.ReactNode }) {
 	const { pending } = useFormStatus();
 
 	return (
-		<button
+		<Button
 			type="submit"
-			className="btn btn-secondary w-full"
+			variant="secondary"
 			aria-disabled={pending}
 			disabled={pending}
+			className="w-full"
 		>
 			{children}
-		</button>
+		</Button>
 	);
 }

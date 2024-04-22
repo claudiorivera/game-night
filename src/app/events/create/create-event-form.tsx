@@ -10,6 +10,7 @@ import type { GetAll } from "~/app/games/api";
 import { Input } from "~/components/input";
 import { Select } from "~/components/select";
 import { SubmitButton } from "~/components/submit-button";
+import { Button } from "~/components/ui/button";
 
 export function CreateEventForm({
 	games,
@@ -56,22 +57,18 @@ export function CreateEventForm({
 						value: game.id,
 						label: game.name,
 					}))}
-					defaultValue={-1}
 					fieldErrors={state?.errors?.fieldErrors.gameId}
 				/>
 				<div className="flex gap-4">
-					<div className="flex-1">
-						<button
-							className="btn btn-error w-full"
-							type="button"
-							onClick={() => router.back()}
-						>
-							Cancel
-						</button>
-					</div>
-					<div className="flex-1">
-						<SubmitButton>Create Event</SubmitButton>
-					</div>
+					<Button
+						type="button"
+						variant="outline"
+						className="w-full"
+						onClick={() => router.back()}
+					>
+						Cancel
+					</Button>
+					<SubmitButton>Create Event</SubmitButton>
 				</div>
 			</div>
 		</form>

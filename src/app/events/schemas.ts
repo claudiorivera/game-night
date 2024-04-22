@@ -9,7 +9,7 @@ export const eventIdSchema = z.object({
 });
 
 export const createEventSchema = z.object({
-	gameId: z.string().cuid2(),
+	gameId: z.string().cuid2("Required"),
 	dateTime: dateTimeLocalInputSchema,
 	hostId: z.string().cuid2(),
 });
