@@ -101,7 +101,6 @@ export async function editEvent(
 	});
 
 	if (event) {
-		revalidatePath("/events/[eventId]");
 		return {
 			message: "You have successfully updated the event!",
 		} satisfies EditEventFormState;

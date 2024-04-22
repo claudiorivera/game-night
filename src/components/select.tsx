@@ -1,11 +1,15 @@
 "use client";
 
+import { type ComponentProps, forwardRef } from "react";
+import { Label } from "~/components/ui/label";
 import {
-	type DetailedHTMLProps,
-	type SelectHTMLAttributes,
-	forwardRef,
-} from "react";
-import { cn } from "~/lib/cn";
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+	Select as _Select,
+} from "~/components/ui/select";
 import type { InferFlattenedErrors } from "~/lib/utils";
 
 type Option = {
@@ -14,43 +18,36 @@ type Option = {
 };
 
 type Props = {
-	label: string;
+	label?: string;
 	options: Array<Option>;
 	fieldErrors?: InferFlattenedErrors["fieldErrors"][keyof InferFlattenedErrors["fieldErrors"]];
-} & DetailedHTMLProps<
-	SelectHTMLAttributes<HTMLSelectElement>,
-	HTMLSelectElement
->;
+} & ComponentProps<typeof _Select>;
 
-export const Select = forwardRef<HTMLSelectElement, Props>(function Select(
-	{ label, options, fieldErrors, ...rest },
-	ref,
-) {
+export function Select({ label, options, fieldErrors, ...rest }: Props) {
 	return (
-		<label className="flex flex-col gap-1">
-			<span className="label-text">{label}</span>
-			<select
-				{...rest}
-				ref={ref}
-				className={cn("select select-bordered", {
-					"input-error": !!fieldErrors,
-				})}
-			>
-				<option value={-1} disabled>
-					{`Select ${label}`}
-				</option>
-				{options.map(({ label, value }) => (
-					<option key={value} value={value}>
-						{label}
-					</option>
-				))}
-			</select>
+		<div className="flex flex-col gap-1">
+			{!!label && <Label>{label}</Label>}
+			<_Select {...rest}>
+				<SelectTrigger>
+					<SelectValue placeholder="Select Game" />
+				</SelectTrigger>
+				<SelectContent>
+					<SelectGroup>
+						{options.map(({ value, label }) => (
+							<SelectItem key={value} value={value}>
+								{label}
+							</SelectItem>
+						))}
+					</SelectGroup>
+				</SelectContent>
+			</_Select>
+
 			{!!fieldErrors &&
 				fieldErrors.map((error) => (
 					<div key={error.errorCode} className="text-xs text-red-500">
 						{error.message}
 					</div>
 				))}
-		</label>
+		</div>
 	);
-});
+}

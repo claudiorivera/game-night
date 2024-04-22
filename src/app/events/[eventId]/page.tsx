@@ -5,8 +5,8 @@ import { UpdateAttendanceForm } from "~/app/events/[eventId]/update-attendance-f
 import { getById } from "~/app/events/api";
 import { Avatar } from "~/components/avatar";
 import { BackButton } from "~/components/back-button";
-import { Button } from "~/components/button";
 import { GameDetails } from "~/components/game-details";
+import { Button } from "~/components/ui/button";
 import { auth } from "~/lib/auth";
 
 export default async function EventDetailsPage({
@@ -48,7 +48,7 @@ export default async function EventDetailsPage({
 							<Avatar user={event.host} />
 							<p>Guests:</p>
 							{event.guests.length ? (
-								<div className="avatar-group -space-x-6">
+								<div className="flex -space-x-4">
 									{event.guests.map((guest) => (
 										<Avatar key={guest.id} user={guest} />
 									))}
@@ -60,11 +60,14 @@ export default async function EventDetailsPage({
 
 						<div className="flex items-center justify-end">
 							{(isHost || isAdmin) && (
-								<Link className="self-center" href={`/events/${event.id}/edit`}>
-									<button className="btn btn-error" type="button">
+								<Button asChild type="button" variant="secondary">
+									<Link
+										className="self-center"
+										href={`/events/${event.id}/edit`}
+									>
 										Edit Event
-									</button>
-								</Link>
+									</Link>
+								</Button>
 							)}
 							{!isHost && (
 								<UpdateAttendanceForm event={event} user={session.user} />

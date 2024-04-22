@@ -2,6 +2,7 @@
 
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useFormState } from "react-dom";
@@ -16,6 +17,7 @@ import type { GetAll } from "~/app/games/api";
 import { Input } from "~/components/input";
 import { Select } from "~/components/select";
 import { SubmitButton } from "~/components/submit-button";
+import { Button } from "~/components/ui/button";
 
 export function EditEventForm({
 	event,
@@ -72,34 +74,25 @@ export function EditEventForm({
 					fieldErrors={state?.errors?.fieldErrors.gameId}
 				/>
 				<div className="flex gap-4">
-					<div className="flex-1">
-						<button
-							className="btn w-full"
-							type="button"
-							onClick={() =>
-								router.push(`/events/${event.id}`, { scroll: false })
-							}
-						>
-							Cancel
-						</button>
-					</div>
-					<div className="flex-1">
-						<SubmitButton>Save Changes</SubmitButton>
-					</div>
+					<Button type="button" variant="outline" className="w-full" asChild>
+						<Link href={`/events/${event.id}`}>Cancel</Link>
+					</Button>
+					<SubmitButton>Save Changes</SubmitButton>
 				</div>
 
 				{(isHost || isAdmin) && (
 					<div className="self-center">
-						<button
+						<Button
 							type="button"
-							className="btn btn-error"
+							variant="link"
+							className="text-red-500"
 							onClick={async () => {
 								await deleteEvent(event.id);
 								toast.success("Event deleted!");
 							}}
 						>
 							Delete Event
-						</button>
+						</Button>
 					</div>
 				)}
 			</div>

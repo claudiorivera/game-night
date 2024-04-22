@@ -10,8 +10,8 @@ import {
 	updateAttendance,
 } from "~/app/events/actions";
 import type { GetById } from "~/app/events/api";
-import { Button } from "~/components/button";
 import { Input } from "~/components/input";
+import { Button } from "~/components/ui/button";
 
 export function UpdateAttendanceForm({
 	event,
@@ -43,7 +43,7 @@ export function UpdateAttendanceForm({
 				value={isAttending ? "LEAVE" : "JOIN"}
 			/>
 
-			<Button type="submit" formAction={formAction}>
+			<Button type="submit" variant="secondary" formAction={formAction}>
 				{isAttending ? "Leave" : "Join"}
 			</Button>
 		</form>

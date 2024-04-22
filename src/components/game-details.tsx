@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { GetById } from "~/app/events/api";
 import type { GamesByQuery } from "~/app/games/bgg";
+import { Badge } from "~/components/ui/badge";
 
 export function GameDetails({
 	game,
@@ -63,13 +64,13 @@ function Description({
 
 function BadgesDisplay({ label, badges }: { label: string; badges: string[] }) {
 	return (
-		<div className="flex flex-wrap gap-2">
+		<div className="flex flex-wrap gap-2 items-center">
 			<span>{label}: </span>
 			<div className="flex flex-wrap gap-1">
 				{badges.map((badge) => (
-					<div className="badge-sm badge badge-neutral truncate" key={badge}>
+					<Badge key={badge} variant="outline">
 						{badge}
-					</div>
+					</Badge>
 				))}
 			</div>
 		</div>

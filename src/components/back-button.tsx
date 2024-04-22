@@ -1,21 +1,18 @@
 "use client";
 
-import { ArrowLeftIcon } from "@heroicons/react/20/solid";
+import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { Button } from "~/components/ui/button";
 
 export function BackButton() {
 	const router = useRouter();
 
 	return (
-		<button
-			type="button"
-			className="btn btn-secondary"
-			onClick={() => router.back()}
-		>
+		<Button type="button" variant="secondary" onClick={() => router.back()}>
 			<div className="flex items-center gap-2">
-				<ArrowLeftIcon className="h-5 w-5" />
-				<span>Go Back</span>
+				<ArrowLeft className="h-4 w-4" />
+				<p>Go Back</p>
 			</div>
-		</button>
+		</Button>
 	);
 }
