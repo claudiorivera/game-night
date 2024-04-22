@@ -19,7 +19,7 @@ export function MainAppBar() {
 	const isSignedIn = status === "authenticated";
 
 	return (
-		<nav className="flex items-center bg-primary p-4 text-primary-content shadow">
+		<nav className="flex items-center bg-primary p-4 text-primary-foreground shadow">
 			<div className="flex-1">
 				<Link className="hover:text-muted text-2xl font-bold" href="/">
 					Game Night
