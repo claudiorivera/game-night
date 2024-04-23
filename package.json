@@ -30,7 +30,7 @@
 		"@tanstack/react-query-devtools": "5.29.2",
 		"axios": "1.6.8",
 		"class-variance-authority": "0.7.0",
-		"clsx": "2.1.0",
+		"clsx": "2.1.1",
 		"dayjs": "1.11.10",
 		"fast-xml-parser": "4.3.6",
 		"lucide-react": "0.372.0",
