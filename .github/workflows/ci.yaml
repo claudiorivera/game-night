@@ -6,18 +6,27 @@ on:
 jobs:
   ci:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [15]
     steps:
       - name: 🛒 Checkout
         uses: actions/checkout@v4
       - name: 🏗️ Setup Biome
         uses: biomejs/setup-biome@v2
         with:
-          version: '1.7.0'
+          version: 'latest'
       - name: 🎨 Run Biome
         run: biome ci src
-      - name: 🏗️ Setup Bun
-        uses: oven-sh/setup-bun@v1
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 'latest'
+      - name: 🏗️ Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
       - name: 📦 Install Dependencies
-        run: bun install
+        run: pnpm install
       - name: 🏷️ Check Types
-        run: bun typecheck
+        run: pnpm typecheck
