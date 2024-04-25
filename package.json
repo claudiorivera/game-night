@@ -14,7 +14,7 @@
 		"postinstall": "prisma generate"
 	},
 	"dependencies": {
-		"@auth/core": "0.28.1",
+		"@auth/core": "0.30.0",
 		"@auth/prisma-adapter": "2.0.0",
 		"@faker-js/faker": "8.4.1",
 		"@prisma/client": "5.13.0",
