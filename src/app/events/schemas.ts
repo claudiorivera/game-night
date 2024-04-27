@@ -2,7 +2,7 @@ import { z } from "zod";
 
 const dateTimeLocalInputSchema = z
 	.string()
-	.regex(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/, "Invalid date");
+	.regex(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/, "Required");
 
 export const eventIdSchema = z.object({
 	id: z.string().cuid2(),
