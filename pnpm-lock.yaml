@@ -72,7 +72,7 @@ importers:
         specifier: 14.2.3
         version: 14.2.3(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       next-auth:
-        specifier: beta
+        specifier: 5.0.0-beta.16
         version: 5.0.0-beta.16(next@14.2.3(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)
       react:
         specifier: 18.2.0
