@@ -1,7 +1,6 @@
 "use server";
 
-import dayjs from "dayjs";
-import { revalidatePath } from "next/cache";
+import { toDate } from "date-fns";
 import { redirect } from "next/navigation";
 import {
 	createEventSchema,
@@ -46,7 +45,7 @@ export async function createEvent(
 	const event = await db.event.create({
 		data: {
 			...data,
-			dateTime: dayjs(dateTime).toDate(),
+			dateTime: toDate(dateTime),
 		},
 		select: {
 			id: true,
@@ -93,7 +92,7 @@ export async function editEvent(
 		where: { id: validation.data.id },
 		data: {
 			...data,
-			dateTime: dayjs(dateTime).toDate(),
+			dateTime: toDate(dateTime),
 		},
 		select: {
 			id: true,

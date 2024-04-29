@@ -26,6 +26,7 @@ export function validate<T extends z.ZodTypeAny>({
 	schema,
 }: { formData: FormData; schema: T }) {
 	const _formData = Object.fromEntries(formData);
+	console.log({ _formData });
 
 	return schema.safeParse(_formData) as ReturnType<T["safeParse"]>;
 }

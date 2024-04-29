@@ -1,6 +1,5 @@
 "use client";
 
-import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -14,6 +13,7 @@ import {
 } from "~/app/events/actions";
 import type { GetById } from "~/app/events/api";
 import type { GetAll } from "~/app/games/api";
+import { DateTimePicker } from "~/components/date-time-picker";
 import { Input } from "~/components/input";
 import { Select } from "~/components/select";
 import { SubmitButton } from "~/components/submit-button";
@@ -49,20 +49,12 @@ export function EditEventForm({
 			<Input type="hidden" name="eventId" value={event.id} />
 
 			<div className="flex flex-col gap-4">
-				<Input
-					name="dateTime"
-					type="datetime-local"
-					min={dayjs().format("YYYY-MM-DDTHH:mm")}
-					onInvalid={(e) =>
-						e.currentTarget.setCustomValidity(
-							"Start date must be in the future",
-						)
-					}
-					defaultValue={dayjs(event.dateTime).format("YYYY-MM-DDTHH:mm")}
-					pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}"
-					label="Event Date and Time"
+				<DateTimePicker
+					fieldName="dateTime"
+					initialDate={event.dateTime}
 					fieldErrors={state?.errors?.fieldErrors.dateTime}
 				/>
+
 				<Select
 					name="gameId"
 					label="Select Game"

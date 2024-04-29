@@ -1,13 +1,29 @@
 import { faker } from "@faker-js/faker";
 import type { PrismaClient } from "@prisma/client";
+import { gameById } from "~/app/games/bgg";
 import { getRandomElement } from "~/lib/utils";
 
 const NUMBER_OF_EVENTS = 4;
+const BGG_IDS_TO_CREATE = [13, 2651, 266192, 9209, 365717];
 
 export async function seed(db: PrismaClient) {
 	console.log("🌱 Seeding...");
 
 	await db.user.deleteMany();
+
+	await Promise.all(
+		BGG_IDS_TO_CREATE.map(async (bggId) => {
+			const game = await gameById(bggId);
+
+			return db.game.upsert({
+				where: {
+					bggId: game.bggId,
+				},
+				update: game,
+				create: game,
+			});
+		}),
+	);
 
 	// get a random existing game id
 	const games = await db.game.findMany();

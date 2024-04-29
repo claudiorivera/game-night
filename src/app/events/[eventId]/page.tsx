@@ -1,4 +1,4 @@
-import dayjs from "dayjs";
+import { format } from "date-fns";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { UpdateAttendanceForm } from "~/app/events/[eventId]/update-attendance-form";
@@ -32,7 +32,7 @@ export default async function EventDetailsPage({
 			<article className="rounded-lg border shadow-lg p-4 flex flex-col gap-4">
 				<div>
 					<h4 className="font-bold">
-						{dayjs(event.dateTime).format("MMMM D, YYYY [at] h:mma")}
+						{format(event.dateTime, "MMMM d, yyyy 'at' h:mmaaa")}
 					</h4>
 					<small>{event.game.name}</small>
 				</div>
