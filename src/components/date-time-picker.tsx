@@ -1,6 +1,6 @@
 "use client";
 
-import dayjs from "dayjs";
+import { format, formatISO } from "date-fns";
 import { AtSign, CalendarIcon } from "lucide-react";
 import { useState } from "react";
 import { Input } from "~/components/input";
@@ -26,14 +26,20 @@ export function DateTimePicker({
 	label?: string;
 }) {
 	const [date, setDate] = useState<Date | undefined>(initialDate);
-	const [time, setTime] = useState<string>(dayjs(initialDate).format("HH:mm"));
+	const [time, setTime] = useState<string>(
+		format(initialDate ?? new Date(), "HH:mm"),
+	);
 
 	return (
 		<>
 			<Input
 				type="hidden"
 				name={fieldName}
-				value={date ? `${dayjs(date).format("YYYY-MM-DD")}T${time}` : undefined}
+				value={
+					date
+						? `${formatISO(date, { representation: "date" })}T${time}`
+						: undefined
+				}
 			/>
 
 			<div className="flex flex-col gap-1">
@@ -47,11 +53,7 @@ export function DateTimePicker({
 								className={cn("font-normal", !date && "text-muted-foreground")}
 							>
 								<CalendarIcon className="mr-2 h-4 w-4" />
-								{date ? (
-									dayjs(date).format("MMMM D, YYYY")
-								) : (
-									<span>Pick a date</span>
-								)}
+								{date ? format(date, "MMMM d, yyyy") : <span>Pick a date</span>}
 							</Button>
 						</PopoverTrigger>
 						<PopoverContent className="w-auto p-0">

@@ -15,7 +15,7 @@ Uses the [BoardGameGeek API2](https://boardgamegeek.com/wiki/page/BGG_XML_API2) 
 - [Zod](https://zod.dev)
 - [Prisma](https://www.prisma.io/)
 - [NextAuth.js](https://next-auth.js.org)
-- [dayjs](https://day.js.org)
+- [datefns](https://date-fns.org)
 - [Fast XML Parser](https://github.com/NaturalIntelligence/fast-xml-parser)
 - [BoardGameGeek API2](https://boardgamegeek.com/wiki/page/BGG_XML_API2)
 

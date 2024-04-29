@@ -1,4 +1,4 @@
-import dayjs from "dayjs";
+import { format } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
 import type { GetAll } from "~/app/events/api";
@@ -20,7 +20,7 @@ export function EventSummaryCard({
 			<Card>
 				<CardHeader>
 					<CardTitle>
-						{dayjs(event.dateTime).format("MMMM D, YYYY [at] h:mma")}
+						{format(event.dateTime, "MMMM d, yyyy 'at' h:mmaaa")}
 					</CardTitle>
 					<CardDescription>{event.game.name}</CardDescription>
 				</CardHeader>
