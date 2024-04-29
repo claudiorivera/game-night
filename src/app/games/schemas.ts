@@ -126,8 +126,8 @@ export const parsedBggGameSchema = z
 	})
 	.transform((data) => ({
 		bggId: data.items.item.id,
-		imageSrc: data.items.item.image,
-		thumbnailSrc: data.items.item.thumbnail,
+		imageSrc: data.items.item.image ?? "/game-night-logo.png",
+		thumbnailSrc: data.items.item.thumbnail ?? "/game-night-logo.png",
 		description: parseSpecialCharacters(data.items.item.description),
 		yearPublished: data.items.item.yearpublished,
 		minPlayers: data.items.item.minplayers,
