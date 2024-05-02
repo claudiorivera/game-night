@@ -1,6 +1,7 @@
 "use server";
 
 import { toDate } from "date-fns";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import {
 	createEventSchema,
@@ -53,6 +54,7 @@ export async function createEvent(
 	});
 
 	if (event) {
+		revalidatePath("/events");
 		return {
 			message: "You have successfully created an event!",
 			eventId: event.id,
@@ -100,6 +102,7 @@ export async function editEvent(
 	});
 
 	if (event) {
+		revalidatePath(`/events/${event.id}`);
 		return {
 			message: "You have successfully updated the event!",
 		} satisfies EditEventFormState;
@@ -153,6 +156,7 @@ export async function updateAttendance(
 	});
 
 	if (event) {
+		revalidatePath(`/events/${event.id}`);
 		return {
 			message: `You have successfully ${
 				validation.data.action === "JOIN" ? "joined" : "left"
@@ -168,6 +172,7 @@ export async function deleteEvent(id: string) {
 	});
 
 	if (event) {
+		revalidatePath("/events");
 		return redirect("/events");
 	}
 }

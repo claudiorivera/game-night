@@ -54,6 +54,7 @@ export async function importGame(
 	});
 
 	if (game) {
+		revalidatePath("/games");
 		return {
 			message: "You have successfully imported a game!",
 		} satisfies ImportGameFormState;
