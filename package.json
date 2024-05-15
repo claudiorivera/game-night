@@ -15,7 +15,7 @@
 	},
 	"dependencies": {
 		"@auth/core": "0.28.1",
-		"@auth/prisma-adapter": "2.0.0",
+		"@auth/prisma-adapter": "2.1.0",
 		"@faker-js/faker": "8.4.1",
 		"@prisma/client": "5.14.0",
 		"@radix-ui/react-accordion": "^1.1.2",
