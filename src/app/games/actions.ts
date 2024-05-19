@@ -1,8 +1,8 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
 import { importGameFormSchema } from "~/app/games/schemas";
-import { db } from "~/lib/db";
+import { db } from "~/db";
+import { gamesTable } from "~/db/schema";
 import {
 	type InferFlattenedErrors,
 	type PossiblyUndefined,
@@ -46,15 +46,12 @@ export async function importGame(
 		return { errors } satisfies ImportGameFormState;
 	}
 
-	const game = await db.game.create({
-		data: validation.data,
-		select: {
-			id: true,
-		},
-	});
+	const [newGame] = await db
+		.insert(gamesTable)
+		.values(validation.data)
+		.returning();
 
-	if (game) {
-		revalidatePath("/games");
+	if (newGame) {
 		return {
 			message: "You have successfully imported a game!",
 		} satisfies ImportGameFormState;

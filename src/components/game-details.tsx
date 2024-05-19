@@ -1,11 +1,9 @@
 import Image from "next/image";
-import type { GetById } from "~/app/events/api";
+import type { Game } from "~/app/games/api";
 import type { GamesByQuery } from "~/app/games/bgg";
 import { Badge } from "~/components/ui/badge";
 
-export function GameDetails({
-	game,
-}: { game: GetById["game"] | GamesByQuery[number] }) {
+export function GameDetails({ game }: { game: Game | GamesByQuery[number] }) {
 	return (
 		<div className="grid grid-cols-12 gap-4">
 			<div className="col-span-12 flex flex-col gap-4 sm:col-span-5">

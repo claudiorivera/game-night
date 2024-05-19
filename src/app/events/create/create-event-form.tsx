@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useFormState } from "react-dom";
 import toast from "react-hot-toast";
 import { type CreateEventFormState, createEvent } from "~/app/events/actions";
-import type { GetAll } from "~/app/games/api";
+import type { Game } from "~/app/games/api";
 import { DateTimePicker } from "~/components/date-time-picker";
 import { Input } from "~/components/input";
 import { Select } from "~/components/select";
@@ -15,7 +15,7 @@ import { Button } from "~/components/ui/button";
 export function CreateEventForm({
 	games,
 	hostId,
-}: { games: GetAll; hostId: string }) {
+}: { games: Game[]; hostId: string }) {
 	const router = useRouter();
 
 	const [state, formAction] = useFormState<CreateEventFormState, FormData>(

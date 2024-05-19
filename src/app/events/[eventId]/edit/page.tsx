@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { EditEventForm } from "~/app/events/[eventId]/edit/edit-event-form";
-import { getById } from "~/app/events/api";
+import { findByIdOrThrow } from "~/app/events/api";
 import { getAll } from "~/app/games/api";
 import { BackButton } from "~/components/back-button";
 import { auth } from "~/lib/auth";
@@ -14,7 +14,7 @@ export default async function EditEventPage({
 		redirect("/api/auth/signin");
 	}
 
-	const event = await getById(eventId);
+	const event = await findByIdOrThrow(eventId);
 	const games = await getAll();
 	const isHost = session.user.id === event.host.id;
 	const isAdmin = session.user.isAdmin;

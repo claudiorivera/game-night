@@ -11,8 +11,8 @@ import {
 	deleteEvent,
 	editEvent,
 } from "~/app/events/actions";
-import type { GetById } from "~/app/events/api";
-import type { GetAll } from "~/app/games/api";
+import type { EventById } from "~/app/events/api";
+import type { Game } from "~/app/games/api";
 import { DateTimePicker } from "~/components/date-time-picker";
 import { Input } from "~/components/input";
 import { Select } from "~/components/select";
@@ -23,7 +23,7 @@ export function EditEventForm({
 	event,
 	games,
 	hostId,
-}: { event: GetById; games: GetAll; hostId: string }) {
+}: { event: EventById; games: Array<Game>; hostId: string }) {
 	const router = useRouter();
 	const session = useSession();
 

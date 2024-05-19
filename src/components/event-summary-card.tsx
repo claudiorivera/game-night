@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
-import type { GetAll } from "~/app/events/api";
+import type { EventById } from "~/app/events/api";
 import {
 	Card,
 	CardContent,
@@ -13,7 +13,7 @@ import {
 export function EventSummaryCard({
 	event,
 }: {
-	event: GetAll[number];
+	event: EventById;
 }) {
 	return (
 		<Link href={`/events/${event.id}`}>

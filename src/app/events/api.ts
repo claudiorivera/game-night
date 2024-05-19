@@ -1,83 +1,55 @@
-import { Prisma } from "@prisma/client";
-import type { Return } from "@prisma/client/runtime/library";
-import { defaultGameSelect } from "~/app/games/api";
-import { db } from "~/lib/db";
-
-const defaultEventSelect = Prisma.validator<Prisma.EventSelect>()({
-	id: true,
-	dateTime: true,
-	game: {
-		select: {
-			id: true,
-			name: true,
-			imageSrc: true,
-		},
-	},
-	host: {
-		select: {
-			id: true,
-			name: true,
-			image: true,
-		},
-	},
-	guests: {
-		select: {
-			id: true,
-			name: true,
-			image: true,
-		},
-	},
-});
+import { eq, gte } from "drizzle-orm";
+import { db } from "~/db";
+import { eventGuestTable, eventsTable } from "~/db/schema";
 
 export function getAttendingByUserId(userId: string) {
-	return db.event.findMany({
-		where: {
-			guests: {
-				some: {
-					id: userId,
-				},
-			},
-		},
-		select: defaultEventSelect,
-	});
+	return db
+		.select()
+		.from(eventsTable)
+		.leftJoin(eventGuestTable, eq(eventGuestTable.eventId, userId));
 }
 
 export function getHostingByUserId(userId: string) {
-	return db.event.findMany({
-		where: {
-			hostId: userId,
-		},
-		select: defaultEventSelect,
+	return db.query.eventsTable.findMany({
+		where: eq(eventsTable.hostId, userId),
 	});
 }
 
 export function getAll() {
-	return db.event.findMany({
-		select: defaultEventSelect,
-		where: {
-			dateTime: {
-				gte: new Date(),
-			},
-		},
-	});
-}
-
-export function getById(id: string) {
-	return db.event.findUniqueOrThrow({
-		where: {
-			id,
-		},
-		select: {
-			...defaultEventSelect,
-			game: {
-				select: {
-					...defaultGameSelect,
+	return db.query.eventsTable.findMany({
+		with: {
+			host: true,
+			game: true,
+			guests: {
+				with: {
+					guest: true,
 				},
 			},
 		},
 	});
 }
 
-export type GetAttendingByUserId = Awaited<Return<typeof getAttendingByUserId>>;
-export type GetAll = Awaited<Return<typeof getAll>>;
-export type GetById = Awaited<Return<typeof getById>>;
+export async function findByIdOrThrow(id: string) {
+	return db.query.eventsTable
+		.findFirst({
+			where: eq(eventsTable.id, id),
+			with: {
+				host: true,
+				game: true,
+				guests: {
+					with: {
+						guest: true,
+					},
+				},
+			},
+		})
+		.then((event) => {
+			if (!event) {
+				throw new Error("Event not found");
+			}
+
+			return event;
+		});
+}
+
+export type EventById = Awaited<ReturnType<typeof findByIdOrThrow>>;
