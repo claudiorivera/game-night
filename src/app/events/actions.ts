@@ -1,14 +1,15 @@
 "use server";
 
 import { toDate } from "date-fns";
-import { revalidatePath } from "next/cache";
+import { and, eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import {
 	createEventSchema,
 	editEventSchema,
 	updateAttendanceSchema,
 } from "~/app/events/schemas";
-import { db } from "~/lib/db";
+import { db } from "~/db";
+import { eventGuestTable, eventsTable } from "~/db/schema";
 import {
 	type InferFlattenedErrors,
 	type PossiblyUndefined,
@@ -43,21 +44,18 @@ export async function createEvent(
 
 	const { dateTime, ...data } = validation.data;
 
-	const event = await db.event.create({
-		data: {
+	const [newEvent] = await db
+		.insert(eventsTable)
+		.values({
 			...data,
 			dateTime: toDate(dateTime),
-		},
-		select: {
-			id: true,
-		},
-	});
+		})
+		.returning();
 
-	if (event) {
-		revalidatePath("/events");
+	if (newEvent) {
 		return {
 			message: "You have successfully created an event!",
-			eventId: event.id,
+			eventId: newEvent.id,
 		} satisfies CreateEventFormState;
 	}
 }
@@ -90,19 +88,16 @@ export async function editEvent(
 
 	const { dateTime, ...data } = validation.data;
 
-	const event = await db.event.update({
-		where: { id: validation.data.id },
-		data: {
+	const [newEvent] = await db
+		.update(eventsTable)
+		.set({
 			...data,
 			dateTime: toDate(dateTime),
-		},
-		select: {
-			id: true,
-		},
-	});
+		})
+		.where(eq(eventsTable.id, validation.data.id))
+		.returning();
 
-	if (event) {
-		revalidatePath(`/events/${event.id}`);
+	if (newEvent) {
 		return {
 			message: "You have successfully updated the event!",
 		} satisfies EditEventFormState;
@@ -135,44 +130,35 @@ export async function updateAttendance(
 		} satisfies UpdateAttendanceFormState;
 	}
 
-	const event = await db.event.update({
-		where: {
-			id: validation.data.eventId,
-		},
-		data: {
-			guests: {
-				...(validation.data.action === "JOIN" && {
-					connect: {
-						id: validation.data.userId,
-					},
-				}),
-				...(validation.data.action === "LEAVE" && {
-					disconnect: {
-						id: validation.data.userId,
-					},
-				}),
-			},
-		},
-	});
-
-	if (event) {
-		revalidatePath(`/events/${event.id}`);
-		return {
-			message: `You have successfully ${
-				validation.data.action === "JOIN" ? "joined" : "left"
-			} the event!`,
-		} satisfies UpdateAttendanceFormState;
+	if (validation.data.action === "JOIN") {
+		await db.insert(eventGuestTable).values({
+			eventId: validation.data.eventId,
+			guestId: validation.data.userId,
+		});
 	}
+
+	if (validation.data.action === "LEAVE") {
+		await db
+			.delete(eventGuestTable)
+			.where(
+				and(
+					eq(eventGuestTable.eventId, validation.data.eventId),
+					eq(eventGuestTable.guestId, validation.data.userId),
+				),
+			);
+	}
+
+	return {
+		message: `You have successfully ${
+			validation.data.action === "JOIN" ? "joined" : "left"
+		} the event!`,
+	} satisfies UpdateAttendanceFormState;
 }
 
 export async function deleteEvent(id: string) {
-	const event = await db.event.delete({
-		where: { id },
-		select: { id: true },
-	});
+	const newEvent = await db.delete(eventsTable).where(eq(eventsTable.id, id));
 
-	if (event) {
-		revalidatePath("/events");
+	if (newEvent) {
 		return redirect("/events");
 	}
 }

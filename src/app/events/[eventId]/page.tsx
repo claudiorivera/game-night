@@ -2,7 +2,7 @@ import { format } from "date-fns";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { UpdateAttendanceForm } from "~/app/events/[eventId]/update-attendance-form";
-import { getById } from "~/app/events/api";
+import { findByIdOrThrow } from "~/app/events/api";
 import { Avatar } from "~/components/avatar";
 import { BackButton } from "~/components/back-button";
 import { GameDetails } from "~/components/game-details";
@@ -18,7 +18,7 @@ export default async function EventDetailsPage({
 		return redirect("/api/auth/signin");
 	}
 
-	const event = await getById(params.eventId);
+	const event = await findByIdOrThrow(params.eventId);
 
 	const isHost = session.user.id === event.host.id;
 	const isAdmin = session.user.isAdmin;
@@ -49,7 +49,7 @@ export default async function EventDetailsPage({
 							<p>Guests:</p>
 							{event.guests.length ? (
 								<div className="flex -space-x-4">
-									{event.guests.map((guest) => (
+									{event.guests.map(({ guest }) => (
 										<Avatar key={guest.id} user={guest} />
 									))}
 								</div>

@@ -1,43 +1,45 @@
-import { Prisma } from "@prisma/client";
-import type { Return } from "@prisma/client/runtime/library";
-import { db } from "~/lib/db";
+import { eq } from "drizzle-orm";
+import { db } from "~/db";
+import { usersTable } from "~/db/schema";
 
-export const defaultEventSelect = Prisma.validator<Prisma.EventSelect>()({
-	id: true,
-	game: true,
-	host: true,
-	guests: true,
-	dateTime: true,
-});
-
-export function getById(userId: string) {
-	return db.user.findUniqueOrThrow({
-		where: {
-			id: userId,
-		},
-		select: {
-			id: true,
-			name: true,
-			isAdmin: true,
-			eventsHosting: {
-				select: defaultEventSelect,
-				where: {
-					dateTime: {
-						gte: new Date(),
+export async function findByIdOrThrow(userId: string) {
+	return db.query.usersTable
+		.findFirst({
+			where: eq(usersTable.id, userId),
+			with: {
+				eventsHosting: {
+					with: {
+						host: true,
+						game: true,
+						guests: {
+							with: {
+								guest: true,
+							},
+						},
+					},
+				},
+				eventsAttending: {
+					with: {
+						event: {
+							with: {
+								host: true,
+								game: true,
+								guests: {
+									with: {
+										guest: true,
+									},
+								},
+							},
+						},
 					},
 				},
 			},
-			eventsAttending: {
-				select: defaultEventSelect,
-				where: {
-					dateTime: {
-						gte: new Date(),
-					},
-				},
-			},
-		},
-	});
+		})
+		.then((user) => {
+			if (!user) {
+				throw new Error("User not found");
+			}
+
+			return user;
+		});
 }
-
-export type GetById = Awaited<Return<typeof getById>>;
-export type UserEvents = GetById["eventsHosting"] | GetById["eventsAttending"];

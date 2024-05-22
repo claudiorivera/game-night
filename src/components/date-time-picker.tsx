@@ -35,7 +35,7 @@ export function DateTimePicker({
 			<Input
 				type="hidden"
 				name={fieldName}
-				value={
+				defaultValue={
 					date
 						? `${formatISO(date, { representation: "date" })}T${time}`
 						: undefined

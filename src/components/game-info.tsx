@@ -1,6 +1,6 @@
 "use client";
 
-import type { GetAll } from "~/app/games/api";
+import type { Game } from "~/app/games/api";
 import { GameDetails } from "~/components/game-details";
 import {
 	Accordion,
@@ -9,7 +9,7 @@ import {
 	AccordionTrigger,
 } from "~/components/ui/accordion";
 
-export function GameInfo({ game }: { game: GetAll[number] }) {
+export function GameInfo({ game }: { game: Game }) {
 	return (
 		<Accordion type="single" collapsible>
 			<AccordionItem value={game.name}>

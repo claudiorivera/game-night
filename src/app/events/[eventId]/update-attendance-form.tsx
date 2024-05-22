@@ -9,14 +9,14 @@ import {
 	type UpdateAttendanceFormState,
 	updateAttendance,
 } from "~/app/events/actions";
-import type { GetById } from "~/app/events/api";
+import type { EventById } from "~/app/events/api";
 import { Input } from "~/components/input";
 import { Button } from "~/components/ui/button";
 
 export function UpdateAttendanceForm({
 	event,
 	user,
-}: { event: GetById; user: User }) {
+}: { event: EventById; user: User }) {
 	const router = useRouter();
 
 	const [state, formAction] = useFormState<UpdateAttendanceFormState, FormData>(
@@ -31,7 +31,7 @@ export function UpdateAttendanceForm({
 		}
 	}, [state, router]);
 
-	const isAttending = event.guests.some((guest) => guest.id === user.id);
+	const isAttending = event.guests.some(({ guest }) => guest.id === user.id);
 
 	return (
 		<form>

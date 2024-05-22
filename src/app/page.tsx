@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { type UserEvents, getById } from "~/app/users/api";
+import type { EventById } from "~/app/events/api";
+import { findByIdOrThrow } from "~/app/users/api";
 import { EventSummaryCard } from "~/components/event-summary-card";
 import { auth } from "~/lib/auth";
 
@@ -11,7 +12,7 @@ export default async function HomePage() {
 		return redirect("/api/auth/signin");
 	}
 
-	const { name, eventsHosting, eventsAttending } = await getById(
+	const { name, eventsHosting, eventsAttending } = await findByIdOrThrow(
 		session.user.id,
 	);
 
@@ -42,7 +43,7 @@ export default async function HomePage() {
 						</Link>
 					</p>
 				}
-				events={eventsAttending}
+				events={eventsAttending.map((eventGuest) => eventGuest.event)}
 			/>
 		</>
 	);
@@ -56,7 +57,7 @@ function Events({
 	events,
 	emptyComponent,
 }: {
-	events: UserEvents;
+	events: Array<EventById>;
 	emptyComponent: React.ReactNode;
 }) {
 	return (

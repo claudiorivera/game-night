@@ -1,7 +1,7 @@
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
-import { db } from "~/lib/db";
-import { seed } from "~/lib/seed";
+import { db } from "~/db";
+import { seed } from "~/db/seed";
 
 export async function POST() {
 	const headersList = headers();
