@@ -63,8 +63,8 @@ importers:
         specifier: 0.30.10
         version: 0.30.10(@libsql/client@0.6.0)(@types/react@18.3.2)(react@18.3.1)
       fast-xml-parser:
-        specifier: 4.3.6
-        version: 4.3.6
+        specifier: 4.4.0
+        version: 4.4.0
       lucide-react:
         specifier: 0.378.0
         version: 0.378.0(react@18.3.1)
@@ -1589,8 +1589,8 @@ packages:
     resolution: {integrity: sha512-oX2ruAFQwf/Orj8m737Y5adxDQO0LAB7/S5MnxCdTNDd4p6BsyIVsv9JQsATbTSq8KHRpLwIHbVlUNatxd+1Ow==}
     engines: {node: '>=8.6.0'}
 
-  fast-xml-parser@4.3.6:
-    resolution: {integrity: sha512-M2SovcRxD4+vC493Uc2GZVcZaj66CCJhWurC4viynVSTvrpErCShNcDz1lAho6n9REQKvL/ll4A4/fw6Y9z8nw==}
+  fast-xml-parser@4.4.0:
+    resolution: {integrity: sha512-kLY3jFlwIYwBNDojclKsNAC12sfD6NwW74QB2CoNGPvtVxjliYehVunB3HYyNi+n4Tt1dAcgwYvmKF/Z18flqg==}
     hasBin: true
 
   fastq@1.17.1:
@@ -3511,7 +3511,7 @@ snapshots:
       merge2: 1.4.1
       micromatch: 4.0.5
 
-  fast-xml-parser@4.3.6:
+  fast-xml-parser@4.4.0:
     dependencies:
       strnum: 1.0.5
 
