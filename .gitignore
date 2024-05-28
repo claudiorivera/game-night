@@ -39,3 +39,5 @@ yarn-error.log*
 
 # sqlite
 *.sqlite
+# Sentry Config File
+.env.sentry-build-plugin
