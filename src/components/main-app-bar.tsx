@@ -11,7 +11,7 @@ import {
 	DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
 
-import { userLinks } from "~/lib/constants";
+import { APP_NAME, userLinks } from "~/lib/constants";
 
 export function MainAppBar() {
 	const { status } = useSession();
@@ -22,7 +22,7 @@ export function MainAppBar() {
 		<nav className="flex items-center bg-primary p-4 text-primary-foreground shadow">
 			<div className="flex-1">
 				<Link className="hover:text-muted text-2xl font-bold" href="/">
-					Game Night
+					{APP_NAME}
 				</Link>
 			</div>
 

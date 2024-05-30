@@ -3,6 +3,7 @@ import { Inter as FontSans } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import { Providers } from "~/app/providers";
 import { MainAppBar } from "~/components/main-app-bar";
+import { APP_NAME } from "~/lib/constants";
 import { cn } from "~/lib/utils";
 import "~/styles/globals.css";
 
@@ -12,7 +13,7 @@ const fontSans = FontSans({
 });
 
 export const metadata: Metadata = {
-	title: "Game Night",
+	title: APP_NAME,
 };
 
 export default function RootLayout({

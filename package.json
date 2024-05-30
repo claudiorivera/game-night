@@ -12,7 +12,8 @@
 		"typecheck": "tsc --noEmit",
 		"db:push": "drizzle-kit push",
 		"db:studio": "drizzle-kit studio",
-		"db:seed": "bun src/db/runSeed.ts"
+		"db:seed": "bun src/db/runSeed.ts",
+		"knip": "SKIP_ENV_VALIDATION=true knip"
 	},
 	"dependencies": {
 		"@auth/drizzle-adapter": "1.1.0",
@@ -55,6 +56,7 @@
 		"autoprefixer": "10.4.19",
 		"bun": "1.1.10",
 		"drizzle-kit": "0.21.4",
+		"knip": "5.17.3",
 		"postcss": "8.4.38",
 		"tailwindcss": "3.4.3",
 		"typescript": "5.4.5"
