@@ -16,7 +16,7 @@
 		"knip": "SKIP_ENV_VALIDATION=true knip"
 	},
 	"dependencies": {
-		"@auth/drizzle-adapter": "1.1.0",
+		"@auth/drizzle-adapter": "1.2.0",
 		"@faker-js/faker": "8.4.1",
 		"@libsql/client": "0.6.2",
 		"@paralleldrive/cuid2": "2.2.2",
