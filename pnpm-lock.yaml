@@ -63,8 +63,8 @@ importers:
         specifier: 3.6.0
         version: 3.6.0
       drizzle-orm:
-        specifier: 0.31.0
-        version: 0.31.0(@libsql/client@0.6.2)(@opentelemetry/api@1.8.0)(@types/pg@8.6.1)(@types/react@18.3.3)(react@18.3.1)
+        specifier: 0.31.1
+        version: 0.31.1(@libsql/client@0.6.2)(@opentelemetry/api@1.8.0)(@types/pg@8.6.1)(@types/react@18.3.3)(react@18.3.1)
       fast-xml-parser:
         specifier: 4.4.0
         version: 4.4.0
@@ -2076,8 +2076,8 @@ packages:
     resolution: {integrity: sha512-dxluXlhT1N9bpj2eZR3N/z3u4H0PbbrBYgyouIobFF25tOt2Buy1abx26Jii96qcYV0JgxjhnuV+FBcgR0Xa0w==}
     hasBin: true
 
-  drizzle-orm@0.31.0:
-    resolution: {integrity: sha512-Uf5a3sGOqoyC+ZpQ4NCPR373q0pHOHezIJwdumMix+3rzLdtKgRhdaOabYeqNHBB48gF3Q9rrndkNc4ddE3AWA==}
+  drizzle-orm@0.31.1:
+    resolution: {integrity: sha512-hTbYne2XX3y6sV7WSxcPH6/vNSiQSUG9VZsFI27jBMCN0OT3Ok7ao3pIT5OMAqWkzJCRFgGjAaUeTAZWPgOKag==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
       '@cloudflare/workers-types': '>=3'
@@ -5300,7 +5300,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.31.0(@libsql/client@0.6.2)(@opentelemetry/api@1.8.0)(@types/pg@8.6.1)(@types/react@18.3.3)(react@18.3.1):
+  drizzle-orm@0.31.1(@libsql/client@0.6.2)(@opentelemetry/api@1.8.0)(@types/pg@8.6.1)(@types/react@18.3.3)(react@18.3.1):
     optionalDependencies:
       '@libsql/client': 0.6.2
       '@opentelemetry/api': 1.8.0
