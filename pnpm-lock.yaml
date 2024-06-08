@@ -63,8 +63,8 @@ importers:
         specifier: 3.6.0
         version: 3.6.0
       drizzle-orm:
-        specifier: 0.31.1
-        version: 0.31.1(@libsql/client@0.6.2)(@opentelemetry/api@1.8.0)(@types/pg@8.6.1)(@types/react@18.3.3)(react@18.3.1)
+        specifier: 0.31.2
+        version: 0.31.2(@libsql/client@0.6.2)(@opentelemetry/api@1.8.0)(@types/pg@8.6.1)(@types/react@18.3.3)(react@18.3.1)
       fast-xml-parser:
         specifier: 4.4.0
         version: 4.4.0
@@ -2076,8 +2076,8 @@ packages:
     resolution: {integrity: sha512-hhCJRyZkr6cWnnUuslxE3VbptPVLpFPZkfS3iyuuHUHGQV8jTUotRvpDFhhytxhwazy4Uj5s7wcsQp3iXHn1vQ==}
     hasBin: true
 
-  drizzle-orm@0.31.1:
-    resolution: {integrity: sha512-hTbYne2XX3y6sV7WSxcPH6/vNSiQSUG9VZsFI27jBMCN0OT3Ok7ao3pIT5OMAqWkzJCRFgGjAaUeTAZWPgOKag==}
+  drizzle-orm@0.31.2:
+    resolution: {integrity: sha512-QnenevbnnAzmbNzQwbhklvIYrDE8YER8K7kSrAWQSV1YvFCdSQPzj+jzqRdTSsV2cDqSpQ0NXGyL1G9I43LDLg==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
       '@cloudflare/workers-types': '>=3'
@@ -2087,6 +2087,7 @@ packages:
       '@op-engineering/op-sqlite': '>=2'
       '@opentelemetry/api': ^1.4.1
       '@planetscale/database': '>=1'
+      '@tidbcloud/serverless': '*'
       '@types/better-sqlite3': '*'
       '@types/pg': '*'
       '@types/react': '>=18'
@@ -2120,6 +2121,8 @@ packages:
       '@opentelemetry/api':
         optional: true
       '@planetscale/database':
+        optional: true
+      '@tidbcloud/serverless':
         optional: true
       '@types/better-sqlite3':
         optional: true
@@ -5288,7 +5291,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.31.1(@libsql/client@0.6.2)(@opentelemetry/api@1.8.0)(@types/pg@8.6.1)(@types/react@18.3.3)(react@18.3.1):
+  drizzle-orm@0.31.2(@libsql/client@0.6.2)(@opentelemetry/api@1.8.0)(@types/pg@8.6.1)(@types/react@18.3.3)(react@18.3.1):
     optionalDependencies:
       '@libsql/client': 0.6.2
       '@opentelemetry/api': 1.8.0
