@@ -4,9 +4,9 @@ import NextAuth from "next-auth";
 import type { Adapter } from "next-auth/adapters";
 import DiscordProvider from "next-auth/providers/discord";
 import GitHubProvider from "next-auth/providers/github";
-import { db } from "~/db";
-import * as schema from "~/db/schema";
 import { env } from "~/env";
+import { db } from "~/server/db";
+import * as schema from "~/server/db/schema";
 declare module "next-auth" {
 	interface Session extends DefaultSession {
 		user: {

@@ -1,15 +1,12 @@
 "use server";
 
-import { importGameFormSchema } from "~/app/games/schemas";
-import { db } from "~/db";
-import { gamesTable } from "~/db/schema";
-import {
-	type InferFlattenedErrors,
-	type PossiblyUndefined,
-	formatError,
-} from "~/lib/utils";
+import { formatError } from "~/lib/utils";
+import { importGameFormSchema } from "~/schemas/games";
+import { db } from "~/server/db";
+import { gamesTable } from "~/server/db/schema";
+import type { InferFlattenedErrors, Maybe } from "~/types";
 
-export type ImportGameFormState = PossiblyUndefined<{
+export type ImportGameFormState = Maybe<{
 	errors?: InferFlattenedErrors<typeof importGameFormSchema>;
 	message?: string;
 }>;

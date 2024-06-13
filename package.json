@@ -7,7 +7,7 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"check:fix": "pnpm biome check --apply src",
+		"check:fix": "pnpm biome check --write src",
 		"check:nofix": "pnpm biome check src",
 		"typecheck": "tsc --noEmit",
 		"db:push": "drizzle-kit push",

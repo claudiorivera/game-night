@@ -3,21 +3,17 @@
 import { toDate } from "date-fns";
 import { and, eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
+import { formatError, validate } from "~/lib/utils";
 import {
 	createEventSchema,
 	editEventSchema,
 	updateAttendanceSchema,
-} from "~/app/events/schemas";
-import { db } from "~/db";
-import { eventGuestTable, eventsTable } from "~/db/schema";
-import {
-	type InferFlattenedErrors,
-	type PossiblyUndefined,
-	formatError,
-	validate,
-} from "~/lib/utils";
+} from "~/schemas/events";
+import { db } from "~/server/db";
+import { eventGuestTable, eventsTable } from "~/server/db/schema";
+import type { InferFlattenedErrors, Maybe } from "~/types";
 
-export type CreateEventFormState = PossiblyUndefined<{
+export type CreateEventFormState = Maybe<{
 	errors?: InferFlattenedErrors<typeof createEventSchema>;
 	message?: string;
 	eventId?: string;
@@ -60,7 +56,7 @@ export async function createEvent(
 	}
 }
 
-export type EditEventFormState = PossiblyUndefined<{
+export type EditEventFormState = Maybe<{
 	errors?: InferFlattenedErrors<typeof editEventSchema>;
 	message?: string;
 }>;
@@ -104,7 +100,7 @@ export async function editEvent(
 	}
 }
 
-export type UpdateAttendanceFormState = PossiblyUndefined<{
+export type UpdateAttendanceFormState = Maybe<{
 	errors?: InferFlattenedErrors<typeof updateAttendanceSchema>;
 	message?: string;
 }>;

@@ -1,7 +1,7 @@
 import Image from "next/image";
-import type { Game } from "~/app/games/api";
-import type { GamesByQuery } from "~/app/games/bgg";
 import { Badge } from "~/components/ui/badge";
+import type { GamesByQuery } from "~/types/bgg";
+import type { Game } from "~/types/games";
 
 export function GameDetails({ game }: { game: Game | GamesByQuery[number] }) {
 	return (

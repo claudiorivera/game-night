@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import type { EventById } from "~/app/events/api";
-import { findByIdOrThrow } from "~/app/users/api";
 import { EventSummaryCard } from "~/components/event-summary-card";
-import { auth } from "~/lib/auth";
+import { Users } from "~/server/api/users";
+import { auth } from "~/server/auth";
+import type { EventById } from "~/types/events";
 
 export default async function HomePage() {
 	const session = await auth();
@@ -12,7 +12,7 @@ export default async function HomePage() {
 		return redirect("/api/auth/signin");
 	}
 
-	const { name, eventsHosting, eventsAttending } = await findByIdOrThrow(
+	const { name, eventsHosting, eventsAttending } = await Users.findByIdOrThrow(
 		session.user.id,
 	);
 

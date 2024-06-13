@@ -1,7 +1,7 @@
 import { z } from "zod";
-import { gamesByQuery } from "~/app/games/bgg";
 import { GameQueryResult } from "~/app/games/import/game-query-result";
 import { SearchGamesForm } from "~/app/games/import/search-games-form";
+import { Bgg } from "~/server/api/bgg";
 
 export default async function ImportGamesPage({
 	searchParams,
@@ -11,7 +11,7 @@ export default async function ImportGamesPage({
 	const validation = z.string().safeParse(searchParams.query);
 	const query = validation.success ? validation.data : "";
 
-	const results = query.length ? await gamesByQuery(query) : [];
+	const results = query.length ? await Bgg.gamesByQuery(query) : [];
 
 	return (
 		<div className="flex flex-col gap-4">

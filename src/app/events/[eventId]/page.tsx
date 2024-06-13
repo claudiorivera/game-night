@@ -2,12 +2,12 @@ import { format } from "date-fns";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { UpdateAttendanceForm } from "~/app/events/[eventId]/update-attendance-form";
-import { findByIdOrThrow } from "~/app/events/api";
 import { Avatar } from "~/components/avatar";
 import { BackButton } from "~/components/back-button";
 import { GameDetails } from "~/components/game-details";
 import { Button } from "~/components/ui/button";
-import { auth } from "~/lib/auth";
+import { Events } from "~/server/api/events";
+import { auth } from "~/server/auth";
 
 export default async function EventDetailsPage({
 	params,
@@ -18,7 +18,7 @@ export default async function EventDetailsPage({
 		return redirect("/api/auth/signin");
 	}
 
-	const event = await findByIdOrThrow(params.eventId);
+	const event = await Events.findByIdOrThrow(params.eventId);
 
 	const isHost = session.user.id === event.host.id;
 	const isAdmin = session.user.isAdmin;

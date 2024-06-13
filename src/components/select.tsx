@@ -1,6 +1,6 @@
 "use client";
 
-import { type ComponentProps, forwardRef } from "react";
+import type { ComponentProps } from "react";
 import { Label } from "~/components/ui/label";
 import {
 	SelectContent,
@@ -10,7 +10,7 @@ import {
 	SelectValue,
 	Select as _Select,
 } from "~/components/ui/select";
-import type { InferFlattenedErrors } from "~/lib/utils";
+import type { InferFlattenedErrors } from "~/types";
 
 type Option = {
 	value: string;

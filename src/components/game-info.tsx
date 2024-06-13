@@ -1,6 +1,5 @@
 "use client";
 
-import type { Game } from "~/app/games/api";
 import { GameDetails } from "~/components/game-details";
 import {
 	Accordion,
@@ -8,6 +7,7 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from "~/components/ui/accordion";
+import type { Game } from "~/types/games";
 
 export function GameInfo({ game }: { game: Game }) {
 	return (

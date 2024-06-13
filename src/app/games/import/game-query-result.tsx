@@ -1,6 +1,5 @@
 "use client";
 
-import type { GamesByQuery } from "~/app/games/bgg";
 import { ImportGameForm } from "~/app/games/import/import-game-form";
 import { GameDetails } from "~/components/game-details";
 import {
@@ -9,6 +8,7 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from "~/components/ui/accordion";
+import type { GamesByQuery } from "~/types/bgg";
 
 export function GameQueryResult({ game }: { game: GamesByQuery[number] }) {
 	return (

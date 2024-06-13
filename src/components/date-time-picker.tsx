@@ -12,7 +12,8 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from "~/components/ui/popover";
-import { type InferFlattenedErrors, cn } from "~/lib/utils";
+import { cn } from "~/lib/utils";
+import type { InferFlattenedErrors } from "~/types";
 
 export function DateTimePicker({
 	fieldName,
