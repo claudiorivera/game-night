@@ -12,7 +12,7 @@
 		"typecheck": "tsc --noEmit",
 		"db:push": "drizzle-kit push",
 		"db:studio": "drizzle-kit studio",
-		"db:seed": "bun src/db/runSeed.ts",
+		"db:seed": "bun src/server/db/runSeed.ts",
 		"knip": "SKIP_ENV_VALIDATION=true knip"
 	},
 	"dependencies": {
