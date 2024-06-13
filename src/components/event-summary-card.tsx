@@ -1,7 +1,6 @@
 import { format } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
-import type { EventById } from "~/app/events/api";
 import {
 	Card,
 	CardContent,
@@ -9,6 +8,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from "~/components/ui/card";
+import type { EventById } from "~/types/events";
 
 export function EventSummaryCard({
 	event,

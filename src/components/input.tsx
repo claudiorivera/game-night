@@ -8,7 +8,7 @@ import {
 import { Input as _Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { cn } from "~/lib/utils";
-import type { InferFlattenedErrors } from "~/lib/utils";
+import type { InferFlattenedErrors } from "~/types";
 
 type Props = {
 	label?: string;

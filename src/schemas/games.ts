@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { parseSpecialCharacters } from "~/lib/parse-special-characters";
 
 export const importGameFormSchema = z.object({
 	name: z.string().min(1),
@@ -141,3 +140,40 @@ export const parsedBggGameSchema = z
 		mechanics: data.items.item.link.mechanics,
 		authors: data.items.item.link.authors,
 	}));
+
+function parseSpecialCharacters(str: string) {
+	return str
+		.replace(/&#10;/g, "\n")
+		.replace(/&nbsp;/g, " ")
+		.replace(/&mdash;/, "—")
+		.replace(/&auml;/g, "ä")
+		.replace(/&#226;/g, "â")
+		.replace(/&#128;/g, "€")
+		.replace(/&#147;/g, "“")
+		.replace(/&amp;/g, "&")
+		.replace(/&uuml;/g, "ü")
+		.replace(/&quot;/g, '"')
+		.replace(/&#039;/g, "'")
+		.replace(/&rsquo;/g, "’")
+		.replace(/&ldquo;/g, "“")
+		.replace(/&rdquo;/g, "”")
+		.replace(/&bull;/g, "•")
+		.replace(/&laquo;/g, "«")
+		.replace(/&raquo;/g, "»")
+		.replace(/&hellip;/g, "…")
+		.replace(/&mu;/g, "μ")
+		.replace(/&#207;/g, "Ï")
+		.replace(/&#140;/g, "Œ")
+		.replace(/&nu;/g, "ν")
+		.replace(/&omicron;/g, "ο")
+		.replace(/&sigmaf;/g, "ς")
+		.replace(/&pi;/g, "π")
+		.replace(/&omega;/g, "ω")
+		.replace(/&lambda;/g, "λ")
+		.replace(/&epsilon;/g, "ε")
+		.replace(/&#225;/g, "á")
+		.replace(/&#191;/g, "¿")
+		.replace(/&#150;/g, "–")
+		.replace(/&eacute;/g, "é")
+		.replace(/&ndash;/g, "–");
+}

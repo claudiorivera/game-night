@@ -4,10 +4,10 @@ import { redirect } from "next/navigation";
 import { useEffect } from "react";
 import { useFormState } from "react-dom";
 import toast from "react-hot-toast";
-import { type ImportGameFormState, importGame } from "~/app/games/actions";
-import type { GamesByQuery } from "~/app/games/bgg";
 import { Input } from "~/components/input";
 import { SubmitButton } from "~/components/submit-button";
+import { type ImportGameFormState, importGame } from "~/server/actions/games";
+import type { GamesByQuery } from "~/types/bgg";
 
 export function ImportGameForm({ game }: { game: GamesByQuery[number] }) {
 	const [state, formAction] = useFormState<ImportGameFormState, FormData>(

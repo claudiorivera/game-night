@@ -5,13 +5,13 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useFormState } from "react-dom";
 import toast from "react-hot-toast";
+import { Input } from "~/components/input";
+import { Button } from "~/components/ui/button";
 import {
 	type UpdateAttendanceFormState,
 	updateAttendance,
-} from "~/app/events/actions";
-import type { EventById } from "~/app/events/api";
-import { Input } from "~/components/input";
-import { Button } from "~/components/ui/button";
+} from "~/server/actions/events";
+import type { EventById } from "~/types/events";
 
 export function UpdateAttendanceForm({
 	event,

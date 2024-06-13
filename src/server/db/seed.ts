@@ -1,8 +1,8 @@
 import { faker } from "@faker-js/faker";
 import type { LibSQLDatabase } from "drizzle-orm/libsql";
-import { gameById } from "~/app/games/bgg";
-import * as schema from "~/db/schema";
 import { getRandomElement } from "~/lib/utils";
+import { Bgg } from "~/server/api/bgg";
+import * as schema from "~/server/db/schema";
 
 const NUMBER_OF_EVENTS = 4;
 const NUMBER_OF_USERS = 8;
@@ -17,7 +17,7 @@ export async function seed(db: LibSQLDatabase<typeof schema>) {
 	console.log("Adding games...");
 	await Promise.all(
 		BOARD_GAME_GEEK_GAME_IDS.map(async (bggId) => {
-			const game = await gameById(bggId);
+			const game = await Bgg.gameById(bggId);
 
 			return await db
 				.insert(schema.gamesTable)

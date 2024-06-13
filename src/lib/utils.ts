@@ -1,6 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import type { ZodError, ZodIssue, ZodTypeAny, z } from "zod";
+import type { ZodError, ZodIssue, z } from "zod";
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -15,11 +15,6 @@ export function getRandomElement<T>(array: T[]) {
 
 	return array[randomIndex];
 }
-
-export type InferFlattenedErrors<SchemaType extends z.ZodTypeAny = ZodTypeAny> =
-	z.inferFlattenedErrors<SchemaType, { message: string; errorCode: string }>;
-
-export type PossiblyUndefined<T> = T | undefined;
 
 export function validate<T extends z.ZodTypeAny>({
 	formData,

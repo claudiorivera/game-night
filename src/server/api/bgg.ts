@@ -3,7 +3,7 @@ import { XMLParser } from "fast-xml-parser";
 import {
 	parsedBggGameSchema,
 	parsedBggQueryResultsSchema,
-} from "~/app/games/schemas";
+} from "~/schemas/games";
 
 const API_CALL_LIMIT = 20;
 
@@ -13,17 +13,22 @@ const xmlParser = new XMLParser({
 	parseAttributeValue: true,
 });
 
-export function gameById(id: number) {
+function gameById(id: number) {
 	return fetchBggGameById(id);
 }
 
-export async function gamesByQuery(query: string) {
+async function gamesByQuery(query: string) {
 	const games = await fetchBggIdsByQuery(query);
 
 	return Promise.all(
 		games.slice(0, API_CALL_LIMIT).map((game) => fetchBggGameById(game.id)),
 	);
 }
+
+export const Bgg = {
+	gameById,
+	gamesByQuery,
+};
 
 function buildUrlForGameId(id: number) {
 	return buildUrl("https://api.geekdo.com/xmlapi2/thing", [
@@ -74,5 +79,3 @@ function buildUrl(url: string, queries: Array<Record<string, unknown>>) {
 
 	return _url.toString();
 }
-
-export type GamesByQuery = Awaited<ReturnType<typeof gamesByQuery>>;

@@ -6,18 +6,18 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useFormState } from "react-dom";
 import toast from "react-hot-toast";
-import {
-	type EditEventFormState,
-	deleteEvent,
-	editEvent,
-} from "~/app/events/actions";
-import type { EventById } from "~/app/events/api";
-import type { Game } from "~/app/games/api";
 import { DateTimePicker } from "~/components/date-time-picker";
 import { Input } from "~/components/input";
 import { Select } from "~/components/select";
 import { SubmitButton } from "~/components/submit-button";
 import { Button } from "~/components/ui/button";
+import {
+	type EditEventFormState,
+	deleteEvent,
+	editEvent,
+} from "~/server/actions/events";
+import type { EventById } from "~/types/events";
+import type { Game } from "~/types/games";
 
 export function EditEventForm({
 	event,
