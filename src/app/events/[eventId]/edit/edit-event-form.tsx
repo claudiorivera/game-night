@@ -17,13 +17,11 @@ import {
 	editEvent,
 } from "~/server/actions/events";
 import type { EventById } from "~/types/events";
-import type { Game } from "~/types/games";
 
 export function EditEventForm({
 	event,
-	games,
 	hostId,
-}: { event: EventById; games: Array<Game>; hostId: string }) {
+}: { event: EventById; hostId: string }) {
 	const router = useRouter();
 	const session = useSession();
 
@@ -55,16 +53,14 @@ export function EditEventForm({
 					fieldErrors={state?.errors?.fieldErrors.dateTime}
 				/>
 
-				<Select
-					name="gameId"
-					label="Select Game"
-					options={games.map((game) => ({
-						value: game.id,
-						label: game.name,
-					}))}
-					defaultValue={event.game.id}
-					fieldErrors={state?.errors?.fieldErrors.gameId}
+				<Input
+					type="text"
+					name="gameBggId"
+					label="Game BGG ID"
+					defaultValue={event.gameBggId}
+					fieldErrors={state?.errors?.fieldErrors.gameBggId}
 				/>
+
 				<div className="flex gap-4">
 					<Button type="button" variant="outline" className="w-full" asChild>
 						<Link href={`/events/${event.id}`}>Cancel</Link>

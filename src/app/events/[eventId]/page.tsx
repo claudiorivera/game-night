@@ -6,6 +6,7 @@ import { Avatar } from "~/components/avatar";
 import { BackButton } from "~/components/back-button";
 import { GameDetails } from "~/components/game-details";
 import { Button } from "~/components/ui/button";
+import { Bgg } from "~/server/api/bgg";
 import { Events } from "~/server/api/events";
 import { auth } from "~/server/auth";
 
@@ -19,8 +20,9 @@ export default async function EventDetailsPage({
 	}
 
 	const event = await Events.findByIdOrThrow(params.eventId);
+	const game = await Bgg.gameById(event.gameBggId);
 
-	const isHost = session.user.id === event.host.id;
+	const isHost = session.user.id === event.hostId;
 	const isAdmin = session.user.isAdmin;
 
 	return (
@@ -34,11 +36,11 @@ export default async function EventDetailsPage({
 					<h4 className="font-bold">
 						{format(event.dateTime, "MMMM d, yyyy 'at' h:mmaaa")}
 					</h4>
-					<small>{event.game.name}</small>
+					<small>{game.name}</small>
 				</div>
 
 				<div>
-					<GameDetails game={event.game} />
+					<GameDetails gameBggId={game.bggId} />
 
 					<div className="divider" />
 

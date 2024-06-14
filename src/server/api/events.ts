@@ -6,7 +6,6 @@ function getAll() {
 	return db.query.eventsTable.findMany({
 		with: {
 			host: true,
-			game: true,
 			guests: {
 				with: {
 					guest: true,
@@ -21,7 +20,6 @@ async function findByIdOrThrow(id: string) {
 		where: eq(eventsTable.id, id),
 		with: {
 			host: true,
-			game: true,
 			guests: {
 				with: {
 					guest: true,

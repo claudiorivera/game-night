@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
+import { eq } from "drizzle-orm";
 import type { PostgresJsDatabase } from "drizzle-orm/postgres-js";
 import { getRandomElement } from "~/lib/utils";
-import { Bgg } from "~/server/api/bgg";
 import * as schema from "~/server/db/schema";
 
 const NUMBER_OF_EVENTS = 4;
@@ -12,24 +12,8 @@ export async function seed(db: PostgresJsDatabase<typeof schema>) {
 	console.log("🌱 Seeding...");
 
 	console.log("Deleting users...");
-	await db.delete(schema.usersTable);
-
-	console.log("Adding games...");
-	await Promise.all(
-		BOARD_GAME_GEEK_GAME_IDS.map(async (bggId) => {
-			const game = await Bgg.gameById(bggId);
-
-			return await db
-				.insert(schema.gamesTable)
-				.values(game)
-				.onConflictDoUpdate({
-					target: schema.gamesTable.bggId,
-					set: game,
-				});
-		}),
-	);
-
-	const games = await db.query.gamesTable.findMany();
+	await db.delete(schema.eventGuestTable);
+	await db.delete(schema.usersTable).where(eq(schema.usersTable.isDemo, true));
 
 	console.log("Creating users...");
 	const users = await db
@@ -49,16 +33,16 @@ export async function seed(db: PostgresJsDatabase<typeof schema>) {
 	await db.insert(schema.eventsTable).values(
 		[...Array(NUMBER_OF_EVENTS)].map(() => {
 			const host = getRandomElement(users);
-			const game = getRandomElement(games);
+			const gameBggId = getRandomElement(BOARD_GAME_GEEK_GAME_IDS);
 
-			if (!host || !game) {
+			if (!host || !gameBggId) {
 				throw new Error("Host or game not found");
 			}
 
 			return {
 				dateTime: faker.date.recent(),
 				hostId: host.id,
-				gameId: game.id,
+				gameBggId,
 			};
 		}),
 	);

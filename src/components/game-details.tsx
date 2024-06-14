@@ -1,9 +1,10 @@
 import Image from "next/image";
 import { Badge } from "~/components/ui/badge";
-import type { GamesByQuery } from "~/types/bgg";
-import type { Game } from "~/types/games";
+import { Bgg } from "~/server/api/bgg";
 
-export function GameDetails({ game }: { game: Game | GamesByQuery[number] }) {
+export async function GameDetails({ gameBggId }: { gameBggId: number }) {
+	const game = await Bgg.gameById(gameBggId);
+
 	return (
 		<div className="grid grid-cols-12 gap-4">
 			<div className="col-span-12 flex flex-col gap-4 sm:col-span-5">
