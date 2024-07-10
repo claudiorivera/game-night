@@ -4,10 +4,8 @@ import { env } from "./src/env";
 
 export default {
 	schema: "./src/server/db/schema.ts",
-	dialect: "sqlite",
-	driver: "turso",
+	dialect: "postgresql",
 	dbCredentials: {
-		url: env.TURSO_DATABASE_URL,
-		authToken: env.TURSO_AUTH_TOKEN,
+		url: env.DATABASE_URL,
 	},
 } satisfies Config;
