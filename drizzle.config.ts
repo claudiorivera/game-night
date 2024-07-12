@@ -8,4 +8,5 @@ export default {
 	dbCredentials: {
 		url: env.DATABASE_URL,
 	},
+	out: "./src/server/db/migrations",
 } satisfies Config;
