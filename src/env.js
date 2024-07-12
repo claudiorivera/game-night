@@ -9,11 +9,10 @@ export const env = createEnv({
 		AUTH_GITHUB_SECRET: z.string(),
 		AUTH_GITHUB_ID: z.string(),
 		AUTH_SECRET: z.string(),
-		TURSO_DATABASE_URL: z.string().url(),
+		DATABASE_URL: z.string().url(),
 		NODE_ENV: z
 			.enum(["development", "test", "production"])
 			.default("development"),
-		TURSO_AUTH_TOKEN: z.string(),
 	},
 	client: {},
 	runtimeEnv: {
@@ -23,9 +22,8 @@ export const env = createEnv({
 		AUTH_GITHUB_SECRET: process.env.AUTH_GITHUB_SECRET,
 		AUTH_GITHUB_ID: process.env.AUTH_GITHUB_ID,
 		AUTH_SECRET: process.env.AUTH_SECRET,
-		TURSO_DATABASE_URL: process.env.TURSO_DATABASE_URL,
+		DATABASE_URL: process.env.DATABASE_URL,
 		NODE_ENV: process.env.NODE_ENV,
-		TURSO_AUTH_TOKEN: process.env.TURSO_AUTH_TOKEN,
 	},
 	emptyStringAsUndefined: true,
 	skipValidation: !!process.env.SKIP_ENV_VALIDATION,

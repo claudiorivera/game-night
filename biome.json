@@ -3,6 +3,9 @@
 	"organizeImports": {
 		"enabled": true
 	},
+	"files": {
+		"ignore": ["src/server/db/migrations"]
+	},
 	"linter": {
 		"enabled": true,
 		"rules": {
