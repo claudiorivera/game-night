@@ -60,7 +60,7 @@
 		"autoprefixer": "10.4.19",
 		"bun": "1.1.20",
 		"drizzle-kit": "0.23.0",
-		"knip": "5.25.2",
+		"knip": "5.26.0",
 		"postcss": "8.4.39",
 		"tailwindcss": "3.4.4",
 		"typescript": "5.5.3"
