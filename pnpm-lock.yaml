@@ -109,8 +109,8 @@ importers:
         specifier: 1.8.3
         version: 1.8.3
       '@types/node':
-        specifier: 20.14.12
-        version: 20.14.12
+        specifier: 20.14.13
+        version: 20.14.13
       '@types/react':
         specifier: 18.3.3
         version: 18.3.3
@@ -128,7 +128,7 @@ importers:
         version: 0.23.0
       knip:
         specifier: 5.27.0
-        version: 5.27.0(@types/node@20.14.12)(typescript@5.5.4)
+        version: 5.27.0(@types/node@20.14.13)(typescript@5.5.4)
       postcss:
         specifier: 8.4.40
         version: 8.4.40
@@ -1656,8 +1656,8 @@ packages:
   '@types/mysql@2.15.22':
     resolution: {integrity: sha512-wK1pzsJVVAjYCSZWQoWHziQZbNggXFDUEIGf54g4ZM/ERuP86uGdWeKZWMYlqTPMZfHJJvLPyogXGvCOg87yLQ==}
 
-  '@types/node@20.14.12':
-    resolution: {integrity: sha512-r7wNXakLeSsGT0H1AU863vS2wa5wBOK4bWMjZz2wj+8nBx+m5PeIn0k8AloSLpRuiwdRQZwarZqHE4FNArPuJQ==}
+  '@types/node@20.14.13':
+    resolution: {integrity: sha512-+bHoGiZb8UiQ0+WEtmph2IWQCjIqg8MDZMAV+ppRRhUZnquF5mQkP/9vpSwJClEiSM/C7fZZExPzfU0vJTyp8w==}
 
   '@types/pg-pool@2.0.4':
     resolution: {integrity: sha512-qZAvkv1K3QbmHHFYSNRYPkRjOWRLBYrL4B9c+wG0GSVGBw0NtJwPcgx/DSddeDJvRGMHCEQ4VMEVfuJ/0gZ3XQ==}
@@ -4658,7 +4658,7 @@ snapshots:
 
   '@types/connect@3.4.36':
     dependencies:
-      '@types/node': 20.14.12
+      '@types/node': 20.14.13
 
   '@types/cookie@0.6.0': {}
 
@@ -4678,9 +4678,9 @@ snapshots:
 
   '@types/mysql@2.15.22':
     dependencies:
-      '@types/node': 20.14.12
+      '@types/node': 20.14.13
 
-  '@types/node@20.14.12':
+  '@types/node@20.14.13':
     dependencies:
       undici-types: 5.26.5
 
@@ -4690,14 +4690,14 @@ snapshots:
 
   '@types/pg@8.11.6':
     dependencies:
-      '@types/node': 20.14.12
+      '@types/node': 20.14.13
       pg-protocol: 1.6.1
       pg-types: 4.0.2
     optional: true
 
   '@types/pg@8.6.1':
     dependencies:
-      '@types/node': 20.14.12
+      '@types/node': 20.14.13
       pg-protocol: 1.6.1
       pg-types: 2.2.0
 
@@ -4716,7 +4716,7 @@ snapshots:
 
   '@types/ws@8.5.10':
     dependencies:
-      '@types/node': 20.14.12
+      '@types/node': 20.14.13
 
   '@webassemblyjs/ast@1.12.1':
     dependencies:
@@ -5352,7 +5352,7 @@ snapshots:
 
   jest-worker@27.5.1:
     dependencies:
-      '@types/node': 20.14.12
+      '@types/node': 20.14.13
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
@@ -5376,11 +5376,11 @@ snapshots:
 
   json5@2.2.3: {}
 
-  knip@5.27.0(@types/node@20.14.12)(typescript@5.5.4):
+  knip@5.27.0(@types/node@20.14.13)(typescript@5.5.4):
     dependencies:
       '@nodelib/fs.walk': 1.2.8
       '@snyk/github-codeowners': 1.1.0
-      '@types/node': 20.14.12
+      '@types/node': 20.14.13
       easy-table: 1.2.0
       fast-glob: 3.3.2
       jiti: 1.21.6
