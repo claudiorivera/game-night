@@ -33,7 +33,7 @@
 		"@radix-ui/react-tooltip": "1.1.2",
 		"@sentry/nextjs": "8.17.0",
 		"@t3-oss/env-nextjs": "0.10.1",
-		"axios": "1.7.2",
+		"axios": "1.7.3",
 		"class-variance-authority": "0.7.0",
 		"clsx": "2.1.1",
 		"date-fns": "3.6.0",
