@@ -6,7 +6,6 @@ import {
 	integer,
 	pgTable,
 	primaryKey,
-	real,
 	text,
 	timestamp,
 } from "drizzle-orm/pg-core";
@@ -41,19 +40,13 @@ export const eventsTable = pgTable("event", {
 	hostId: text("hostId")
 		.notNull()
 		.references(() => usersTable.id, { onDelete: "cascade" }),
-	gameId: text("gameId")
-		.notNull()
-		.references(() => gamesTable.id, { onDelete: "cascade" }),
+	gameBggId: integer("gameBggId").notNull(),
 });
 
 export const eventRelations = relations(eventsTable, ({ many, one }) => ({
 	host: one(usersTable, {
 		fields: [eventsTable.hostId],
 		references: [usersTable.id],
-	}),
-	game: one(gamesTable, {
-		fields: [eventsTable.gameId],
-		references: [gamesTable.id],
 	}),
 	guests: many(eventGuestTable),
 }));
@@ -82,29 +75,6 @@ export const eventGuestRelations = relations(eventGuestTable, ({ one }) => ({
 		fields: [eventGuestTable.guestId],
 		references: [usersTable.id],
 	}),
-}));
-
-export const gamesTable = pgTable("game", {
-	id: id(),
-	name: text("name").notNull(),
-	imageSrc: text("imageSrc").notNull(),
-	thumbnailSrc: text("thumbnailSrc").notNull(),
-	description: text("description").notNull(),
-	authors: text("authors").array().notNull(),
-	categories: text("categories").array().notNull(),
-	mechanics: text("mechanics").array().notNull(),
-	bggId: integer("bggId").unique().notNull(),
-	yearPublished: integer("yearPublished").notNull(),
-	minPlayers: integer("minPlayers").notNull(),
-	maxPlayers: integer("maxPlayers").notNull(),
-	playingTime: integer("playingTime").notNull(),
-	minAge: integer("minAge").notNull(),
-	rating: real("rating").notNull(),
-	numOfRatings: integer("numOfRatings").notNull(),
-});
-
-export const gameRelations = relations(gamesTable, ({ many }) => ({
-	events: many(eventsTable),
 }));
 
 export const accountsTable = pgTable(

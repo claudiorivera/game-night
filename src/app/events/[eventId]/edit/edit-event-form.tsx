@@ -7,8 +7,8 @@ import { useEffect } from "react";
 import { useFormState } from "react-dom";
 import toast from "react-hot-toast";
 import { DateTimePicker } from "~/components/date-time-picker";
+import { GameSelect } from "~/components/game-select";
 import { Input } from "~/components/input";
-import { Select } from "~/components/select";
 import { SubmitButton } from "~/components/submit-button";
 import { Button } from "~/components/ui/button";
 import {
@@ -17,13 +17,11 @@ import {
 	editEvent,
 } from "~/server/actions/events";
 import type { EventById } from "~/types/events";
-import type { Game } from "~/types/games";
 
 export function EditEventForm({
 	event,
-	games,
 	hostId,
-}: { event: EventById; games: Array<Game>; hostId: string }) {
+}: { event: EventById; hostId: string }) {
 	const router = useRouter();
 	const session = useSession();
 
@@ -55,16 +53,8 @@ export function EditEventForm({
 					fieldErrors={state?.errors?.fieldErrors.dateTime}
 				/>
 
-				<Select
-					name="gameId"
-					label="Select Game"
-					options={games.map((game) => ({
-						value: game.id,
-						label: game.name,
-					}))}
-					defaultValue={event.game.id}
-					fieldErrors={state?.errors?.fieldErrors.gameId}
-				/>
+				<GameSelect initialId={event.gameBggId} />
+
 				<div className="flex gap-4">
 					<Button type="button" variant="outline" className="w-full" asChild>
 						<Link href={`/events/${event.id}`}>Cancel</Link>

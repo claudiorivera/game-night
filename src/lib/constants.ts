@@ -9,8 +9,4 @@ export const userLinks = [
 		title: "Events",
 		url: "/events",
 	},
-	{
-		title: "Games",
-		url: "/games",
-	},
 ] as const;

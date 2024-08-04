@@ -1,23 +1,5 @@
 import { z } from "zod";
 
-export const importGameFormSchema = z.object({
-	name: z.string().min(1),
-	imageSrc: z.string().url(),
-	thumbnailSrc: z.string().url(),
-	description: z.string().min(1),
-	authors: z.array(z.string().min(1)),
-	categories: z.array(z.string().min(1)),
-	mechanics: z.array(z.string().min(1)),
-	bggId: z.coerce.number(),
-	yearPublished: z.coerce.number(),
-	minPlayers: z.coerce.number(),
-	maxPlayers: z.coerce.number(),
-	playingTime: z.coerce.number(),
-	minAge: z.coerce.number(),
-	rating: z.coerce.number(),
-	numOfRatings: z.coerce.number(),
-});
-
 const numberValueSchema = z
 	.object({ value: z.number() })
 	.transform((data) => data.value);

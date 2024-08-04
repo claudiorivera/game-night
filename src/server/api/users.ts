@@ -9,7 +9,6 @@ async function findByIdOrThrow(userId: string) {
 			eventsHosting: {
 				with: {
 					host: true,
-					game: true,
 					guests: {
 						with: {
 							guest: true,
@@ -22,7 +21,6 @@ async function findByIdOrThrow(userId: string) {
 					event: {
 						with: {
 							host: true,
-							game: true,
 							guests: {
 								with: {
 									guest: true,

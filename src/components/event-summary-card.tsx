@@ -8,13 +8,16 @@ import {
 	CardHeader,
 	CardTitle,
 } from "~/components/ui/card";
+import { Bgg } from "~/server/api/bgg";
 import type { EventById } from "~/types/events";
 
-export function EventSummaryCard({
+export async function EventSummaryCard({
 	event,
 }: {
 	event: EventById;
 }) {
+	const game = await Bgg.gameById(event.gameBggId);
+
 	return (
 		<Link href={`/events/${event.id}`}>
 			<Card>
@@ -22,15 +25,15 @@ export function EventSummaryCard({
 					<CardTitle>
 						{format(event.dateTime, "MMMM d, yyyy 'at' h:mmaaa")}
 					</CardTitle>
-					<CardDescription>{event.game.name}</CardDescription>
+					<CardDescription>{game.name}</CardDescription>
 				</CardHeader>
 
 				<div className="relative aspect-video">
 					<Image
-						alt={event.game.name}
+						alt={game.name}
 						className="object-cover"
 						fill
-						src={event.game.imageSrc}
+						src={game.imageSrc}
 					/>
 				</div>
 

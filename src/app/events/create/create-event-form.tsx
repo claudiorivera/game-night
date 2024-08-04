@@ -5,20 +5,16 @@ import { useEffect } from "react";
 import { useFormState } from "react-dom";
 import toast from "react-hot-toast";
 import { DateTimePicker } from "~/components/date-time-picker";
+import { GameSelect } from "~/components/game-select";
 import { Input } from "~/components/input";
-import { Select } from "~/components/select";
 import { SubmitButton } from "~/components/submit-button";
 import { Button } from "~/components/ui/button";
 import {
 	type CreateEventFormState,
 	createEvent,
 } from "~/server/actions/events";
-import type { Game } from "~/types/games";
 
-export function CreateEventForm({
-	games,
-	hostId,
-}: { games: Game[]; hostId: string }) {
+export function CreateEventForm({ hostId }: { hostId: string }) {
 	const router = useRouter();
 
 	const [state, formAction] = useFormState<CreateEventFormState, FormData>(
@@ -44,15 +40,9 @@ export function CreateEventForm({
 					fieldErrors={state?.errors?.fieldErrors.dateTime}
 					label="Select Date and Time"
 				/>
-				<Select
-					name="gameId"
-					label="Select Game"
-					options={games.map((game) => ({
-						value: game.id,
-						label: game.name,
-					}))}
-					fieldErrors={state?.errors?.fieldErrors.gameId}
-				/>
+
+				<GameSelect />
+
 				<div className="flex gap-4">
 					<Button
 						type="button"

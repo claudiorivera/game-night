@@ -2,7 +2,6 @@ import { redirect } from "next/navigation";
 import { EditEventForm } from "~/app/events/[eventId]/edit/edit-event-form";
 import { BackButton } from "~/components/back-button";
 import { Events } from "~/server/api/events";
-import { Games } from "~/server/api/games";
 import { auth } from "~/server/auth";
 
 export default async function EditEventPage({
@@ -15,7 +14,6 @@ export default async function EditEventPage({
 	}
 
 	const event = await Events.findByIdOrThrow(eventId);
-	const games = await Games.getAll();
 
 	const isHost = session.user.id === event.host.id;
 	const isAdmin = session.user.isAdmin;
@@ -30,7 +28,7 @@ export default async function EditEventPage({
 				<BackButton />
 			</div>
 
-			<EditEventForm event={event} games={games} hostId={session.user.id} />
+			<EditEventForm event={event} hostId={session.user.id} />
 		</div>
 	);
 }
