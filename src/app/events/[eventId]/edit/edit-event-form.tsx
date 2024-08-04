@@ -7,8 +7,8 @@ import { useEffect } from "react";
 import { useFormState } from "react-dom";
 import toast from "react-hot-toast";
 import { DateTimePicker } from "~/components/date-time-picker";
+import { GameSelect } from "~/components/game-select";
 import { Input } from "~/components/input";
-import { Select } from "~/components/select";
 import { SubmitButton } from "~/components/submit-button";
 import { Button } from "~/components/ui/button";
 import {
@@ -53,13 +53,7 @@ export function EditEventForm({
 					fieldErrors={state?.errors?.fieldErrors.dateTime}
 				/>
 
-				<Input
-					type="text"
-					name="gameBggId"
-					label="Game BGG ID"
-					defaultValue={event.gameBggId}
-					fieldErrors={state?.errors?.fieldErrors.gameBggId}
-				/>
+				<GameSelect initialId={event.gameBggId} />
 
 				<div className="flex gap-4">
 					<Button type="button" variant="outline" className="w-full" asChild>
