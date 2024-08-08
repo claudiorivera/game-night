@@ -60,7 +60,7 @@
 		"@types/react": "18.3.3",
 		"@types/react-dom": "18.3.0",
 		"autoprefixer": "10.4.20",
-		"bun": "1.1.21",
+		"bun": "1.1.22",
 		"drizzle-kit": "0.23.2",
 		"knip": "5.27.1",
 		"postcss": "8.4.41",
