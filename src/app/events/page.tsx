@@ -1,9 +1,17 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { EventSummaryCard } from "~/components/event-summary-card";
 import { Button } from "~/components/ui/button";
 import { Events } from "~/server/api/events";
+import { auth } from "~/server/auth";
 
 export default async function EventsListPage() {
+	const session = await auth();
+
+	if (!session) {
+		return redirect("/api/auth/signin");
+	}
+
 	const events = await Events.getAll();
 
 	return (
