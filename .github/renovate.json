@@ -10,6 +10,11 @@
 			"matchDepTypes": ["devDependencies"],
 			"matchUpdateTypes": ["minor", "patch", "pin", "digest"],
 			"automerge": true
+		},
+		{
+			"matchPackageNames": ["lucide-react"],
+			"matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+			"automerge": true
 		}
 	],
 	"schedule": ["after 9pm and before 9am every weekday", "every weekend"],
