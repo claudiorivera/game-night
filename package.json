@@ -30,7 +30,7 @@
 		"@radix-ui/react-popover": "1.1.1",
 		"@radix-ui/react-slot": "1.1.0",
 		"@radix-ui/react-tooltip": "1.1.2",
-		"@sentry/nextjs": "8.26.0",
+		"@sentry/nextjs": "8.27.0",
 		"@t3-oss/env-nextjs": "0.11.1",
 		"@tanstack/react-query": "5.51.24",
 		"axios": "1.7.5",
