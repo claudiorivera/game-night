@@ -40,7 +40,7 @@ export default async function EventDetailsPage({
 				</div>
 
 				<div>
-					<GameDetails gameBggId={game.bggId} />
+					<GameDetails game={game} />
 
 					<div className="divider" />
 
