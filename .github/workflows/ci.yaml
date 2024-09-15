@@ -12,17 +12,17 @@ jobs:
       - name: 🏗️ Setup Biome
         uses: biomejs/setup-biome@v2
         with:
-          version: 'latest'
+          version: '1.8.3'
       - name: 🎨 Run Biome
         run: biome ci src
       - name: 🏗️ Setup pnpm
         uses: pnpm/action-setup@v3
         with:
-          version: 'latest'
+          version: '9.10.0'
       - name: 🏗️ Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 'latest'
+          node-version: '20.11.0'
           cache: 'pnpm'
       - name: 📦 Install Dependencies
         run: pnpm install
