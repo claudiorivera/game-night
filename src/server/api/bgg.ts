@@ -1,28 +1,37 @@
-import axios from "axios";
-import { XMLParser } from "fast-xml-parser";
-import {
-	parsedBggGameSchema,
-	parsedBggQueryResultsSchema,
-} from "~/schemas/games";
+import { BggClient } from "boardgamegeekclient";
+import { parseGameLinks } from "~/lib/parse-game-links";
 
-const API_CALL_LIMIT = 20;
+const bggApiClient = BggClient.Create();
 
-const xmlParser = new XMLParser({
-	attributeNamePrefix: "",
-	ignoreAttributes: false,
-	parseAttributeValue: true,
-});
+async function gameById(id: number) {
+	try {
+		const [game] = await bggApiClient.thing.query({
+			id,
+			stats: 1,
+			type: "boardgame",
+		});
 
-function gameById(id: number) {
-	return fetchBggGameById(id);
+		if (!game) {
+			throw new Error(`Error fetching game with id ${id}`);
+		}
+
+		const parsedGameLinks = parseGameLinks(game.links);
+
+		return {
+			...game,
+			...parsedGameLinks,
+		};
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
 }
 
 async function gamesByQuery(query: string) {
-	const games = await fetchBggIdsByQuery(query);
-
-	return Promise.all(
-		games.slice(0, API_CALL_LIMIT).map((game) => fetchBggGameById(game.id)),
-	);
+	return bggApiClient.search.query({
+		query,
+		type: "boardgame",
+	});
 }
 
 export const Bgg = {
@@ -30,52 +39,4 @@ export const Bgg = {
 	gamesByQuery,
 };
 
-function buildUrlForGameId(id: number) {
-	return buildUrl("https://api.geekdo.com/xmlapi2/thing", [
-		{
-			id,
-			stats: 1,
-		},
-	]);
-}
-
-function buildUrlForGameQuery(query: string) {
-	return buildUrl("https://api.geekdo.com/xmlapi2/search", [
-		{ query },
-		{ type: "boardgame" },
-	]);
-}
-
-async function fetchBggGameById(id: number) {
-	const url = buildUrlForGameId(id);
-
-	const response = await bggFetch(url);
-
-	return parsedBggGameSchema.parse(response);
-}
-
-async function fetchBggIdsByQuery(query: string) {
-	const url = buildUrlForGameQuery(query);
-
-	const response = await bggFetch(url);
-
-	return parsedBggQueryResultsSchema.parse(response);
-}
-
-async function bggFetch(url: string) {
-	const { data: xml } = await axios.get<string>(url);
-
-	return xmlParser.parse(xml);
-}
-
-function buildUrl(url: string, queries: Array<Record<string, unknown>>) {
-	const _url = new URL(url);
-
-	for (const query of queries) {
-		for (const [key, value] of Object.entries(query)) {
-			_url.searchParams.append(key, String(value));
-		}
-	}
-
-	return _url.toString();
-}
+export type GameById = Awaited<ReturnType<typeof gameById>>;

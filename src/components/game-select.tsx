@@ -27,7 +27,6 @@ export function GameSelect({ initialId }: { initialId?: number }) {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const [selectedId, setSelectedId] = useState(initialId);
-	const { data: game } = useQuery(bggQueries.gameById(selectedId));
 
 	const [query, setQuery] = useState("");
 	const [debouncedSearchQuery] = useDebounceValue(query, 500);
@@ -46,7 +45,7 @@ export function GameSelect({ initialId }: { initialId?: number }) {
 						aria-expanded={isOpen}
 						className="justify-between"
 					>
-						{game ? game.name : "Select a game..."}
+						{initialId ? <GameName id={initialId} /> : "Select a game..."}
 						<ChevronsUpDownIcon className="h-4 w-4 opacity-50" />
 					</Button>
 				</PopoverTrigger>
@@ -63,8 +62,8 @@ export function GameSelect({ initialId }: { initialId?: number }) {
 							<CommandGroup>
 								{games.map((game) => (
 									<CommandItem
-										key={game.bggId}
-										value={game.bggId.toString()}
+										key={game.id}
+										value={game.id.toString()}
 										onSelect={(gameId) => {
 											setIsOpen(false);
 
@@ -77,7 +76,7 @@ export function GameSelect({ initialId }: { initialId?: number }) {
 										<Check
 											className={cn(
 												"h-4 w-4",
-												selectedId === game.bggId ? "visible" : "invisible",
+												selectedId === game.id ? "visible" : "invisible",
 											)}
 										/>
 										{game.name}
@@ -90,4 +89,12 @@ export function GameSelect({ initialId }: { initialId?: number }) {
 			</Popover>
 		</>
 	);
+}
+
+function GameName({ id }: { id: number }) {
+	const { data: game } = useQuery(bggQueries.gameById(id));
+
+	if (!game) return null;
+
+	return game.name;
 }
