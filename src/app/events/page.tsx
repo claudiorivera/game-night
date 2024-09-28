@@ -9,7 +9,7 @@ export default async function EventsListPage() {
 	const session = await auth();
 
 	if (!session) {
-		return redirect("/api/auth/signin");
+		redirect("/api/auth/signin");
 	}
 
 	const events = await Events.getAll();
