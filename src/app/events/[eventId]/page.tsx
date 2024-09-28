@@ -16,7 +16,7 @@ export default async function EventDetailsPage({
 	const session = await auth();
 
 	if (!session) {
-		return redirect("/api/auth/signin");
+		redirect("/api/auth/signin");
 	}
 
 	const event = await Events.findByIdOrThrow(params.eventId);
