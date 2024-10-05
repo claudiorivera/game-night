@@ -45,7 +45,7 @@ export function GameSelect({ initialId }: { initialId?: number }) {
 						aria-expanded={isOpen}
 						className="justify-between"
 					>
-						{initialId ? <GameName id={initialId} /> : "Select a game..."}
+						{selectedId ? <GameName id={selectedId} /> : "Select a game..."}
 						<ChevronsUpDownIcon className="h-4 w-4 opacity-50" />
 					</Button>
 				</PopoverTrigger>
