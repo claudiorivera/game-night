@@ -43,7 +43,6 @@ export function GameSelect({ initialId }: { initialId?: number }) {
 				<PopoverTrigger asChild>
 					<Button
 						variant="outline"
-						role="combobox"
 						aria-expanded={isOpen}
 						className="justify-between"
 					>
