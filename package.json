@@ -37,7 +37,7 @@
 		"boardgamegeekclient": "1.9.1",
 		"class-variance-authority": "0.7.0",
 		"clsx": "2.1.1",
-		"cmdk": "1.0.0",
+		"cmdk": "0.2.1",
 		"date-fns": "4.1.0",
 		"drizzle-orm": "0.34.1",
 		"lucide-react": "0.453.0",
