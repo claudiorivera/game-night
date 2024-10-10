@@ -33,7 +33,7 @@ export async function EventSummaryCard({
 						alt={game.name}
 						className="object-cover"
 						fill
-						src={game.imageSrc}
+						src={game.image}
 					/>
 				</div>
 

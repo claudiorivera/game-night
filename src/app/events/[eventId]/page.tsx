@@ -16,7 +16,7 @@ export default async function EventDetailsPage({
 	const session = await auth();
 
 	if (!session) {
-		return redirect("/api/auth/signin");
+		redirect("/api/auth/signin");
 	}
 
 	const event = await Events.findByIdOrThrow(params.eventId);
@@ -40,7 +40,7 @@ export default async function EventDetailsPage({
 				</div>
 
 				<div>
-					<GameDetails gameBggId={game.bggId} />
+					<GameDetails game={game} />
 
 					<div className="divider" />
 
