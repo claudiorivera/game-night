@@ -155,6 +155,6 @@ export async function deleteEvent(id: string) {
 	const newEvent = await db.delete(eventsTable).where(eq(eventsTable.id, id));
 
 	if (newEvent) {
-		return redirect("/events");
+		redirect("/events");
 	}
 }
