@@ -67,7 +67,7 @@ importers:
         version: 4.1.0
       drizzle-orm:
         specifier: 0.34.1
-        version: 0.34.1(@libsql/client@0.14.0)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(@types/react@18.3.12)(postgres@3.4.4)(react@18.3.1)
+        version: 0.34.1(@libsql/client@0.14.0)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(@types/react@18.3.12)(postgres@3.4.5)(react@18.3.1)
       lucide-react:
         specifier: 0.453.0
         version: 0.453.0(react@18.3.1)
@@ -78,8 +78,8 @@ importers:
         specifier: 5.0.0-beta.25
         version: 5.0.0-beta.25(next@14.2.16(@babel/core@7.25.7)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
       postgres:
-        specifier: 3.4.4
-        version: 3.4.4
+        specifier: 3.4.5
+        version: 3.4.5
       react:
         specifier: 18.3.1
         version: 18.3.1
@@ -2598,6 +2598,7 @@ packages:
 
   libsql@0.4.5:
     resolution: {integrity: sha512-sorTJV6PNt94Wap27Sai5gtVLIea4Otb2LUiAUyr3p6BPOScGMKGt5F1b5X/XgkNtcsDKeX5qfeBDj+PdShclQ==}
+    cpu: [x64, arm64, wasm32]
     os: [darwin, linux, win32]
 
   lilconfig@2.1.0:
@@ -2931,8 +2932,8 @@ packages:
   postgres-range@1.1.4:
     resolution: {integrity: sha512-i/hbxIE9803Alj/6ytL7UHQxRvZkI9O4Sy+J3HGc4F4oo/2eQAjTSNJ0bfxyse3bH0nuVesCk+3IRLaMtG3H6w==}
 
-  postgres@3.4.4:
-    resolution: {integrity: sha512-IbyN+9KslkqcXa8AO9fxpk97PA4pzewvpi2B3Dwy9u4zpV32QicaEdgmF3eSQUzdRk7ttDHQejNgAEr4XoeH4A==}
+  postgres@3.4.5:
+    resolution: {integrity: sha512-cDWgoah1Gez9rN3H4165peY9qfpEo+SA61oQv65O3cRUE1pOEoJWwddwcqKE8XZYjbblOJlYDlLV4h67HrEVDg==}
     engines: {node: '>=12'}
 
   preact-render-to-string@5.2.3:
@@ -5434,13 +5435,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.34.1(@libsql/client@0.14.0)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(@types/react@18.3.12)(postgres@3.4.4)(react@18.3.1):
+  drizzle-orm@0.34.1(@libsql/client@0.14.0)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(@types/react@18.3.12)(postgres@3.4.5)(react@18.3.1):
     optionalDependencies:
       '@libsql/client': 0.14.0
       '@opentelemetry/api': 1.9.0
       '@types/pg': 8.11.10
       '@types/react': 18.3.12
-      postgres: 3.4.4
+      postgres: 3.4.5
       react: 18.3.1
 
   eastasianwidth@0.2.0: {}
@@ -6079,7 +6080,7 @@ snapshots:
   postgres-range@1.1.4:
     optional: true
 
-  postgres@3.4.4: {}
+  postgres@3.4.5: {}
 
   preact-render-to-string@5.2.3(preact@10.11.3):
     dependencies:
