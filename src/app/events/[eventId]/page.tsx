@@ -16,11 +16,11 @@ export default async function EventDetailsPage({
 	const session = await auth();
 
 	if (!session) {
-		return redirect("/api/auth/signin");
+		redirect("/api/auth/signin");
 	}
 
 	const event = await Events.findByIdOrThrow(params.eventId);
-	const game = await Bgg.gameById(event.gameBggId);
+	const game = await Bgg.gameById(event.gameBggId.toString());
 
 	const isHost = session.user.id === event.hostId;
 	const isAdmin = session.user.isAdmin;
@@ -36,11 +36,11 @@ export default async function EventDetailsPage({
 					<h4 className="font-bold">
 						{format(event.dateTime, "MMMM d, yyyy 'at' h:mmaaa")}
 					</h4>
-					<small>{game.name}</small>
+					<small>{game.names.at(0)?.value}</small>
 				</div>
 
 				<div>
-					<GameDetails gameBggId={game.bggId} />
+					<GameDetails game={game} />
 
 					<div className="divider" />
 

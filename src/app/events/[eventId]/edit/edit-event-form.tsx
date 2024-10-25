@@ -53,7 +53,7 @@ export function EditEventForm({
 					fieldErrors={state?.errors?.fieldErrors.dateTime}
 				/>
 
-				<GameSelect initialId={event.gameBggId} />
+				<GameSelect initialId={event.gameBggId.toString()} />
 
 				<div className="flex gap-4">
 					<Button type="button" variant="outline" className="w-full" asChild>
