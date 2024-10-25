@@ -2,7 +2,7 @@ import { queryOptions } from "@tanstack/react-query";
 import { Bgg } from "~/server/api/bgg";
 
 export const bggQueries = {
-	gameById: (id: number) =>
+	gameById: (id: string) =>
 		queryOptions({
 			queryKey: ["gameById", id],
 			queryFn: () => Bgg.gameById(id),
@@ -12,6 +12,6 @@ export const bggQueries = {
 			queryKey: ["gamesByQuery", query],
 			queryFn: () => Bgg.gamesByQuery(query),
 			enabled: query.length > 0,
-			select: (data) => data.flatMap((data) => data.items),
+			select: (response) => response.items,
 		}),
 };

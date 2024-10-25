@@ -1,6 +1,10 @@
-import type { BggThingDto } from "boardgamegeekclient/dist/esm/dto";
+type PayloadThingLinks = {
+	type: string;
+	id: string;
+	value: string;
+};
 
-export function parseGameLinks(links: BggThingDto["links"]) {
+export function parseGameLinks(links: Array<PayloadThingLinks>) {
 	const linksData = new Map<"authors" | "categories" | "mechanics", string[]>([
 		["authors", []],
 		["categories", []],

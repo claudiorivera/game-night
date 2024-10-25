@@ -12,33 +12,35 @@ export function GameDetails({
 		<div className="grid grid-cols-12 gap-4">
 			<div className="col-span-12 flex flex-col gap-4 sm:col-span-5">
 				<div className="p-4 bg-gradient-to-t from-primary via-secondary to-primary">
-					<div className="relative aspect-square w-full">
-						<Image
-							alt={game.name}
-							className="object-contain"
-							fill
-							sizes="(min-width: 1200px) 33vw, 100vw"
-							src={game.image}
-						/>
-					</div>
+					{game.image && (
+						<div className="relative aspect-square w-full">
+							<Image
+								alt={game.names.at(0)?.value ?? "game image"}
+								className="object-contain"
+								fill
+								sizes="(min-width: 1200px) 33vw, 100vw"
+								src={game.image}
+							/>
+						</div>
+					)}
 				</div>
 				<div className="flex flex-col gap-2 text-xs">
 					<BadgesDisplay badges={game.authors} label="Authors" />
 					<BadgesDisplay badges={game.categories} label="Categories" />
 					<BadgesDisplay badges={game.mechanics} label="Mechanics" />
 					<Description
-						definition={`${game.statistics.ratings.average.toFixed(2)} (${game.statistics.ratings.usersrated})`}
+						definition={`${game.statistics?.ratings.average} (${game.statistics?.ratings.usersRated})`}
 						term="Average BGG Rating"
 					/>
 					<Description
-						definition={`${game.minplayers} to ${game.maxplayers}`}
+						definition={`${game.minPlayers} to ${game.maxPlayers}`}
 						term="Players"
 					/>
 					<Description
-						definition={`${game.playingtime} minutes`}
+						definition={`${game.playingTime} minutes`}
 						term="Playing Time"
 					/>
-					<Description definition={`${game.minage}+`} term="Ages" />
+					<Description definition={`${game.minAge}+`} term="Ages" />
 				</div>
 			</div>
 			<div className="col-span-12 sm:col-span-7">

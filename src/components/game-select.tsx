@@ -23,7 +23,7 @@ import {
 import { cn } from "~/lib/utils";
 import { bggQueries } from "~/server/queries/bgg";
 
-export function GameSelect({ initialId }: { initialId?: number }) {
+export function GameSelect({ initialId }: { initialId?: string }) {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const [selectedId, setSelectedId] = useState(initialId);
@@ -69,7 +69,7 @@ export function GameSelect({ initialId }: { initialId?: number }) {
 
 											if (gameId === selectedId?.toString()) return;
 
-											setSelectedId(Number(gameId));
+											setSelectedId(gameId);
 										}}
 										className="flex gap-2"
 									>
@@ -91,10 +91,10 @@ export function GameSelect({ initialId }: { initialId?: number }) {
 	);
 }
 
-function GameName({ id }: { id: number }) {
+function GameName({ id }: { id: string }) {
 	const { data: game } = useQuery(bggQueries.gameById(id));
 
 	if (!game) return null;
 
-	return game.name;
+	return game.names.at(0)?.value;
 }

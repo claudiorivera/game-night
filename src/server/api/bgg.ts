@@ -1,15 +1,15 @@
-import { BggClient } from "boardgamegeekclient";
+import { bgg } from "bgg-sdk";
 import { parseGameLinks } from "~/lib/parse-game-links";
 
-const bggApiClient = BggClient.Create();
-
-async function gameById(id: number) {
+async function gameById(id: string) {
 	try {
-		const [game] = await bggApiClient.thing.query({
-			id,
-			stats: 1,
-			type: "boardgame",
+		const { items } = await bgg.thing({
+			id: [id],
+			stats: true,
+			type: ["boardgame"],
 		});
+
+		const game = items.at(0);
 
 		if (!game) {
 			throw new Error(`Error fetching game with id ${id}`);
@@ -28,9 +28,9 @@ async function gameById(id: number) {
 }
 
 async function gamesByQuery(query: string) {
-	return bggApiClient.search.query({
+	return bgg.search({
 		query,
-		type: "boardgame",
+		type: ["boardgame"],
 	});
 }
 

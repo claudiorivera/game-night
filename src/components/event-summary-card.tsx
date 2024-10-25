@@ -16,7 +16,7 @@ export async function EventSummaryCard({
 }: {
 	event: EventById;
 }) {
-	const game = await Bgg.gameById(event.gameBggId);
+	const game = await Bgg.gameById(event.gameBggId.toString());
 
 	return (
 		<Link href={`/events/${event.id}`}>
@@ -25,17 +25,19 @@ export async function EventSummaryCard({
 					<CardTitle>
 						{format(event.dateTime, "MMMM d, yyyy 'at' h:mmaaa")}
 					</CardTitle>
-					<CardDescription>{game.name}</CardDescription>
+					<CardDescription>{game.names.at(0)?.value}</CardDescription>
 				</CardHeader>
 
-				<div className="relative aspect-video">
-					<Image
-						alt={game.name}
-						className="object-cover"
-						fill
-						src={game.image}
-					/>
-				</div>
+				{game.image && (
+					<div className="relative aspect-video">
+						<Image
+							alt={game.names.at(0)?.value ?? "game image"}
+							className="object-cover"
+							fill
+							src={game.image}
+						/>
+					</div>
+				)}
 
 				<CardContent>
 					<h4 className="font-semibold">
