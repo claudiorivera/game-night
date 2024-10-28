@@ -31,7 +31,7 @@
 		"@radix-ui/react-popover": "1.1.2",
 		"@radix-ui/react-slot": "1.1.0",
 		"@radix-ui/react-tooltip": "1.1.3",
-		"@sentry/nextjs": "8.33.1",
+		"@sentry/nextjs": "8.35.0",
 		"@t3-oss/env-nextjs": "0.11.1",
 		"@tanstack/react-query": "5.59.16",
 		"bgg-sdk": "1.0.0",
