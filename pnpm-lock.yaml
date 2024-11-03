@@ -48,8 +48,8 @@ importers:
         specifier: 0.11.1
         version: 0.11.1(typescript@5.6.3)(zod@3.23.8)
       '@tanstack/react-query':
-        specifier: 5.59.17
-        version: 5.59.17(react@18.3.1)
+        specifier: 5.59.19
+        version: 5.59.19(react@18.3.1)
       bgg-sdk:
         specifier: 1.0.0
         version: 1.0.0
@@ -1821,8 +1821,8 @@ packages:
   '@tanstack/query-core@5.59.17':
     resolution: {integrity: sha512-jWdDiif8kaqnRGHNXAa9CnudtxY5v9DUxXhodgqX2Rwzj+1UwStDHEbBd9IA5C7VYAaJ2s+BxFR6PUBs8ERorA==}
 
-  '@tanstack/react-query@5.59.17':
-    resolution: {integrity: sha512-2taBKHT3LrRmS9ttUOmtaekVOXlZ5JXzNhL9Kmi6BSBdfIAZwEinMXZ8hffVuDpFoRCWlBaGcNkhP/zXgzq5ow==}
+  '@tanstack/react-query@5.59.19':
+    resolution: {integrity: sha512-xLRfyFyQOFcLltKCds0LijfC6/HQJrrTTnZB8ciyn74LIkVAm++vZJ6eUVG20RmJtdP8REdy7vSOYW4M3//XLA==}
     peerDependencies:
       react: ^18 || ^19
 
@@ -5026,7 +5026,7 @@ snapshots:
 
   '@tanstack/query-core@5.59.17': {}
 
-  '@tanstack/react-query@5.59.17(react@18.3.1)':
+  '@tanstack/react-query@5.59.19(react@18.3.1)':
     dependencies:
       '@tanstack/query-core': 5.59.17
       react: 18.3.1
