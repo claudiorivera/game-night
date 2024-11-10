@@ -10,9 +10,10 @@ import { Bgg } from "~/server/api/bgg";
 import { Events } from "~/server/api/events";
 import { auth } from "~/server/auth";
 
-export default async function EventDetailsPage({
-	params,
-}: { params: { eventId: string } }) {
+export default async function EventDetailsPage(props: {
+	params: Promise<{ eventId: string }>;
+}) {
+	const params = await props.params;
 	const session = await auth();
 
 	if (!session) {
