@@ -4,9 +4,13 @@ import { BackButton } from "~/components/back-button";
 import { Events } from "~/server/api/events";
 import { auth } from "~/server/auth";
 
-export default async function EditEventPage({
-	params: { eventId },
-}: { params: { eventId: string } }) {
+export default async function EditEventPage(props: {
+	params: Promise<{ eventId: string }>;
+}) {
+	const params = await props.params;
+
+	const { eventId } = params;
+
 	const session = await auth();
 
 	if (!session) {
