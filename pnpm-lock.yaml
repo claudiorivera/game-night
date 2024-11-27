@@ -134,8 +134,8 @@ importers:
         specifier: 0.28.1
         version: 0.28.1
       knip:
-        specifier: 5.37.2
-        version: 5.37.2(@types/node@22.10.0)(typescript@5.7.2)
+        specifier: 5.38.1
+        version: 5.38.1(@types/node@22.10.0)(typescript@5.7.2)
       postcss:
         specifier: 8.4.49
         version: 8.4.49
@@ -2576,8 +2576,8 @@ packages:
     engines: {node: '>=6'}
     hasBin: true
 
-  knip@5.37.2:
-    resolution: {integrity: sha512-Rs9HHTgmUacyKxchP4kRwG8idi0tzVHVpSyo4EM9sNGDSrPq20lhKXOWMFmShGCV6CH2352393Ok/qG1NblCMw==}
+  knip@5.38.1:
+    resolution: {integrity: sha512-qGQpVO9jhHDoJ/4O1paXQ8Y6XyqH3Xm6OTety/z5IouZBEvJuJoWp59iY9E82Dt0pz9BBmKLczliB4sbYMPr2g==}
     engines: {node: '>=18.6.0'}
     hasBin: true
     peerDependencies:
@@ -3117,8 +3117,8 @@ packages:
   simple-swizzle@0.2.2:
     resolution: {integrity: sha512-JA//kQgZtbuY83m+xT+tXJkmJncGMTFT+C+g2h2R9uxkYIrE2yy9sgmcLhCnw57/WSD+Eh3J97FPEDFnbXnDUg==}
 
-  smol-toml@1.3.0:
-    resolution: {integrity: sha512-tWpi2TsODPScmi48b/OQZGi2lgUmBCHy6SZrhi/FdnnHiU1GwebbCfuQuxsC3nHaLwtYeJGPrDZDIeodDOc4pA==}
+  smol-toml@1.3.1:
+    resolution: {integrity: sha512-tEYNll18pPKHroYSmLLrksq233j021G0giwW7P3D24jC54pQ5W5BXMsQ/Mvw1OJCmEYDgY+lrzT+3nNUtoNfXQ==}
     engines: {node: '>= 18'}
 
   source-map-js@1.2.1:
@@ -5757,7 +5757,7 @@ snapshots:
 
   json5@2.2.3: {}
 
-  knip@5.37.2(@types/node@22.10.0)(typescript@5.7.2):
+  knip@5.38.1(@types/node@22.10.0)(typescript@5.7.2):
     dependencies:
       '@nodelib/fs.walk': 1.2.8
       '@snyk/github-codeowners': 1.1.0
@@ -5771,7 +5771,7 @@ snapshots:
       picocolors: 1.1.1
       picomatch: 4.0.2
       pretty-ms: 9.1.0
-      smol-toml: 1.3.0
+      smol-toml: 1.3.1
       strip-json-comments: 5.0.1
       summary: 2.1.0
       typescript: 5.7.2
@@ -6258,7 +6258,7 @@ snapshots:
     dependencies:
       is-arrayish: 0.3.2
 
-  smol-toml@1.3.0: {}
+  smol-toml@1.3.1: {}
 
   source-map-js@1.2.1: {}
 
