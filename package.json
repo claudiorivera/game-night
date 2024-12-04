@@ -64,7 +64,7 @@
 		"drizzle-kit": "0.28.1",
 		"knip": "5.39.1",
 		"postcss": "8.4.49",
-		"tailwindcss": "3.4.15",
+		"tailwindcss": "3.4.16",
 		"tsx": "4.19.2",
 		"typescript": "5.7.2"
 	},
