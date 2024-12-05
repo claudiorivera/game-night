@@ -61,7 +61,7 @@
 		"@types/react-dom": "npm:types-react-dom@19.0.0",
 		"autoprefixer": "10.4.20",
 		"dotenv-cli": "7.4.4",
-		"drizzle-kit": "0.29.0",
+		"drizzle-kit": "0.29.1",
 		"knip": "5.39.1",
 		"postcss": "8.4.49",
 		"tailwindcss": "3.4.16",
