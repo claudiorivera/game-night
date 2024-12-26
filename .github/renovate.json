@@ -3,16 +3,6 @@
 	"extends": ["config:base"],
 	"packageRules": [
 		{
-			"matchUpdateTypes": ["patch", "pin", "digest"],
-			"automerge": true
-		},
-		{
-			"matchDepTypes": ["devDependencies"],
-			"matchUpdateTypes": ["minor", "patch", "pin", "digest"],
-			"automerge": true
-		},
-		{
-			"matchPackageNames": ["lucide-react"],
 			"matchUpdateTypes": ["minor", "patch", "pin", "digest"],
 			"automerge": true
 		}
