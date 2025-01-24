@@ -11,7 +11,7 @@ export function GameDetails({
 	return (
 		<div className="grid grid-cols-12 gap-4">
 			<div className="col-span-12 flex flex-col gap-4 sm:col-span-5">
-				<div className="p-4 bg-gradient-to-t from-primary via-secondary to-primary">
+				<div className="p-4 bg-linear-to-t from-primary via-secondary to-primary">
 					{game.image && (
 						<div className="relative aspect-square w-full">
 							<Image
