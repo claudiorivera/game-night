@@ -62,7 +62,7 @@
 		"@types/react": "19.0.8",
 		"@types/react-dom": "19.0.3",
 		"drizzle-kit": "0.30.3",
-		"knip": "5.43.3",
+		"knip": "5.43.5",
 		"postcss": "8.5.1",
 		"tailwindcss": "4.0.0",
 		"tsx": "4.19.2",
