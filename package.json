@@ -3,7 +3,7 @@
 	"version": "0.3.0",
 	"private": true,
 	"type": "module",
-	"packageManager": "pnpm@10.4.1",
+	"packageManager": "pnpm@10.5.0",
 	"scripts": {
 		"dev": "next dev --turbopack",
 		"build": "next build",
@@ -40,8 +40,8 @@
 		"clsx": "2.1.1",
 		"cmdk": "1.0.4",
 		"date-fns": "4.1.0",
-		"drizzle-orm": "0.39.3",
-		"lucide-react": "0.475.0",
+		"drizzle-orm": "0.40.0",
+		"lucide-react": "0.476.0",
 		"next": "15.1.7",
 		"next-auth": "5.0.0-beta.25",
 		"postgres": "3.4.5",
@@ -56,16 +56,24 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
-		"@dotenvx/dotenvx": "1.38.2",
-		"@tailwindcss/postcss": "^4.0.0",
+		"@dotenvx/dotenvx": "1.38.3",
+		"@tailwindcss/postcss": "^4.0.9",
 		"@types/node": "22.13.5",
 		"@types/react": "19.0.10",
 		"@types/react-dom": "19.0.4",
-		"drizzle-kit": "0.30.4",
-		"knip": "5.44.5",
+		"drizzle-kit": "0.30.5",
+		"knip": "5.45.0",
 		"postcss": "8.5.3",
-		"tailwindcss": "4.0.8",
+		"tailwindcss": "4.0.9",
 		"tsx": "4.19.3",
 		"typescript": "5.7.3"
+	},
+	"pnpm": {
+		"onlyBuiltDependencies": [
+			"@biomejs/biome",
+			"@sentry/cli",
+			"esbuild",
+			"sharp"
+		]
 	}
 }
