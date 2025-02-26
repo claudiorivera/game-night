@@ -7,6 +7,5 @@
 			"automerge": true
 		}
 	],
-	"schedule": ["after 9pm and before 9am every weekday", "every weekend"],
 	"commitMessagePrefix": "🤖"
 }
