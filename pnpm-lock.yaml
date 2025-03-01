@@ -46,7 +46,7 @@ importers:
         version: 9.3.0(@opentelemetry/context-async-hooks@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/core@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.57.2(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.0))(next@15.2.0(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)(webpack@5.96.1(esbuild@0.19.12))
       '@t3-oss/env-nextjs':
         specifier: 0.12.0
-        version: 0.12.0(typescript@5.7.3)(zod@3.24.2)
+        version: 0.12.0(typescript@5.8.2)(zod@3.24.2)
       '@tanstack/react-query':
         specifier: 5.66.11
         version: 5.66.11(react@19.0.0)
@@ -128,7 +128,7 @@ importers:
         version: 0.30.5
       knip:
         specifier: 5.45.0
-        version: 5.45.0(@types/node@22.13.7)(typescript@5.7.3)
+        version: 5.45.0(@types/node@22.13.7)(typescript@5.8.2)
       postcss:
         specifier: 8.5.3
         version: 8.5.3
@@ -139,8 +139,8 @@ importers:
         specifier: 4.19.3
         version: 4.19.3
       typescript:
-        specifier: 5.7.3
-        version: 5.7.3
+        specifier: 5.8.2
+        version: 5.8.2
 
 packages:
 
@@ -3233,8 +3233,8 @@ packages:
     resolution: {integrity: sha512-Ne2YiiGN8bmrmJJEuTWTLJR32nh/JdL1+PSicowtNb0WFpn59GK8/lfD61bVtzguz7b3PBt74nxpv/Pw5po5Rg==}
     engines: {node: '>=8'}
 
-  typescript@5.7.3:
-    resolution: {integrity: sha512-84MVSjMEHP+FQRPy3pX9sTVV/INIex71s9TL2Gm5FG/WG1SqXeKyZ0k7/blY/4FdOzI12CBy1vGc4og/eus0fw==}
+  typescript@5.8.2:
+    resolution: {integrity: sha512-aJn6wq13/afZp/jT9QZmwEjDqqvSGp1VT5GVg+f/t6/oVyrgXM6BY1h9BRh/O5p3PlUPAe+WuiEZOmb/49RqoQ==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -4842,16 +4842,16 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@t3-oss/env-core@0.12.0(typescript@5.7.3)(zod@3.24.2)':
+  '@t3-oss/env-core@0.12.0(typescript@5.8.2)(zod@3.24.2)':
     optionalDependencies:
-      typescript: 5.7.3
+      typescript: 5.8.2
       zod: 3.24.2
 
-  '@t3-oss/env-nextjs@0.12.0(typescript@5.7.3)(zod@3.24.2)':
+  '@t3-oss/env-nextjs@0.12.0(typescript@5.8.2)(zod@3.24.2)':
     dependencies:
-      '@t3-oss/env-core': 0.12.0(typescript@5.7.3)(zod@3.24.2)
+      '@t3-oss/env-core': 0.12.0(typescript@5.8.2)(zod@3.24.2)
     optionalDependencies:
-      typescript: 5.7.3
+      typescript: 5.8.2
       zod: 3.24.2
 
   '@tailwindcss/node@4.0.9':
@@ -5643,7 +5643,7 @@ snapshots:
 
   json5@2.2.3: {}
 
-  knip@5.45.0(@types/node@22.13.7)(typescript@5.7.3):
+  knip@5.45.0(@types/node@22.13.7)(typescript@5.8.2):
     dependencies:
       '@nodelib/fs.walk': 3.0.1
       '@snyk/github-codeowners': 1.1.0
@@ -5660,7 +5660,7 @@ snapshots:
       smol-toml: 1.3.1
       strip-json-comments: 5.0.1
       summary: 2.1.0
-      typescript: 5.7.3
+      typescript: 5.8.2
       zod: 3.24.2
       zod-validation-error: 3.4.0(zod@3.24.2)
 
@@ -6207,7 +6207,7 @@ snapshots:
 
   type-fest@0.7.1: {}
 
-  typescript@5.7.3: {}
+  typescript@5.8.2: {}
 
   undici-types@6.20.0: {}
 
