@@ -42,7 +42,7 @@
 		"date-fns": "4.1.0",
 		"drizzle-orm": "0.40.0",
 		"lucide-react": "0.479.0",
-		"next": "15.2.1",
+		"next": "15.2.2",
 		"next-auth": "5.0.0-beta.25",
 		"postgres": "3.4.5",
 		"react": "19.0.0",
