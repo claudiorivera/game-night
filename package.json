@@ -17,7 +17,6 @@
 		"db:seed": "pnpm with-env tsx src/server/db/runSeed.ts",
 		"db:generate": "drizzle-kit generate",
 		"db:migrate": "drizzle-kit migrate",
-		"knip": "SKIP_ENV_VALIDATION=true knip",
 		"with-env": "dotenvx run --"
 	},
 	"dependencies": {
@@ -32,7 +31,6 @@
 		"@radix-ui/react-popover": "1.1.7",
 		"@radix-ui/react-slot": "1.2.0",
 		"@radix-ui/react-tooltip": "1.2.0",
-		"@sentry/nextjs": "9.12.0",
 		"@t3-oss/env-nextjs": "0.12.0",
 		"@tanstack/react-query": "5.73.3",
 		"bgg-sdk": "1.0.0",
@@ -62,7 +60,6 @@
 		"@types/react": "19.1.1",
 		"@types/react-dom": "19.1.2",
 		"drizzle-kit": "0.30.6",
-		"knip": "5.50.2",
 		"postcss": "8.5.3",
 		"tailwindcss": "4.1.3",
 		"tsx": "4.19.3",
