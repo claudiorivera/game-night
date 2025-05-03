@@ -66,8 +66,8 @@ importers:
         specifier: 0.43.1
         version: 0.43.1(@libsql/client@0.15.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(gel@2.0.0)(postgres@3.4.5)
       lucide-react:
-        specifier: 0.506.0
-        version: 0.506.0(react@19.1.0)
+        specifier: 0.507.0
+        version: 0.507.0(react@19.1.0)
       next:
         specifier: 15.3.1
         version: 15.3.1(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -1742,8 +1742,8 @@ packages:
   lodash.debounce@4.0.8:
     resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
 
-  lucide-react@0.506.0:
-    resolution: {integrity: sha512-/2znFFzlXcZKu0ANFCnxUOBV5I2e08m19PGtb6X+BcByRj8ODlGAl3wpe4LNVrDMLJ263JoIkZn7MOGK/5sXtw==}
+  lucide-react@0.507.0:
+    resolution: {integrity: sha512-XfgE6gvAHwAtnbUvWiTTHx4S3VGR+cUJHEc0vrh9Ogu672I1Tue2+Cp/8JJqpytgcBHAB1FVI297W4XGNwc2dQ==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
@@ -3404,7 +3404,7 @@ snapshots:
 
   lodash.debounce@4.0.8: {}
 
-  lucide-react@0.506.0(react@19.1.0):
+  lucide-react@0.507.0(react@19.1.0):
     dependencies:
       react: 19.1.0
 
