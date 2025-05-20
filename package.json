@@ -22,7 +22,7 @@
 	"dependencies": {
 		"@auth/drizzle-adapter": "1.9.1",
 		"@faker-js/faker": "9.8.0",
-		"@libsql/client": "0.15.6",
+		"@libsql/client": "0.15.7",
 		"@paralleldrive/cuid2": "2.2.2",
 		"@radix-ui/react-avatar": "1.1.9",
 		"@radix-ui/react-dialog": "1.1.13",
