@@ -43,7 +43,7 @@ importers:
         version: 1.2.7(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@t3-oss/env-nextjs':
         specifier: 0.13.4
-        version: 0.13.4(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.28)
+        version: 0.13.4(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.30)
       '@tanstack/react-query':
         specifier: 5.77.2
         version: 5.77.2(react@19.1.0)
@@ -99,8 +99,8 @@ importers:
         specifier: 3.1.1
         version: 3.1.1(react@19.1.0)
       zod:
-        specifier: 3.25.28
-        version: 3.25.28
+        specifier: 3.25.30
+        version: 3.25.30
     devDependencies:
       '@biomejs/biome':
         specifier: 1.9.4
@@ -2191,8 +2191,8 @@ packages:
     resolution: {integrity: sha512-YgvUTfwqyc7UXVMrB+SImsVYSmTS8X/tSrtdNZMImM+n7+QTriRXyXim0mBrTXNeqzVF0KWGgHPeiyViFFrNDw==}
     engines: {node: '>=18'}
 
-  zod@3.25.28:
-    resolution: {integrity: sha512-/nt/67WYKnr5by3YS7LroZJbtcCBurDKKPBPWWzaxvVCGuG/NOsiKkrjoOhI8mJ+SQUXEbUzeB3S+6XDUEEj7Q==}
+  zod@3.25.30:
+    resolution: {integrity: sha512-VolhdEtu6TJr/fzGuHA/SZ5ixvXqA6ADOG9VRcQ3rdOKmF5hkmcJbyaQjUH5BgmpA9gej++zYRX7zjSmdReIwA==}
 
 snapshots:
 
@@ -3048,19 +3048,19 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@t3-oss/env-core@0.13.4(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.28)':
+  '@t3-oss/env-core@0.13.4(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.30)':
     dependencies:
       arktype: 2.1.20
     optionalDependencies:
       typescript: 5.8.3
-      zod: 3.25.28
+      zod: 3.25.30
 
-  '@t3-oss/env-nextjs@0.13.4(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.28)':
+  '@t3-oss/env-nextjs@0.13.4(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.30)':
     dependencies:
-      '@t3-oss/env-core': 0.13.4(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.28)
+      '@t3-oss/env-core': 0.13.4(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.30)
     optionalDependencies:
       typescript: 5.8.3
-      zod: 3.25.28
+      zod: 3.25.30
     transitivePeerDependencies:
       - arktype
 
@@ -3868,4 +3868,4 @@ snapshots:
 
   yallist@5.0.0: {}
 
-  zod@3.25.28: {}
+  zod@3.25.30: {}
