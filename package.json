@@ -58,7 +58,7 @@
 		"@tailwindcss/postcss": "^4.0.9",
 		"@types/node": "22.15.29",
 		"@types/react": "19.1.6",
-		"@types/react-dom": "19.1.5",
+		"@types/react-dom": "19.1.6",
 		"drizzle-kit": "0.31.1",
 		"postcss": "8.5.4",
 		"tailwindcss": "4.1.8",
