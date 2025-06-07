@@ -45,8 +45,8 @@ importers:
         specifier: 0.13.6
         version: 0.13.6(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.50)
       '@tanstack/react-query':
-        specifier: 5.80.3
-        version: 5.80.3(react@19.1.0)
+        specifier: 5.80.6
+        version: 5.80.6(react@19.1.0)
       bgg-sdk:
         specifier: 1.0.0
         version: 1.0.0
@@ -1353,11 +1353,11 @@ packages:
   '@tailwindcss/postcss@4.1.8':
     resolution: {integrity: sha512-vB/vlf7rIky+w94aWMw34bWW1ka6g6C3xIOdICKX2GC0VcLtL6fhlLiafF0DVIwa9V6EHz8kbWMkS2s2QvvNlw==}
 
-  '@tanstack/query-core@5.80.2':
-    resolution: {integrity: sha512-g2Es97uwFk7omkWiH9JmtLWSA8lTUFVseIyzqbjqJEEx7qN+Hg6jbBdDvelqtakamppaJtGORQ64hEJ5S6ojSg==}
+  '@tanstack/query-core@5.80.6':
+    resolution: {integrity: sha512-nl7YxT/TAU+VTf+e2zTkObGTyY8YZBMnbgeA1ee66lIVqzKlYursAII6z5t0e6rXgwUMJSV4dshBTNacNpZHbQ==}
 
-  '@tanstack/react-query@5.80.3':
-    resolution: {integrity: sha512-psqr/QRzYfqJvgD8F2teMO6mL4hN4gzkOra9BlPplNhwByviZIhHUrWTXQEMmUdPWHNkGjA1SP6xG2+brhmIoQ==}
+  '@tanstack/react-query@5.80.6':
+    resolution: {integrity: sha512-izX+5CnkpON3NQGcEm3/d7LfFQNo9ZpFtX2QsINgCYK9LT2VCIdi8D3bMaMSNhrAJCznRoAkFic76uvLroALBw==}
     peerDependencies:
       react: ^18 || ^19
 
@@ -3139,11 +3139,11 @@ snapshots:
       postcss: 8.5.4
       tailwindcss: 4.1.8
 
-  '@tanstack/query-core@5.80.2': {}
+  '@tanstack/query-core@5.80.6': {}
 
-  '@tanstack/react-query@5.80.3(react@19.1.0)':
+  '@tanstack/react-query@5.80.6(react@19.1.0)':
     dependencies:
-      '@tanstack/query-core': 5.80.2
+      '@tanstack/query-core': 5.80.6
       react: 19.1.0
 
   '@types/node@22.15.29':
