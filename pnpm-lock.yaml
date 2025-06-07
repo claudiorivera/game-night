@@ -43,7 +43,7 @@ importers:
         version: 1.2.7(@types/react-dom@19.1.6(@types/react@19.1.6))(@types/react@19.1.6)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@t3-oss/env-nextjs':
         specifier: 0.13.6
-        version: 0.13.6(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.50)
+        version: 0.13.6(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.56)
       '@tanstack/react-query':
         specifier: 5.80.6
         version: 5.80.6(react@19.1.0)
@@ -99,8 +99,8 @@ importers:
         specifier: 3.1.1
         version: 3.1.1(react@19.1.0)
       zod:
-        specifier: 3.25.50
-        version: 3.25.50
+        specifier: 3.25.56
+        version: 3.25.56
     devDependencies:
       '@biomejs/biome':
         specifier: 1.9.4
@@ -2194,8 +2194,8 @@ packages:
     resolution: {integrity: sha512-YgvUTfwqyc7UXVMrB+SImsVYSmTS8X/tSrtdNZMImM+n7+QTriRXyXim0mBrTXNeqzVF0KWGgHPeiyViFFrNDw==}
     engines: {node: '>=18'}
 
-  zod@3.25.50:
-    resolution: {integrity: sha512-VstOnRxf4tlSq0raIwbn0n+LA34SxVoZ8r3pkwSUM0jqNiA/HCMQEVjTuS5FZmHsge+9MDGTiAuHyml5T0um6A==}
+  zod@3.25.56:
+    resolution: {integrity: sha512-rd6eEF3BTNvQnR2e2wwolfTmUTnp70aUTqr0oaGbHifzC3BKJsoV+Gat8vxUMR1hwOKBs6El+qWehrHbCpW6SQ==}
 
 snapshots:
 
@@ -3053,19 +3053,19 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@t3-oss/env-core@0.13.6(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.50)':
+  '@t3-oss/env-core@0.13.6(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.56)':
     optionalDependencies:
       arktype: 2.1.20
       typescript: 5.8.3
-      zod: 3.25.50
+      zod: 3.25.56
 
-  '@t3-oss/env-nextjs@0.13.6(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.50)':
+  '@t3-oss/env-nextjs@0.13.6(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.56)':
     dependencies:
-      '@t3-oss/env-core': 0.13.6(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.50)
+      '@t3-oss/env-core': 0.13.6(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.56)
     optionalDependencies:
       arktype: 2.1.20
       typescript: 5.8.3
-      zod: 3.25.50
+      zod: 3.25.56
 
   '@tailwindcss/node@4.1.8':
     dependencies:
@@ -3869,4 +3869,4 @@ snapshots:
 
   yallist@5.0.0: {}
 
-  zod@3.25.50: {}
+  zod@3.25.56: {}
