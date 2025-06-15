@@ -62,7 +62,7 @@
 		"drizzle-kit": "0.31.1",
 		"postcss": "8.5.5",
 		"tailwindcss": "4.1.10",
-		"tsx": "4.19.4",
+		"tsx": "4.20.3",
 		"typescript": "5.8.3"
 	},
 	"pnpm": {
