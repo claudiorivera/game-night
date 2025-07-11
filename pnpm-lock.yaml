@@ -112,8 +112,8 @@ importers:
         specifier: ^4.0.9
         version: 4.1.11
       '@types/node':
-        specifier: 22.16.2
-        version: 22.16.2
+        specifier: 22.16.3
+        version: 22.16.3
       '@types/react':
         specifier: 19.1.8
         version: 19.1.8
@@ -1511,8 +1511,8 @@ packages:
     peerDependencies:
       react: ^18 || ^19
 
-  '@types/node@22.16.2':
-    resolution: {integrity: sha512-Cdqa/eJTvt4fC4wmq1Mcc0CPUjp/Qy2FGqLza3z3pKymsI969TcZ54diNJv8UYUgeWxyb8FSbCkhdR6WqmUFhA==}
+  '@types/node@22.16.3':
+    resolution: {integrity: sha512-sr4Xz74KOUeYadexo1r8imhRtlVXcs+j3XK3TcoiYk7B1t3YRVJgtaD3cwX73NYb71pmVuMLNRhJ9XKdoDB74g==}
 
   '@types/pg@8.11.10':
     resolution: {integrity: sha512-LczQUW4dbOQzsH2RQ5qoeJ6qJPdrcM/DcMLoqWQkMLMsq83J5lAX3LXjdkWdpscFy67JSOWDnh7Ny/sPFykmkg==}
@@ -3367,13 +3367,13 @@ snapshots:
       '@tanstack/query-core': 5.82.0
       react: 19.1.0
 
-  '@types/node@22.16.2':
+  '@types/node@22.16.3':
     dependencies:
       undici-types: 6.21.0
 
   '@types/pg@8.11.10':
     dependencies:
-      '@types/node': 22.16.2
+      '@types/node': 22.16.3
       pg-protocol: 1.10.2
       pg-types: 4.0.2
     optional: true
@@ -3388,7 +3388,7 @@ snapshots:
 
   '@types/ws@8.5.12':
     dependencies:
-      '@types/node': 22.16.2
+      '@types/node': 22.16.3
 
   aria-hidden@1.2.4:
     dependencies:
