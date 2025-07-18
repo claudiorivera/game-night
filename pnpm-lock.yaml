@@ -106,8 +106,8 @@ importers:
         specifier: 1.9.4
         version: 1.9.4
       '@dotenvx/dotenvx':
-        specifier: 1.47.6
-        version: 1.47.6
+        specifier: 1.48.0
+        version: 1.48.0
       '@tailwindcss/postcss':
         specifier: ^4.0.9
         version: 4.1.11
@@ -222,8 +222,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@dotenvx/dotenvx@1.47.6':
-    resolution: {integrity: sha512-bvVMFc3Z9/mtYUWP1S1UB4SA3U2mQ1p7Qc9QW6Cm7t1Vm6D+dysmus/Mt26Dc1QrE6OgrKUGC99EQcMvcFZC3Q==}
+  '@dotenvx/dotenvx@1.48.0':
+    resolution: {integrity: sha512-UrAKBvUYl8SwCyYa8U8lND4rkdPbd7uOPtCPeiObeg5B44yrdH2ioO0tLfsGAGoenLmf6IpN6be4eT4gXxyzjQ==}
     hasBin: true
 
   '@drizzle-team/brocli@0.10.2':
@@ -2412,7 +2412,7 @@ snapshots:
   '@biomejs/cli-win32-x64@1.9.4':
     optional: true
 
-  '@dotenvx/dotenvx@1.47.6':
+  '@dotenvx/dotenvx@1.48.0':
     dependencies:
       commander: 11.1.0
       dotenv: 16.4.7
