@@ -57,7 +57,7 @@
 		"@dotenvx/dotenvx": "1.48.4",
 		"@tailwindcss/postcss": "^4.0.9",
 		"@types/node": "22.17.1",
-		"@types/react": "19.1.9",
+		"@types/react": "19.1.10",
 		"@types/react-dom": "19.1.7",
 		"drizzle-kit": "0.31.4",
 		"postcss": "8.5.6",
