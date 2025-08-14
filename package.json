@@ -61,7 +61,7 @@
 		"@types/react-dom": "19.1.7",
 		"drizzle-kit": "0.31.4",
 		"postcss": "8.5.6",
-		"tailwindcss": "4.1.11",
+		"tailwindcss": "4.1.12",
 		"tsx": "4.20.4",
 		"typescript": "5.9.2"
 	},
