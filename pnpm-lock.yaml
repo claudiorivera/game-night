@@ -15,8 +15,8 @@ importers:
         specifier: 9.9.0
         version: 9.9.0
       '@libsql/client':
-        specifier: 0.15.10
-        version: 0.15.10
+        specifier: 0.15.11
+        version: 0.15.11
       '@paralleldrive/cuid2':
         specifier: 2.2.2
         version: 2.2.2
@@ -64,7 +64,7 @@ importers:
         version: 4.1.0
       drizzle-orm:
         specifier: 0.44.4
-        version: 0.44.4(@libsql/client@0.15.10)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(gel@2.0.0)(postgres@3.4.7)
+        version: 0.44.4(@libsql/client@0.15.11)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(gel@2.0.0)(postgres@3.4.7)
       lucide-react:
         specifier: 0.539.0
         version: 0.539.0(react@19.1.1)
@@ -691,11 +691,11 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@libsql/client@0.15.10':
-    resolution: {integrity: sha512-J9cJQwrgH92JlPBYjUGxPIH5G9z3j/V/aPnQvcmmCgjatdVb/f7bzK3yNq15Phc+gVuKMwox3toXL+58qUMylg==}
+  '@libsql/client@0.15.11':
+    resolution: {integrity: sha512-JB8RWRs+cAbHX35/dQ9wD3m4W5EVGevq1fFqiHKTT4Pa5HR7WrcGRVT+8NL2M7gtTlOvyPh9zzms2DPLBCswig==}
 
-  '@libsql/core@0.15.10':
-    resolution: {integrity: sha512-fAMD+GnGQNdZ9zxeNC8AiExpKnou/97GJWkiDDZbTRHj3c9dvF1y4jsRQ0WE72m/CqTdbMGyU98yL0SJ9hQVeg==}
+  '@libsql/core@0.15.11':
+    resolution: {integrity: sha512-DQDYnEhCSYOsx30ASlOGuOqcQhvwELhOS2qM4dnIP+ZhKki2epZU1j5VZSNeQlrQXHkByMcWBy+wt7tBNx/9uA==}
 
   '@libsql/darwin-arm64@0.5.15':
     resolution: {integrity: sha512-BD4c4WHUu988PmJCtF1WNKoSmY4nAg4T6ZRaigt6fKY2qlS/+9uSB8LSqIIq3WwqxQm9SuJijMGMKDoH6dEFdA==}
@@ -2557,9 +2557,9 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@libsql/client@0.15.10':
+  '@libsql/client@0.15.11':
     dependencies:
-      '@libsql/core': 0.15.10
+      '@libsql/core': 0.15.11
       '@libsql/hrana-client': 0.7.0
       js-base64: 3.7.7
       libsql: 0.5.15
@@ -2568,7 +2568,7 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@libsql/core@0.15.10':
+  '@libsql/core@0.15.11':
     dependencies:
       js-base64: 3.7.7
 
@@ -3287,9 +3287,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.44.4(@libsql/client@0.15.10)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(gel@2.0.0)(postgres@3.4.7):
+  drizzle-orm@0.44.4(@libsql/client@0.15.11)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(gel@2.0.0)(postgres@3.4.7):
     optionalDependencies:
-      '@libsql/client': 0.15.10
+      '@libsql/client': 0.15.11
       '@opentelemetry/api': 1.9.0
       '@types/pg': 8.11.10
       gel: 2.0.0
