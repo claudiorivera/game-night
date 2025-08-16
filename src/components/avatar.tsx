@@ -2,9 +2,9 @@
 
 import type { User } from "next-auth";
 import {
+	Avatar as _Avatar,
 	AvatarFallback,
 	AvatarImage,
-	Avatar as _Avatar,
 } from "~/components/ui/avatar";
 
 export function Avatar({ user }: { user: Pick<User, "name" | "image"> }) {

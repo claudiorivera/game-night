@@ -13,17 +13,16 @@ import {
 	PopoverTrigger,
 } from "~/components/ui/popover";
 import { cn } from "~/lib/utils";
-import type { InferFlattenedErrors } from "~/types";
 
 export function DateTimePicker({
 	fieldName,
 	initialDate,
-	fieldErrors,
+	errors,
 	label,
 }: {
 	fieldName: string;
 	initialDate?: Date;
-	fieldErrors?: InferFlattenedErrors["fieldErrors"][keyof InferFlattenedErrors["fieldErrors"]];
+	errors: Array<string> | undefined;
 	label?: string;
 }) {
 	const [date, setDate] = useState<Date | undefined>(initialDate);
@@ -79,12 +78,13 @@ export function DateTimePicker({
 					</div>
 				</div>
 
-				{!!fieldErrors &&
-					fieldErrors.map((error) => (
-						<div key={error.errorCode} className="text-xs text-red-500">
-							{error.message}
-						</div>
-					))}
+				{!!errors && (
+					<div className="text-xs text-red-500">
+						{errors.map((error) => (
+							<div key={error}>{error}</div>
+						))}
+					</div>
+				)}
 			</div>
 		</>
 	);
