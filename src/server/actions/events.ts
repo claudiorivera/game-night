@@ -3,7 +3,8 @@
 import { toDate } from "date-fns";
 import { and, eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
-import { formatError, validate } from "~/lib/utils";
+import z from "zod";
+import { validate } from "~/lib/utils";
 import {
 	createEventSchema,
 	editEventSchema,
@@ -11,10 +12,10 @@ import {
 } from "~/schemas/events";
 import { db } from "~/server/db";
 import { eventGuestTable, eventsTable } from "~/server/db/schema";
-import type { InferFlattenedErrors, Maybe } from "~/types";
+import type { Maybe } from "~/types";
 
 export type CreateEventFormState = Maybe<{
-	errors?: InferFlattenedErrors<typeof createEventSchema>;
+	errors?: z.core.$ZodErrorTree<z.infer<typeof createEventSchema>>;
 	message?: string;
 	eventId?: string;
 }>;
@@ -29,13 +30,13 @@ export async function createEvent(
 	});
 
 	if (!validation.success) {
-		const errors = formatError({
-			error: validation.error,
-		});
+		const errors = z.treeifyError(validation.error);
 
-		console.error(errors);
+		console.error("Event creation failed:", errors);
 
-		return { errors } satisfies CreateEventFormState;
+		return {
+			errors,
+		} satisfies CreateEventFormState;
 	}
 
 	const { dateTime, ...data } = validation.data;
@@ -57,7 +58,7 @@ export async function createEvent(
 }
 
 export type EditEventFormState = Maybe<{
-	errors?: InferFlattenedErrors<typeof editEventSchema>;
+	errors?: z.core.$ZodErrorTree<z.infer<typeof editEventSchema>>;
 	message?: string;
 }>;
 
@@ -71,11 +72,9 @@ export async function editEvent(
 	});
 
 	if (!validation.success) {
-		const errors = formatError({
-			error: validation.error,
-		});
+		const errors = z.treeifyError(validation.error);
 
-		console.error(errors);
+		console.error("Event update failed:", errors);
 
 		return {
 			errors,
@@ -101,7 +100,7 @@ export async function editEvent(
 }
 
 export type UpdateAttendanceFormState = Maybe<{
-	errors?: InferFlattenedErrors<typeof updateAttendanceSchema>;
+	errors?: z.core.$ZodErrorTree<z.infer<typeof updateAttendanceSchema>>;
 	message?: string;
 }>;
 
@@ -115,11 +114,9 @@ export async function updateAttendance(
 	});
 
 	if (!validation.success) {
-		const errors = formatError({
-			error: validation.error,
-		});
+		const errors = z.treeifyError(validation.error);
 
-		console.error(errors);
+		console.error("Event creation failed:", errors);
 
 		return {
 			errors,

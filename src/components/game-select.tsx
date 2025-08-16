@@ -23,7 +23,13 @@ import {
 import { cn } from "~/lib/utils";
 import { bggQueries } from "~/server/queries/bgg";
 
-export function GameSelect({ initialId }: { initialId?: string }) {
+export function GameSelect({
+	initialId,
+	errors,
+}: {
+	initialId?: string;
+	errors: Array<string> | undefined;
+}) {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const [selectedId, setSelectedId] = useState(initialId);
@@ -35,7 +41,7 @@ export function GameSelect({ initialId }: { initialId?: string }) {
 	);
 
 	return (
-		<>
+		<div className="flex flex-col gap-1">
 			<Input type="hidden" name="gameBggId" defaultValue={selectedId} />
 
 			<Popover open={isOpen} onOpenChange={setIsOpen}>
@@ -49,6 +55,7 @@ export function GameSelect({ initialId }: { initialId?: string }) {
 						<ChevronsUpDownIcon className="h-4 w-4 opacity-50" />
 					</Button>
 				</PopoverTrigger>
+
 				<PopoverContent className="p-0 w-full" align="start">
 					<Command shouldFilter={false}>
 						<CommandInput
@@ -87,7 +94,14 @@ export function GameSelect({ initialId }: { initialId?: string }) {
 					</Command>
 				</PopoverContent>
 			</Popover>
-		</>
+
+			{!!errors &&
+				errors.map((error) => (
+					<div key={error} className="text-xs text-red-500">
+						{error}
+					</div>
+				))}
+		</div>
 	);
 }
 

@@ -3,11 +3,7 @@ import { Badge } from "~/components/ui/badge";
 import { parseGameDescription } from "~/lib/parse-game-description";
 import type { GameById } from "~/server/api/bgg";
 
-export function GameDetails({
-	game,
-}: {
-	game: GameById;
-}) {
+export function GameDetails({ game }: { game: GameById }) {
 	return (
 		<div className="grid grid-cols-12 gap-4">
 			<div className="col-span-12 flex flex-col gap-4 sm:col-span-5">

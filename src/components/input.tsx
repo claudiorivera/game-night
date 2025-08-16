@@ -2,21 +2,20 @@
 
 import {
 	type DetailedHTMLProps,
-	type InputHTMLAttributes,
 	forwardRef,
+	type InputHTMLAttributes,
 } from "react";
 import { Input as _Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { cn } from "~/lib/utils";
-import type { InferFlattenedErrors } from "~/types";
 
 type Props = {
 	label?: string;
-	fieldErrors?: InferFlattenedErrors["fieldErrors"][keyof InferFlattenedErrors["fieldErrors"]];
+	errors?: Array<string>;
 } & DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
 export const Input = forwardRef<HTMLInputElement, Props>(function Input(
-	{ label, fieldErrors, name, ...rest },
+	{ label, errors, name, ...rest },
 	ref,
 ) {
 	return (
@@ -27,15 +26,16 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
 				name={name}
 				ref={ref}
 				className={cn({
-					"border-red-500": fieldErrors,
+					"border-red-500": errors,
 				})}
 			/>
-			{!!fieldErrors &&
-				fieldErrors.map((error) => (
-					<div key={error.errorCode} className="text-xs text-red-500">
-						{error.message}
-					</div>
-				))}
+			{!!errors && (
+				<div className="text-xs text-red-500">
+					{errors.map((error) => (
+						<div key={error}>{error}</div>
+					))}
+				</div>
+			)}
 		</div>
 	);
 });

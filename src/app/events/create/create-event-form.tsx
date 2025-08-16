@@ -1,8 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import { useFormState } from "react-dom";
+import { useActionState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { DateTimePicker } from "~/components/date-time-picker";
 import { GameSelect } from "~/components/game-select";
@@ -17,7 +16,7 @@ import {
 export function CreateEventForm({ hostId }: { hostId: string }) {
 	const router = useRouter();
 
-	const [state, formAction] = useFormState<CreateEventFormState, FormData>(
+	const [state, formAction] = useActionState<CreateEventFormState, FormData>(
 		createEvent,
 		undefined,
 	);
@@ -32,16 +31,16 @@ export function CreateEventForm({ hostId }: { hostId: string }) {
 	}, [state, router]);
 
 	return (
-		<form id="create-event" action={formAction}>
+		<form action={formAction}>
 			<Input type="hidden" name="hostId" value={hostId} />
 			<div className="flex flex-col gap-4">
 				<DateTimePicker
 					fieldName="dateTime"
-					fieldErrors={state?.errors?.fieldErrors.dateTime}
+					errors={state?.errors?.properties?.dateTime?.errors}
 					label="Select Date and Time"
 				/>
 
-				<GameSelect />
+				<GameSelect errors={state?.errors?.properties?.gameBggId?.errors} />
 
 				<div className="flex gap-4">
 					<Button

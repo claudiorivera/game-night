@@ -1,9 +1,8 @@
 "use client";
 
-import type { User } from "next-auth";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import { useFormState } from "react-dom";
+import type { User } from "next-auth";
+import { useActionState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { Input } from "~/components/input";
 import { Button } from "~/components/ui/button";
@@ -16,13 +15,16 @@ import type { EventById } from "~/types/events";
 export function UpdateAttendanceForm({
 	event,
 	user,
-}: { event: EventById; user: User }) {
+}: {
+	event: EventById;
+	user: User;
+}) {
 	const router = useRouter();
 
-	const [state, formAction] = useFormState<UpdateAttendanceFormState, FormData>(
-		updateAttendance,
-		undefined,
-	);
+	const [state, formAction] = useActionState<
+		UpdateAttendanceFormState,
+		FormData
+	>(updateAttendance, undefined);
 
 	useEffect(() => {
 		if (state?.message) {

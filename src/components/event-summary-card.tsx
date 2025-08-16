@@ -11,11 +11,7 @@ import {
 import { Bgg } from "~/server/api/bgg";
 import type { EventById } from "~/types/events";
 
-export async function EventSummaryCard({
-	event,
-}: {
-	event: EventById;
-}) {
+export async function EventSummaryCard({ event }: { event: EventById }) {
 	const game = await Bgg.gameById(event.gameBggId.toString());
 
 	return (

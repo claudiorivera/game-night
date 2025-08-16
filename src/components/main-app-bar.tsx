@@ -1,8 +1,8 @@
 "use client";
 
 import { AlignJustify } from "lucide-react";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
