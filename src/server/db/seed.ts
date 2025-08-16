@@ -29,6 +29,9 @@ export async function seed() {
 		)
 		.returning();
 
+	console.log("Deleting events...");
+	await db.delete(schema.eventsTable);
+
 	console.log("Creating events...");
 	await db.insert(schema.eventsTable).values(
 		[...Array(NUMBER_OF_EVENTS)].map(() => {
