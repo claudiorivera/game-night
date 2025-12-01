@@ -2,20 +2,20 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
 import { useActionState, useEffect } from "react";
 import toast from "react-hot-toast";
-import { DateTimePicker } from "~/components/date-time-picker";
-import { GameSelect } from "~/components/game-select";
-import { Input } from "~/components/input";
-import { SubmitButton } from "~/components/submit-button";
-import { Button } from "~/components/ui/button";
+import { DateTimePicker } from "@/components/date-time-picker";
+import { GameSelect } from "@/components/game-select";
+import { SubmitButton } from "@/components/submit-button";
+import { Button } from "@/components/ui/button";
+import { useSession } from "@/lib/auth-client";
 import {
 	deleteEvent,
 	type EditEventFormState,
 	editEvent,
-} from "~/server/actions/events";
-import type { EventById } from "~/types/events";
+} from "@/server/actions/events";
+import { Role } from "@/server/db/schema";
+import type { EventById } from "@/types/events";
 
 export function EditEventForm({
 	event,
@@ -25,7 +25,7 @@ export function EditEventForm({
 	hostId: string;
 }) {
 	const router = useRouter();
-	const session = useSession();
+	const { data } = useSession();
 
 	const [state, formAction] = useActionState<EditEventFormState, FormData>(
 		editEvent,
@@ -39,14 +39,14 @@ export function EditEventForm({
 		}
 	}, [state, router]);
 
-	const isHost = session.data?.user.id === hostId;
-	const isAdmin = session.data?.user.isAdmin;
+	const isHost = data?.user.id === hostId;
+	const isAdmin = data?.user.role === Role.admin;
 
 	return (
 		<form action={formAction}>
-			<Input type="hidden" name="id" value={event.id} />
-			<Input type="hidden" name="hostId" value={hostId} />
-			<Input type="hidden" name="eventId" value={event.id} />
+			<input type="hidden" name="id" value={event.id} />
+			<input type="hidden" name="hostId" value={hostId} />
+			<input type="hidden" name="eventId" value={event.id} />
 
 			<div className="flex flex-col gap-4">
 				<DateTimePicker
@@ -61,10 +61,23 @@ export function EditEventForm({
 				/>
 
 				<div className="flex gap-4">
-					<Button type="button" variant="outline" className="w-full" asChild>
-						<Link href={`/events/${event.id}`}>Cancel</Link>
+					<Button variant="outline" asChild>
+						<Link className="flex-1" href={`/events/${event.id}`}>
+							Cancel
+						</Link>
 					</Button>
-					<SubmitButton>Save Changes</SubmitButton>
+					<SubmitButton
+						render={({ isPending }) => (
+							<Button
+								className="flex-1"
+								disabled={isPending}
+								type="submit"
+								variant="secondary"
+							>
+								{isPending ? "Saving..." : "Save Event"}
+							</Button>
+						)}
+					/>
 				</div>
 
 				{(isHost || isAdmin) && (

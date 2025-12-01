@@ -2,11 +2,11 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import type { z } from "zod";
 
-export function cn(...inputs: ClassValue[]) {
+export function cn(...inputs: Array<ClassValue>) {
 	return twMerge(clsx(inputs));
 }
 
-export function getRandomElement<T>(array: T[]) {
+export function getRandomElement<T>(array: Array<T>) {
 	if (array.length === 0) {
 		return;
 	}

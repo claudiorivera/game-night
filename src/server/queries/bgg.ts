@@ -1,5 +1,5 @@
 import { queryOptions } from "@tanstack/react-query";
-import { Bgg } from "~/server/api/bgg";
+import { Bgg } from "@/server/api/bgg";
 
 export const bggQueries = {
 	gameById: (id: string) =>

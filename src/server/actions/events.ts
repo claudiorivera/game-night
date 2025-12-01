@@ -4,15 +4,14 @@ import { toDate } from "date-fns";
 import { and, eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import z from "zod";
-import { validate } from "~/lib/utils";
 import {
 	createEventSchema,
 	editEventSchema,
 	updateAttendanceSchema,
-} from "~/schemas/events";
-import { db } from "~/server/db";
-import { eventGuestTable, eventsTable } from "~/server/db/schema";
-import type { Maybe } from "~/types";
+} from "@/schemas/events";
+import { db } from "@/server/db";
+import { eventTable, participationTable } from "@/server/db/schema";
+import type { Maybe } from "@/types";
 
 export type CreateEventFormState = Maybe<{
 	errors?: z.core.$ZodErrorTree<z.infer<typeof createEventSchema>>;
@@ -24,10 +23,8 @@ export async function createEvent(
 	_formState: CreateEventFormState,
 	formData: FormData,
 ) {
-	const validation = validate({
-		formData,
-		schema: createEventSchema,
-	});
+	const _formData = Object.fromEntries(formData);
+	const validation = createEventSchema.safeParse(_formData);
 
 	if (!validation.success) {
 		const errors = z.treeifyError(validation.error);
@@ -42,7 +39,7 @@ export async function createEvent(
 	const { dateTime, ...data } = validation.data;
 
 	const [newEvent] = await db
-		.insert(eventsTable)
+		.insert(eventTable)
 		.values({
 			...data,
 			dateTime: toDate(dateTime),
@@ -66,10 +63,9 @@ export async function editEvent(
 	_formState: EditEventFormState,
 	formData: FormData,
 ) {
-	const validation = validate({
-		formData,
-		schema: editEventSchema,
-	});
+	const _formData = Object.fromEntries(formData);
+
+	const validation = editEventSchema.safeParse(_formData);
 
 	if (!validation.success) {
 		const errors = z.treeifyError(validation.error);
@@ -84,12 +80,12 @@ export async function editEvent(
 	const { dateTime, ...data } = validation.data;
 
 	const [newEvent] = await db
-		.update(eventsTable)
+		.update(eventTable)
 		.set({
 			...data,
 			dateTime: toDate(dateTime),
 		})
-		.where(eq(eventsTable.id, validation.data.id))
+		.where(eq(eventTable.id, validation.data.id))
 		.returning();
 
 	if (newEvent) {
@@ -108,15 +104,13 @@ export async function updateAttendance(
 	_formState: UpdateAttendanceFormState,
 	formData: FormData,
 ) {
-	const validation = validate({
-		formData,
-		schema: updateAttendanceSchema,
-	});
+	const _formData = Object.fromEntries(formData);
+	const validation = updateAttendanceSchema.safeParse(_formData);
 
 	if (!validation.success) {
 		const errors = z.treeifyError(validation.error);
 
-		console.error("Event creation failed:", errors);
+		console.error("Update attendance failed:", errors);
 
 		return {
 			errors,
@@ -124,7 +118,7 @@ export async function updateAttendance(
 	}
 
 	if (validation.data.action === "JOIN") {
-		await db.insert(eventGuestTable).values({
+		await db.insert(participationTable).values({
 			eventId: validation.data.eventId,
 			guestId: validation.data.userId,
 		});
@@ -132,11 +126,11 @@ export async function updateAttendance(
 
 	if (validation.data.action === "LEAVE") {
 		await db
-			.delete(eventGuestTable)
+			.delete(participationTable)
 			.where(
 				and(
-					eq(eventGuestTable.eventId, validation.data.eventId),
-					eq(eventGuestTable.guestId, validation.data.userId),
+					eq(participationTable.eventId, validation.data.eventId),
+					eq(participationTable.guestId, validation.data.userId),
 				),
 			);
 	}
@@ -149,9 +143,6 @@ export async function updateAttendance(
 }
 
 export async function deleteEvent(id: string) {
-	const newEvent = await db.delete(eventsTable).where(eq(eventsTable.id, id));
-
-	if (newEvent) {
-		redirect("/events");
-	}
+	await db.delete(eventTable).where(eq(eventTable.id, id));
+	redirect("/events");
 }

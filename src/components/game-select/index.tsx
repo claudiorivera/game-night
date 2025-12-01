@@ -3,25 +3,25 @@
 import { useQuery } from "@tanstack/react-query";
 import { CommandLoading } from "cmdk";
 import { Check, ChevronsUpDownIcon } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 import { useDebounceValue } from "usehooks-ts";
-import { Button } from "~/components/ui/button";
+import bggLogo from "@/components/game-select/bgg-logo.png";
+import { Button } from "@/components/ui/button";
 import {
 	Command,
 	CommandEmpty,
-	CommandGroup,
 	CommandInput,
 	CommandItem,
 	CommandList,
-} from "~/components/ui/command";
-import { Input } from "~/components/ui/input";
+} from "@/components/ui/command";
 import {
 	Popover,
 	PopoverContent,
 	PopoverTrigger,
-} from "~/components/ui/popover";
-import { cn } from "~/lib/utils";
-import { bggQueries } from "~/server/queries/bgg";
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
+import { bggQueries } from "@/server/queries/bgg";
 
 export function GameSelect({
 	initialId,
@@ -42,7 +42,7 @@ export function GameSelect({
 
 	return (
 		<div className="flex flex-col gap-1">
-			<Input type="hidden" name="gameBggId" defaultValue={selectedId} />
+			<input type="hidden" name="gameBggId" defaultValue={selectedId} />
 
 			<Popover open={isOpen} onOpenChange={setIsOpen}>
 				<PopoverTrigger asChild>
@@ -56,7 +56,7 @@ export function GameSelect({
 					</Button>
 				</PopoverTrigger>
 
-				<PopoverContent className="p-0 w-full" align="start">
+				<PopoverContent className="w-full p-0" align="start">
 					<Command shouldFilter={false}>
 						<CommandInput
 							placeholder="Search games..."
@@ -66,38 +66,54 @@ export function GameSelect({
 						<CommandList>
 							{isFetching && <CommandLoading>Searching...</CommandLoading>}
 							<CommandEmpty>No results found</CommandEmpty>
-							<CommandGroup>
-								{games.map((game) => (
-									<CommandItem
-										key={game.id}
-										value={game.id.toString()}
-										onSelect={(gameId) => {
-											setIsOpen(false);
+							{games.map((game) => (
+								<CommandItem
+									key={game.id}
+									value={game.id.toString()}
+									onSelect={(gameId) => {
+										setIsOpen(false);
 
-											if (gameId === selectedId?.toString()) return;
+										if (gameId === selectedId?.toString()) return;
 
-											setSelectedId(gameId);
-										}}
-										className="flex gap-2"
-									>
-										<Check
-											className={cn(
-												"h-4 w-4",
-												selectedId === game.id ? "visible" : "invisible",
-											)}
-										/>
-										{game.name}
-									</CommandItem>
-								))}
-							</CommandGroup>
+										setSelectedId(gameId);
+									}}
+									className="flex gap-2"
+								>
+									<Check
+										className={cn(
+											"size-4",
+											selectedId === game.id ? "visible" : "invisible",
+										)}
+									/>
+									{game.name}
+								</CommandItem>
+							))}
 						</CommandList>
 					</Command>
+					<Button
+						asChild
+						variant="ghost"
+						className="h-full w-full rounded-none"
+						title="Visit BoardGameGeek.com"
+					>
+						<a
+							href="https://boardgamegeek.com"
+							target="_blank"
+							rel="noreferrer"
+						>
+							<Image
+								src={bggLogo}
+								alt="powered by boardgamegeek logo"
+								className="m-auto w-32"
+							/>
+						</a>
+					</Button>
 				</PopoverContent>
 			</Popover>
 
 			{!!errors &&
 				errors.map((error) => (
-					<div key={error} className="text-xs text-red-500">
+					<div key={error} className="text-red-500 text-xs">
 						{error}
 					</div>
 				))}

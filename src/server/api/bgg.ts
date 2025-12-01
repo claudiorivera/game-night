@@ -1,5 +1,5 @@
 import { bgg } from "bgg-sdk";
-import { parseGameLinks } from "~/lib/parse-game-links";
+import { parseGameLinks } from "@/lib/parse-game-links";
 
 async function gameById(id: string) {
 	try {

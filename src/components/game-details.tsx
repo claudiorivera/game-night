@@ -1,13 +1,13 @@
 import Image from "next/image";
-import { Badge } from "~/components/ui/badge";
-import { parseGameDescription } from "~/lib/parse-game-description";
-import type { GameById } from "~/server/api/bgg";
+import { Badge } from "@/components/ui/badge";
+import { parseGameDescription } from "@/lib/parse-game-description";
+import type { GameById } from "@/server/api/bgg";
 
 export function GameDetails({ game }: { game: GameById }) {
 	return (
 		<div className="grid grid-cols-12 gap-4">
 			<div className="col-span-12 flex flex-col gap-4 sm:col-span-5">
-				<div className="p-4 bg-linear-to-t from-primary via-secondary to-primary">
+				<div className="bg-linear-to-t from-primary via-secondary to-primary p-4">
 					{game.image && (
 						<div className="relative aspect-square w-full">
 							<Image
@@ -54,16 +54,22 @@ function Description({
 	definition: string;
 }) {
 	return (
-		<div className="flex items-center gap-2 justify-between">
+		<div className="flex items-center justify-between gap-2">
 			<dt>{term}:</dt>
-			<dd className="text-nowrap truncate">{definition}</dd>
+			<dd className="truncate text-nowrap">{definition}</dd>
 		</div>
 	);
 }
 
-function BadgesDisplay({ label, badges }: { label: string; badges: string[] }) {
+function BadgesDisplay({
+	label,
+	badges,
+}: {
+	label: string;
+	badges: Array<string>;
+}) {
 	return (
-		<div className="flex flex-wrap gap-2 items-center">
+		<div className="flex flex-wrap items-center gap-2">
 			<span>{label}: </span>
 			<div className="flex flex-wrap gap-1">
 				{badges.map((badge) => (

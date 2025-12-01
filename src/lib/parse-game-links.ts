@@ -5,7 +5,10 @@ type PayloadThingLinks = {
 };
 
 export function parseGameLinks(links: Array<PayloadThingLinks>) {
-	const linksData = new Map<"authors" | "categories" | "mechanics", string[]>([
+	const linksData = new Map<
+		"authors" | "categories" | "mechanics",
+		Array<string>
+	>([
 		["authors", []],
 		["categories", []],
 		["mechanics", []],
@@ -24,8 +27,8 @@ export function parseGameLinks(links: Array<PayloadThingLinks>) {
 	}
 
 	return Object.fromEntries(linksData) as {
-		authors: string[];
-		categories: string[];
-		mechanics: string[];
+		authors: Array<string>;
+		categories: Array<string>;
+		mechanics: Array<string>;
 	};
 }

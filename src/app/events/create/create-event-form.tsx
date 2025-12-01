@@ -3,15 +3,14 @@
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect } from "react";
 import toast from "react-hot-toast";
-import { DateTimePicker } from "~/components/date-time-picker";
-import { GameSelect } from "~/components/game-select";
-import { Input } from "~/components/input";
-import { SubmitButton } from "~/components/submit-button";
-import { Button } from "~/components/ui/button";
+import { DateTimePicker } from "@/components/date-time-picker";
+import { GameSelect } from "@/components/game-select";
+import { SubmitButton } from "@/components/submit-button";
+import { Button } from "@/components/ui/button";
 import {
 	type CreateEventFormState,
 	createEvent,
-} from "~/server/actions/events";
+} from "@/server/actions/events";
 
 export function CreateEventForm({ hostId }: { hostId: string }) {
 	const router = useRouter();
@@ -32,7 +31,7 @@ export function CreateEventForm({ hostId }: { hostId: string }) {
 
 	return (
 		<form action={formAction}>
-			<Input type="hidden" name="hostId" value={hostId} />
+			<input type="hidden" name="hostId" value={hostId} />
 			<div className="flex flex-col gap-4">
 				<DateTimePicker
 					fieldName="dateTime"
@@ -42,16 +41,27 @@ export function CreateEventForm({ hostId }: { hostId: string }) {
 
 				<GameSelect errors={state?.errors?.properties?.gameBggId?.errors} />
 
-				<div className="flex gap-4">
+				<div className="flex justify-between gap-4">
 					<Button
+						className="flex-1"
 						type="button"
 						variant="outline"
-						className="w-full"
 						onClick={() => router.back()}
 					>
 						Cancel
 					</Button>
-					<SubmitButton>Create Event</SubmitButton>
+					<SubmitButton
+						render={({ isPending }) => (
+							<Button
+								variant="secondary"
+								className="flex-1"
+								disabled={isPending}
+								type="submit"
+							>
+								{isPending ? "Creating..." : "Create Event"}
+							</Button>
+						)}
+					/>
 				</div>
 			</div>
 		</form>

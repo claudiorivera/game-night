@@ -1,15 +1,13 @@
 import { createId } from "@paralleldrive/cuid2";
-import { relations } from "drizzle-orm";
 import {
 	boolean,
-	index,
 	integer,
+	pgEnum,
 	pgTable,
 	primaryKey,
 	text,
 	timestamp,
 } from "drizzle-orm/pg-core";
-import type { AdapterAccountType } from "next-auth/adapters";
 
 function id() {
 	return text("id")
@@ -17,148 +15,93 @@ function id() {
 		.$defaultFn(() => createId());
 }
 
-export const usersTable = pgTable("user", {
+export const Role = {
+	user: "user",
+	admin: "admin",
+	demo: "demo",
+} as const;
+
+export const roleEnum = pgEnum("role", Role);
+
+export const user = pgTable("user", {
 	id: id(),
 	name: text("name"),
-	email: text("email").notNull(),
-	emailVerified: timestamp("emailVerified", { mode: "date" }),
+	email: text("email").notNull().unique(),
+	emailVerified: boolean("email_verified").default(false).notNull(),
 	image: text("image"),
-	isAdmin: boolean("isAdmin").default(false),
-	isDemo: boolean("isDemo").default(false),
+	createdAt: timestamp("created_at").defaultNow().notNull(),
+	updatedAt: timestamp("updated_at")
+		.defaultNow()
+		.$onUpdate(() => /* @__PURE__ */ new Date())
+		.notNull(),
+	role: roleEnum("role").notNull().default(Role.user),
 });
 
-export const userRelations = relations(usersTable, ({ many }) => ({
-	eventsHosting: many(eventsTable),
-	accounts: many(accountsTable),
-	sessions: many(sessionsTable),
-	eventsAttending: many(eventGuestTable),
-}));
-
-export const eventsTable = pgTable("event", {
+export const eventTable = pgTable("event", {
 	id: id(),
 	dateTime: timestamp("dateTime").notNull(),
 	hostId: text("hostId")
 		.notNull()
-		.references(() => usersTable.id, { onDelete: "cascade" }),
+		.references(() => user.id, { onDelete: "cascade" }),
 	gameBggId: integer("gameBggId").notNull(),
 });
 
-export const eventRelations = relations(eventsTable, ({ many, one }) => ({
-	host: one(usersTable, {
-		fields: [eventsTable.hostId],
-		references: [usersTable.id],
-	}),
-	guests: many(eventGuestTable),
-}));
-
-export const eventGuestTable = pgTable(
-	"eventGuest",
+export const participationTable = pgTable(
+	"participation",
 	{
 		guestId: text("guestId")
 			.notNull()
-			.references(() => usersTable.id),
+			.references(() => user.id, { onDelete: "cascade" }),
 		eventId: text("eventId")
 			.notNull()
-			.references(() => eventsTable.id),
+			.references(() => eventTable.id, { onDelete: "cascade" }),
 	},
-	(eventGuest) => ({
-		pk: primaryKey({ columns: [eventGuest.guestId, eventGuest.eventId] }),
-	}),
+	(t) => [primaryKey({ name: "id", columns: [t.guestId, t.eventId] })],
 );
 
-export const eventGuestRelations = relations(eventGuestTable, ({ one }) => ({
-	event: one(eventsTable, {
-		fields: [eventGuestTable.eventId],
-		references: [eventsTable.id],
-	}),
-	guest: one(usersTable, {
-		fields: [eventGuestTable.guestId],
-		references: [usersTable.id],
-	}),
-}));
+export const session = pgTable("session", {
+	id: text("id").primaryKey(),
+	expiresAt: timestamp("expires_at").notNull(),
+	token: text("token").notNull().unique(),
+	createdAt: timestamp("created_at").defaultNow().notNull(),
+	updatedAt: timestamp("updated_at")
+		.$onUpdate(() => /* @__PURE__ */ new Date())
+		.notNull(),
+	ipAddress: text("ip_address"),
+	userAgent: text("user_agent"),
+	userId: text("user_id")
+		.notNull()
+		.references(() => user.id, { onDelete: "cascade" }),
+});
 
-export const accountsTable = pgTable(
-	"account",
-	{
-		userId: text("userId")
-			.notNull()
-			.references(() => usersTable.id),
-		type: text("type").$type<AdapterAccountType>().notNull(),
-		provider: text("provider").notNull(),
-		providerAccountId: text("providerAccountId").notNull(),
-		refresh_token: text("refresh_token"),
-		access_token: text("access_token"),
-		expires_at: integer("expires_at"),
-		token_type: text("token_type"),
-		scope: text("scope"),
-		id_token: text("id_token"),
-		session_state: text("session_state"),
-	},
-	(account) => ({
-		compoundKey: primaryKey({
-			columns: [account.provider, account.providerAccountId],
-		}),
-		userIdIdx: index("account_userId_idx").on(account.userId),
-	}),
-);
+export const account = pgTable("account", {
+	id: text("id").primaryKey(),
+	accountId: text("account_id").notNull(),
+	providerId: text("provider_id").notNull(),
+	userId: text("user_id")
+		.notNull()
+		.references(() => user.id, { onDelete: "cascade" }),
+	accessToken: text("access_token"),
+	refreshToken: text("refresh_token"),
+	idToken: text("id_token"),
+	accessTokenExpiresAt: timestamp("access_token_expires_at"),
+	refreshTokenExpiresAt: timestamp("refresh_token_expires_at"),
+	scope: text("scope"),
+	password: text("password"),
+	createdAt: timestamp("created_at").defaultNow().notNull(),
+	updatedAt: timestamp("updated_at")
+		.$onUpdate(() => /* @__PURE__ */ new Date())
+		.notNull(),
+});
 
-export const accountRelations = relations(accountsTable, ({ one }) => ({
-	user: one(usersTable, {
-		fields: [accountsTable.userId],
-		references: [usersTable.id],
-	}),
-}));
-
-export const sessionsTable = pgTable(
-	"session",
-	{
-		sessionToken: text("sessionToken").notNull().primaryKey(),
-		userId: text("userId")
-			.notNull()
-			.references(() => usersTable.id),
-		expires: timestamp("expires", { mode: "date" }).notNull(),
-	},
-	(session) => ({
-		userIdIdx: index("session_userId_idx").on(session.userId),
-	}),
-);
-
-export const sessionRelations = relations(sessionsTable, ({ one }) => ({
-	user: one(usersTable, {
-		fields: [sessionsTable.userId],
-		references: [usersTable.id],
-	}),
-}));
-
-export const verificationTokensTable = pgTable(
-	"verificationToken",
-	{
-		identifier: text("identifier").notNull(),
-		token: text("token").notNull(),
-		expires: timestamp("expires").notNull(),
-	},
-	(vt) => ({
-		compoundKey: primaryKey({ columns: [vt.identifier, vt.token] }),
-	}),
-);
-
-export const authenticatorsTable = pgTable(
-	"authenticator",
-	{
-		credentialID: text("credentialID").notNull().unique(),
-		userId: text("userId")
-			.notNull()
-			.references(() => usersTable.id, { onDelete: "cascade" }),
-		providerAccountId: text("providerAccountId").notNull(),
-		credentialPublicKey: text("credentialPublicKey").notNull(),
-		counter: integer("counter").notNull(),
-		credentialDeviceType: text("credentialDeviceType").notNull(),
-		credentialBackedUp: boolean("credentialBackedUp").notNull(),
-		transports: text("transports"),
-	},
-	(authenticator) => ({
-		compositePK: primaryKey({
-			columns: [authenticator.userId, authenticator.credentialID],
-		}),
-	}),
-);
+export const verification = pgTable("verification", {
+	id: text("id").primaryKey(),
+	identifier: text("identifier").notNull(),
+	value: text("value").notNull(),
+	expiresAt: timestamp("expires_at").notNull(),
+	createdAt: timestamp("created_at").defaultNow().notNull(),
+	updatedAt: timestamp("updated_at")
+		.defaultNow()
+		.$onUpdate(() => /* @__PURE__ */ new Date())
+		.notNull(),
+});

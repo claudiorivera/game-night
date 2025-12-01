@@ -5,7 +5,7 @@ const dateTimeLocalInputSchema = z
 	.regex(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/, "Required");
 
 const eventIdSchema = z.object({
-	id: z.cuid2(),
+	id: z.string(),
 });
 
 export const createEventSchema = z.object({
@@ -16,7 +16,7 @@ export const createEventSchema = z.object({
 		}),
 	),
 	dateTime: dateTimeLocalInputSchema,
-	hostId: z.cuid2(),
+	hostId: z.string(),
 });
 
 export const editEventSchema = createEventSchema.extend(eventIdSchema.shape);
@@ -24,7 +24,7 @@ export const editEventSchema = createEventSchema.extend(eventIdSchema.shape);
 const eventAction = z.enum(["JOIN", "LEAVE"]);
 
 export const updateAttendanceSchema = z.object({
-	eventId: z.cuid2(),
-	userId: z.cuid2(),
+	eventId: z.string(),
+	userId: z.string(),
 	action: eventAction,
 });

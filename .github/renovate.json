@@ -7,5 +7,6 @@
 			"automerge": true
 		}
 	],
-	"commitMessagePrefix": "🤖"
+	"commitMessagePrefix": "🤖",
+	"prConcurrentLimit": 3
 }

@@ -1,13 +1,13 @@
-import { redirect } from "next/navigation";
-import { CreateEventForm } from "~/app/events/create/create-event-form";
-import { auth } from "~/server/auth";
+import { CreateEventForm } from "@/app/events/create/create-event-form";
+import { SignInButton } from "@/components/sign-in-button";
+import { getSessionUser } from "@/server/api/users";
 
 export default async function CreateEventPage() {
-	const session = await auth();
+	const sessionUser = await getSessionUser();
 
-	if (!session) {
-		redirect("/api/auth/signin");
+	if (!sessionUser) {
+		return <SignInButton />;
 	}
 
-	return <CreateEventForm hostId={session.user.id} />;
+	return <CreateEventForm hostId={sessionUser.id} />;
 }

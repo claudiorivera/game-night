@@ -1,9 +1,9 @@
 import { eq } from "drizzle-orm";
-import { db } from "~/server/db";
-import { eventsTable } from "~/server/db/schema";
+import { db } from "@/server/db";
+import { eventTable } from "@/server/db/schema";
 
 function getAll() {
-	return db.query.eventsTable.findMany({
+	return db.query.eventTable.findMany({
 		with: {
 			host: true,
 			guests: {
@@ -16,8 +16,8 @@ function getAll() {
 }
 
 async function findByIdOrThrow(id: string) {
-	const event = await db.query.eventsTable.findFirst({
-		where: eq(eventsTable.id, id),
+	const event = await db.query.eventTable.findFirst({
+		where: eq(eventTable.id, id),
 		with: {
 			host: true,
 			guests: {

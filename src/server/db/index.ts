@@ -1,17 +1,12 @@
-import { drizzle } from "drizzle-orm/postgres-js";
-import postgres from "postgres";
-import { env } from "~/env";
+import { drizzle } from "drizzle-orm/node-postgres";
+import { env } from "@/env.mjs";
+import * as relations from "./relations";
 import * as schema from "./schema";
 
-/**
- * Cache the database connection in development. This avoids creating a new connection on every HMR
- * update.
- */
-const globalForDb = globalThis as unknown as {
-	client: postgres.Sql | undefined;
-};
+export const db = drizzle(env.DATABASE_URL, {
+	schema: { ...schema, ...relations },
+	logger: true,
+});
 
-export const client = globalForDb.client ?? postgres(env.DATABASE_URL);
-if (env.NODE_ENV !== "production") globalForDb.client = client;
-
-export const db = drizzle(client, { schema });
+export * from "./schema";
+export * from "./types";

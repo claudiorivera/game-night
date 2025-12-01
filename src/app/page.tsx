@@ -1,19 +1,18 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import { EventSummaryCard } from "~/components/event-summary-card";
-import { Users } from "~/server/api/users";
-import { auth } from "~/server/auth";
-import type { EventById } from "~/types/events";
+import { EventSummaryCard } from "@/components/event-summary-card";
+import { SignInButton } from "@/components/sign-in-button";
+import { getSessionUser, Users } from "@/server/api/users";
+import type { EventById } from "@/types/events";
 
 export default async function HomePage() {
-	const session = await auth();
+	const sessionUser = await getSessionUser();
 
-	if (!session) {
-		redirect("/api/auth/signin");
+	if (!sessionUser) {
+		return <SignInButton />;
 	}
 
 	const { name, eventsHosting, eventsAttending } = await Users.findByIdOrThrow(
-		session.user.id,
+		sessionUser.id,
 	);
 
 	return (

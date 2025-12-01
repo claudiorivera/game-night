@@ -1,39 +1,51 @@
 import { faker } from "@faker-js/faker";
 import { eq } from "drizzle-orm";
-import { getRandomElement } from "~/lib/utils";
-import { db } from "~/server/db";
-import * as schema from "~/server/db/schema";
+import { auth } from "@/lib/auth";
+import { getRandomElement } from "@/lib/utils";
+import { db } from "@/server/db";
+import { eventTable, Role, user } from "@/server/db/schema";
 
 const NUMBER_OF_EVENTS = 4;
 const NUMBER_OF_USERS = 8;
 const BOARD_GAME_GEEK_GAME_IDS = [13, 2651, 266192, 9209, 365717];
 
 export async function seed() {
-	console.log("🌱 Seeding...");
-
-	console.log("Deleting users...");
-	await db.delete(schema.eventGuestTable);
-	await db.delete(schema.usersTable).where(eq(schema.usersTable.isDemo, true));
+	console.log("Wiping database...");
+	await db.delete(user);
 
 	console.log("Creating users...");
 	const users = await db
-		.insert(schema.usersTable)
+		.insert(user)
 		.values(
 			[...Array(NUMBER_OF_USERS)].map(() => ({
 				name: faker.person.fullName(),
 				email: faker.internet.email(),
 				image: faker.image.avatar(),
-				isDemo: true,
-				isAdmin: false,
+				role: Role.demo,
 			})),
 		)
 		.returning();
 
+	const { user: newUser } = await auth.api.signUpEmail({
+		body: {
+			name: "Demo User",
+			email: "demo@example.com",
+			password: "password1234",
+		},
+	});
+
+	await db
+		.update(user)
+		.set({
+			role: Role.demo,
+		})
+		.where(eq(user.id, newUser.id));
+
 	console.log("Deleting events...");
-	await db.delete(schema.eventsTable);
+	await db.delete(eventTable);
 
 	console.log("Creating events...");
-	await db.insert(schema.eventsTable).values(
+	await db.insert(eventTable).values(
 		[...Array(NUMBER_OF_EVENTS)].map(() => {
 			const host = getRandomElement(users);
 			const gameBggId = getRandomElement(BOARD_GAME_GEEK_GAME_IDS);

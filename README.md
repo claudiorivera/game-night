@@ -1,32 +1,44 @@
-# game-night
+# Game Night
 
-An full-stack web application that lets you create and join board game nights.
+A Next.js application for organizing board game nights.
 
-# Technologies Used
+## Tech Stack
 
-- React
-- [Next.js](https://nextjs.org)
-- [Tailwind CSS](https://tailwindcss.com)
-- [SQLite](https://www.sqlite.org)
-- [Zod](https://zod.dev)
-- [Drizzle](https://orm.drizzle.team)
-- [NextAuth.js](https://next-auth.js.org)
-- [date-fns](https://date-fns.org)
-- [Fast XML Parser](https://github.com/NaturalIntelligence/fast-xml-parser)
-- [BoardGameGeek API2](https://boardgamegeek.com/wiki/page/BGG_XML_API2)
+- **Framework**: Next.js
+- **Database**: PostgreSQL with Drizzle ORM
+- **Authentication**: Better Auth
+- **API Integration**: BoardGameGeek SDK
+- **State Management**: TanStack Query
+- **Date Handling**: date-fns
 
-# Prerequisites
+## Prepare
 
-- [pnpm](https://pnpm.io)
+### Environment variables
 
-# Install
+```bash
+cp .env.example .env
+```
 
-`pnpm i`
+> Note: Update values accordingly
 
-# Prepare
+### Database
 
-- `cp .env.example .env` and update values
+```bash
+docker compose up -d
+```
 
-# Develop
+> Note: This is optional but makes it convenient to spin up everything at once
 
-`pnpm dev`
+### Dependencies
+
+```bash
+pnpm i
+```
+
+## Develop
+
+```bash
+pnpm dev
+```
+
+> Note: App will be live at `http://localhost:3002`

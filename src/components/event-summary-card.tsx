@@ -7,9 +7,9 @@ import {
 	CardDescription,
 	CardHeader,
 	CardTitle,
-} from "~/components/ui/card";
-import { Bgg } from "~/server/api/bgg";
-import type { EventById } from "~/types/events";
+} from "@/components/ui/card";
+import { Bgg } from "@/server/api/bgg";
+import type { EventById } from "@/types/events";
 
 export async function EventSummaryCard({ event }: { event: EventById }) {
 	const game = await Bgg.gameById(event.gameBggId.toString());

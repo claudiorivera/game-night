@@ -1,30 +1,31 @@
 import { format } from "date-fns";
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import { UpdateAttendanceForm } from "~/app/events/[eventId]/update-attendance-form";
-import { Avatar } from "~/components/avatar";
-import { BackButton } from "~/components/back-button";
-import { GameDetails } from "~/components/game-details";
-import { Button } from "~/components/ui/button";
-import { Bgg } from "~/server/api/bgg";
-import { Events } from "~/server/api/events";
-import { auth } from "~/server/auth";
+import { UpdateAttendanceForm } from "@/app/events/[eventId]/update-attendance-form";
+import { Avatar } from "@/components/avatar";
+import { BackButton } from "@/components/back-button";
+import { GameDetails } from "@/components/game-details";
+import { SignInButton } from "@/components/sign-in-button";
+import { Button } from "@/components/ui/button";
+import { can } from "@/lib/permissions";
+import { Bgg } from "@/server/api/bgg";
+import { Events } from "@/server/api/events";
+import { getSessionUser } from "@/server/api/users";
 
 export default async function EventDetailsPage(props: {
 	params: Promise<{ eventId: string }>;
 }) {
 	const params = await props.params;
-	const session = await auth();
 
-	if (!session) {
-		redirect("/api/auth/signin");
+	const sessionUser = await getSessionUser();
+
+	if (!sessionUser) {
+		return <SignInButton />;
 	}
 
 	const event = await Events.findByIdOrThrow(params.eventId);
 	const game = await Bgg.gameById(event.gameBggId.toString());
 
-	const isHost = session.user.id === event.hostId;
-	const isAdmin = session.user.isAdmin;
+	const isHost = sessionUser.id === event.hostId;
 
 	return (
 		<div className="flex flex-col gap-4">
@@ -32,7 +33,7 @@ export default async function EventDetailsPage(props: {
 				<BackButton />
 			</div>
 
-			<article className="rounded-lg border shadow-lg p-4 flex flex-col gap-4">
+			<article className="flex flex-col gap-4 rounded-lg border p-4 shadow-lg">
 				<div>
 					<h4 className="font-bold">
 						{format(event.dateTime, "MMMM d, yyyy 'at' h:mmaaa")}
@@ -51,7 +52,7 @@ export default async function EventDetailsPage(props: {
 							<Avatar user={event.host} />
 							<p>Guests:</p>
 							{event.guests.length ? (
-								<div className="flex -space-x-4">
+								<div className="-space-x-4 flex">
 									{event.guests.map(({ guest }) => (
 										<Avatar key={guest.id} user={guest} />
 									))}
@@ -61,9 +62,9 @@ export default async function EventDetailsPage(props: {
 							)}
 						</div>
 
-						<div className="flex items-center justify-end">
-							{(isHost || isAdmin) && (
-								<Button asChild type="button" variant="secondary">
+						<div className="flex items-center justify-end gap-4">
+							{can(sessionUser).editEvent(event) && (
+								<Button asChild type="button" variant="ghost">
 									<Link
 										className="self-center"
 										href={`/events/${event.id}/edit`}
@@ -73,7 +74,7 @@ export default async function EventDetailsPage(props: {
 								</Button>
 							)}
 							{!isHost && (
-								<UpdateAttendanceForm event={event} user={session.user} />
+								<UpdateAttendanceForm event={event} user={sessionUser} />
 							)}
 						</div>
 					</div>

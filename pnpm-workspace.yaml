@@ -1,0 +1,6 @@
+onlyBuiltDependencies:
+  - esbuild
+  - sharp
+
+patchedDependencies:
+  bgg-sdk@1.0.0: patches/bgg-sdk@1.0.0.patch

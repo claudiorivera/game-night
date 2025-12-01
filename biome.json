@@ -1,27 +1,72 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.2.0/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.3.8/schema.json",
 	"vcs": {
-		"clientKind": "git",
+		"enabled": true,
 		"useIgnoreFile": true,
-		"enabled": true
+		"clientKind": "git"
 	},
 	"assist": { "actions": { "source": { "organizeImports": "on" } } },
-	"files": {
-		"includes": ["**", "!**/src/server/db/migrations"]
+	"css": {
+		"parser": {
+			"tailwindDirectives": true
+		}
 	},
 	"linter": {
 		"enabled": true,
+		"domains": {
+			"next": "recommended"
+		},
 		"rules": {
-			"recommended": true
+			"recommended": true,
+			"style": {
+				"noDefaultExport": "error",
+				"useConsistentArrayType": {
+					"fix": "safe",
+					"level": "warn",
+					"options": {
+						"syntax": "generic"
+					}
+				},
+				"useConsistentCurlyBraces": {
+					"fix": "safe",
+					"level": "error",
+					"options": {}
+				},
+				"noEnum": "error"
+			},
+			"nursery": {
+				"useSortedClasses": {
+					"fix": "safe",
+					"level": "warn",
+					"options": {
+						"functions": ["cn", "clsx", "cva"]
+					}
+				}
+			}
 		}
 	},
 	"overrides": [
 		{
-			"includes": ["src/styles/globals.css"],
+			"includes": [
+				"**/app/**/default.*",
+				"**/app/**/error.*",
+				"**/app/**/forbidden.*",
+				"**/app/**/global-error.*",
+				"**/app/**/layout.*",
+				"**/app/**/loading.*",
+				"**/app/**/not-found.*",
+				"**/app/**/page.*",
+				"**/app/**/template.*",
+				"**/app/**/unauthorized.*",
+				"**/pages/**/*.tsx",
+				"**/pages/**/*.ts",
+				"**/*.config.*",
+				"**/*.d.ts"
+			],
 			"linter": {
 				"rules": {
-					"suspicious": {
-						"noUnknownAtRules": "off"
+					"style": {
+						"noDefaultExport": "off"
 					}
 				}
 			}
