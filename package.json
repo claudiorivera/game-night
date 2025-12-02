@@ -6,6 +6,7 @@
 	"packageManager": "pnpm@10.24.0",
 	"scripts": {
 		"build": "next build",
+		"vercel-build": "pnpm db:push && next build",
 		"dev": "next dev --turbopack -p 3002",
 		"start": "next start",
 		"check-types": "tsc --noEmit",
