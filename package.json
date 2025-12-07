@@ -31,7 +31,7 @@
 		"date-fns": "4.1.0",
 		"drizzle-orm": "0.45.0",
 		"esm-env": "1.2.2",
-		"lucide-react": "0.555.0",
+		"lucide-react": "0.556.0",
 		"next": "16.0.7",
 		"pg": "8.16.3",
 		"postcss": "8.5.6",
