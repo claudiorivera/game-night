@@ -8,37 +8,27 @@ A Next.js application for organizing board game nights.
 - **Database**: PostgreSQL with Drizzle ORM
 - **Authentication**: Better Auth
 - **API Integration**: BoardGameGeek SDK
-- **State Management**: TanStack Query
+- **State Management**: TanStack React Query
 - **Date Handling**: date-fns
 
-## Prepare
+## Getting Started
 
-### Environment variables
+### Environment Variables
 
 ```bash
 cp .env.example .env
 ```
 
-> Note: Update values accordingly
+Update the `.env` file with your configuration values.
 
-### Database
-
-```bash
-docker compose up -d
-```
-
-> Note: This is optional but makes it convenient to spin up everything at once
-
-### Dependencies
+### Install Dependencies
 
 ```bash
-pnpm i
+pnpm install
 ```
 
-## Develop
+### Development
 
 ```bash
 pnpm dev
 ```
-
-> Note: App will be live at `http://localhost:3002`
