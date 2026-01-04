@@ -20,6 +20,7 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from "@/components/ui/popover";
+import { getNameForGame } from "@/lib/bgg";
 import { cn } from "@/lib/utils";
 import { bggQueries } from "@/server/queries/bgg";
 
@@ -82,10 +83,12 @@ export function GameSelect({
 									<Check
 										className={cn(
 											"size-4",
-											selectedId === game.id ? "visible" : "invisible",
+											selectedId === game.id.toString()
+												? "visible"
+												: "invisible",
 										)}
 									/>
-									{game.name}
+									{game.name.value}
 								</CommandItem>
 							))}
 						</CommandList>
@@ -126,5 +129,5 @@ function GameName({ id }: { id: string }) {
 
 	if (!game) return null;
 
-	return game.names.at(0)?.value;
+	return getNameForGame(game);
 }
