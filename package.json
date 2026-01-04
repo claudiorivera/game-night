@@ -18,7 +18,7 @@
 		"with-env": "dotenvx run --"
 	},
 	"dependencies": {
-		"@faker-js/faker": "10.1.0",
+		"@faker-js/faker": "10.2.0",
 		"@paralleldrive/cuid2": "3.0.6",
 		"@t3-oss/env-nextjs": "0.13.10",
 		"@tailwindcss/postcss": "4.1.18",
