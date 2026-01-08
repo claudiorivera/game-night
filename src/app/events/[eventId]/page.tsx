@@ -1,3 +1,4 @@
+import type { BggBoardgameItem } from "bgg-xml-api-client";
 import { format } from "date-fns";
 import Link from "next/link";
 import { UpdateAttendanceForm } from "@/app/events/[eventId]/update-attendance-form";
@@ -6,6 +7,7 @@ import { BackButton } from "@/components/back-button";
 import { GameDetails } from "@/components/game-details";
 import { SignInButton } from "@/components/sign-in-button";
 import { Button } from "@/components/ui/button";
+import { getNameForGame } from "@/lib/bgg";
 import { can } from "@/lib/permissions";
 import { Bgg } from "@/server/api/bgg";
 import { Events } from "@/server/api/events";
@@ -23,7 +25,8 @@ export default async function EventDetailsPage(props: {
 	}
 
 	const event = await Events.findByIdOrThrow(params.eventId);
-	const game = await Bgg.gameById(event.gameBggId.toString());
+	const gameResponse = await Bgg.gameById(event.gameBggId.toString());
+	const game = gameResponse.item as BggBoardgameItem;
 
 	const isHost = sessionUser.id === event.hostId;
 
@@ -38,7 +41,7 @@ export default async function EventDetailsPage(props: {
 					<h4 className="font-bold">
 						{format(event.dateTime, "MMMM d, yyyy 'at' h:mmaaa")}
 					</h4>
-					<small>{game.names.at(0)?.value}</small>
+					<small>{getNameForGame(game)}</small>
 				</div>
 
 				<div>
@@ -52,7 +55,7 @@ export default async function EventDetailsPage(props: {
 							<Avatar user={event.host} />
 							<p>Guests:</p>
 							{event.guests.length ? (
-								<div className="-space-x-4 flex">
+								<div className="flex -space-x-4">
 									{event.guests.map(({ guest }) => (
 										<Avatar key={guest.id} user={guest} />
 									))}

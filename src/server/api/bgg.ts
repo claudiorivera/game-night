@@ -1,36 +1,21 @@
-import { bgg } from "bgg-sdk";
-import { parseGameLinks } from "@/lib/parse-game-links";
+import "server-only";
+import { BggXmlApiClient } from "bgg-xml-api-client";
+import { env } from "@/env.mjs";
+
+const client = new BggXmlApiClient(env.BGG_API_ACCESS_TOKEN);
 
 async function gameById(id: string) {
-	try {
-		const { items } = await bgg.thing({
-			id: [id],
-			stats: true,
-			type: ["boardgame"],
-		});
-
-		const game = items.at(0);
-
-		if (!game) {
-			throw new Error(`Error fetching game with id ${id}`);
-		}
-
-		const parsedGameLinks = parseGameLinks(game.links);
-
-		return {
-			...game,
-			...parsedGameLinks,
-		};
-	} catch (error) {
-		console.error(error);
-		throw error;
-	}
+	return client.getBggThing({
+		id,
+		type: "boardgame",
+		stats: 1,
+	});
 }
 
 async function gamesByQuery(query: string) {
-	return bgg.search({
+	return client.getBggSearch({
 		query,
-		type: ["boardgame"],
+		type: "boardgame",
 	});
 }
 

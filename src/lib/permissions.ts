@@ -23,9 +23,9 @@ const permissionsFactoryMap: PermissionsFactoryMap = {
 		deleteEvent: (event) => event.hostId === user.id,
 		editEvent: (event) => event.hostId === user.id,
 	}),
-	demo: () => ({
-		deleteEvent: () => false,
-		editEvent: () => false,
+	demo: (user: SessionUser) => ({
+		deleteEvent: (event) => event.hostId === user.id,
+		editEvent: (event) => event.hostId === user.id,
 	}),
 };
 

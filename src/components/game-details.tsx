@@ -1,9 +1,14 @@
+import type { BggBoardgameItem } from "bgg-xml-api-client";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
-import { parseGameDescription } from "@/lib/parse-game-description";
-import type { GameById } from "@/server/api/bgg";
+import {
+	getAuthorsForGame,
+	getCategoriesForGame,
+	getMechanicsForGame,
+	getNameForGame,
+} from "@/lib/bgg";
 
-export function GameDetails({ game }: { game: GameById }) {
+export function GameDetails({ game }: { game: BggBoardgameItem }) {
 	return (
 		<div className="grid grid-cols-12 gap-4">
 			<div className="col-span-12 flex flex-col gap-4 sm:col-span-5">
@@ -11,7 +16,7 @@ export function GameDetails({ game }: { game: GameById }) {
 					{game.image && (
 						<div className="relative aspect-square w-full">
 							<Image
-								alt={game.names.at(0)?.value ?? "game image"}
+								alt={getNameForGame(game)}
 								className="object-contain"
 								fill
 								sizes="(min-width: 1200px) 33vw, 100vw"
@@ -21,26 +26,29 @@ export function GameDetails({ game }: { game: GameById }) {
 					)}
 				</div>
 				<div className="flex flex-col gap-2 text-xs">
-					<BadgesDisplay badges={game.authors} label="Authors" />
-					<BadgesDisplay badges={game.categories} label="Categories" />
-					<BadgesDisplay badges={game.mechanics} label="Mechanics" />
+					<BadgesDisplay badges={getAuthorsForGame(game)} label="Authors" />
+					<BadgesDisplay
+						badges={getCategoriesForGame(game)}
+						label="Categories"
+					/>
+					<BadgesDisplay badges={getMechanicsForGame(game)} label="Mechanics" />
 					<Description
-						definition={`${game.statistics?.ratings.average} (${game.statistics?.ratings.usersRated})`}
+						definition={`${game.statistics?.ratings.average.value.toFixed(2)} (${game.statistics?.ratings.usersrated.value.toLocaleString()})`}
 						term="Average BGG Rating"
 					/>
 					<Description
-						definition={`${game.minPlayers} to ${game.maxPlayers}`}
+						definition={`${game.minplayers.value} to ${game.maxplayers.value}`}
 						term="Players"
 					/>
 					<Description
-						definition={`${game.playingTime} minutes`}
+						definition={`${game.playingtime.value} minutes`}
 						term="Playing Time"
 					/>
-					<Description definition={`${game.minAge}+`} term="Ages" />
+					<Description definition={`${game.minage.value}+`} term="Ages" />
 				</div>
 			</div>
 			<div className="col-span-12 sm:col-span-7">
-				<p>{parseGameDescription(game.description)}</p>
+				<p>{game.description}</p>
 			</div>
 		</div>
 	);
