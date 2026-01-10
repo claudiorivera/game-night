@@ -1,11 +1,13 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { Button } from "@/components/ui/button";
+import { useTransition } from "react";
+import { LoadingButton } from "@/components/loading-button";
 import { authClient } from "@/lib/auth-client";
 
 export function SignInButton() {
 	const pathname = usePathname();
+	const [isPending, startTransition] = useTransition();
 
 	const handleSignIn = async () => {
 		try {
@@ -21,7 +23,12 @@ export function SignInButton() {
 
 	return (
 		<div className="flex flex-col gap-4">
-			<Button onClick={handleSignIn}>Sign In as Demo User</Button>
+			<LoadingButton
+				onClick={() => startTransition(handleSignIn)}
+				isLoading={isPending}
+			>
+				Sign in as demo user
+			</LoadingButton>
 		</div>
 	);
 }
