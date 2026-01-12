@@ -26,6 +26,7 @@ export function SignInButton() {
 			<LoadingButton
 				onClick={() => startTransition(handleSignIn)}
 				isLoading={isPending}
+				aria-label="Sign in as demo user"
 			>
 				Sign in as demo user
 			</LoadingButton>
