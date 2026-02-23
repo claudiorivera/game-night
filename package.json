@@ -23,7 +23,7 @@
 		"@t3-oss/env-nextjs": "0.13.10",
 		"@tailwindcss/postcss": "4.2.1",
 		"@tanstack/react-query": "5.90.21",
-		"better-auth": "1.4.18",
+		"better-auth": "1.4.19",
 		"bgg-xml-api-client": "0.3.1",
 		"class-variance-authority": "0.7.1",
 		"clsx": "2.1.1",
