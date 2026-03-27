@@ -48,7 +48,7 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.4.9",
-		"@dotenvx/dotenvx": "1.57.2",
+		"@dotenvx/dotenvx": "1.57.5",
 		"@types/node": "25.5.0",
 		"@types/pg": "8.20.0",
 		"@types/react": "19.2.14",
