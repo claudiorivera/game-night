@@ -94,8 +94,8 @@ importers:
         specifier: 2.4.9
         version: 2.4.9
       '@dotenvx/dotenvx':
-        specifier: 1.57.5
-        version: 1.57.5
+        specifier: 1.58.0
+        version: 1.58.0
       '@types/node':
         specifier: 25.5.0
         version: 25.5.0
@@ -280,8 +280,8 @@ packages:
   '@date-fns/tz@1.4.1':
     resolution: {integrity: sha512-P5LUNhtbj6YfI3iJjw5EL9eUAG6OitD0W3fWQcpQjDRc/QIsL0tRNuO1PcDvPccWL1fSTXXdE1ds+l95DV/OFA==}
 
-  '@dotenvx/dotenvx@1.57.5':
-    resolution: {integrity: sha512-pLXbm27+z+6OoTjELHKDT9UUzzGy3C1+0XNpvE+DU1swttbZyR93Ltd1/mdeFwBxBtzS7y51ry+njVXuE6wRJA==}
+  '@dotenvx/dotenvx@1.58.0':
+    resolution: {integrity: sha512-xizSguxyyvH5eqGWJrhTomUdXFSRaweXBEXxTpkbaalIjHZeKPNPHpevwxCXXqdXPe5bTIeEtBSKD+zStadGFw==}
     hasBin: true
 
   '@drizzle-team/brocli@0.10.2':
@@ -3303,7 +3303,7 @@ snapshots:
 
   '@date-fns/tz@1.4.1': {}
 
-  '@dotenvx/dotenvx@1.57.5':
+  '@dotenvx/dotenvx@1.58.0':
     dependencies:
       commander: 11.1.0
       dotenv: 17.2.1
