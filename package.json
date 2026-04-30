@@ -44,7 +44,7 @@
 		"tailwind-merge": "3.5.0",
 		"tailwindcss": "4.2.4",
 		"usehooks-ts": "3.1.1",
-		"zod": "4.3.6"
+		"zod": "4.4.1"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.4.13",
