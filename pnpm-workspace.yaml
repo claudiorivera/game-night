@@ -1,3 +1,6 @@
-onlyBuiltDependencies:
-  - esbuild
-  - sharp
+saveExact: true
+allowBuilds:
+  '@prisma/engines': true
+  esbuild: true
+  prisma: true
+  sharp: true
