@@ -51,7 +51,7 @@
 		"@dotenvx/dotenvx": "1.66.0",
 		"@types/node": "25.9.1",
 		"@types/pg": "8.20.0",
-		"@types/react": "19.2.14",
+		"@types/react": "19.2.15",
 		"@types/react-dom": "19.2.3",
 		"drizzle-kit": "0.31.10",
 		"tsx": "4.22.2",
