@@ -94,8 +94,8 @@ importers:
         specifier: 2.4.16
         version: 2.4.16
       '@dotenvx/dotenvx':
-        specifier: 1.69.1
-        version: 1.69.1
+        specifier: 1.69.2
+        version: 1.69.2
       '@types/node':
         specifier: 25.9.1
         version: 25.9.1
@@ -276,8 +276,8 @@ packages:
       '@types/react':
         optional: true
 
-  '@dotenvx/dotenvx@1.69.1':
-    resolution: {integrity: sha512-kwQB5KcAegxw/+NGUgXAo5ovyOSjlMhoXSSnSEpDhoHJwzMcMO0HE1U0VCYZ7jbAeCMGamed9XdWzOA5ixtTNg==}
+  '@dotenvx/dotenvx@1.69.2':
+    resolution: {integrity: sha512-60Vh31k5bAAPq57Isx+Iopl2FrZQzZyUc4kh/OESgXiwhrKXqdxEn3JGTGSawng1DkkeC4jofFq1VpPJqNQx4w==}
     hasBin: true
 
   '@drizzle-team/brocli@0.10.2':
@@ -2820,7 +2820,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.2.15
 
-  '@dotenvx/dotenvx@1.69.1':
+  '@dotenvx/dotenvx@1.69.2':
     dependencies:
       commander: 11.1.0
       dotenv: 17.2.1
