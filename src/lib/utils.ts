@@ -1,3 +1,4 @@
+import type { BggBoardgameItem } from "bgg-xml-api-client";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import type { z } from "zod";
@@ -26,4 +27,12 @@ export function validate<T extends z.ZodTypeAny>({
 	const _formData = Object.fromEntries(formData);
 
 	return schema.safeParse(_formData) as ReturnType<T["safeParse"]>;
+}
+
+export function getAverageRatingForGame(game: BggBoardgameItem) {
+	if (typeof game.statistics?.ratings.average.value !== "number") {
+		return "N/A";
+	}
+
+	return `${game.statistics?.ratings.average.value.toFixed(2)} (${game.statistics?.ratings.usersrated.value.toLocaleString()})`;
 }

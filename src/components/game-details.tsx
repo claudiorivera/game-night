@@ -7,6 +7,7 @@ import {
 	getMechanicsForGame,
 	getNameForGame,
 } from "@/lib/bgg";
+import { getAverageRatingForGame } from "@/lib/utils";
 
 export function GameDetails({ game }: { game: BggBoardgameItem }) {
 	return (
@@ -33,7 +34,7 @@ export function GameDetails({ game }: { game: BggBoardgameItem }) {
 					/>
 					<BadgesDisplay badges={getMechanicsForGame(game)} label="Mechanics" />
 					<Description
-						definition={`${game.statistics?.ratings.average.value.toFixed(2)} (${game.statistics?.ratings.usersrated.value.toLocaleString()})`}
+						definition={getAverageRatingForGame(game)}
 						term="Average BGG Rating"
 					/>
 					<Description
