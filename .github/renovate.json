@@ -8,5 +8,6 @@
 		}
 	],
 	"commitMessagePrefix": "🤖",
-	"prConcurrentLimit": 3
+	"prConcurrentLimit": 3,
+	"minimumReleaseAge": "3 days"
 }
