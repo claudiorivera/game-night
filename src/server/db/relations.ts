@@ -1,9 +1,17 @@
 import { relations } from "drizzle-orm";
-import { eventTable, participationTable, user } from "@/server/db/schema";
+import {
+	account,
+	eventTable,
+	participationTable,
+	session,
+	user,
+} from "@/server/db/schema";
 
 export const userRelations = relations(user, ({ many }) => ({
 	eventsHosting: many(eventTable),
 	eventsAttending: many(participationTable),
+	sessions: many(session),
+	accounts: many(account),
 }));
 
 export const eventRelations = relations(eventTable, ({ many, one }) => ({
@@ -27,3 +35,17 @@ export const participationRelations = relations(
 		}),
 	}),
 );
+
+export const sessionRelations = relations(session, ({ one }) => ({
+	user: one(user, {
+		fields: [session.userId],
+		references: [user.id],
+	}),
+}));
+
+export const accountRelations = relations(account, ({ one }) => ({
+	user: one(user, {
+		fields: [account.userId],
+		references: [user.id],
+	}),
+}));
