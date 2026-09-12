@@ -195,8 +195,8 @@ importers:
         specifier: 2.5.13
         version: 2.5.13
       '@dotenvx/dotenvx':
-        specifier: 2.23.0
-        version: 2.23.0
+        specifier: 2.24.0
+        version: 2.24.0
       '@types/node':
         specifier: 25.9.6
         version: 25.9.6
@@ -380,8 +380,8 @@ packages:
       '@types/react':
         optional: true
 
-  '@dotenvx/dotenvx@2.23.0':
-    resolution: {integrity: sha512-LkiCs5ZpGIy+jn85YJKEYKPZkq8QwZegYviwr8w4eFTq+Fb2+j+hFldWpdhppPmFP8ut0cplxL4EEoW06Rzfhw==}
+  '@dotenvx/dotenvx@2.24.0':
+    resolution: {integrity: sha512-JB9qLEADA/RDqzxG8IEAn4Y2hocoDS6BZMsZArDonRbUvUGcg8U5+j1pizjWR6joMhhSqGZrNCBNRg4wFLrGLQ==}
     hasBin: true
 
   '@dotenvx/primitives@2.2.0':
@@ -3111,7 +3111,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.2.18
 
-  '@dotenvx/dotenvx@2.23.0':
+  '@dotenvx/dotenvx@2.24.0':
     dependencies:
       '@dotenvx/primitives': 2.2.0
       '@dotenvx/tooling': 1.0.3
