@@ -182,8 +182,8 @@ importers:
         specifier: 4.3.3
         version: 4.3.3
       '@tanstack/react-query':
-        specifier: 5.103.2
-        version: 5.103.2(react@19.3.0)
+        specifier: 5.104.0
+        version: 5.104.0(react@19.3.0)
       better-auth:
         specifier: 1.7.6
         version: 1.7.6(drizzle-kit@0.31.11)(drizzle-orm@0.45.3(@types/pg@8.23.1)(kysely@0.28.17)(pg@8.23.0))(next@16.3.6(@types/node@25.9.8)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(pg@8.23.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -2219,11 +2219,11 @@ packages:
   '@tailwindcss/postcss@4.3.3':
     resolution: {integrity: sha512-JTSZZGQi1AyKirbLN3azmjVzef92tcX7h+iSqPdaeStyFpGpDlKvvpxeOE8njhbUanbRwr3z8DyzhICWnMtQeg==}
 
-  '@tanstack/query-core@5.103.2':
-    resolution: {integrity: sha512-I8DkFXls5jXLqtm8+QpOhEmG07hIblhSZFzafg9wHsMSEvMzULy9hK17wU1T/ahfhMbtITJhbxutwwCoihkR7A==}
+  '@tanstack/query-core@5.104.0':
+    resolution: {integrity: sha512-JrC2r/JQlXt7khBSdUpsgxNvybzOg+aITa+ARRMlP2AFo93Y8vIqz077rp+e61mJetSZ0T6AJbwW1JHer1vrPQ==}
 
-  '@tanstack/react-query@5.103.2':
-    resolution: {integrity: sha512-B+fWiYZBc+0uUD5zDZAeLw9dKj7XEsdnuu6zRZ+no6LNKpeE3P3bJ+N6HINjcIlWR6fW3vUoTneEaGa2V6ehqw==}
+  '@tanstack/react-query@5.104.0':
+    resolution: {integrity: sha512-e1TZmDCQnWIfiDVryIHeA6Idj+Lfx1hORLOhXS/l5wcgvtVD4yYqbTDl378sGQKIi2cSgb0TEMC9cKK8GGoJEw==}
     peerDependencies:
       react: ^18 || ^19
 
@@ -4699,11 +4699,11 @@ snapshots:
       postcss: 8.5.28
       tailwindcss: 4.3.3
 
-  '@tanstack/query-core@5.103.2': {}
+  '@tanstack/query-core@5.104.0': {}
 
-  '@tanstack/react-query@5.103.2(react@19.3.0)':
+  '@tanstack/react-query@5.104.0(react@19.3.0)':
     dependencies:
-      '@tanstack/query-core': 5.103.2
+      '@tanstack/query-core': 5.104.0
       react: 19.3.0
 
   '@types/node@25.9.8':
