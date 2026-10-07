@@ -252,8 +252,8 @@ importers:
         specifier: 2.5.15
         version: 2.5.15
       '@dotenvx/dotenvx':
-        specifier: 2.32.4
-        version: 2.32.4
+        specifier: 2.33.0
+        version: 2.33.0
       '@types/node':
         specifier: 25.9.9
         version: 25.9.9
@@ -434,12 +434,12 @@ packages:
       '@types/react':
         optional: true
 
-  '@dotenvx/dotenvx@2.32.4':
-    resolution: {integrity: sha512-nJJqsTXaY+mEITPpDFxoPVEPPS4mw815BU/YFjzamnp3eIELOR/CzJeOc7Lt9Vv2ZHH3sYDMUlnaN34FClc/zA==}
+  '@dotenvx/dotenvx@2.33.0':
+    resolution: {integrity: sha512-rAtmpABkSB1yfdXqX16Ftb0cF7rQ/n48p0XiN9wXL228ORXqxXe8giRxRYZpTxgzGn20ZQgiYOYxGjg+tpkjmQ==}
     hasBin: true
 
-  '@dotenvx/primitives@3.0.3':
-    resolution: {integrity: sha512-KodBtwW8IgXhDiic04+cMvMKGjGLLew3jJq2JUGmh7c0M7u+twSylCkygkixzDvIvXrugKcCUQLkvDhgK7RN2g==}
+  '@dotenvx/primitives@3.1.0':
+    resolution: {integrity: sha512-6RYCXKc1Rwsz5pVw/IQJO/8zP+TpTm9AIzsAMin0fx5OgZ9Jcs2R51MLHidogle1TXmFnYQZxJE/Qq+JV0KGtw==}
 
   '@dotenvx/tooling@1.0.3':
     resolution: {integrity: sha512-Gd6qQol/ICb4MPRWpiIH56y+pR9AVB7kPBkbhrLSGLtAiF4Qgy+k651/f2pze0Xbm3H5XewbPfIm4y9K+ic30Q==}
@@ -2831,10 +2831,6 @@ packages:
   node-fetch-native@1.6.7:
     resolution: {integrity: sha512-g9yhqoedzIUm0nTnTqAQvueMPVOuIY16bqgAJJC8XOOubYFNwz6IER9qs0Gq2Xd0+CecCKFjtdDTMA4u4xG06Q==}
 
-  node-forge@1.4.0:
-    resolution: {integrity: sha512-LarFH0+6VfriEhqMMcLX2F7SwSXeWwnEAJEsYm5QKWchiVYVvJyV9v7UDvUv+w5HO23ZpQTXDv/GxdDdMyOuoQ==}
-    engines: {node: '>= 6.13.0'}
-
   object-keys@1.1.1:
     resolution: {integrity: sha512-NuAESUOUMrlIXOfHKzD6bpPu3tYt3xvjNdRIQ+FeT0lNb4K8WR70CaDxhuNguS2XG+GjkyMwOzsN5ZktImfhLA==}
     engines: {node: '>= 0.4'}
@@ -3264,16 +3260,15 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.3.0
 
-  '@dotenvx/dotenvx@2.32.4':
+  '@dotenvx/dotenvx@2.33.0':
     dependencies:
-      '@dotenvx/primitives': 3.0.3
+      '@dotenvx/primitives': 3.1.0
       '@dotenvx/tooling': 1.0.3
       global-agent: 3.0.0
-      node-forge: 1.4.0
       undici: 6.28.1
       yocto-spinner: 1.2.2
 
-  '@dotenvx/primitives@3.0.3': {}
+  '@dotenvx/primitives@3.1.0': {}
 
   '@dotenvx/tooling@1.0.3': {}
 
@@ -5174,8 +5169,6 @@ snapshots:
       - babel-plugin-macros
 
   node-fetch-native@1.6.7: {}
-
-  node-forge@1.4.0: {}
 
   object-keys@1.1.1: {}
 
