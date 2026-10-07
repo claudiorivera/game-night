@@ -36,7 +36,7 @@
 		"next": "16.3.8",
 		"pg": "8.23.1",
 		"postcss": "8.5.29",
-		"radix-ui": "1.6.7",
+		"radix-ui": "1.7.0",
 		"react": "19.3.0",
 		"react-dom": "19.3.0",
 		"react-hot-toast": "2.6.1",
