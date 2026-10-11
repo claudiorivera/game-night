@@ -252,8 +252,8 @@ importers:
         specifier: 2.5.15
         version: 2.5.15
       '@dotenvx/dotenvx':
-        specifier: 2.34.1
-        version: 2.34.1
+        specifier: 2.34.2
+        version: 2.34.2
       '@types/node':
         specifier: 25.9.9
         version: 25.9.9
@@ -434,18 +434,21 @@ packages:
       '@types/react':
         optional: true
 
-  '@dotenvx/dotenvx@2.34.1':
-    resolution: {integrity: sha512-T1TmNwcToSojJra99elKF58W4St2Udvtk7oJXepNb4P1VDTF0vZRSzQhAjbnxGG8wZEeUPgcgCu83EsrtEkIGw==}
+  '@dotenvx/dotenvx@2.34.2':
+    resolution: {integrity: sha512-vU83L7W77P4LPpzbkicEraleqEwh6a1mcyRvzZA4D/786mYAQH3yad7be86jx9voAuyWx1QhDcJ8h+Dzzt++ng==}
     hasBin: true
 
-  '@dotenvx/primitives@3.2.0':
-    resolution: {integrity: sha512-px2WzvbSkHETxfNNQz6TxEPv4kBStrlo0sqVkWqvJ22o26/uEInZDR05zWzS5yX95QxLjzGKTXtExeHFYBU7/w==}
+  '@dotenvx/primitives@3.3.0':
+    resolution: {integrity: sha512-M5GnIMsooWrk3BLgrAs53tqXxd7Rj0Ukc+JnjedLxlvxPkYsBFF/kKrfkpskrrvT/wwma5UdXq+wKHWBcjDe9g==}
 
-  '@dotenvx/providers@0.3.3':
-    resolution: {integrity: sha512-I5nKQGgpldFwb48eDkVxYaPUmR+wcLfUFnd9LvbKj1ACmx6qpmZtJU8tbfDCS48+Fck2Udjwj1D20TyxcENIeg==}
+  '@dotenvx/providers@0.3.5':
+    resolution: {integrity: sha512-tqePICOaMSZCpUXpTcooW8H+UMce1MTmMqI+nbeh1Xdh6Zgdl4ymkw+CZBQoCX8fcfTheCoi4PtUABUaqESp2A==}
 
   '@dotenvx/tooling@1.0.4':
     resolution: {integrity: sha512-6XEZcRDYyszp/uneJ4MhCgTsdpGF3iajG2cKQ/STIUVKbTZkOSMNYU0xXT/fok4w4M/V36/wBHz/sUrXTX9lhg==}
+
+  '@dotenvx/tooling@1.0.5':
+    resolution: {integrity: sha512-XMAwZpxIajWaP31zLl2GQS3grIQsRY4B4VMss8fDv70XbGF/9aXSMHc3v9iJNZZVX/i0Loz1MAn6oM8dycbN4A==}
 
   '@drizzle-team/brocli@0.10.2':
     resolution: {integrity: sha512-z33Il7l5dKjUgGULTqBsQBQwckHh5AbIuxhdsIxDDiZAzBOrZO6q9ogcWC65kU382AfynTfgNumVcNIjuIua6w==}
@@ -2641,6 +2644,10 @@ packages:
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
 
+  imurmurhash@0.1.4:
+    resolution: {integrity: sha512-JmXMZ6wuvDmLiHEml9ykzqO6lwFbof0GG4IkcGaENdCRDDmMVnny7s5HsIgHCbaq0w2MyPhDqkhTUgS2LU2PHA==}
+    engines: {node: '>=0.8.19'}
+
   is-unsafe@1.0.1:
     resolution: {integrity: sha512-CLK2+VdgERgD96EYm5lUQssZYlRg2tkZnbsxZoacmSiRxiFJ4Nk4SzjCl+Ur+v3kXIY9dTIdb3IH22y1mZ56LA==}
 
@@ -2963,6 +2970,10 @@ packages:
       '@types/node':
         optional: true
 
+  signal-exit@4.1.0:
+    resolution: {integrity: sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==}
+    engines: {node: '>=14'}
+
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
     engines: {node: '>=0.10.0'}
@@ -3059,6 +3070,10 @@ packages:
     engines: {node: '>=16.15.0'}
     peerDependencies:
       react: ^16.8.0  || ^17 || ^18 || ^19 || ^19.0.0-rc
+
+  write-file-atomic@5.0.1:
+    resolution: {integrity: sha512-+QU2zd6OTD8XWIJCbffaiQeH9U73qIqafo1x6V1snCWYGJf6cVE0cDR4D8xRzcEnfI21IFrUPzPGtcPf8AC+Rw==}
+    engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
 
   xml-naming@0.1.0:
     resolution: {integrity: sha512-k8KO9hrMyNk6tUWqUfkTEZbezRRpONVOzUTnc97VnCvyj6Tf9lyUR9EDAIeiVLv56jsMcoXEwjW8Kv5yPY52lw==}
@@ -3184,22 +3199,25 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.3.0
 
-  '@dotenvx/dotenvx@2.34.1':
+  '@dotenvx/dotenvx@2.34.2':
     dependencies:
-      '@dotenvx/primitives': 3.2.0
-      '@dotenvx/providers': 0.3.3
-      '@dotenvx/tooling': 1.0.4
+      '@dotenvx/primitives': 3.3.0
+      '@dotenvx/providers': 0.3.5
+      '@dotenvx/tooling': 1.0.5
       undici: 6.28.1
+      write-file-atomic: 5.0.1
       yocto-spinner: 1.2.2
 
-  '@dotenvx/primitives@3.2.0': {}
+  '@dotenvx/primitives@3.3.0': {}
 
-  '@dotenvx/providers@0.3.3':
+  '@dotenvx/providers@0.3.5':
     dependencies:
-      '@dotenvx/primitives': 3.2.0
+      '@dotenvx/primitives': 3.3.0
       '@dotenvx/tooling': 1.0.4
 
   '@dotenvx/tooling@1.0.4': {}
+
+  '@dotenvx/tooling@1.0.5': {}
 
   '@drizzle-team/brocli@0.10.2': {}
 
@@ -4951,6 +4969,8 @@ snapshots:
 
   graceful-fs@4.2.11: {}
 
+  imurmurhash@0.1.4: {}
+
   is-unsafe@1.0.1: {}
 
   jiti@2.7.0: {}
@@ -5293,6 +5313,8 @@ snapshots:
       '@types/node': 25.9.9
     optional: true
 
+  signal-exit@4.1.0: {}
+
   source-map-js@1.2.1: {}
 
   source-map-js@1.2.2: {}
@@ -5379,6 +5401,11 @@ snapshots:
     dependencies:
       lodash.debounce: 4.0.8
       react: 19.3.0
+
+  write-file-atomic@5.0.1:
+    dependencies:
+      imurmurhash: 0.1.4
+      signal-exit: 4.1.0
 
   xml-naming@0.1.0: {}
 
