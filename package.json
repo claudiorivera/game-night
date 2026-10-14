@@ -35,7 +35,7 @@
 		"lucide-react": "1.55.0",
 		"next": "16.4.0",
 		"pg": "8.23.1",
-		"postcss": "8.5.29",
+		"postcss": "8.5.30",
 		"radix-ui": "1.8.0",
 		"react": "19.3.0",
 		"react-dom": "19.3.0",
