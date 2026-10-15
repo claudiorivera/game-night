@@ -33,7 +33,7 @@
 		"drizzle-orm": "0.45.4",
 		"esm-env": "1.2.2",
 		"lucide-react": "1.57.0",
-		"next": "16.4.0",
+		"next": "16.4.1",
 		"pg": "8.23.1",
 		"postcss": "8.5.30",
 		"radix-ui": "1.8.1",
