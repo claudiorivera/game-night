@@ -7,7 +7,7 @@ import {
 	pgTable,
 	primaryKey,
 	text,
-	timestamp
+	timestamp,
 } from "drizzle-orm/pg-core";
 
 function id() {
