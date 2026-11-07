@@ -60,7 +60,7 @@ export function DateTimePicker({
 							</Button>
 						</PopoverTrigger>
 
-						<AtSign className="size-4 text-muted-foreground" />
+						<AtSign className="text-muted-foreground size-4" />
 
 						<Input
 							className="flex-1"
@@ -83,7 +83,7 @@ export function DateTimePicker({
 				</Popover>
 
 				{!!errors && (
-					<div className="text-red-500 text-xs">
+					<div className="text-xs text-red-500">
 						{errors.map((error) => (
 							<div key={error}>{error}</div>
 						))}

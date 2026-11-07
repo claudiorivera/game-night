@@ -37,15 +37,15 @@ export default function RootLayout({
 		<html lang="en">
 			<body
 				className={cn(
-					"min-h-screen bg-background font-sans antialiased",
+					"bg-background min-h-screen font-sans antialiased",
 					fontSans.variable,
 				)}
 			>
 				<Providers>
 					<Toaster />
-					<nav className="flex items-center bg-primary p-4 text-primary-foreground shadow-sm">
+					<nav className="bg-primary text-primary-foreground flex items-center p-4 shadow-sm">
 						<div className="flex-1">
-							<Link className="font-bold text-2xl hover:text-muted" href="/">
+							<Link className="hover:text-muted text-2xl font-bold" href="/">
 								Game Night
 							</Link>
 						</div>
