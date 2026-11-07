@@ -2479,8 +2479,8 @@ packages:
   date-fns@4.4.0:
     resolution: {integrity: sha512-+1UMbeh68lH1SegH83CGWwpb6OHHbpSgr3+s5Eww5M4CAgswBpoWS0AjTOfEJ33HiYKz1hdj/KTFprzXHmq/6w==}
 
-  defu@6.1.4:
-    resolution: {integrity: sha512-mEQCMmwJu317oSz8CwdIOdwf3xMif1ttiM8LTufzc3g6kR+9Pe236twL8j3IYT1F7GfRgGcW6MWxzZjLIkuHIg==}
+  defu@6.1.7:
+    resolution: {integrity: sha512-7z22QmUWiQ/2d0KkdYmANbRUVABpZ9SNYyH5vx6PZ+nE5bcC0l7uFvEfHlyld/HcGBFTL536ClDt3DEcSlEJAQ==}
 
   destr@2.0.5:
     resolution: {integrity: sha512-ugFTXCtDZunbzasqBxrK93Ik/DRYsO6S/fedkWEMKqt04xZ4csmnmwGDBAb07QWNaGMAmnTIemsYZCksjATwsA==}
@@ -4761,7 +4761,7 @@ snapshots:
       '@noble/ciphers': 2.3.0
       '@noble/hashes': 2.3.0
       better-call: 1.4.5(zod@4.6.7)
-      defu: 6.1.4
+      defu: 6.1.7
       jose: 6.2.9
       kysely: 0.28.17
       nanostores: 1.5.1
@@ -4820,7 +4820,7 @@ snapshots:
 
   date-fns@4.4.0: {}
 
-  defu@6.1.4: {}
+  defu@6.1.7: {}
 
   destr@2.0.5: {}
 
