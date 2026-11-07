@@ -13,7 +13,7 @@ export function GameDetails({ game }: { game: BggBoardgameItem }) {
 	return (
 		<div className="grid grid-cols-12 gap-4">
 			<div className="col-span-12 flex flex-col gap-4 sm:col-span-5">
-				<div className="bg-linear-to-t from-primary via-secondary to-primary p-4">
+				<div className="from-primary via-secondary to-primary bg-linear-to-t p-4">
 					{game.image && (
 						<div className="relative aspect-square w-full">
 							<Image

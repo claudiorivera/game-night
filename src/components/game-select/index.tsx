@@ -116,7 +116,7 @@ export function GameSelect({
 
 			{!!errors &&
 				errors.map((error) => (
-					<div key={error} className="text-red-500 text-xs">
+					<div key={error} className="text-xs text-red-500">
 						{error}
 					</div>
 				))}

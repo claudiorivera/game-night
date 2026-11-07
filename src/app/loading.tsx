@@ -1,7 +1,7 @@
 export default function Loading() {
 	return (
 		// By Sam Herbert (@sherb), for everyone. More @ http://goo.gl/7AJzbL
-		<div className="flex w-full items-center justify-center pt-16 text-primary">
+		<div className="text-primary flex w-full items-center justify-center pt-16">
 			<div className="h-20 w-20">
 				<svg
 					viewBox="0 0 57 57"
