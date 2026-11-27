@@ -49,7 +49,7 @@
 	"devDependencies": {
 		"@biomejs/biome": "2.6.9",
 		"@dotenvx/dotenvx": "2.38.2",
-		"@types/node": "26.6.10",
+		"@types/node": "26.6.11",
 		"@types/pg": "8.23.1",
 		"@types/react": "19.3.3",
 		"@types/react-dom": "19.3.0",
